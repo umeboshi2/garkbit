@@ -14,7 +14,7 @@ def make_resource(rpath, ident='id', cross_site=True):
     return data
 
 def make_app_page(appname, settings, basecolor=None, request=None):
-    template = 'gillie:templates/mainview.mako'
+    template = 'garkbit:templates/mainview.mako'
     if basecolor is None:
         basecolor = settings.get('default.css.basecolor', 'vanilla')
     csspath = settings.get('default.css.path', '/assets/stylesheets')

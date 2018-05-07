@@ -19,7 +19,7 @@ class MyResource(object):
         self.__parent__ = parent
 
 
-@view_defaults(renderer='gillie:templates/mainview_bs4.mako')
+@view_defaults(renderer='garkbit:templates/mainview_bs4.mako')
 class ClientView(BaseClientView):
     @view_config(route_name='home')
     def index(self):

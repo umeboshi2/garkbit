@@ -9,6 +9,7 @@ from pyramid.renderers import JSON
 
 import pyramid_jsonapi
 
+
 def groupfinder(userid, request):
     """
     Default groupfinder implementaion for pyramid applications
@@ -22,13 +23,11 @@ def groupfinder(userid, request):
         return groups
     return []
 
+
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
     config = Configurator(settings=settings)
-    config.include('pyramid_jinja2')
-    config.include('pyramid_mako')
-    config.include('cornice')
     config.include('.models')
 
     renderer = JSON()
@@ -37,23 +36,31 @@ def main(global_config, **settings):
 
     here = os.path.dirname(__file__)
     stats_filename = os.path.join(here, 'dist', 'entrypoints.json')
-    with open(stats_filename) as infile:
-        stats = json.load(infile)
+    if os.path.isfile(stats_filename):
+        with open(stats_filename) as infile:
+            stats = json.load(infile)
+    else:
+        stats = dict(
+            entrypoints=dict(index=dict(assets=list()),
+                             admin=dict(assets=list())))
     config.add_request_method(
         lambda r: stats,
         'webpack_entrypoints',
         reify=True
         )
+
     favicon_stats = os.path.join(here, 'dist', 'favicon-stats.json')
-    with open(favicon_stats) as infile:
-        iconstats = json.load(infile)
+    if os.path.isfile(favicon_stats):
+        with open(favicon_stats) as infile:
+            iconstats = json.load(infile)
+    else:
+        iconstats = dict(html=list())
     config.add_request_method(
         lambda r: iconstats,
         'favicon_stats',
         reify=True
         )
-    
-    
+
     # FIXME make tests
     JWT_SECRET = os.environ.get('JWT_SECRET', 'secret')
     config.set_jwt_authentication_policy(JWT_SECRET,
