@@ -1,3 +1,4 @@
+import os
 from sqlalchemy import engine_from_config
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import configure_mappers
@@ -6,6 +7,9 @@ import zope.sqlalchemy
 # import or define all models here to ensure they are attached to the
 # Base.metadata prior to any initialization routines
 from .mymodel import MyModel  # flake8: noqa
+from . import ebcsv
+
+# from . import hubby
 
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup
@@ -57,6 +61,9 @@ def includeme(config):
 
     """
     settings = config.get_settings()
+    if settings['environment'] == 'production':
+        url = os.environ['DATABASE_URL']
+        settings['sqlalchemy.url'] = url
     settings['tm.manager_hook'] = 'pyramid_tm.explicit_manager'
 
     # use pyramid_tm to hook the transaction lifecycle to the request

@@ -12,18 +12,32 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    # TODO: put package requirements here
+    'hornstone',
+    'trumpet',
+    'gunicorn',
+    'Akhet',
     'plaster_pastedeploy',
     'pyramid >= 1.9a',
+    'SQLAlchemy',
+    'alembic',
+    'transaction',
+    'zope.sqlalchemy',
     'pyramid_debugtoolbar',
     'pyramid_jinja2',
     'pyramid_mako',
     'pyramid_retry',
     'pyramid_tm',
-    'SQLAlchemy',
-    'transaction',
-    'zope.sqlalchemy',
     'waitress',
+    'cornice',
+    'psycopg2-binary',
+    'pyramid_jwt',
+    'bcrypt',
+    'robobrowser',
+    'beautifulsoup4',
+    'lxml',
+    # testing
+    'pyramid_jsonapi',
+    'paginate_sqlalchemy',
 ]
 
 tests_require = [
