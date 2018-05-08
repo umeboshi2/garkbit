@@ -55,10 +55,11 @@ class Controller extends MainController
         @layout.showChildView 'content', view
         if not @collection.length
           MessageChannel.request "warning", "adding initial page"
-          model = new Backbone.Model
+          AuthModel = MainChannel.request 'main:app:AuthModel'
+          model = new AuthModel
           model.url = '/api/dev/bsapi/main/wikipages/X32_ABI'
           qr = model.fetch()
-          qr.done =>
+          qr.done ->
             window.location.hash = '#'
             
       response.fail ->
