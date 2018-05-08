@@ -13,9 +13,7 @@ DefinePluginOpts = require 'tbirds/webpack-config/define-opts'
 coffeeLoaderRule = require 'tbirds/webpack-config/coffee-loader-rule'
 buildCssLoader = require 'tbirds/webpack-config/sass-loader-chain'
 woffRule = require 'tbirds/webpack-config/woff-rule'
-imgPlainRule = require 'tbirds/webpack-config/img-file-loader-plain'
 imgVersionedRule = require 'tbirds/webpack-config/img-file-loader-versioned'
-
 
 makeEntrypointsPlugin = require 'tbirds/webpack-config/entrypoints-plugin'
 makeIgnoreMomentLocales = require 'tbirds/webpack-config/ignore-moment-locales-plugin' #noqa
@@ -78,7 +76,7 @@ common_plugins = [
     filename: adminPage[BuildEnvironment]
     entryPoint: 'admin'
   makeFaviconPlugin
-    logo: './assets/zuki.png'
+    logo: './assets/Cartoon-Concierge.svg'
     title: 'Zuki'
   ]
     
@@ -130,10 +128,8 @@ WebPackConfig =
       }
       coffeeLoaderRule[BuildEnvironment]
       woffRule
-      # FIXME combine next two rules
       imgVersionedRule
-      imgPlainRule
-    ]
+     ]
   resolve:
     extensions: [".wasm", ".mjs", ".js", ".json", ".coffee"]
     alias:
