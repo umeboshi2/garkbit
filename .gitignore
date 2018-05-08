@@ -11,7 +11,7 @@ __pycache__/
 env/
 build/
 develop-eggs/
-dist/
+/dist/
 downloads/
 eggs/
 .eggs/
@@ -60,3 +60,52 @@ target/
 
 # pyenv python configuration file
 .python-version
+
+
+
+
+
+# Dependency directory
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
+node_modules
+
+
+# maybe include later?
+#stylesheets
+manifest.json
+stats-dev.json
+
+/assets/client/stats.json
+/assets/client-dev
+/index-dev.html
+
+
+/garkbit/dist/stats.json
+/garkbit/dist/stats-dev.json
+/garkbit/dist/stats.json.gz
+/garkbit/dist/stats-dev.json.gz
+/garkbit/dist/manifest.json
+/garkbit/dist/*.map
+/garkbit/dist/*.map.gz
+
+
+/garkbit/dist/icons-*/.cache*
+
+
+# FIXME hiding large icons
+# original is 96x96
+
+/garkbit/dist/icons-*/*x512.png
+/garkbit/dist/icons-*/*x384.png
+/garkbit/dist/icons-*/*x310.png
+/garkbit/dist/icons-*/*x256.png
+/garkbit/dist/icons-*/*x192.png
+/garkbit/dist/icons-*/*x180.png
+/garkbit/dist/icons-*/*x167.png
+/garkbit/dist/icons-*/*x152.png
+/garkbit/dist/icons-*/*x150.png
+/garkbit/dist/icons-*/*x144.png
+/garkbit/dist/icons-*/*x128.png
+/garkbit/dist/icons-*/*x120.png
+/garkbit/dist/icons-*/*x114.png
+
