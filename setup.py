@@ -27,6 +27,7 @@ requirements = [
     'pyramid_mako',
     'pyramid_retry',
     'pyramid_tm',
+    'pyramid_force_https',
     'waitress',
     'cornice',
     'psycopg2-binary',
