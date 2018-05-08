@@ -9,6 +9,7 @@ from trumpet.util import password_matches, encrypt_password
 from ..models.mymodel import User
 from ..util import make_token
 
+
 def authenticate(request, login, password):
     s = request.dbsession
     q = s.query(User)
@@ -17,6 +18,7 @@ def authenticate(request, login, password):
         return user
     else:
         return None
+
 
 def login(request):
     login = request.POST['username']
@@ -32,21 +34,22 @@ def login(request):
 
 
 def chpass(request):
+    data = request.POST
     if request.authenticated_userid:
-        pw = request.json['password']
-        if pw != request.json['confirm']:
+        pw = data['password']
+        if pw != data['confirm']:
             raise exc.HTTPForbidden()
         user = request.user
         with transaction.manager:
-            user.password = encrypt_password(request.json['password'])
+            user.password = encrypt_password(data['password'])
             request.dbsession.add(user)
         return dict(result='ok',
                     token=make_token(request, request.user))
     raise exc.HTTPUnauthorized()
-    
+
+
 def refresh(request):
     if request.authenticated_userid:
         return dict(result='ok',
                     token=make_token(request, request.user))
     raise exc.HTTPUnauthorized()
-    

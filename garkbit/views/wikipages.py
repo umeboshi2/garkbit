@@ -1,13 +1,17 @@
 import os
-from configparser import ConfigParser
-from datetime import datetime
+# from configparser import ConfigParser
+# from datetime import datetime
 from urllib.error import HTTPError
 
+# from pyramid.view import view_config, view_defaults
 from cornice.resource import resource, view
-from pyramid.httpexceptions import HTTPNotFound
-from pyramid.httpexceptions import HTTPFound
-from pyramid.httpexceptions import HTTPForbidden
-from bs4 import BeautifulSoup
+# from pyramid.httpexceptions import HTTPNotFound
+# from pyramid.httpexceptions import HTTPFound
+# from pyramid.httpexceptions import HTTPForbidden
+# from bs4 import BeautifulSoup
+from pyramid.view import view_config, view_defaults
+from pyramid.security import Allow
+from pyramid.security import Everyone, Authenticated
 from sqlalchemy.orm.exc import NoResultFound
 import transaction
 
@@ -52,9 +56,10 @@ class WikiPageManager(GetByNameManager):
     
 
 
-
+#@view_defaults(permission="wikipages")
 @resource(collection_path=wiki_path,
-          path=os.path.join(wiki_path, '{name}'))
+          path=os.path.join(wiki_path, '{name}'),
+          permission='wikipages')
 class WikiPageView(BaseResource):
     def __init__(self, request, context=None):
         super(WikiPageView, self).__init__(request, context=context)
@@ -62,9 +67,17 @@ class WikiPageView(BaseResource):
         self.wikicollector = WikiCollector(format='json')
         self.limit = 10
 
+    def __acl__(self):
+        return [(Allow, Everyone, 'list'),
+                (Allow, Authenticated, 'wikipages')]
+
     def collection_query(self):
         return self.db.query(WikiPage.id, WikiPage.name,
                              WikiPage.created, WikiPage.updated)
+
+    @view(permission='list')
+    def collection_get(self):
+        return super(WikiPageView, self).collection_get()
 
     def serialize_object_for_collection_query(self, dbobj):
         data = {}

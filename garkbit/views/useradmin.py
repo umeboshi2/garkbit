@@ -1,27 +1,32 @@
 import os
-from configparser import ConfigParser
-from datetime import datetime
-from urllib.error import HTTPError
+# from configparser import ConfigParser
+# from datetime import datetime
+# from urllib.error import HTTPError
 
-from cornice.resource import resource, view
-from pyramid.response import Response
-from pyramid.httpexceptions import HTTPNotFound, HTTPFound, HTTPForbidden
-from sqlalchemy.orm.exc import NoResultFound
+from cornice.resource import resource
+# from cornice.resource import view
+# from pyramid.response import Response
+# from pyramid.httpexceptions import HTTPNotFound, HTTPFound, HTTPForbidden
+# from sqlalchemy.orm.exc import NoResultFound
+from pyramid.security import Allow, Authenticated
 import transaction
-import requests
+# import requests
 from alchemyjsonschema import SchemaFactory
 from alchemyjsonschema import NoForeignKeyWalker
 
-from hornstone.alchemy import TimeStampMixin
-from trumpet.views.resourceviews import BaseResource, SimpleModelResource
+# from hornstone.alchemy import TimeStampMixin
+# from trumpet.views.resourceviews import BaseResource
+from trumpet.views.resourceviews import SimpleModelResource
 
 from ..models.usergroup import USERMODELS
 
 APIROOT = '/api/dev/bapi'
-
 modelpath = os.path.join(APIROOT, 'useradmin', '{model}')
+
+
 @resource(collection_path=modelpath,
-          path=os.path.join(modelpath, '{id}'))
+          path=os.path.join(modelpath, '{id}'),
+          permission='useradmin')
 class GenericView(SimpleModelResource):
     def __init__(self, request, context=None):
         super(GenericView, self).__init__(request, context=context)
@@ -30,6 +35,9 @@ class GenericView(SimpleModelResource):
     @property
     def model_map(self):
         return USERMODELS
+
+    def __acl__(self):
+        return [(Allow, Authenticated, 'useradmin')]
 
     def collection_post(self):
         with transaction.manager:
