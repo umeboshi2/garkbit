@@ -1,0 +1,8 @@
+{
+  "name": "Garkbit",
+  "description": "The waiter at the end of the universe.",
+  "repository": "https://github.com/umeboshi2/garkbit",
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+  "keywords": ["python", "pyramid", "heroku"],
+  "image": "heroku/python"
+}
