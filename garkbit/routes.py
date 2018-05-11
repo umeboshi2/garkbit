@@ -18,6 +18,10 @@ def includeme(config):
     config.add_view('.views.auth.chpass', route_name='auth_chpass',
                     request_method='POST', renderer='json')
 
+    config.add_route('proxy', '/api/dev/proxy/*subpath')
+    
+    config.add_view('.views.proxy.ProxyView', route_name='proxy')
+    
     use_pj = asbool(settings.get('api.use_pyramid_jsonapi', False))
     # FIXME jsonapi has "notfound" view
     scan_views = [
