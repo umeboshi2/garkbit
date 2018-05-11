@@ -2,8 +2,6 @@ Backbone = require 'backbone'
 Marionette = require 'backbone.marionette'
 tc = require 'teacup'
 marked = require 'marked'
-createPlayer = require 'web-audio-player'
-mediaElement = require 'simple-media-element'
 
 { navigate_to_url } = require 'tbirds/util/navigate-to-url'
 HasJsonView = require('../../../has-jsonview').default
@@ -17,7 +15,7 @@ view_template = tc.renderable (model) ->
 class MediaView extends Marionette.View
   #tagName: 'media'
   template: tc.renderable (model) ->
-    tc.video controls:'', autoplay:'', src:model.url
+    tc.audio controls:'', autoplay:'', src:model.url
     
 class Entry extends Marionette.View
   template: tc.renderable (model) ->
@@ -31,6 +29,9 @@ class Entry extends Marionette.View
     mediaView: '@ui.mediaView'
   events:
     'click @ui.link': 'linkClicked'
+  getAudioUrl: ->
+    mainModel = @getOption 'mainModel'
+    return mainModel.fileUrl @model.get 'name'
   linkClicked: (event) ->
     event.preventDefault()
     #@playAudio()
@@ -41,19 +42,7 @@ class Entry extends Marionette.View
     @showChildView 'mediaView', view
     console.log "VIEW", view
     
-  getAudioUrl: ->
-    mainModel = @getOption 'mainModel'
-    return mainModel.fileUrl @model.get 'name'
     
-  playAudio: ->
-    url = @getAudioUrl()
-    console.log "show", url
-    @audio = createPlayer url
-    @audio.on 'load', =>
-      @audio.play()
-      @audio.node.connect(@audio.context.destination)
-    @audio.on 'ended', =>
-      console.log "audio ended", @audio
     
 
 class EntryCollectionView extends Marionette.CollectionView
@@ -99,6 +88,8 @@ class MetadataView extends Marionette.View
       collection: collection
       model: @model
     @showChildView 'files', view
+    @ui.filesButton.hide()
+    
   notesButtonClicked: (event) ->
     @ui.notes.toggle()
     

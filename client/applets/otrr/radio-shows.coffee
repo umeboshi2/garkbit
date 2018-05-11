@@ -9,11 +9,11 @@ module.exports = [
     id: 'OTRR_X_Minus_One_Singles'
     name: 'X Minus One'
   },{
-    id: 'OTRR_Dr_Kildare_Singles'
-    name: "Dr. Kildare"
-  },{
     id: 'hhgttgall6'
     name: "The Hitchhikers Guide to the Galaxy (including latest Hexagonal)"
+  },{
+    id: 'OTRR_Dr_Kildare_Singles'
+    name: "Dr. Kildare"
   },{
     id: 'OTRR_Mel_Blanc_Singles'
     name: "The Mel Blanc Show"
