@@ -67,19 +67,33 @@ common_plugins = [
   makeIgnoreMomentLocales()
   new MiniCssExtractPlugin
     filename: CssOutputFilename[BuildEnvironment]
-  new HtmlPlugin
-    template: './index.coffee'
-    filename: 'index.html'
-    entryPoint: 'index'
+  new FaviconPlugin
+    logo: './assets/Cartoon-Concierge.svg'
+    title: 'Garkbit'
+    icons:
+      android: false
+      appleIcon: false
+      appleStartup: false
+      favicons: true
+      firefox: false
+      opengraph: false
+      twitter: false
+      yandex: false
+      windows: false
   new HtmlPlugin
     template: './index.coffee'
     filename: adminPage[BuildEnvironment]
     entryPoint: 'admin'
-  makeFaviconPlugin
-    logo: './assets/Cartoon-Concierge.svg'
-    title: 'Zuki'
+    inject: true
+  new HtmlPlugin
+    template: './index.coffee'
+    filename: 'index.html'
+    entryPoint: 'index'
+    inject: true
   ]
-    
+
+console.log "FaviconPlugin", common_plugins[common_plugins.length - 1]
+
 
 extraPlugins = []
 
