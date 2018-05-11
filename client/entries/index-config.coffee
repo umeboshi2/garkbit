@@ -1,6 +1,21 @@
 #config = require './base-config'
 import config from './base-config'
 
+dev_menu =
+  id: 'dev-menu'
+  label: 'Development Applets'
+  menu: [
+    {
+      label: 'MS leg'
+      url: '#msleg'
+    }
+    {
+      label: 'Themes'
+      url: '#frontdoor/themes'
+      needUser: true
+    }
+  ]
+
 misc_menu =
   id: 'misc-menu'
   label: 'Misc Applets'
@@ -10,9 +25,12 @@ misc_menu =
       url: '#moviedb'
     }
     {
-      label: 'Themes'
-      url: '#frontdoor/themes'
-      needUser: true
+      label: 'Old Time Radio'
+      url: '#otrr'
+    }
+    {
+      label: "TVMaze API/IndexedDb Demo"
+      url: '#tvmaze'
     }
     {
       label: 'Bumblr'
@@ -49,6 +67,9 @@ config.navbarEntries = [
   misc_menu
   ]
 
+if __DEV__
+  config.navbarEntries.push dev_menu
+  
 
 #module.exports = config
 export default config

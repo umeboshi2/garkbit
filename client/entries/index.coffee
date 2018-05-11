@@ -15,16 +15,15 @@ import FooterView from './footerview'
 
 pkg = require '../../package.json'
 pkgmodel = new Backbone.Model pkg
-console.log "HELLO"
 
 #import lf from 'lovefield
 import ebcsvSchema from '../applets/ebcsv/dbschema'
 import bumblrSchema from '../applets/bumblr/dbschema'
 import tvmazeSchema from '../applets/tvmaze/dbschema'
-#console.log "tvmazeSchema", tvmazeSchema
+import mslegSchema from '../applets/msleg/dbschema'
 
 import MainAppConfig from './index-config'
-console.log "MainAppConfig", MainAppConfig
+
 setupAuthModels MainAppConfig
 
 MainChannel = Backbone.Radio.channel 'global'
@@ -69,6 +68,7 @@ schemas =
   ebcsv: ebcsvSchema
   bumblr: bumblrSchema
   tvmaze: tvmazeSchema
+  msleg: mslegSchema
   
 dbConns = {}
 

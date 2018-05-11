@@ -3,6 +3,7 @@ import tc from 'teacup'
 import ModalRegion from 'tbirds/regions/bsmodal'
 import config from 'tbirds/app-config'
 import MainPageLayout from 'tbirds/tklayout'
+import emoji from 'node-emoji'
 
 
 class Layout extends MainPageLayout
@@ -21,13 +22,16 @@ class Layout extends MainPageLayout
     modal: ModalRegion
     applet: '#applet-content'
     footer: '#footer'
+
   
 navbarBrandTemplate = tc.renderable (model) ->
-  padding = '.pt-1.pb-1.pl-2.pr-2'
-  padding = '.p-1.rounded.border.border-secondary'
+  padding = '.pt-2.pl-2.pr-2'
+  padding = "#{padding}.mb-0.rounded.border.border-secondary"
+  src = "/assets/Cartoon-Concierge.svg"
   tc.a ".navbar-brand.bg-body-d5#{padding}", href:model.url, ->
-    tc.img src:"/assets/Cartoon-Concierge.svg", width:"40", height:"40"
-    tc.span '.mt-2', model.label
+    tc.img '.mb-2', src:src, style:'width:1.5rem;height:1.5rem'
+    tm = emoji.get 'tm'
+    tc.span '.mt-2', "#{model.label}#{tm}"
   tc.span '.toggle-container'
 
 
