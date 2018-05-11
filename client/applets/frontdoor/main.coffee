@@ -7,6 +7,13 @@ MainChannel = Backbone.Radio.channel 'global'
 AppChannel = Backbone.Radio.channel 'frontdoor'
 
 appletEntries = [
+  if __DEV__
+    {
+      id: 'emojilist'
+      label: 'List Emojis'
+      url: '#frontdoor/emojilist'
+      icon: '.fa.fa-smile-o.text-dark.bg-warning'
+    }
   {
     id: 'dbadmin'
     label: 'Db Admin'
@@ -28,7 +35,8 @@ class Router extends Marionette.AppRouter
     'frontdoor/upload': 'uploadView'
     'frontdoor/themes': 'themeSwitcher'
     'frontdoor/stats': 'statsView'
-    
+
+    'frontdoor/emojilist': 'viewEmojis'
 class Applet extends TkApplet
   Controller: Controller
   Router: Router

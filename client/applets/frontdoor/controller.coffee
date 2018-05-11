@@ -149,6 +149,25 @@ class Controller extends MainController
         model: model
       @layout.showChildView 'content', view
       
+  viewEmojis: ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      View = require './emojilist'
+      view = new View
+      @layout.showChildView 'content', view
+    # name the chunk
+    , 'frontdoor-emojilist-view'
+
+  viewDbAdmin: ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      View = require './views/idbview'
+      view = new View
+      @layout.showChildView 'content', view
+    # name the chunk
+    , 'frontdoor-view-dbadmin'
+    
+    
     
 export default Controller
 

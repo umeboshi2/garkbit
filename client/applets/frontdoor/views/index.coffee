@@ -5,7 +5,7 @@ import Marionette from 'backbone.marionette'
 import tc from 'teacup'
 import marked from 'marked'
 
-import HasJsonView from '../../has-jsonview'
+import HasJsonView from '../../../has-jsonview'
 
 
 MainChannel = Backbone.Radio.channel 'global'
