@@ -17,7 +17,6 @@ class MetadataModel extends Backbone.Model
   urlRoot: urlRoot
   fileUrl: (name) ->
     files = @get 'files'
-    console.log "files", files
     server = @get 'server'
     dir = @get 'dir'
     #url = "https://cors-anywhere.herokuapp.com/https://#{server}#{dir}/#{name}"

@@ -7,13 +7,6 @@ MainChannel = Backbone.Radio.channel 'global'
 AppChannel = Backbone.Radio.channel 'frontdoor'
 
 appletEntries = [
-  if __DEV__
-    {
-      id: 'emojilist'
-      label: 'List Emojis'
-      url: '#frontdoor/emojilist'
-      icon: '.fa.fa-smile-o.text-dark.bg-warning'
-    }
   {
     id: 'dbadmin'
     label: 'Db Admin'
@@ -22,6 +15,13 @@ appletEntries = [
   }
 ]
 
+if __DEV__
+  appletEntries.push
+    id: 'emojilist'
+    label: 'List Emojis'
+    url: '#frontdoor/emojilist'
+    icon: '.fa.fa-smile-o.text-dark.bg-warning'
+    
 class Router extends Marionette.AppRouter
   appRoutes:
     '': 'frontdoor'

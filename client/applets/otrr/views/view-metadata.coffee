@@ -36,11 +36,9 @@ class Entry extends Marionette.View
     event.preventDefault()
     #@playAudio()
     url = @getAudioUrl()
-    console.log "linkClicked", url
     view = new MediaView
       model: new Backbone.Model url:url
     @showChildView 'mediaView', view
-    console.log "VIEW", view
     
     
     
@@ -76,13 +74,9 @@ class MetadataView extends Marionette.View
   filesButtonClicked: (event) ->
     files = @model.get 'files'
     mp3s = []
-    files.forEach (f) =>
+    files.forEach (f) ->
       if f.name.endsWith '.mp3'
         mp3s.push f
-        console.log @model.fileUrl f.name
-        
-    #console.log "Show files", files, mp3s
-    
     collection = new Backbone.Collection mp3s
     view = new EntryCollectionView
       collection: collection
