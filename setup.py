@@ -36,6 +36,7 @@ requirements = [
     'robobrowser',
     'beautifulsoup4',
     'lxml',
+    'https://github.com/umeboshi2/hubby/archive/master.tar.gz',
     # testing
     'pyramid_jsonapi',
     'paginate_sqlalchemy',
