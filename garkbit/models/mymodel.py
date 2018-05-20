@@ -61,6 +61,7 @@ class Todo(Base, TimeStampMixin):
     description = Column(Text)
     completed = Column(Boolean(name='todo_complete'), default=func.false())
 
+
 Todo.user = relationship(User, uselist=False, lazy='subquery')
 
 

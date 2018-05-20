@@ -3,22 +3,24 @@ from io import StringIO
 
 from sqlalchemy import Column
 from sqlalchemy import Integer, Boolean
-from sqlalchemy import Unicode, UnicodeText
-from sqlalchemy import ForeignKey
-
-from sqlalchemy.orm import relationship
-from hornstone.alchemy import TimeStampMixin
 from hornstone.models.usergroup import UserMixin, GroupMixin, UserGroupMixin
 
 from .meta import Base
 
+# imports for populate()
+import transaction
+from sqlalchemy.exc import IntegrityError
+
+
 class User(Base, UserMixin):
     def __init__(self, name=None):
         self.username = name
-    
+
+
 class Group(Base, GroupMixin):
     def __init__(self, name=None):
         self.name = name
+
 
 class UserGroup(Base, UserGroupMixin):
     def __init__(self, gid=None, uid=None):
@@ -28,10 +30,6 @@ class UserGroup(Base, UserGroupMixin):
 
 USERMODELS = dict(users=User, groups=Group,
                   UserGroup=UserGroup)
-
-# imports for populate()
-import transaction
-from sqlalchemy.exc import IntegrityError
 
 
 def populate_groups(session):
@@ -57,7 +55,8 @@ def populate_users(session, admin_username='admin'):
             user.password = encrypt_password(uname)
             user.fullname = "Admin User"
             session.add(user)
-            
+
+
 def populate_usergroups(session):
     with transaction.manager:
         admins = [(1, 1)]  # admin user should be 1
