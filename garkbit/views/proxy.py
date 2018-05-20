@@ -27,5 +27,7 @@ class ProxyView(BaseUserViewCallable):
         protocol = request.subpath[0]
         hostpath = os.path.join(*request.subpath[1:])
         url = "{}//{}".format(protocol, hostpath)
+        if request.query_string:
+            url = "{}?{}".format(url, request.query_string)
         req = requests.get(url, stream=True)
         self.response = Response(body_file=req.raw)
