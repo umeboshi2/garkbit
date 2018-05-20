@@ -58,11 +58,6 @@ class ToolbarView extends Backbone.Marionette.View
     controller.view_items options
     
 class Controller extends MainController
-  #layoutClass: ToolbarAppletLayout
-  #setupLayoutIfNeeded: ->
-  #  super()
-  #  @layout.showChildView 'toolbar', new ToolbarView
-
   show_calendar: (layout, region) ->
     #console.log "show_calendar", layout, region
     require.ensure [], () ->
@@ -78,9 +73,8 @@ class Controller extends MainController
     
   mainview: ->
     @setupLayoutIfNeeded()
-    #console.log "mainview"
     @show_calendar @layout, 'content'
-    
+    @scrollTop()
 
   list_meetings: ->
     @setupLayoutIfNeeded()
@@ -99,22 +93,36 @@ class Controller extends MainController
     , 'hubby-list-meetings-view'
 
     
-
+  _loadRegionView: (layout, region, View, model) ->
+    response = model.fetch()
+    response.done =>
+      view = new View
+        model: model
+      layout.showChildView region, view
+      @scrollTop()
+    response.fail ->
+      MessageChannel.request 'danger', 'failed to load model'
+      
   show_meeting: (layout, region, meeting_id) ->
-    require.ensure [], () ->
+    require.ensure [], () =>
       { MainMeetingModel } = require './collections'
       ShowMeetingView  = require './meetingview'
       meeting = new MainMeetingModel
         id: meeting_id
-      response = meeting.fetch()
-      response.done ->
-        view = new ShowMeetingView
-          model: meeting
-        layout.showChildView region, view
-      response.fail ->
-        MessageChannel.request 'danger', 'Failed to load meeting'
+      @_loadRegionView layout, region, ShowMeetingView, meeting
     # name the chunk
     , 'hubby-meetingview'
+    
+  viewMeetingOld: (meeting_id) ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      { MainMeetingModel } = require './collections'
+      ShowMeetingView  = require './old-meetingview'
+      meeting = new MainMeetingModel
+        id: meeting_id
+      @_loadRegionView @layout, 'content', ShowMeetingView, meeting
+    # name the chunk
+    , 'hubby-old-meetingview'
     
   view_meeting: (meeting_id) ->
     @setupLayoutIfNeeded()
@@ -132,12 +140,28 @@ class Controller extends MainController
       items.searchParams = options.searchParams
       console.log 'ItemCollection', items
       response = items.fetch()
-      response.done ->
+      response.done =>
         view = new ListItemsView
           collection: items
         layout.showChildView region, view
+        @scrollTop()
     # name the chunk
     , 'hubby-search-items-view'
+
+  viewPdfTest: ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      model = new Backbone.Model
+        url: '/assets/Minutes.pdf'
+      View  = require './pdfview'
+      view = new View
+        model: model
+      console.log "THIS IS", @
+      @layout.showChildView 'content', view
+      @scrollTop()
+    # name the chunk
+    , 'hubby-pdf-test-view'
+
     
 module.exports = Controller
 

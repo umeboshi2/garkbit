@@ -27,7 +27,9 @@ class Router extends Marionette.AppRouter
     'hubby': 'mainview'
     'hubby/listmeetings': 'list_meetings'
     'hubby/viewmeeting/:id': 'view_meeting'
+    'hubby/oldviewmeeting/:id': 'viewMeetingOld'
     'hubby/search': 'view_items'
+    'hubby/pdfview': 'viewPdfTest'
     
 class Applet extends TkApplet
   Controller: Controller
@@ -55,7 +57,7 @@ class Applet extends TkApplet
       controller.list_items layout, region, options
     
 current_calendar_date = undefined
-current_calendar_date = new Date '2016-10-15'
+#current_calendar_date = new Date '2016-10-15'
 HubChannel.reply 'maincalendar:set-date', () ->
   cal = $ '#maincalendar'
   current_calendar_date = cal.fullCalendar 'getDate'

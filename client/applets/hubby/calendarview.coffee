@@ -69,7 +69,7 @@ class MeetingCalendarView extends Backbone.Marionette.View
   onDomRefresh: () ->
     calEventClick = (event) =>
       if not @options.minicalendar
-        url = event.url
+        url = "#hubby/viewmeeting/#{event.id}"
         Backbone.history.navigate url, trigger: true
       else
         options =

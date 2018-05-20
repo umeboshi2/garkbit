@@ -12,6 +12,8 @@ class SimpleMeetingModel extends Backbone.Model
 
 class MainMeetingModel extends Backbone.Model
   urlRoot: meetingRoot
+  parse: (resp) ->
+    return resp.data
     
 class MeetingCollection extends Backbone.Collection
   model: SimpleMeetingModel
