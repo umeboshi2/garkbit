@@ -36,7 +36,6 @@ requirements = [
     'robobrowser',
     'beautifulsoup4',
     'lxml',
-    'https://github.com/umeboshi2/hubby/archive/master.tar.gz',
     # testing
     'pyramid_jsonapi',
     'paginate_sqlalchemy',
@@ -79,6 +78,9 @@ setup(
     },
     include_package_data=True,
     install_requires=requirements,
+    dependency_links=[
+        'https://github.com/umeboshi2/hubby/archive/master.tar.gz#egg=hubby'
+    ],
     license="UNLICENSED",
     zip_safe=False,
     keywords='garkbit',
