@@ -6,8 +6,16 @@ dev_menu =
   label: 'Development Applets'
   menu: [
     {
+      label: 'Internet Archive'
+      url: '#netark'
+    }
+    {
       label: 'MS leg'
       url: '#msleg'
+    }
+    {
+      label: 'Ebcsv'
+      url: '#ebcsv'
     }
     {
       label: 'Themes'
@@ -26,7 +34,7 @@ misc_menu =
     }
     {
       label: 'Old Time Radio'
-      url: '#otrr'
+      url: '#netark/otrr/list'
     }
     {
       label: "TVMaze API/IndexedDb Demo"
