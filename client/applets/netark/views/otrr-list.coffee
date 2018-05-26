@@ -3,7 +3,6 @@ Marionette = require 'backbone.marionette'
 tc = require 'teacup'
 marked = require 'marked'
 
-#radioIcon = require 'node-noto-emoji/dist/radio'
 radioIcon = require 'node-noto-emoji/dist/radio'
 micIcon = require 'node-noto-emoji/dist/studio_microphone'
 
@@ -12,15 +11,11 @@ HasJsonView = require '../../../has-jsonview'
 
 showModels = require '../radio-shows'
     
-view_template = tc.renderable (model) ->
-  tc.div '.row.listview-list-entry', ->
-    tc.raw marked "# #{model.appName} started."
-
 class Entry extends Marionette.View
   className: 'col-md-4'
   template: tc.renderable (model) ->
     tc.div '.listview-list-entry', ->
-      tc.a href:"#otrr/view/#{model.id}", model.name
+      tc.a href:"#netark/view/#{model.id}", model.name
   ui:
     link: 'a'
   events:
@@ -55,12 +50,9 @@ class MainView extends Marionette.View
     itemList: '@ui.itemList'
   onRender: ->
     collection = new Backbone.Collection showModels
-    console.log "Collection", collection
     view = new EntryCollectionView
       collection: collection
     @showChildView 'itemList', view
-  templateContext:
-    appName: 'otrr'
     
 module.exports = MainView
 

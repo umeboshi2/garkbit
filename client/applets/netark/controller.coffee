@@ -12,7 +12,7 @@ import scroll_top_fast from 'tbirds/util/scroll-top-fast'
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 ResourceChannel = Backbone.Radio.channel 'resources'
-AppChannel = Backbone.Radio.channel 'otrr'
+AppChannel = Backbone.Radio.channel 'netark'
 
 class Controller extends MainController
   layoutClass: ToolbarAppletLayout
@@ -24,23 +24,56 @@ class Controller extends MainController
       @layout.showChildView 'content', view
       @scrollTop()
     # name the chunk
-    , 'otrr-view-index'
-      
-  viewMetadata: (id) ->
+    , 'netark-view-index'
+
+  listOtrr: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
+      View = require './views/otrr-list'
+      view = new View
+      @layout.showChildView 'content', view
+      @scrollTop()
+    # name the chunk
+    , 'netark-view-otrr-list'
+
+  listLibrivox: ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      View = require './views/librivox-list'
+      view = new View
+      @layout.showChildView 'content', view
+      @scrollTop()
+    # name the chunk
+    , 'netark-view-otrr-list'
+
+  listSciFiMovies: ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      View = require './views/scifi-movie-list'
+      view = new View
+      @layout.showChildView 'content', view
+      @scrollTop()
+    # name the chunk
+    , 'netark-view-scifi-movies-index'
+    
+  viewMetadata: (id) ->
+    @setupLayoutIfNeeded()
+    Model = AppChannel.request 'get-metadata-model'
+    require.ensure [], () =>
       View = require './views/view-metadata'
-      Model = AppChannel.request 'get-metadata-model'
-      model = new Model
+      mdata = new Model
         id: id
-      response = model.fetch()
+      console.log "model---", mdata
+      response = mdata.fetch()
       response.done =>
+        console.warn "response.done", mdata
+        console.log "MODEL---------->", mdata
         view = new View
-          model: model
+          model: mdata
         @layout.showChildView 'content', view
         @scrollTop()
     # name the chunk
-    , 'otrr-view-metadata'
+    , 'netark-view-metadata'
       
 export default Controller
 

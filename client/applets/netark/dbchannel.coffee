@@ -2,7 +2,7 @@ $ = require 'jquery'
 Backbone = require 'backbone'
 
 MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'otrr'
+AppChannel = Backbone.Radio.channel 'netark'
 
 AuthModel = MainChannel.request 'main:app:AuthModel'
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
@@ -13,15 +13,25 @@ url = "#{apiroot}/todos"
 
 urlRoot = "https://archive.org/metadata"
 
+
+getFileUrl = (name, options) ->
+  server = options.server
+  dir = options.dir
+  return "/api/dev/proxy/https://#{server}#{dir}/#{name}"
+  
+getImageUrl = (name, options) ->
+  server = options.server
+  dir = options.dir
+  return "//#{server}#{dir}/#{name}"
+  
+
 class MetadataModel extends Backbone.Model
   urlRoot: urlRoot
   fileUrl: (name) ->
-    files = @get 'files'
-    server = @get 'server'
-    dir = @get 'dir'
-    #url = "https://cors-anywhere.herokuapp.com/https://#{server}#{dir}/#{name}"
-    url = "/api/dev/proxy/https://#{server}#{dir}/#{name}"
-    return url
+    return getFileUrl name, @toJSON()
+
+AppChannel.reply 'get-file-url', (name, options) ->
+  return getFileUrl name, options
     
 AppChannel.reply 'get-metadata-model', ->
   return MetadataModel
