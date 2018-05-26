@@ -56,10 +56,6 @@ class EntryCollectionView extends Marionette.CollectionView
     
 
 class MetadataView extends Marionette.View
-  templateContext: ->
-    fileUrl: ->
-      console.log "@model", @model
-      @model.fileUrl
   template: tc.renderable (model) ->
     tc.div '.listview-header', model.metadata.title
     files = model.files
@@ -67,10 +63,8 @@ class MetadataView extends Marionette.View
     files.forEach (file) ->
       if file.format == 'JPEG Thumb'
         thumbnail = file
-        
     if thumbnail
-      console.log "MODEL IN TEMPLATE", model
-      src = AppChannel.request 'get-file-url', model.name, model
+      src = AppChannel.request 'get-image-url', thumbnail.name, model
       tc.img src:src
     tc.raw model.metadata.description
     style = ''

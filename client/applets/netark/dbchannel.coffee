@@ -32,7 +32,10 @@ class MetadataModel extends Backbone.Model
 
 AppChannel.reply 'get-file-url', (name, options) ->
   return getFileUrl name, options
-    
+
+AppChannel.reply 'get-image-url', (name, options) ->
+  return getImageUrl name, options
+  
 AppChannel.reply 'get-metadata-model', ->
   return MetadataModel
   

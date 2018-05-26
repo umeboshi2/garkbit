@@ -22,9 +22,9 @@ appletMenu = [
     url: '#netark/scifi/list'
     icon: '.fa.fa-film'
   },{
-    label: 'Calendar'
-    url: '#netark/calendar'
-    icon: '.fa.fa-calendar'
+    label: 'Search'
+    url: '#netark/search'
+    icon: '.fa.fa-search'
   }
 ]
 
@@ -35,6 +35,7 @@ class Router extends Marionette.AppRouter
     'netark/librivox/list': 'listLibrivox'
     'netark/scifi/list': 'listSciFiMovies'
     'netark/view/:id': 'viewMetadata'
+    'netark/search': 'searchView'
     
 class Applet extends TkApplet
   Controller: Controller
