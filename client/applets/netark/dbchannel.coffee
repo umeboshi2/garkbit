@@ -1,5 +1,6 @@
 $ = require 'jquery'
 Backbone = require 'backbone'
+PageableCollection = require 'backbone.paginator'
 
 MainChannel = Backbone.Radio.channel 'global'
 AppChannel = Backbone.Radio.channel 'netark'
@@ -38,6 +39,32 @@ AppChannel.reply 'get-image-url', (name, options) ->
   
 AppChannel.reply 'get-metadata-model', ->
   return MetadataModel
+
+class SearchResults extends PageableCollection
+  mode: 'server'
+  url: "/api/dev/proxy/https://archive.org/advancedsearch.php"
+  parse: (response) ->
+    console.log "PARSE", response
+    # set @state.totalRecords
+    if @state.totalRecords is null
+      @state.totalRecords = response.response.numFound
+      @_checkState @state
+    console.log "totalRecords", @state.totalRecords
+    #@setPageSize @state.pageSize
+    
+    super response.response.docs
+    
+  state:
+    pageSize: 20
+    firstPage: 1
+  queryParams:
+    pageSize: 'rows'
+    output: 'json'
+    q: -> @query
+    
+AppChannel.reply 'SearchResults', ->
+  return SearchResults
   
+    
 module.exports =
   TodoCollection: MetadataModel

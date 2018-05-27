@@ -21,7 +21,6 @@ class MediaView extends Marionette.View
     
 class Entry extends Marionette.View
   template: tc.renderable (model) ->
-    console.log "MODEL", model
     name = model?.title or model.name
     tc.div '.listview-list-entry', ->
       tc.a "#{name} (#{model.format})"
@@ -61,8 +60,11 @@ class MetadataView extends Marionette.View
     files = model.files
     thumbnail = false
     files.forEach (file) ->
-      if file.format == 'JPEG Thumb'
-        thumbnail = file
+      if not thumbnail
+        if file.format == 'JPEG Thumb'
+          thumbnail = file
+        else if file.format == 'Thumbnail'
+          thumbnail = file
     if thumbnail
       src = AppChannel.request 'get-image-url', thumbnail.name, model
       tc.img src:src
@@ -89,6 +91,7 @@ class MetadataView extends Marionette.View
     files = @model.get 'files'
     mp3s = []
     orig = []
+    ogvPresent = false
     files.forEach (f) ->
       if f.name.endsWith '.mp3'
         mp3s.push f
@@ -97,9 +100,10 @@ class MetadataView extends Marionette.View
           orig.push f
       if f.format == 'Ogg Video'
         orig.push f
+        ogvPresent = true
     cfiles = mp3s
     mediaType = 'audio'
-    if not cfiles.length
+    if ogvPresent
       cfiles = orig
       console.log "CFILES", cfiles
       mediaType = 'video'
