@@ -40,6 +40,26 @@ AppChannel.reply 'get-image-url', (name, options) ->
 AppChannel.reply 'get-metadata-model', ->
   return MetadataModel
 
+class Scraper extends PageableCollection
+  mode: 'server'
+  url: "/api/dev/proxy/https://archive.org/services/search/v1/scrape"
+  parse: (response) ->
+    console.log "PARSE", response
+    # set @state.totalRecords
+    if @state.totalRecords is null
+      @state.totalRecords = response.total
+      @_checkState @state
+    console.log "totalRecords", @state.totalRecords
+    super response.items
+  state:
+    # FIXME we cannot do less than 100 with archive.org
+    pageSize: 100
+  queryParams:
+    pageSize: 'count'
+
+AppChannel.reply 'Scraper', ->
+  return Scraper
+  
 class SearchResults extends PageableCollection
   mode: 'server'
   url: "/api/dev/proxy/https://archive.org/advancedsearch.php"
