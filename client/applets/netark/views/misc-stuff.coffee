@@ -4,41 +4,21 @@ tc = require 'teacup'
 marked = require 'marked'
 
 #radioIcon = require 'node-noto-emoji/dist/radio'
-scrollIcon = require 'node-noto-emoji/dist/scroll'
-clockIcon = require 'node-noto-emoji/dist/mantelpiece_clock'
-dangerIcon = require 'node-noto-emoji/dist/radioactive_sign'
+radioIcon = require 'node-noto-emoji/dist/radio'
+micIcon = require 'node-noto-emoji/dist/microphone'
+booksIcon = require 'node-noto-emoji/dist/books'
 
 { navigate_to_url } = require 'tbirds/util/navigate-to-url'
 HasJsonView = require '../../../has-jsonview'
 
-showModels = require '../librivox-books'
+Models = require '../misc-idents'
 headerTemplate = require './header-template'
-
-view_template = tc.renderable (model) ->
-  tc.div '.row.listview-list-entry', ->
-    tc.raw marked "# #{model.appName} started."
-
-pages = [
-  {
-    id: 'otrr'
-    name: 'Old Time Radio'
-  },{
-    id: 'librivox'
-    name: 'Librivox Audiobooks'
-  },{
-    id: 'scifi'
-    name: 'SciFi Movies'
-  },{
-    id: 'misc'
-    name: 'Misc Stuff'
-  }
-]
-
+    
 class Entry extends Marionette.View
   className: 'col-md-4'
   template: tc.renderable (model) ->
     tc.div '.listview-list-entry', ->
-      tc.a href:"#netark/#{model.id}/list", model.name
+      tc.a href:"#netark/view/#{model.id}", model.name
   ui:
     link: 'a'
   events:
@@ -59,27 +39,20 @@ class JsonView extends Marionette.View
   behaviors:
     HasJsonView:
       behaviorClass: HasJsonView
-
-warning = "This is an experimental app. Many parts will not \
-work properly."
     
 class MainView extends Marionette.View
   template: tc.renderable ->
     headerTemplate
-      text: "Internet Archive"
-      leftIcon: scrollIcon
-      rightIcon: clockIcon
-    tc.div '.alert.alert-warning', ->
-      tc.img src:dangerIcon
-      tc.span warning
+      text: 'Unsorted Generic Stuff'
+      leftIcon: micIcon
+      rightIcon: booksIcon
     tc.div '.items'
   ui:
     itemList: '.items'
   regions:
     itemList: '@ui.itemList'
   onRender: ->
-    collection = new Backbone.Collection pages
-    console.log "Collection", collection
+    collection = new Backbone.Collection Models
     view = new EntryCollectionView
       collection: collection
     @showChildView 'itemList', view

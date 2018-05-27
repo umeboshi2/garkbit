@@ -56,6 +56,16 @@ class Controller extends MainController
     # name the chunk
     , 'netark-view-scifi-movies-index'
 
+  listMiscStuff: ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      View = require './views/misc-stuff'
+      view = new View
+      @layout.showChildView 'content', view
+      @scrollTop()
+    # name the chunk
+    , 'netark-view-misc-stuff-index'
+
   searchView: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>

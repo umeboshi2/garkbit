@@ -34,6 +34,7 @@ class Router extends Marionette.AppRouter
     'netark/otrr/list': 'listOtrr'
     'netark/librivox/list': 'listLibrivox'
     'netark/scifi/list': 'listSciFiMovies'
+    'netark/misc/list': 'listMiscStuff'
     'netark/view/:id': 'viewMetadata'
     'netark/search': 'searchView'
     
