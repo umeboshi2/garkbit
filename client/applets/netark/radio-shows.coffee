@@ -42,6 +42,18 @@ module.exports = [
     id: 'OTRR_Cloak_and_Dagger_Singles'
     name: 'Cloak and Dagger'
   },{
+    id: 'Perry_Mason_Radio_Show'
+    name: 'The Perry Mason Radio Show'
+  },{
+    id: '151282703573644'
+    name: 'BBC Radio 4 Hercule Poirot'
+  },{
+    id: 'IsaacAsimov-TheFoundationTrilogy'
+    name: "Isaac Asimov's Foundation Trilogy (BBC Radio 4)"
+  },{
+    id: 'BBCIAIR'
+    name: "Isaac Asimov's I Robot (BBC Radio 4)"
+  },{
     id: 'OTRR_Incredible_But_True_Singles'
     name: 'Incredible, But True'
   },{
