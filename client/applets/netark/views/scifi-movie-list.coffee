@@ -10,6 +10,7 @@ alienIcon = require 'node-noto-emoji/dist/alien'
 HasJsonView = require '../../../has-jsonview'
 
 showModels = require '../scifi-videos'
+headerTemplate = require './header-template'
     
 view_template = tc.renderable (model) ->
   tc.div '.row.listview-list-entry', ->
@@ -43,10 +44,10 @@ class JsonView extends Marionette.View
     
 class MainView extends Marionette.View
   template: tc.renderable ->
-    tc.div '.listview-header', ->
-      tc.img '.mr-3.mb-1', src:spaceInvaderIcon, style:"height:2rem;width:2rem"
-      tc.text 'Scifi Movies'
-      tc.img '.ml-3.mb-1', src:alienIcon, style:"height:2rem;width:2rem"
+    headerTemplate
+      text: 'Scifi Movies'
+      leftIcon: spaceInvaderIcon
+      rightIcon: alienIcon
     tc.div '.items'
   ui:
     itemList: '.items'
@@ -58,8 +59,6 @@ class MainView extends Marionette.View
     view = new EntryCollectionView
       collection: collection
     @showChildView 'itemList', view
-  templateContext:
-    appName: 'netark'
     
 module.exports = MainView
 

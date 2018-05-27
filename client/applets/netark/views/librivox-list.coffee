@@ -12,6 +12,7 @@ booksIcon = require 'node-noto-emoji/dist/books'
 HasJsonView = require '../../../has-jsonview'
 
 showModels = require '../librivox-books'
+headerTemplate = require './header-template'
     
 class Entry extends Marionette.View
   className: 'col-md-4'
@@ -41,10 +42,10 @@ class JsonView extends Marionette.View
     
 class MainView extends Marionette.View
   template: tc.renderable ->
-    tc.div '.listview-header', ->
-      tc.img '.mr-3.mb-1', src:micIcon, style:"height:2rem;width:2rem"
-      tc.text 'Librivox Audiobooks'
-      tc.img '.ml-3.mb-1', src:booksIcon, style:"height:2rem;width:2rem"
+    headerTemplate
+      text: 'Librivox Audiobooks'
+      leftIcon: micIcon
+      rightIcon: booksIcon
     tc.div '.items'
   ui:
     itemList: '.items'

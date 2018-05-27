@@ -6,12 +6,14 @@ marked = require 'marked'
 #radioIcon = require 'node-noto-emoji/dist/radio'
 scrollIcon = require 'node-noto-emoji/dist/scroll'
 clockIcon = require 'node-noto-emoji/dist/mantelpiece_clock'
+dangerIcon = require 'node-noto-emoji/dist/radioactive_sign'
 
 { navigate_to_url } = require 'tbirds/util/navigate-to-url'
 HasJsonView = require '../../../has-jsonview'
 
 showModels = require '../librivox-books'
-    
+headerTemplate = require './header-template'
+
 view_template = tc.renderable (model) ->
   tc.div '.row.listview-list-entry', ->
     tc.raw marked "# #{model.appName} started."
@@ -54,13 +56,19 @@ class JsonView extends Marionette.View
   behaviors:
     HasJsonView:
       behaviorClass: HasJsonView
+
+warning = "This is an experimental app. Many parts will not \
+work properly."
     
 class MainView extends Marionette.View
   template: tc.renderable ->
-    tc.div '.listview-header', ->
-      tc.img '.mr-3.mb-1', src:scrollIcon, style:"height:2rem;width:2rem"
-      tc.text 'Internet Archive'
-      tc.img '.ml-3.mb-1', src:clockIcon, style:"height:2rem;width:2rem"
+    headerTemplate
+      text: "Internet Archive"
+      leftIcon: scrollIcon
+      rightIcon: clockIcon
+    tc.div '.alert.alert-warning', ->
+      tc.img src:dangerIcon
+      tc.span warning
     tc.div '.items'
   ui:
     itemList: '.items'

@@ -10,7 +10,8 @@ micIcon = require 'node-noto-emoji/dist/studio_microphone'
 HasJsonView = require '../../../has-jsonview'
 
 showModels = require '../radio-shows'
-    
+headerTemplate = require './header-template'
+
 class Entry extends Marionette.View
   className: 'col-md-4'
   template: tc.renderable (model) ->
@@ -39,10 +40,10 @@ class JsonView extends Marionette.View
     
 class MainView extends Marionette.View
   template: tc.renderable ->
-    tc.div '.listview-header', ->
-      tc.img '.mr-3.mb-1', src:micIcon, style:"height:2rem;width:2rem"
-      tc.text 'Old Time Radio'
-      tc.img '.ml-3.mb-1', src:radioIcon, style:"height:2rem;width:2rem"
+    headerTemplate
+      text: 'Old Time Radio'
+      leftIcon: micIcon
+      rightIcon: radioIcon
     tc.div '.items'
   ui:
     itemList: '.items'
