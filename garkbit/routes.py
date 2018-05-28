@@ -40,7 +40,7 @@ def includeme(config):
         config.scan('.views.%s' % view)
 
     # FIXME
-    include_hubby = False
+    include_hubby = True
     if include_hubby:
         config.add_route('meeting_calendar', '/rest/v0/main/hubcal')
         config.add_view('hubby.views.main.MeetingCalendarViewer',

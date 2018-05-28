@@ -9,7 +9,7 @@ import zope.sqlalchemy
 from .mymodel import MyModel  # flake8: noqa
 from . import ebcsv
 
-# from . import hubby
+from . import hubby
 
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup
