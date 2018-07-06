@@ -8,8 +8,6 @@ SQLAlchemy
 alembic
 transaction
 zope.sqlalchemy
-paginate_sqlalchemy
-pyramid_debugtoolbar
 pyramid_jinja2
 pyramid_mako
 pyramid_retry

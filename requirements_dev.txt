@@ -10,3 +10,5 @@ cryptography
 PyYAML
 pytest
 pytest-runner
+pyramid_bpython
+pyramid_debugtoolbar
