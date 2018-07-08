@@ -40,7 +40,7 @@ def includeme(config):
         config.scan('.views.%s' % view)
 
     # FIXME
-    include_hubby = True
+    include_hubby = False
     if include_hubby:
         config.add_route('meeting_calendar', '/rest/v0/main/hubcal')
         config.add_view('hubby.views.main.MeetingCalendarViewer',
@@ -56,6 +56,21 @@ def includeme(config):
         for view in hubby_views:
             config.scan('hubby.views.{}'.format(view))
 
+    include_garkbit_hubby = True
+    if include_garkbit_hubby:
+        config.add_route('meeting_calendar', '/rest/v0/main/hubcal')
+        config.add_view('.views.hubby.MeetingCalendarViewer',
+                        route_name='meeting_calendar',
+                        renderer='json',)
+        
+        config.add_route('meeting_calendar_ts', '/hubcal1')
+        config.add_view('.views.hubby.MeetingCalendarViewer',
+                        route_name='meeting_calendar_ts',
+                        renderer='json',)
+        config.scan('.views.hubby')
+        
+        
+        
     config.add_route('home', '/')
     config.add_route('admin', '/admin')
     config.scan('.views.client')

@@ -1,8 +1,15 @@
 import os
+from datetime import datetime
+import base64
+import pickle as Pickle
+
 from cornice.resource import resource, view
+# from pyramid.view import view_config, view_defaults
+from pyramid.security import Allow
+from pyramid.security import Authenticated
+from pyramid.httpexceptions import HTTPNotFound
 
 from hubby.views.base import BaseManagementResource
-from datetime import datetime
 
 from hubby.database import Department, Person
 from hubby.managers.basic import DepartmentManager, PersonManager
@@ -10,49 +17,89 @@ from hubby.managers.main import MeetingManager, ActionManager, ItemManager
 from hubby.views.base import BaseManagementResource
 from hubby.views.base import BaseView
 
-from .restviews import BaseResource
+from hubby.dbmanager import DatabaseManager
+
+from trumpet.views.resourceviews import BaseResource
+
 
 APIROOT = '/rest/v0'
-
 rscroot = os.path.join(APIROOT, 'main')
+
+dbadmin_route = '/rest/v0/main/hubby/dbadmin'
+
+
+@resource(collection_path=dbadmin_route,
+          path=os.path.join(dbadmin_route, '{view}'),
+          permission='dbadmin')
+class DbManagerView(BaseResource):
+    def __init__(self, request, context=None):
+        super(DbManagerView, self).__init__(request, context=context)
+        self.mgr = DatabaseManager(self.request.dbsession, 'ignore')
+
+    def __acl__(self):
+        # FIXME use better group principal
+        return [(Allow, 'group:1', 'dbadmin')]
+
+    def get(self):
+        v = self.request.matchdict['view']
+        if v == 'delete-all':
+            return self.delete_all()
+        if v == 'testme':
+            return dict(result='ok')
+        return HTTPNotFound
+    
+
+    def post(self):
+        v = self.request.matchdict['view']
+        if v == 'testme':
+            text = self.request.json['content']
+            content = base64.decodestring(text.encode())
+            meetings = Pickle.loads(content)
+            return dict(result='ok', data=meetings)
+
+    def delete(self):
+        v = self.request.matchdict['view']
+        if v == 'testme':
+            text = self.request.json['content']
+            content = base64.decodestring(text.encode())
+            meetings = Pickle.loads(content)
+            return dict(result='ok', data=meetings)
+        
+        
+    def delete_all(self):
+        self.mgr.delete_all()
+        return dict(result='ok')
+
+
+
 dept_path = os.path.join(rscroot, 'department')
-person_path = os.path.join(rscroot, 'person')
+
 
 @resource(collection_path=dept_path,
           path=os.path.join(dept_path, '{id}'))
 class MainDepartmentResource(BaseManagementResource):
     mgrclass = DepartmentManager
-    def collection_post(self):
-        request = self.request
-        db = request.db
+
+
+person_path = os.path.join(rscroot, 'person')
+
 
 @resource(collection_path=person_path,
           path=os.path.join(person_path, '{id}'))
 class MainPersonResource(BaseManagementResource):
     mgrclass = PersonManager
-    def collection_post(self):
-        request = self.request
-        db = request.db
 
 
 
-
-    
-
-APIROOT = '/rest/v0'
-
-rscroot = os.path.join(APIROOT, 'main')
-dept_path = os.path.join(rscroot, 'department')
-person_path = os.path.join(rscroot, 'person')
 meeting_path = os.path.join(rscroot, 'meeting')
-itemaction_path = os.path.join(rscroot, 'itemaction')
-action_path = os.path.join(rscroot, 'action')
+
 
 @resource(collection_path=meeting_path,
           path=os.path.join(meeting_path, '{id}'),
           cors_origins=('*',))
 class MeetingResource(BaseManagementResource):
     mgrclass = MeetingManager
+
     def collection_get(self):
         meetings = [m.serialize() for m in self.mgr.get_meeting_list()]
         for m in meetings:
@@ -98,6 +145,10 @@ class MeetingResource(BaseManagementResource):
         mdata['prettydate'] = m.date.strftime("%A, %B %d, %Y")
         return dict(data=mdata, result='success')
 
+
+itemaction_path = os.path.join(rscroot, 'itemaction')
+
+
 @resource(collection_path=itemaction_path,
           path=os.path.join(itemaction_path, '{id}'),
           cors_origins=('*',))
@@ -116,14 +167,17 @@ class ItemActionResource(BaseManagementResource):
         for a in item.actions:
             actions.append(a.serialize())
         return dict(data=actions, result='success')
-    
-    
+
+
+action_path = os.path.join(rscroot, 'action')
+
 
 @resource(collection_path=action_path,
           path=os.path.join(action_path, '{id}'),
           cors_origins=('*',))
 class ActionResource(BaseManagementResource):
     mgrclass = ActionManager
+
     def collection_get(self):
         return dict(data=[], result='notyet')
 
@@ -135,9 +189,6 @@ class ActionResource(BaseManagementResource):
             raise RuntimeError('404')
         adata = a.serialize()
         return dict(data=adata, result='success')
-    
-    
-
 
 
 # json view for calendar
