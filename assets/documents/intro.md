@@ -1,11 +1,20 @@
-# Another Website
+# The Waiter at the End of the Universe 
+#### (or just a unique name for an app)
 
-- [The Movie DB (tv shows)](#moviedb)
+A couple of apps:
 
-- [TV Maze API demo](#tvmaze)
+1. [The Movie DB (tv shows)](#moviedb)
 
-- [Govtrack demo](#usgov)
+	Search for television shows, as well as movies. Shows a
+	list of episodes if available.
+  
+1. [TV Maze API demo](#tvmaze)
 
+	Search for television shows and store the results in 
+	a local browser database.
+	
+
+	
 
 This site is running:
 
