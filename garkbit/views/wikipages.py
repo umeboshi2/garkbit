@@ -66,6 +66,7 @@ class WikiPageView(BaseResource):
         self.mgr = WikiPageManager(self.db)
         self.wikicollector = WikiCollector(format='json')
         self.limit = 10
+        print("EFFP {}".format(self.request.effective_principals))
 
     def __acl__(self):
         return [(Allow, Everyone, 'list'),
