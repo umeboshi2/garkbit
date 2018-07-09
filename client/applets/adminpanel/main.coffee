@@ -19,6 +19,10 @@ userAdminEntries = [
     label: 'Add New User'
     url: '#adminpanel/user/add'
     icon: '.fa.fa-plus'
+  },{
+    label: 'Hubby Dbadmin'
+    url: '#adminpanel/dbadmin/hubby'
+    icon: '.fa.fa-database'
   }
 ]
 
@@ -31,12 +35,13 @@ appletEntries = [
 
 class Router extends AdminRouter
   appRoutes:
-    '': 'frontdoor'
+    #'': 'frontdoor'
     'adminpanel': 'frontdoor'
     'adminpanel/view': 'frontdoor'
     'adminpanel/login': 'show_login'
     'adminpanel/logout': 'show_logout'
-        
+    'adminpanel/dbadmin/hubby': 'viewHubby'
+    
 class Applet extends TkApplet
   Controller: Controller
   Router: Router

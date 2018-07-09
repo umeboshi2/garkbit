@@ -99,11 +99,13 @@ class Controller extends MainController
     @default_view()
 
   view_readme: ->
+    console.log "view_readme", @
     @setupLayoutIfNeeded()
     model = new ReadMeModel
     if true and __DEV__
       readme = require 'raw-loader!../../../README.md'
       model = new Backbone.Model content:readme
+      console.log "MODEL", model
       @_view_resource model
       return
     response = model.fetch()
@@ -123,13 +125,22 @@ class Controller extends MainController
       @frontdoor_needuser()
     else
       @default_view()
-      
+
+  start: ->
+    return @frontdoor()
+    
   themeSwitcher: ->
     @setupLayoutIfNeeded()
     { ThemeSwitchView } = require './views'
     view = new ThemeSwitchView
     @layout.showChildView 'content', view
     console.log "themeSwitcher"
+    
+  viewHubby: ->
+    @setupLayoutIfNeeded()
+    View = require './hubbyview'
+    view = new View
+    @layout.showChildView 'content', view
     
 export default Controller
 
