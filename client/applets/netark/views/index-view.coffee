@@ -14,9 +14,7 @@ HasJsonView = require '../../../has-jsonview'
 showModels = require '../librivox-books'
 headerTemplate = require './header-template'
 
-view_template = tc.renderable (model) ->
-  tc.div '.row.listview-list-entry', ->
-    tc.raw marked "# #{model.appName} started."
+searchURl = "https://archive.org/services/search/v1/scrape?q=more_animation&count=100" # noqa
 
 pages = [
   {
