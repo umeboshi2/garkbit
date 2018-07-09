@@ -27,6 +27,7 @@ def usage(argv):
 
 
 def main(argv=sys.argv):
+    print("running main()")
     if len(argv) < 2:
         usage(argv)
     config_uri = argv[1]
@@ -35,6 +36,7 @@ def main(argv=sys.argv):
     settings = get_appsettings(config_uri, options=options)
     if settings['environment'] == 'production':
         url = os.environ['DATABASE_URL']
+        print("Using dburl {}".format(url))
         settings['sqlalchemy.url'] = url
 
     engine = get_engine(settings)
