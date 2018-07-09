@@ -8,18 +8,15 @@ dev_menu =
     {
       label: 'Internet Archive'
       url: '#netark'
-    }
-    {
+    },{
       label: 'MS leg'
       url: '#msleg'
-    }
-    {
+    },{
       label: 'Ebcsv'
       url: '#ebcsv'
-    }
-    {
-      label: 'Themes'
-      url: '#frontdoor/themes'
+    },{
+      label: 'Admin Panel'
+      url: '#adminpanel'
       needUser: true
     }
   ]
