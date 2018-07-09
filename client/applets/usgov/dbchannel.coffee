@@ -50,7 +50,6 @@ class UsGovRoles extends PageableCollection
     @state.totalPages = Math.ceil @state.totalRecords / @state.pageSize
     # subtract one since firstPage is zero
     @state.lastPage = @state.totalPages - 1
-    console.log "@state.totalRecords", @state.totalRecords, @state.totalPages
     super response.objects
     
   state:
