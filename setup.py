@@ -22,7 +22,6 @@ requirements = [
     'alembic',
     'transaction',
     'zope.sqlalchemy',
-    'pyramid_debugtoolbar',
     'pyramid_jinja2',
     'pyramid_mako',
     'pyramid_retry',
