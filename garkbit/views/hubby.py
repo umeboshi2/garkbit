@@ -17,7 +17,7 @@ from hubby.managers.main import MeetingManager, ActionManager, ItemManager
 from hubby.views.base import BaseManagementResource
 from hubby.views.base import BaseView
 
-from hubby.dbmanager import DatabaseManager
+#from hubby.dbmanager import DatabaseManager
 
 from trumpet.views.resourceviews import BaseResource
 
