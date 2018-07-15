@@ -21,7 +21,7 @@ bcrypt
 robobrowser
 beautifulsoup4
 lxml
-https://github.com/umeboshi2/hubby/archive/repackage.tar.gz
+https://github.com/umeboshi2/hattie/archive/master.tar.gz
 pyramid_jsonapi
 paginate_sqlalchemy
 ./

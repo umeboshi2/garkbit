@@ -9,11 +9,9 @@ from pyramid.security import Allow
 from pyramid.security import Authenticated
 from pyramid.httpexceptions import HTTPNotFound
 
-from hubby.views.base import BaseManagementResource
-
-from hubby.database import Department, Person
-from hubby.managers.basic import DepartmentManager, PersonManager
-from hubby.managers.main import MeetingManager, ActionManager, ItemManager
+from hattie.database import Department, Person
+from hattie.managers.basic import DepartmentManager, PersonManager
+from hattie.managers.main import MeetingManager, ActionManager, ItemManager
 from hubby.views.base import BaseManagementResource
 from hubby.views.base import BaseView
 
