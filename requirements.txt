@@ -1,5 +1,6 @@
 hornstone
 trumpet
+hattie
 gunicorn
 Akhet
 plaster_pastedeploy

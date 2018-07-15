@@ -14,6 +14,7 @@ with open('HISTORY.rst') as history_file:
 requirements = [
     'hornstone',
     'trumpet',
+    'hattie',
     'gunicorn',
     'Akhet',
     'plaster_pastedeploy',
