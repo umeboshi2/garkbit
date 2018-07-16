@@ -4,6 +4,10 @@ include HISTORY.rst
 include LICENSE
 include README.rst
 
+prune stuff
+prune data
+prune node_modules
+
 recursive-include tests *
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
