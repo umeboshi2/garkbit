@@ -78,9 +78,7 @@ setup(
     },
     include_package_data=True,
     install_requires=requirements,
-    dependency_links=[
-        'https://github.com/umeboshi2/hattie/archive/master.tar.gz#egg=hattie'
-    ],
+    dependency_links=[],
     license="UNLICENSED",
     zip_safe=False,
     keywords='garkbit',
