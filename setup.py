@@ -12,9 +12,9 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'hornstone',
-    'trumpet',
-    'hattie',
+    'hornstone>=0.1.8',
+    'trumpet>=0.2.5',
+    'hattie>=0.2.15',
     'gunicorn',
     'Akhet',
     'plaster_pastedeploy',
