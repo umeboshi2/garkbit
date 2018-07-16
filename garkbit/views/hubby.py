@@ -9,13 +9,12 @@ from pyramid.security import Allow
 from pyramid.security import Authenticated
 from pyramid.httpexceptions import HTTPNotFound
 
-from hattie.database import Department, Person
+from trumpet.views.base import BaseManagementResource
+from trumpet.views.base import BaseView
+
 from hattie.managers.basic import DepartmentManager, PersonManager
 from hattie.managers.main import MeetingManager, ActionManager, ItemManager
-from hubby.views.base import BaseManagementResource
-from hubby.views.base import BaseView
-
-from hubby.managers.dbmanager import DatabaseManager
+from hattie.dbmanager import DatabaseManager
 
 from trumpet.views.resourceviews import BaseResource
 
