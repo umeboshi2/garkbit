@@ -102,8 +102,15 @@ class Controller extends MainController
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       MainView = require './views/viewtodo'
-      model = AppChannel.request 'get-todo', id
-      @_loadView MainView, model, 'todo'
+      model = AppChannel.request 'new-todo'
+      model.id = id
+      model.set 'id', id
+      console.log "model", model
+      response = model.fetch()
+      response.done =>
+        view = new MainView
+          model: model
+        @layout.showChildView 'content', view
     # name the chunk
     , 'todos-view-todo'
       
