@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # from hubby.legistar import RSS_THIS_MONTH
-from hubby.legistar import RSS_YEARLY_FEEDS
+from hattie.legistar import RSS_YEARLY_FEEDS
 
 import os
 import pickle as Pickle
@@ -15,25 +15,17 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, PickleType
 from hornstone.models.base import BaseLongNameIdMixin
 
-from hubby.database import Base
-from hubby.util import make_true_date
+from hattie.database import Base
+from hattie.util import make_true_date
 
 # from hubby.collector.main import MainCollector
-from hubby.collector.main import PickleCollector
-from hubby.dbmanager import DatabaseManager
+from hattie.collector.main import PickleCollector, ZipCollector
+from hattie.dbmanager import DatabaseManager
 
 # another place for this
 import feedparser
 from querystring_parser import parser as qsparser
 from urllib3.util import parse_url
-
-
-CacheBase = declarative_base()
-
-
-class MainCache(CacheBase, BaseLongNameIdMixin):
-    __tablename__ = 'main_cache'
-    content = Column(PickleType)
 
 
 runtimedir_varname = 'XDG_RUNTIME_DIR'
@@ -49,7 +41,7 @@ else:
     dburl = "sqlite:///%(here)s/hubby.sqlite" % dict(here=os.getcwd())
     # dburl = "postgresql://dbadmin@localhost/hubbytest"
     dburl = "sqlite:///%(here)s/garkbit.sqlite" % dict(here=os.getcwd())
-    dburl = 'postgresql://dbadmin@localhost/hubbytest'
+    #dburl = 'postgresql://dbadmin@localhost/hubbytest'
 
 here = os.getcwd()
 print("dburl", dburl)
@@ -60,17 +52,11 @@ Session = sessionmaker()
 Session.configure(bind=engine)
 s = Session()
 
-cache_dburl = "sqlite:///%(here)s/cache.sqlite" % dict(here=os.getcwd())
-cache_settings = {'sqlalchemy.url': cache_dburl}
-cache_engine = engine_from_config(cache_settings)
-CacheBase.metadata.create_all(cache_engine)
-CacheSession = sessionmaker()
-CacheSession.configure(bind=cache_engine)
-cs = CacheSession()
 
 pc = PickleCollector()
 if not os.path.isdir(pc.dir):
     os.makedirs(pc.dir)
+cc = ZipCollector(open('data.zip', 'rb'))
 
 
 def get_rss_content(year, url):
@@ -123,7 +109,8 @@ def get_meetings_from_rss(year):
         meetings.append(data)
     return meetings
 
-
+# meeting items from meeting page
+# meeting items have agenda_num
 def get_base_meeting(meeting_id):
     return get_pickle_file('meeting', meeting_id)
 
@@ -171,6 +158,7 @@ def get_item(item_id):
 def get_meeting(meeting):
     meeting_id = meeting['id']
     bmeeting = get_base_meeting(meeting_id)
+    bmeeting['meeting_items'] = bmeeting['items']
     for key in ['title', 'updated']:
         bmeeting['info'][key] = meeting[key]
     items = [get_item(id) for id in get_meeting_item_ids(meeting_id)]
@@ -205,6 +193,21 @@ def get_meeting_files(meeting):
             fname = manager.collector.get_filename('action', action['id'])
             files.append(fname)
     return files
+
+def remove_html_content():
+    dirname = 'data'
+    ls = os.listdir(dirname)
+    pickles = [f for f in ls if f.endswith('.pickle')]
+    print("{} pickle files".format(len(pickles)))
+    for basename in pickles:
+        filename = os.path.join('data', basename)
+        data = Pickle.load(open(filename, 'rb'))
+        if 'content' in data:
+            del data['content']
+            with open(filename, 'wb') as outfile:
+                Pickle.dump(data, outfile)
+            print("Removed content from {}".format(filename))
+        print(data.keys())
 
 
 def delete_meetings(year, month):
@@ -259,8 +262,10 @@ def import_data():
     years = list(data['meetings'].keys())
     years.sort()
     for year in years:
+        print("Importing year {}...".format(year))
         meetings = data['meetings'][year]
         for meeting in meetings:
+            print("Importing meeting {}...".format(meeting['info']['id']))
             manager.add_pickled_meeting(meeting)
     return data
 
