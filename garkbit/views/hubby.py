@@ -10,7 +10,7 @@ from pyramid.security import Authenticated
 from pyramid.httpexceptions import HTTPNotFound
 
 from trumpet.views.base import BaseManagementResource
-from trumpet.views.base import BaseView
+from trumpet.views.base import BaseViewCallable
 
 from hattie.managers.basic import DepartmentManager, PersonManager
 from hattie.managers.main import MeetingManager, ActionManager, ItemManager
@@ -189,7 +189,7 @@ class ActionResource(BaseManagementResource):
 
 
 # json view for calendar
-class MeetingCalendarViewer(BaseView):
+class MeetingCalendarViewer(BaseViewCallable):
     def __init__(self, request):
         super(MeetingCalendarViewer, self).__init__(request)
         self.mgr = MeetingManager(self.request.dbsession)
