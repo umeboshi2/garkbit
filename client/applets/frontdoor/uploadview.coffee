@@ -26,7 +26,7 @@ class UploadMainView extends Backbone.Marionette.View
     
   onDomRefresh: () ->
     fi = @ui.fileinput.fileinput
-      uploadUrl: "#{apiroot}/upload-photos"
+      uploadUrl: "#{apiroot}/upload"
       ajaxSettings:
         beforeSend: MainChannel.request 'main:app:authBeforeSend'
         
