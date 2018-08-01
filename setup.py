@@ -14,7 +14,7 @@ with open('HISTORY.rst') as history_file:
 requirements = [
     'hornstone>=0.1.8',
     'trumpet>=0.2.6',
-    'hattie>=0.2.17',
+    'hattie>=0.2.18',
     'gunicorn',
     'Akhet',
     'alembic',
