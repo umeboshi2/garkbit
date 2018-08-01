@@ -7,6 +7,7 @@ import pickle as Pickle
 from pathlib import Path
 import json
 import datetime
+import zipfile
 
 import requests
 from sqlalchemy import engine_from_config
@@ -16,7 +17,7 @@ from sqlalchemy import Column, PickleType
 from hornstone.models.base import BaseLongNameIdMixin
 
 from hattie.database import Base
-from hattie.util import make_true_date
+from hattie.util import make_true_date, legistar_id_guid
 
 # from hubby.collector.main import MainCollector
 from hattie.collector.main import PickleCollector, ZipCollector
@@ -57,8 +58,11 @@ pc = PickleCollector()
 if not os.path.isdir(pc.dir):
     os.makedirs(pc.dir)
 cc = ZipCollector(open('data.zip', 'rb'))
+manager = DatabaseManager(s, cc)
 
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# needs data/
 def get_rss_content(year, url):
     filename = "data/rss-{}.rss".format(year)
     if os.path.isfile(filename):
@@ -76,16 +80,9 @@ def get_rss_content(year, url):
     return content
 
 
-def handler(obj):
-    if isinstance(obj, (datetime.datetime, datetime.date)):
-        return obj.isoformat()
-    else:
-        return None
 
 
-manager = DatabaseManager(s, pc)
-
-
+# needs data/
 def get_pickle_file(prefix, id):
     filename = 'data/{}-{}.pickle'.format(prefix, id)
     if not os.path.isfile(filename):
@@ -95,6 +92,7 @@ def get_pickle_file(prefix, id):
     return content['result']
 
 
+# needs data/
 def get_meetings_from_rss(year):
     rss = feedparser.parse(get_rss_content(year, RSS_YEARLY_FEEDS[year]))
     meetings = list()
@@ -111,8 +109,21 @@ def get_meetings_from_rss(year):
 
 # meeting items from meeting page
 # meeting items have agenda_num
+
+
+# needs data/
 def get_base_meeting(meeting_id):
     return get_pickle_file('meeting', meeting_id)
+
+
+# needs data/
+def get_base_item(item_id):
+    return get_pickle_file('item', item_id)
+
+
+# needs data/
+def get_base_action(action_id):
+    return get_pickle_file('action', action_id)
 
 
 def get_item_id_from_meeting_item(item):
@@ -121,6 +132,7 @@ def get_item_id_from_meeting_item(item):
     return id
 
 
+# needs data/
 def get_meeting_item_ids(meeting_id):
     items = get_base_meeting(meeting_id)['items']
     ids = []
@@ -129,9 +141,6 @@ def get_meeting_item_ids(meeting_id):
     return ids
 
 
-def get_base_item(item_id):
-    return get_pickle_file('item', item_id)
-
 
 def get_action_id_from_action(action):
     query = parse_url(action).query
@@ -139,10 +148,8 @@ def get_action_id_from_action(action):
     return id
 
 
-def get_base_action(action_id):
-    return get_pickle_file('action', action_id)
 
-
+# needs data/
 def get_item(item_id):
     item = get_base_item(item_id)
     actions = []
@@ -155,6 +162,7 @@ def get_item(item_id):
     return item
 
 
+# needs data/
 def get_meeting(meeting):
     meeting_id = meeting['id']
     bmeeting = get_base_meeting(meeting_id)
@@ -166,6 +174,7 @@ def get_meeting(meeting):
     return bmeeting
 
 
+# needs data/
 def get_year_meetings(year):
     return (get_meeting(m) for m in get_meetings_from_rss(year))
 
@@ -287,6 +296,59 @@ def scrapeit():
     add_meetings_scrapeit()
 
 
+def get_pickled_meeting_files(meeting):
+    files = list()
+    info = meeting['info']
+    meeting_id = info['id']
+    mfilename = manager.collector.get_filename('meeting', meeting_id)
+    files.append(mfilename)
+    for item in meeting['items']:
+        item_link = item['item_page']
+        item_id, guid = legistar_id_guid(item_link)
+        pitem = manager.collector.collect('item', link=item_link)
+        files.append(manager.collector.get_filename('item', item_id))
+        for action_link in pitem['action_details']:
+            action_id, guid = legistar_id_guid(action_link)
+            fname = manager.collector.get_filename('action', action_id)
+            files.append(fname)
+    return files
+
+
+def make_year_package(year):
+    collector = PickleCollector()
+    meetings = get_meetings_from_rss(year)
+    zfile = zipfile.ZipFile("data-{}.zip".format(year), 'w')
+    # since agenda items can span multiple meetings
+    # use a set to remove duplicates
+    year_files = set()
+    # add year rss file
+    year_files.add('data/rss-{}.rss'.format(year))
+    # add people and departments
+    year_files.add('data/people.pickle')
+    year_files.add('data/departments.pickle')
+    for meeting in meetings:
+        pmeeting = collector.collect('meeting', meeting['link'])
+        file_list = get_pickled_meeting_files(pmeeting)
+        year_files |= set(file_list)
+    for filename in list(year_files):
+        zfile.write(filename)
+
+
+def make_year_packages():
+    years = list(RSS_YEARLY_FEEDS.keys())
+    years.sort()
+    for year in years:
+        print("Creating zip for {}.".format(year))
+        make_year_package(year)
+
+
+def handler(obj):
+    if isinstance(obj, (datetime.datetime, datetime.date)):
+        return obj.isoformat()
+    else:
+        return None
+
+        
 def split_content():
     dirname = 'data'
 
