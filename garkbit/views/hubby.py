@@ -68,7 +68,7 @@ class DbManagerView(BaseResource):
             prefix = rssfile[:-4]
             year = prefix[-4:]
             self.mgr.add_meetings_for_year(year)
-            self.mgr.add_meetings()
+            self.mgr.add_zipped_meetings()
             return dict(result='ok', data=dict(year=year))
 
     def delete(self):
