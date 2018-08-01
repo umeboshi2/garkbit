@@ -2,9 +2,9 @@ import os
 from datetime import datetime
 import base64
 import pickle as Pickle
+import io
 
-from cornice.resource import resource, view
-# from pyramid.view import view_config, view_defaults
+from cornice.resource import resource
 from pyramid.security import Allow
 from pyramid.security import Authenticated
 from pyramid.httpexceptions import HTTPNotFound
@@ -15,7 +15,7 @@ from trumpet.views.base import BaseViewCallable
 from hattie.managers.basic import DepartmentManager, PersonManager
 from hattie.managers.main import MeetingManager, ActionManager, ItemManager
 from hattie.dbmanager import DatabaseManager
-
+from hattie.collector.main import ZipCollector
 from trumpet.views.resourceviews import BaseResource
 
 
@@ -32,7 +32,7 @@ class DbManagerView(BaseResource):
     def __init__(self, request, context=None):
         super(DbManagerView, self).__init__(request, context=context)
         self.mgr = DatabaseManager(self.request.dbsession, 'ignore')
-
+        
     def __acl__(self):
         # FIXME use better group principal
         return [(Allow, 'group:1', 'dbadmin')]
@@ -51,8 +51,25 @@ class DbManagerView(BaseResource):
         if v == 'testme':
             text = self.request.json['content']
             content = base64.decodestring(text.encode())
-            meetings = Pickle.loads(content)
-            return dict(result='ok', data=meetings)
+            zfile = io.BytesIO(content)
+            collector = ZipCollector(zfile)
+            self.mgr = DatabaseManager(self.request.dbsession, collector)
+            if 'data/people.pickle' in collector.zfile.namelist():
+                self.mgr.add_people()
+            if 'data/departments.pickle' in collector.zfile.namelist():
+                self.mgr.add_departments()
+            rssfiles = [f for f in collector.zfile.namelist()
+                        if f.endswith('.rss')]
+            if len(rssfiles) != 1:
+                # FIXME return a better error
+                return HTTPNotFound
+            rssfile = rssfiles[0]
+            # chop .rss
+            prefix = rssfile[:-4]
+            year = prefix[-4:]
+            self.mgr.add_meetings_for_year(year)
+            self.mgr.add_meetings()
+            return dict(result='ok', data=dict(year=year))
 
     def delete(self):
         v = self.request.matchdict['view']
@@ -193,9 +210,6 @@ class MeetingCalendarViewer(BaseViewCallable):
     def __init__(self, request):
         super(MeetingCalendarViewer, self).__init__(request)
         self.mgr = MeetingManager(self.request.dbsession)
-        route = self.request.matched_route.name
-        tsdict = dict(meeting_calendar=False, meeting_calendar_ts=True)
-        #self.get_ranged_meetings(timestamps=tsdict[route])
         start, end = self._bare_start_end()
         timestamps = True
         if '-' in start and '-' in end:
@@ -207,7 +221,7 @@ class MeetingCalendarViewer(BaseViewCallable):
         end = self.request.GET['end']
         print("START, END", start, end)
         return start, end
-    
+
     def _get_start_end_from_request(self, timestamps):
         start, end = self._bare_start_end()
         if not timestamps:
@@ -217,7 +231,7 @@ class MeetingCalendarViewer(BaseViewCallable):
             year, month, day = [int(p) for p in end.split('-')]
             end = datetime(year, month, day)
         return start, end
-        
+
     # json responses should not be lists
     # this method is for the fullcalendar
     # widget. Fullcalendar v2 uses yyyy-mm-dd
