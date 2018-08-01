@@ -92,8 +92,6 @@ common_plugins = [
     inject: true
   ]
 
-console.log "FaviconPlugin", common_plugins[common_plugins.length - 1]
-
 
 extraPlugins = []
 
