@@ -58,7 +58,7 @@ pc = PickleCollector()
 if not os.path.isdir(pc.dir):
     os.makedirs(pc.dir)
 cc = ZipCollector(open('data.zip', 'rb'))
-manager = DatabaseManager(s, cc)
+manager = DatabaseManager(s, pc)
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -68,6 +68,7 @@ def get_rss_content(year, url):
     if os.path.isfile(filename):
         content = open(filename).read()
     else:
+        print("NO DATA URL {} {}".format(year, url))
         with open(filename, 'wb') as outfile:
             req = requests.get(url)
             if req.ok:
@@ -216,7 +217,7 @@ def remove_html_content():
             with open(filename, 'wb') as outfile:
                 Pickle.dump(data, outfile)
             print("Removed content from {}".format(filename))
-        print(data.keys())
+        #print(data.keys())
 
 
 def delete_meetings(year, month):
@@ -250,33 +251,6 @@ def make_years():
         data[year] = list(meetings)
     return data
 
-
-def make_export():
-    filename = "hubby-data.pickle"
-    years = make_years()
-    people = manager.collector.collect('people')
-    depts = manager.collector.collect('depts')
-    data = dict(meetings=years, people=people, depts=depts)
-    with open(filename, 'wb') as outfile:
-        Pickle.dump(data, outfile)
-
-
-def import_data():
-    filename = "hubby-data.pickle"
-    if not os.path.isfile(filename):
-        raise RuntimeError("{} missing".format(filename))
-    data = Pickle.load(open(filename, 'rb'))
-    manager.add_collected_people(data['people'])
-    manager.add_collected_depts(data['depts'])
-    years = list(data['meetings'].keys())
-    years.sort()
-    for year in years:
-        print("Importing year {}...".format(year))
-        meetings = data['meetings'][year]
-        for meeting in meetings:
-            print("Importing meeting {}...".format(meeting['info']['id']))
-            manager.add_pickled_meeting(meeting)
-    return data
 
 
 def add_meetings_scrapeit():
@@ -348,7 +322,7 @@ def handler(obj):
     else:
         return None
 
-        
+
 def split_content():
     dirname = 'data'
 
