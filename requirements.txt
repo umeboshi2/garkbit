@@ -1,5 +1,5 @@
 hornstone>=0.1.8
-trumpet>=0.2.5
+trumpet>=0.2.6
 hattie>=0.2.17
 gunicorn
 Akhet
