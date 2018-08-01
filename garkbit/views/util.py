@@ -2,8 +2,6 @@ import os
 
 from pyramid.renderers import render
 
-
-
 # for cornice
 # @resource(**make_resource(path, ident='name'))
 def make_resource(rpath, ident='id', cross_site=True):
@@ -12,6 +10,7 @@ def make_resource(rpath, ident='id', cross_site=True):
     if cross_site:
         data['cors_origins'] = ('*',)
     return data
+
 
 def make_app_page(appname, settings, basecolor=None, request=None):
     template = 'garkbit:templates/mainview.mako'
@@ -24,7 +23,8 @@ def make_app_page(appname, settings, basecolor=None, request=None):
                csspath=csspath,
                jspath=jspath)
     return render(template, env, request=request)
-    
+
+
 def apply_pagination(request, query):
     GET = request.GET
     if 'offset' in GET:
@@ -34,6 +34,3 @@ def apply_pagination(request, query):
         limit = int(GET.get('limit'))
         query = query.limit(limit)
     return query
-
-
-

@@ -1,7 +1,6 @@
-from pyramid.httpexceptions import HTTPFound, HTTPNotFound
+from pyramid.httpexceptions import HTTPNotFound
 from pyramid.response import FileResponse
 from pyramid.path import AssetResolver
-
 
 
 def static_asset_response(request, asset):
@@ -27,4 +26,3 @@ def static_asset_response(request, asset):
         response.cache_expires(3600*24*365)
         response.cache_control.public = True
     return response
-
