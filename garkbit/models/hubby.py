@@ -15,7 +15,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from hornstone.alchemy import SerialBase
 from hattie.legistar import legistar_host
 
-Base = declarative_base()
+from .meta import Base
 
 ####################################
 ## Data Types                     ##

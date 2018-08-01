@@ -79,7 +79,7 @@ class MyModel(Base, SerialBase):
 Index('my_index', MyModel.name, unique=True, mysql_length=255)
 
 
-class Person(Base, PersonMixin):
+class BlogPerson(Base, PersonMixin):
     pass
 
 
