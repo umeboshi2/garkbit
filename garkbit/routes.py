@@ -24,8 +24,11 @@ def includeme(config):
     # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     # Proxy view
     # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    config.add_route('proxy', '/api/dev/proxy/*subpath')
+    #config.add_route('proxy', '/api/dev/proxy/*subpath')
+    config.add_route('proxy', '/api/dev/proxy/{encoded}')
     config.add_view('.views.proxy.ProxyView', route_name='proxy')
+
+
 
     use_pj = asbool(settings.get('api.use_pyramid_jsonapi', False))
 
