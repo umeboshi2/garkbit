@@ -18,7 +18,10 @@ urlRoot = "https://archive.org/metadata"
 getFileUrl = (name, options) ->
   server = options.server
   dir = options.dir
-  return "/api/dev/proxy/https://#{server}#{dir}/#{name}"
+  prefix = "/api/dev/proxy/"
+  #prefix = "https://cors-anywhere.herokuapp.com/"
+  target = btoa "https://#{server}#{dir}/#{name}"
+  return "#{prefix}#{target}"
   
 getImageUrl = (name, options) ->
   server = options.server

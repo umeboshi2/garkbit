@@ -64,8 +64,13 @@ loadPdf = (url) ->
 
 make_agenda_link = (meeting, dtype='A') ->
   qry = "M=#{dtype}&ID=#{meeting.id}&GUID=#{meeting.guid}"
-  return "/api/dev/proxy/http://hattiesburg.legistar.com/View.ashx?#{qry}"
-
+  prefix = "/api/dev/proxy/"
+  url = "https://hattiesburg.legistar.com/View.ashx?#{qry}"
+  encoded = btoa url
+  #prefix = "https://cors-anywhere.herokuapp.com/"
+  return "#{prefix}#{encoded}"
+  
+  
 
 headerClasses = '.text-center.bg-body-d10.pl-1.pr-1.pt-1.pb-2'
 headerClasses = "#{headerClasses}.border-light.rounded"
@@ -156,7 +161,8 @@ class AttachmentEntry extends Marionette.View
   entryClicked: (event) ->
     event.preventDefault()
     link = @model.get 'link'
-    url = "/api/dev/proxy/http://hattiesburg.legistar.com/#{link}"
+    target = btoa "https://hattiesburg.legistar.com/#{link}"
+    url = "/api/dev/proxy/#{target}"
     loadPdf url
     
 class AttachmentsView extends Marionette.View
