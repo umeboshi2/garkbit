@@ -10,4 +10,5 @@ pyramid_force_https
 pyramid_jwt
 pyramid_jsonapi
 paginate_sqlalchemy
+WSGIProxy2==0.4.4
 ./
