@@ -108,25 +108,26 @@ class HubbyView extends Backbone.Marionette.View
 
   fileReaderOnLoad: (event) =>
     content = event.target.result
-    @ui.statusMsg.text "Retrieved file content"
-    #AppChannel.request 'parse-comics-xml', content, @successfulParse
-    #console.log "CONTENT", btoa content
-    #window.content = content
+    filename = event.target.fileObject.name
+    @ui.statusMsg.text "Retrieved file content of #{filename}"
     model = new TestModel
       content: btoa content
     response = model.save()
+    @ui.statusMsg.text "Uploaded #{filename}."
     response.fail ->
       MessageChannel.request 'warning', 'failed to save model'
-    response.done ->
+    response.done =>
       console.log "MODEL", model
       data = model.get 'data'
       output = model.get 'output'
       MessageChannel.request 'success', "Finished import year #{data.year}"
+      @ui.statusMsg.text "Finished import year #{data.year}"
       
       
   readFile: (file) ->
     reader = new FileReader()
     reader.onload = @fileReaderOnLoad
+    reader.fileObject = file
     #reader.readAsText file
     reader.readAsBinaryString file
     
