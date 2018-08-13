@@ -19,15 +19,13 @@ last_modified_format = "%a, %d %b %Y %H:%M:%S %Z"
 class ProxyView(BaseUserViewCallable):
     def __init__(self, request):
         super(ProxyView, self).__init__(request)
+        # encoded is base64 encoded string
         encoded = request.matchdict.get('encoded')
-
         # FIXME  is there a better way rather than encode/decode?
-        url = base64.decodebytes(encoded.encode()).decode()
-        parsed = urlparse(url)
+        decoded = base64.decodebytes(encoded.encode()).decode()
 
-        # FIXME this is ugly
-        app_url = urlunparse(list(parsed[:2]) + ['', '', '', ''])
-
+        parsed = urlparse(decoded)
+        app_url = urlunparse((parsed.scheme, parsed.netloc, '/',
+                              '', '', ''))
         proxy = HostProxy(app_url, client='requests')
-        preq = Request.blank(url)
-        self.response = preq.get_response(proxy)
+        self.response = Request.blank(decoded).get_response(proxy)
