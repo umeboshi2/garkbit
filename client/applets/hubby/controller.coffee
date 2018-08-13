@@ -10,7 +10,7 @@ navigateToUrl = require('tbirds/util/navigate-to-url').default
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
-HubChannel = Backbone.Radio.channel 'hubby'
+AppChannel = Backbone.Radio.channel 'hubby'
 class ToolbarView extends Backbone.Marionette.View
   template: tc.renderable () ->
     tc.div '.btn-group.btn-group-justified', ->
@@ -39,7 +39,7 @@ class ToolbarView extends Backbone.Marionette.View
   show_calendar: ->
     hash = '#hubby'
     if window.location.hash == hash
-      controller = HubChannel.request 'main-controller'
+      controller = AppChannel.request 'main-controller'
       controller.mainview()
     else
       if __DEV__
@@ -50,7 +50,7 @@ class ToolbarView extends Backbone.Marionette.View
     navigateToUrl '#hubby/listmeetings'
 
   search_hubby: ->
-    controller = HubChannel.request 'main-controller'
+    controller = AppChannel.request 'main-controller'
     options =
       searchParams:
         title: @ui.search_entry.val()
@@ -80,7 +80,7 @@ class Controller extends MainController
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       { MainMeetingModel } = require './collections'
-      meetings = HubChannel.request 'meetinglist'
+      meetings = AppChannel.request 'meetinglist'
       ListMeetingsView = require './listmeetingsview'
       response = meetings.fetch()
       response.done =>
@@ -92,7 +92,20 @@ class Controller extends MainController
     # name the chunk
     , 'hubby-list-meetings-view'
 
-    
+
+  listPeople: ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      View = require './people-view'
+      people = AppChannel.request 'personlist'
+      response = people.fetch()
+      response.done =>
+        view = new View
+          collection: people
+        @layout.showChildView 'content', view
+      response.fail ->
+        MessageChannel.request 'danger', 'Failed to load people.'
+        
   _loadRegionView: (layout, region, View, model) ->
     response = model.fetch()
     response.done =>

@@ -2,11 +2,11 @@ import $ from 'jquery'
 import Marionette from 'backbone.marionette'
 import TkApplet from 'tbirds/tkapplet'
 
-import Controller from './controller'
 import './collections'
+import Controller from './controller'
 
 MainChannel = Backbone.Radio.channel 'global'
-HubChannel = Backbone.Radio.channel 'hubby'
+AppChannel = Backbone.Radio.channel 'hubby'
 
 appletMenu = [
   {
@@ -15,6 +15,12 @@ appletMenu = [
   },{
     label: 'list'
     url: '#hubby/listmeetings'
+  },{
+    label: 'People'
+    url: '#hubby/people'
+  },{
+    label: 'Departments'
+    url: '#hubby/departments'
   },{
     label: 'search'
     url: '#hubby/search'
@@ -30,6 +36,7 @@ class Router extends Marionette.AppRouter
     'hubby/oldviewmeeting/:id': 'viewMeetingOld'
     'hubby/search': 'view_items'
     'hubby/pdfview': 'viewPdfTest'
+    'hubby/people': 'listPeople'
     
 class Applet extends TkApplet
   Controller: Controller
@@ -45,24 +52,24 @@ class Applet extends TkApplet
   onBeforeStart: (args) ->
     super args
     controller = @router.controller
-    HubChannel.reply 'main-controller', ->
+    AppChannel.reply 'main-controller', ->
       controller
-    HubChannel.reply 'view-calendar', (layout, region) ->
+    AppChannel.reply 'view-calendar', (layout, region) ->
       controller.show_calendar layout, region
-    HubChannel.reply 'view-meeting-orig', (layout, region, id) ->
+    AppChannel.reply 'view-meeting-orig', (layout, region, id) ->
       controller.show_meeting layout, region, id
-    HubChannel.reply 'view-meeting', (opts) ->
+    AppChannel.reply 'view-meeting', (opts) ->
       controller.show_meeting opts.layout, opts.region, opts.id
-    HubChannel.reply 'view-items', (layout, region, options) ->
+    AppChannel.reply 'view-items', (layout, region, options) ->
       controller.list_items layout, region, options
     
 current_calendar_date = undefined
 #current_calendar_date = new Date '2016-10-15'
-HubChannel.reply 'maincalendar:set-date', () ->
+AppChannel.reply 'maincalendar:set-date', () ->
   cal = $ '#maincalendar'
   current_calendar_date = cal.fullCalendar 'getDate'
 
-HubChannel.reply 'maincalendar:get-date', () ->
+AppChannel.reply 'maincalendar:get-date', () ->
   current_calendar_date
   
 export default Applet
