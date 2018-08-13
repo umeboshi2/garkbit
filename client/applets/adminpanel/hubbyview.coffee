@@ -119,6 +119,10 @@ class HubbyView extends Backbone.Marionette.View
       MessageChannel.request 'warning', 'failed to save model'
     response.done ->
       console.log "MODEL", model
+      data = model.get 'data'
+      output = model.get 'output'
+      MessageChannel.request 'success', "Finished import year #{data.year}"
+      
       
   readFile: (file) ->
     reader = new FileReader()
