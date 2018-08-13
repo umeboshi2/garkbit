@@ -14,9 +14,13 @@ from sqlalchemy import engine_from_config
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, PickleType
+import zope.sqlalchemy
+import transaction
+
 from hornstone.models.base import BaseLongNameIdMixin
 
 from hattie.database import Base
+from hattie.database import Meeting
 from hattie.util import make_true_date, legistar_id_guid
 
 # from hubby.collector.main import MainCollector
@@ -39,10 +43,9 @@ if 'TMPHUBBYDB' in os.environ and runtimedir_varname in os.environ:
     dburl = dburl % dict(hubbydir=hubbydir)
 
 else:
-    dburl = "sqlite:///%(here)s/hubby.sqlite" % dict(here=os.getcwd())
     # dburl = "postgresql://dbadmin@localhost/hubbytest"
     dburl = "sqlite:///%(here)s/garkbit.sqlite" % dict(here=os.getcwd())
-    #dburl = 'postgresql://dbadmin@localhost/hubbytest'
+    dburl = 'postgresql://dbadmin@localhost/hubbytest'
 
 here = os.getcwd()
 print("dburl", dburl)
@@ -51,6 +54,7 @@ engine = engine_from_config(settings)
 Base.metadata.create_all(engine)
 Session = sessionmaker()
 Session.configure(bind=engine)
+zope.sqlalchemy.register(Session, transaction.manager)
 s = Session()
 
 
@@ -217,7 +221,6 @@ def remove_html_content():
             with open(filename, 'wb') as outfile:
                 Pickle.dump(data, outfile)
             print("Removed content from {}".format(filename))
-        #print(data.keys())
 
 
 def delete_meetings(year, month):
@@ -229,28 +232,6 @@ def delete_meetings(year, month):
     for fname in files:
         if os.path.isfile(fname):
             os.remove(fname)
-
-
-def make_years_files():
-    years = list(RSS_YEARLY_FEEDS.keys())
-    years.sort()
-    for year in years:
-        meetings = get_year_meetings(year)
-        filename = 'Year-{}.pickle'.format(year)
-        print("Creating {}".format(filename))
-        with open(filename, 'wb') as outfile:
-            Pickle.dump(list(meetings), outfile)
-
-
-def make_years():
-    data = dict()
-    years = list(RSS_YEARLY_FEEDS.keys())
-    years.sort()
-    for year in years:
-        meetings = get_year_meetings(year)
-        data[year] = list(meetings)
-    return data
-
 
 
 def add_meetings_scrapeit():
