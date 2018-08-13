@@ -3,6 +3,7 @@ from datetime import datetime
 import base64
 import pickle as Pickle
 import io
+import contextlib
 
 from cornice.resource import resource
 from pyramid.security import Allow
@@ -46,30 +47,37 @@ class DbManagerView(BaseResource):
         return HTTPNotFound
     
 
+    def import_zipfile(self):
+        text = self.request.json['content']
+        content = base64.decodestring(text.encode())
+        zfile = io.BytesIO(content)
+        collector = ZipCollector(zfile)
+        self.mgr = DatabaseManager(self.request.dbsession, collector)
+        if 'data/people.pickle' in collector.zfile.namelist():
+            self.mgr.add_people()
+        if 'data/departments.pickle' in collector.zfile.namelist():
+            self.mgr.add_departments()
+        rssfiles = [f for f in collector.zfile.namelist()
+                    if f.endswith('.rss')]
+        if len(rssfiles) != 1:
+            # FIXME return a better error
+            return HTTPNotFound
+        rssfile = rssfiles[0]
+        # chop .rss
+        prefix = rssfile[:-4]
+        year = prefix[-4:]
+        self.mgr.add_meetings_for_year(year)
+        self.mgr.add_zipped_meetings()
+        return dict(result='ok', data=dict(year=year))
+        
     def post(self):
         v = self.request.matchdict['view']
         if v == 'testme':
-            text = self.request.json['content']
-            content = base64.decodestring(text.encode())
-            zfile = io.BytesIO(content)
-            collector = ZipCollector(zfile)
-            self.mgr = DatabaseManager(self.request.dbsession, collector)
-            if 'data/people.pickle' in collector.zfile.namelist():
-                self.mgr.add_people()
-            if 'data/departments.pickle' in collector.zfile.namelist():
-                self.mgr.add_departments()
-            rssfiles = [f for f in collector.zfile.namelist()
-                        if f.endswith('.rss')]
-            if len(rssfiles) != 1:
-                # FIXME return a better error
-                return HTTPNotFound
-            rssfile = rssfiles[0]
-            # chop .rss
-            prefix = rssfile[:-4]
-            year = prefix[-4:]
-            self.mgr.add_meetings_for_year(year)
-            self.mgr.add_zipped_meetings()
-            return dict(result='ok', data=dict(year=year))
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                data = self.import_zipfile()
+            data['output'] = output.getvalue()
+            return data
 
     def delete(self):
         v = self.request.matchdict['view']
