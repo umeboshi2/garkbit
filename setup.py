@@ -23,6 +23,7 @@ requirements = [
     'pyramid_force_https',
     'pyramid_jwt',
     'WSGIProxy2==0.4.4',
+    'Pympler==0.5',
     # testing
     'pyramid_jsonapi',
     'paginate_sqlalchemy',
