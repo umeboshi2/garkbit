@@ -9,6 +9,9 @@ dev_menu =
       label: 'Internet Archive'
       url: '#netark'
     },{
+      label: 'Muppy'
+      url: '#muppy'
+    },{
       label: 'MS leg'
       url: '#msleg'
     },{
