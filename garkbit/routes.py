@@ -28,7 +28,9 @@ def includeme(config):
     config.add_route('proxy', '/api/dev/proxy/{encoded}')
     config.add_view('.views.proxy.ProxyView', route_name='proxy')
 
-
+    # muppy view
+    config.scan('.views.memleak')
+    
 
     use_pj = asbool(settings.get('api.use_pyramid_jsonapi', False))
 

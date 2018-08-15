@@ -7,6 +7,8 @@ from pyramid.config import Configurator
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.renderers import JSON
 
+from pympler import tracker
+
 import pyramid_jsonapi
 
 
@@ -27,6 +29,8 @@ def groupfinder(userid, request):
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
+    # memory tracker
+    settings['memory_tracker'] = tracker.SummaryTracker()
     config = Configurator(settings=settings)
     config.include('.models')
 

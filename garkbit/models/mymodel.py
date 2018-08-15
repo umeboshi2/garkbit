@@ -1,6 +1,5 @@
 from sqlalchemy import (
     Column,
-    Index,
     Integer,
     Text,
     Unicode,
@@ -65,6 +64,13 @@ class Todo(Base, TimeStampMixin):
 Todo.user = relationship(User, uselist=False, lazy='subquery')
 
 
+class ObjectSummary(Base, TimeStampMixin):
+    __tablename__ = 'object_summaries'
+    id = Column(Integer, primary_key=True)
+    name = Column(Text, unique=True)
+    content = Column(PickleType)
+
+
 class SiteDocument(Base, SiteDocumentMixin):
     pass
 
@@ -74,9 +80,6 @@ class MyModel(Base, SerialBase):
     id = Column(Integer, primary_key=True)
     name = Column(Text)
     value = Column(Integer)
-
-
-Index('my_index', MyModel.name, unique=True, mysql_length=255)
 
 
 class BlogPerson(Base, PersonMixin):
