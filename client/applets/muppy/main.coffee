@@ -16,11 +16,14 @@ AppChannel = Backbone.Radio.channel appName
 
 appletMenu = [
   {
-    label: 'List'
+    label: 'Muppy Home'
     url: '#muppy'
+    icon: '.fa.fa-home'
+  },{
+    label: 'List'
+    url: '#muppy/summaries'
     icon: '.fa.fa-list'
-  }
-  {
+  },{
     label: 'Calendar'
     url: '#muppy/calendar'
     icon: '.fa.fa-calendar'
@@ -30,6 +33,8 @@ appletMenu = [
 class Router extends Marionette.AppRouter
   appRoutes:
     'muppy': 'viewIndex'
+    'muppy/summaries': 'listSummaries'
+    'muppy/summary/view/:id': 'viewSummary'
     
 class Applet extends TkApplet
   Controller: Controller

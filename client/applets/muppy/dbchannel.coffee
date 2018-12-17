@@ -27,3 +27,18 @@ dbsummary = new DbCollection _.extend defaultOptions,
   modelClass: ObjectSummary
   collectionClass: ObjectSummaryCollection
 
+diffRoot = "/api/dev/memdiff"
+class SummaryDiff extends AuthModel
+  urlRoot: diffRoot
+
+class SummaryCollection extends AuthCollection
+  model: SummaryDiff
+  url: diffRoot
+
+
+summdiff = new DbCollection _.extend defaultOptions,
+  modelName: 'sumdiff'
+  modelClass: SummaryDiff
+  collectionClass: SummaryCollection
+  
+  

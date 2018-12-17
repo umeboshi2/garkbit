@@ -11,7 +11,6 @@ import scroll_top_fast from 'tbirds/util/scroll-top-fast'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
-ResourceChannel = Backbone.Radio.channel 'resources'
 AppChannel = Backbone.Radio.channel 'muppy'
 
 class Controller extends MainController
@@ -24,6 +23,34 @@ class Controller extends MainController
       @layout.showChildView 'content', view
     # name the chunk
     , 'muppy-view-index'
+
+  viewSummary: (id) ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      View = require './views/view-summary'
+      model = AppChannel.request 'db:summary:get', id
+      response = model.fetch()
+      response.done =>
+        view = new View
+          model: model
+        @layout.showChildView 'content', view
+        console.log "SUMMARY", model
+    # name the chunk
+    , 'muppy-view-view-summary'
+    
+  listSummaries: ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      View = require './views/list-summaries'
+      collection = AppChannel.request 'db:summary:collection'
+      response = collection.fetch()
+      response.done =>
+        view = new View
+          collection: collection
+        @layout.showChildView 'content', view
+    # name the chunk
+    , 'muppy-view-list-summaries'
+    
       
 export default Controller
 
