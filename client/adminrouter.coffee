@@ -13,6 +13,6 @@ class AdminRouter extends Marionette.AppRouter
         MessageChannel.request 'danger', 'Admin access only!'
         #navigate_to_url '/'
     return
-    
+
 export default AdminRouter
 
