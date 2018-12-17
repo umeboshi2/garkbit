@@ -3,6 +3,8 @@ Backbone = require 'backbone'
 Marionette = require 'backbone.marionette'
 tc = require 'teacup'
 marked = require 'marked'
+FileSaver = require 'file-saver'
+b64toBlob = require 'b64-to-blob'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
@@ -15,6 +17,9 @@ class TestModel extends AuthModel
 
 class DeleteAllModel extends AuthModel
   url: '/rest/v0/main/hubby/dbadmin/delete-all'
+
+class DbExportModel extends AuthModel
+  url: '/rest/v0/main/hubby/dbadmin/testme'
   
 dropzone_template = tc.renderable (model) ->
   tc.div '.dropzone.card', ->
@@ -33,16 +38,16 @@ class HubbyView extends Backbone.Marionette.View
   template: tc.renderable (model) ->
     tc.div '.listview-header', 'Hubby Dbadmin'
     tc.button '.delete-btn.btn.btn-danger', 'Delete'
-    tc.button '.import-btn.btn.btn-info', 'Import'
+    tc.button '.export-btn.btn.btn-info', 'Export'
     dropzone_template model
     
   ui:
     header: '.listview-header'
     deleteBtn: '.delete-btn'
-    importBtn: '.import-btn'
     fileInput: '.file-input'
     parseBtn: '.parse-btn'
     chosenBtn: '.parse-chosen-btn'
+    exportBtn: '.export-btn'
     dropzone: '.dropzone'
     statusMsg: '.card-header'
   events:
@@ -53,17 +58,9 @@ class HubbyView extends Backbone.Marionette.View
     'change @ui.fileInput': 'fileInputChanged'
     'click @ui.parseBtn': 'handleDroppedFile'
     'click @ui.chosenBtn': 'handleChosenFile'
-    'click @ui.importBtn': 'importBtnClicked'
     'click @ui.deleteBtn': 'deleteBtnClicked'
+    'click @ui.exportBtn': 'exportBtnClicked'
     
-  importBtnClicked: ->
-    console.log "Importbtnclicked"
-    model = new TestModel
-    response = model.fetch()
-    response.done ->
-      console.log "MODEL", model
-      MessageChannel.request "success", model.get 'result'
-
   deleteBtnClicked: ->
     console.log "deleteBtnClicked"
     model = new DeleteAllModel
@@ -144,5 +141,22 @@ class HubbyView extends Backbone.Marionette.View
     @ui.parseBtn.hide()
     @readFile @droppedFile
 
+  exportBtnClicked: ->
+    @ui.statusMsg.text "Exporting database..."
+    model = new DbExportModel
+    response = model.fetch()
+    response.done ->
+      options =
+        filename: 'dbdump.json.xz'
+        type: 'application/octet-stream'
+        data: model.get 'content'
+      console.log "content", options.data
+      blob = b64toBlob options.data, options.type
+      console.log "BLOB", blob
+      FileSaver.saveAs(blob, options.filename)
+      MessageChannel.request 'primary', "Exported database...."
+      console.log "exported", model
+      
+    
 module.exports = HubbyView
 
