@@ -2,8 +2,7 @@ import Backbone from 'backbone'
 import tc from 'teacup'
 import marked from 'marked'
 
-import { form_group_input_div 
-  make_field_input } from 'tbirds/templates/forms'
+import { form_group_input_div, make_field_input } from 'tbirds/templates/forms'
 import { modal_close_button } from 'tbirds/templates/buttons'
 
 import capitalize from 'tbirds/util/capitalize'
