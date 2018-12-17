@@ -82,7 +82,10 @@ def main(global_config, **settings):
 
     config.include('.routes')
 
-    config.set_request_property('.util.get_user', 'user', reify=True)
+    # config.set_request_property is removed in pyramid > 1.9
+    # config.set_request_property('.util.get_user', 'user', reify=True)
+    
+    config.add_request_method('.util.get_user', 'user', reify=True)
     application = config.make_wsgi_app()
     # add wsgi middleware here
 
