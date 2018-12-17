@@ -35,7 +35,7 @@ class BaseItemView extends Marionette.View
   tagName: 'li'
   className: ->
     "list-group-item #{@item_type}-item row"
-  ui:
+  ui: ->
     edit_item: '.edit-item'
     delete_item: '.delete-item'
     item: '.list-item'
