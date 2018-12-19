@@ -27,7 +27,8 @@ appletMenu = [
 
 class Router extends Marionette.AppRouter
   appRoutes:
-    'freelaw': 'viewIndex'
+    #'freelaw': 'viewIndex'
+    'freelaw': 'listClusters'
     
 class Applet extends TkApplet
   Controller: Controller

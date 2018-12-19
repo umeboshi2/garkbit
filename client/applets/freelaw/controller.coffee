@@ -25,5 +25,45 @@ class Controller extends MainController
     # name the chunk
     , 'freelaw-view-index'
       
+  viewOpinion: (id) ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      View = require './views/view-opinion'
+      model = AppChannel.request 'db:opinion:get', id
+      response = model.fetch()
+      response.done =>
+        view = new View
+          model: model
+        @layout.showChildView 'content', view
+        console.log "OPINION", model
+    # name the chunk
+    , 'freelaw-view-view-opinion'
+    
+  listOpinions: ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      View = require './views/list-opinions'
+      collection = AppChannel.request 'db:opinion:collection'
+      response = collection.fetch()
+      response.done =>
+        view = new View
+          collection: collection
+        @layout.showChildView 'content', view
+    # name the chunk
+    , 'freelaw-view-list-opinions'
+    
+  listClusters: ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      View = require './views/list-clusters'
+      collection = AppChannel.request 'db:cluster:collection'
+      response = collection.fetch()
+      response.done =>
+        view = new View
+          collection: collection
+        @layout.showChildView 'content', view
+    # name the chunk
+    , 'freelaw-view-list-opinions'
+    
 export default Controller
 

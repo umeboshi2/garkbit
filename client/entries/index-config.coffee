@@ -6,6 +6,9 @@ dev_menu =
   label: 'Development Applets'
   menu: [
     {
+      label: 'Court Listener'
+      url: '#freelaw'
+    },{
       label: 'Internet Archive'
       url: '#netark'
     },{
