@@ -109,3 +109,7 @@ stats-dev.json
 /garkbit/dist/icons-*/*x120.png
 /garkbit/dist/icons-*/*x114.png
 
+# local dev tokens
+/.cltoken
+/.lcltoken
+
