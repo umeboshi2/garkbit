@@ -146,12 +146,10 @@ def get_meeting_item_ids(meeting_id):
     return ids
 
 
-
 def get_action_id_from_action(action):
     query = parse_url(action).query
     id = qsparser.parse(query)['ID']
     return id
-
 
 
 # needs data/
@@ -234,17 +232,24 @@ def delete_meetings(year, month):
             os.remove(fname)
 
 
+def scrape_year(year, merge=True):
+    url = RSS_YEARLY_FEEDS[year]
+    content = get_rss_content(year, url)
+    print("Adding meetings for {}".format(year))
+    manager.add_rss_meetings('ignore', rss=feedparser.parse(content))
+    if merge:
+        manager.add_meetings(year=year)
+    else:
+        print("NO MERGE")
+
 def add_meetings_scrapeit():
     years = list(RSS_YEARLY_FEEDS.keys())
     years.sort()
     for year in years:
-        url = RSS_YEARLY_FEEDS[year]
-        content = get_rss_content(year, url)
-        print("Adding meetings for {}".format(year))
-        manager.add_rss_meetings('ignore', rss=feedparser.parse(content))
+        scrape_year(year, merge=False)
     manager.add_meetings()
 
-
+    
 def scrapeit():
     manager.add_people()
     manager.add_departments()
