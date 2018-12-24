@@ -12,18 +12,18 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'hornstone>=0.1.8',
-    'trumpet>=0.2.6',
-    'hattie>=0.2.20',
-    'gunicorn',
     'Akhet',
     'alembic',
+    'gunicorn',
+    'hattie>=0.2.20',
+    'hornstone>=0.1.8',
+    'Pympler==0.5',
     'pyramid_jinja2',
     'pyramid_retry',
     'pyramid_force_https',
     'pyramid_jwt',
+    'trumpet>=0.2.6',
     'WSGIProxy2==0.4.4',
-    'Pympler==0.5',
     # testing
     'pyramid_jsonapi',
     'paginate_sqlalchemy',
