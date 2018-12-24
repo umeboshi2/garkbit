@@ -46,7 +46,10 @@ WebPackOutput =
   filename: WebPackOutputFilename[BuildEnvironment]
   path: path.join __dirname, localBuildDir[BuildEnvironment]
   #publicPath: publicPath
-
+  #target: 'self'
+  # FIXME: why are we using globalObject?
+  globalObject: 'self'
+  
     
 loadCssRule =
   test: /\.css$/
@@ -161,6 +164,12 @@ WebPackConfig =
 
 if BuildEnvironment is 'development'
   WebPackConfig.devtool = 'source-map'
+  WebPackConfig.watch = true
+  WebPackConfig.watchOptions =
+    ignored: [
+      'node_modules'
+      '^\/.#'
+    ]
   WebPackConfig.devServer =
     host: 'localhost'
     #host: '0.0.0.0'
