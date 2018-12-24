@@ -103,7 +103,7 @@ class Controller extends MainController
     @setupLayoutIfNeeded()
     model = new ReadMeModel
     if true and __DEV__
-      readme = require 'raw-loader!../../../README.md'
+      readme = require 'raw-loader!../../../assets/documents/intro.md'
       model = new Backbone.Model content:readme
       console.log "MODEL", model
       @_view_resource model
