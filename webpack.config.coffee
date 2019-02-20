@@ -102,8 +102,9 @@ WebPackOptimization =
   splitChunks:
     chunks: 'all'
 
-uglifyOptions =
+uglifyPluginOptions =
   sourceMap: true
+  parallel: true
   uglifyOptions:
     compress:
       warnings: true
@@ -119,7 +120,7 @@ if BuildEnvironment is 'production'
   #extraPlugins.push new CompressionPlugin()
   WebPackOptimization.minimizer = [
    new OptimizeCssAssetsPlugin()
-   new UglifyJsPlugin uglifyOptions
+   new UglifyJsPlugin uglifyPluginOptions
   ]
   
 AllPlugins = common_plugins.concat extraPlugins
