@@ -1,7 +1,7 @@
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-Toolkit = require 'marionette.toolkit'
-tc = require 'teacup'
+import Backbone from 'backbone'
+import Marionette from 'backbone.marionette'
+import Toolkit from 'marionette.toolkit'
+import tc from 'teacup'
 
 MainChannel = Backbone.Radio.channel 'global'
 
@@ -51,17 +51,13 @@ class UserMenuView extends Marionette.View
       return guest_menu user
       
 class UserMenuApp extends Toolkit.App
-  onBeforeStart: ->
-    @setRegion @options.parentApp.getView().getRegion 'userEntries'
+  initialize: (options) ->
     token = MainChannel.request "main:app:decode-auth-token"
     @options.user = token
-    
-  onStart: ->
-    token = MainChannel
-    appConfig = @options.appConfig
     view = new UserMenuView
-      appConfig: appConfig
-      model: new Backbone.Model @options.user
+      appConfig: @getOption 'appConfig'
+      model: new Backbone.Model @getOption 'user'
     @showView view
-
-module.exports = UserMenuApp
+    
+    
+export default UserMenuApp
