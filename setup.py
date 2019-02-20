@@ -15,7 +15,7 @@ requirements = [
     'Akhet',
     'alembic',
     'gunicorn',
-    'hattie>=0.2.20',
+    'hattie>=0.2.21',
     'hornstone>=0.1.8',
     'Pympler==0.5',
     'pyramid_jinja2',
