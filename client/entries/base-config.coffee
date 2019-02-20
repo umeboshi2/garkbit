@@ -5,6 +5,7 @@ import config from 'tbirds/app-config'
 import MainPageLayout from 'tbirds/tklayout'
 import emoji from 'node-emoji'
 
+import UserMenuApp from './user-menu-view'
 
 class Layout extends MainPageLayout
   template: tc.renderable () ->
@@ -35,7 +36,7 @@ navbarBrandTemplate = tc.renderable (model) ->
   tc.span '.toggle-container'
 
 
-config.userMenuApp = require './user-menu-view'
+config.userMenuApp = UserMenuApp
 config.layout = Layout
 config.hasUser = true
 config.appletRoutes.profile = 'userprofile'
