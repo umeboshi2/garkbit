@@ -6,7 +6,7 @@ import navigate_to_url from 'tbirds/util/navigate-to-url'
 import './dbchannel'
 import Controller from './controller'
 import AdminRouter from '../../adminrouter'
-
+import userAdminRouter from './routers/useradmin'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
@@ -48,7 +48,7 @@ class Applet extends TkApplet
   Router: Router
   appletEntries: appletEntries
   extraRouters:
-    useradmin: require './routers/useradmin'
+    useradmin: userAdminRouter
 
 
   onStop: ->
