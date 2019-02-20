@@ -141,7 +141,8 @@ WebPackConfig =
         test: /\.scss$/
         use: buildCssLoader[BuildEnvironment]
       }
-      coffeeLoaderRule[BuildEnvironment]
+      #coffeeLoaderRule[BuildEnvironment]
+      coffeeLoaderRule.production
       woffRule
       imgVersionedRule
      ]
