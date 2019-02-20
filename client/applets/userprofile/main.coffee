@@ -1,4 +1,5 @@
 import Marionette from 'backbone.marionette'
+import AppRouter from 'marionette.approuter'
 import TkApplet from 'tbirds/tkapplet'
 
 import  './dbchannel'
@@ -24,7 +25,7 @@ appletMenu = [
   }
 ]
 
-class Router extends Marionette.AppRouter
+class Router extends AppRouter
   appRoutes:
     'profile': 'show_profile'
     'profile/editconfig': 'editConfig'

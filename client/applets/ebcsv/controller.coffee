@@ -31,7 +31,7 @@ addDscEntry =
       icon: '.fa.fa-plus'
 
 
-class ToolbarAppletLayout extends Backbone.Marionette.View
+class ToolbarAppletLayout extends Marionette.View
   behaviors:
     ShowInitialEmptyContent:
       behaviorClass: ShowInitialEmptyContent

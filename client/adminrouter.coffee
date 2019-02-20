@@ -1,11 +1,12 @@
 import Marionette from 'backbone.marionette'
+import AppRouter from 'marionette.approuter'
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 import isObjectEmpty from 'tbirds/util/object-empty'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 
-class AdminRouter extends Marionette.AppRouter
+class AdminRouter extends AppRouter
   before: ->
     user = MainChannel.request 'main:app:decode-auth-token'
     if not isObjectEmpty user

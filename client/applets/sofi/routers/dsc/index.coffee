@@ -1,8 +1,9 @@
 Marionette = require 'backbone.marionette'
+import AppRouter from 'marionette.approuter'
 
 DscController = require './controller'
 
-class DscRouter extends Marionette.AppRouter
+class DscRouter extends AppRouter
   appRoutes:
     'sofi/dsc': 'list_descriptions'
     'sofi/dsc/list': 'list_descriptions'

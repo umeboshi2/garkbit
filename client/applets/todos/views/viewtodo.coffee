@@ -14,7 +14,7 @@ view_template = tc.renderable (model) ->
     tc.dd -> tc.raw marked model.description
     
     
-class MainView extends Backbone.Marionette.View
+class MainView extends Marionette.View
   template: tc.renderable (model) ->
     #tc.div model.name
     tc.dl ->

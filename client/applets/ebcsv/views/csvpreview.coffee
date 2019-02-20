@@ -110,7 +110,7 @@ cell_styles = [
   ]
 cell_style = "#{cell_styles.join(';')};"
 
-class CsvTableRow extends Backbone.Marionette.View
+class CsvTableRow extends Marionette.View
   tagName: 'tr'
   templateContext: ->
     options = @options
@@ -144,7 +144,7 @@ class CsvTableRow extends Backbone.Marionette.View
     MainChannel.request 'show-modal', view
     
   
-class CsvTableBody extends Backbone.Marionette.CollectionView
+class CsvTableBody extends Marionette.CollectionView
   tagName: 'tbody'
   childView: CsvTableRow
 
@@ -156,7 +156,7 @@ bstableclasses = [
   'table-condensed'
   ]
   
-class CsvMainView extends Backbone.Marionette.View
+class CsvMainView extends Marionette.View
   tagName: 'table'
   className: bstableclasses.join ' '
   templateContext: ->
@@ -194,7 +194,7 @@ class CsvMainView extends Backbone.Marionette.View
 ############################################
 # Main view
 ############################################
-class ComicsView extends Backbone.Marionette.View
+class ComicsView extends Marionette.View
   templateContext: ->
     options = @options
     options.ebcfg_collection = AppChannel.request 'ebcfg-collection'

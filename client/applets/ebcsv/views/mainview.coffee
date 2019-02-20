@@ -15,10 +15,10 @@ MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'ebcsv'
 
-#class ComicListView extends Backbone.Marionette.CollectionView
+#class ComicListView extends Marionette.CollectionView
 #  childView: ComicEntryView
 
-class ComicsView extends Backbone.Marionette.View
+class ComicsView extends Marionette.View
   regions:
     #list: '#comiclist-container'
     body: '.body'

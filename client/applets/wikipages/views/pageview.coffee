@@ -19,7 +19,7 @@ view_template = tc.renderable (model) ->
       tc.raw model.content
 
     
-class MainView extends Backbone.Marionette.View
+class MainView extends Marionette.View
   template: view_template
   ui:
     wikipage: '.wikipage'

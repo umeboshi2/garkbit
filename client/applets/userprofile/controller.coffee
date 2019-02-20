@@ -1,3 +1,5 @@
+Backbone = require 'backbone'
+Marionette = require 'backbone.marionette'
 tc = require 'teacup'
 
 # FIXME
@@ -40,7 +42,7 @@ toolbar_template = tc.renderable (model) ->
       'button-url': entry.url, ->
         tc.span ".fa.fa-#{icon}", ' ' + entry.name
 
-class ToolbarView extends Backbone.Marionette.View
+class ToolbarView extends Marionette.View
   template: toolbar_template
   ui:
     toolbarButton: '.toolbar-button'

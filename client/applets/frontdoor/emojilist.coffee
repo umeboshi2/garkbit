@@ -22,7 +22,7 @@ view_template = tc.renderable (model) ->
         tc.span key
         tc.span '.fa.fa-2x.ml-3', emoji.get(key)
       
-class MainView extends Backbone.Marionette.View
+class MainView extends Marionette.View
   template: view_template
   templateContext:
     appName: 'msleg'

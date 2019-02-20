@@ -85,7 +85,7 @@ class WorkspaceSelect extends Marionette.View
       
   
 ########################################
-class ComicsView extends Backbone.Marionette.View
+class ComicsView extends Marionette.View
   ui:
     mkcsv_btn: '.mkcsv-button'
     show_btn: '.show-comics-button'

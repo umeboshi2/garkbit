@@ -31,7 +31,7 @@ dropzone_template = tc.renderable (model) ->
             tc.text 'Parse input file.'
   
           
-class DropZoneView extends Backbone.Marionette.View
+class DropZoneView extends Marionette.View
   template: dropzone_template
   droppedFile: null
   ui:

@@ -1,5 +1,6 @@
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
+import AppRouter from 'marionette.approuter'
 import TkApplet from 'tbirds/tkapplet'
 
 require './dbchannel'
@@ -49,7 +50,7 @@ menuEntries = [
   }
   ]
 
-class Router extends Marionette.AppRouter
+class Router extends AppRouter
   appRoutes:
     'ebcsv': 'main_view'
 

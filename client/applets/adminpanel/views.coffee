@@ -14,7 +14,7 @@ DefaultStaticDocumentTemplate = tc.renderable (doc) ->
 THEMES = ['vanilla', 'cornsilk', 'BlanchedAlmond', 'DarkSeaGreen',
   'LavenderBlush']
   
-class ThemeSwitchView extends Backbone.Marionette.View
+class ThemeSwitchView extends Marionette.View
   ui:
     stylesheet: '#main-stylesheet'
     theme: '.theme'
@@ -35,7 +35,7 @@ class ThemeSwitchView extends Backbone.Marionette.View
     MainChannel.request 'main:app:set-theme', theme
     MainChannel.request 'main:app:switch-theme', theme
     
-class FrontDoorMainView extends Backbone.Marionette.View
+class FrontDoorMainView extends Marionette.View
   template: DefaultStaticDocumentTemplate
 
 module.exports =

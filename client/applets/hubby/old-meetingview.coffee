@@ -122,7 +122,7 @@ show_meeting_template = tc.renderable (meeting) ->
 ##################################################################
 #################################
 
-class ShowMeetingView extends Backbone.Marionette.View
+class ShowMeetingView extends Marionette.View
   template: show_meeting_template
   
   onDomRefresh: () ->

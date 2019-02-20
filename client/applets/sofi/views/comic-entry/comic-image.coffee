@@ -16,7 +16,7 @@ MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'sofi'
 
 ########################################
-class ComicImageView extends Backbone.Marionette.View
+class ComicImageView extends Marionette.View
   template: tc.renderable (model) ->
     img = AppChannel.request 'fix-image-url', model.image_src
     tc.img '.thumb.media-object', src:img

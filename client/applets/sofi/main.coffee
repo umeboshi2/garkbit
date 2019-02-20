@@ -1,5 +1,6 @@
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
+import AppRouter from 'marionette.approuter'
 import TkApplet from 'tbirds/tkapplet'
 
 import './dbchannel'
@@ -12,7 +13,7 @@ import Controller from './controller'
 MainChannel = Backbone.Radio.channel 'global'
 ResourceChannel = Backbone.Radio.channel 'resources'
 
-class Router extends Marionette.AppRouter
+class Router extends AppRouter
   appRoutes:
     'sofi': 'main_view'
 

@@ -37,7 +37,7 @@ class SampleComicsModel extends Backbone.Model
   parse: (response, options) ->
     return content: response
             
-class DropZoneView extends Backbone.Marionette.View
+class DropZoneView extends Marionette.View
   template: dropzone_template
   droppedFile: null
   ui:

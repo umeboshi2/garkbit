@@ -50,7 +50,7 @@ loading_test = (bool) ->
   console.log "loading_test", bool
   
   
-class MeetingCalendarView extends Backbone.Marionette.View
+class MeetingCalendarView extends Marionette.View
   template: meeting_calendar
   ui:
     calendar: '#maincalendar'

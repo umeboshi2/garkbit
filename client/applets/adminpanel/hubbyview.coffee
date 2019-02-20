@@ -34,7 +34,7 @@ dropzone_template = tc.renderable (model) ->
         tc.text 'Parse dropped meetings'
         
   
-class HubbyView extends Backbone.Marionette.View
+class HubbyView extends Marionette.View
   template: tc.renderable (model) ->
     tc.div '.listview-header', 'Hubby Dbadmin'
     tc.button '.delete-btn.btn.btn-danger', 'Delete'

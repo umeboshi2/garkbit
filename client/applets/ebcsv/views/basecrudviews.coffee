@@ -30,7 +30,7 @@ ConfirmDeleteTemplate = tc.renderable (model) ->
         tc.i '.fa.fa-close'
         tc.text "Cancel"
 
-class ConfirmDeleteModal extends Backbone.Marionette.View
+class ConfirmDeleteModal extends Marionette.View
   template: ConfirmDeleteTemplate
   className: 'modal-dialog'
   ui:
@@ -48,7 +48,7 @@ class ConfirmDeleteModal extends Backbone.Marionette.View
     response.fail ->
       MessageChannel.request 'danger', "#{name} NOT deleted."
       
-class BaseItemView extends Backbone.Marionette.View
+class BaseItemView extends Marionette.View
   ui:
     edit_item: '.edit-item'
     delete_item: '.delete-item'
@@ -80,7 +80,7 @@ class BaseItemView extends Backbone.Marionette.View
     #MainChannel.request 'main:app:show-modal', view, {backdrop:true}
     
 
-class BaseListView extends Backbone.Marionette.CompositeView
+class BaseListView extends Marionette.CollectionView
   childViewContainer: "##{@item_type}-container"
   ui: ->
     make_new_item: "#new-#{@item_type}"

@@ -29,7 +29,7 @@ frontdoor_template = tc.renderable () ->
   tc.div '.row', ->
     tc.div '#main-content'
   
-class FrontdoorLayout extends Backbone.Marionette.View
+class FrontdoorLayout extends Marionette.View
   template: frontdoor_template
   regions: ->
     content: new SlideDownRegion

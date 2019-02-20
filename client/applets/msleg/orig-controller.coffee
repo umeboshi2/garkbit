@@ -27,7 +27,7 @@ window.tm = new cl.TestRssModel
 
 parse_hr_membs = require './housemembers'
 
-class HeaderView extends Backbone.Marionette.View
+class HeaderView extends Marionette.View
   template: tc.renderable (model) ->
     tc.div '.listview-header', model.title
     

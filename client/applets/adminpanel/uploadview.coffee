@@ -13,7 +13,7 @@ DefaultStaticDocumentTemplate = tc.renderable (doc) ->
 apiroot = '/api/dev/misc'
 
 
-class UploadMainView extends Backbone.Marionette.View
+class UploadMainView extends Marionette.View
   template: tc.renderable ->
     tc.article '.document-view.content', ->
       tc.div '.body', ->

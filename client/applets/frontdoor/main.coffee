@@ -1,4 +1,5 @@
 import Marionette from 'backbone.marionette'
+import AppRouter from 'marionette.approuter'
 import TkApplet from 'tbirds/tkapplet'
 
 import Controller from './controller'
@@ -22,7 +23,7 @@ if __DEV__
     url: '#frontdoor/emojilist'
     icon: '.fa.fa-smile-o.text-dark.bg-warning'
     
-class Router extends Marionette.AppRouter
+class Router extends AppRouter
   appRoutes:
     '': 'frontdoor'
     'frontdoor': 'frontdoor'

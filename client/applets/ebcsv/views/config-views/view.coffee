@@ -42,7 +42,7 @@ cfg_template = tc.renderable (model) ->
   
 
 ########################################
-class CfgView extends Backbone.Marionette.View
+class CfgView extends Marionette.View
   template: cfg_template
   ui:
     copy_btn: '#copy-cfg-btn'

@@ -56,7 +56,7 @@ listTemplate = tc.renderable (model) ->
   
 
 
-class ItemView extends Backbone.Marionette.View
+class ItemView extends Marionette.View
   tagName: 'li'
   className: "list-group-item row"
   template: itemTemplate
@@ -81,13 +81,13 @@ class ItemView extends Backbone.Marionette.View
       @ui.fullText.hide()
       @FullTextVisible = false
     
-class ItemCollectionView extends Backbone.Marionette.CollectionView
+class ItemCollectionView extends Marionette.CollectionView
   tagName: 'ul'
   childView: ItemView
   className: 'list-group'
     
 
-class MainView extends Backbone.Marionette.View
+class MainView extends Marionette.View
   template: view_template
   templateContext:
     appName: 'freelaw'

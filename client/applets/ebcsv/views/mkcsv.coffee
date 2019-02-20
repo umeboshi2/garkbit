@@ -57,7 +57,7 @@ csv_dsc_select = tc.renderable (collection) ->
 
 
 ########################################
-class ComicsView extends Backbone.Marionette.View
+class ComicsView extends Marionette.View
   templateContext: ->
     options = @options
     options.ebcfg_collection = AppChannel.request 'ebcfg-collection'

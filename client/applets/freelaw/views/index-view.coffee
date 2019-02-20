@@ -9,7 +9,7 @@ view_template = tc.renderable (model) ->
   tc.div '.row.listview-list-entry', ->
     tc.raw marked "# #{model.appName} started."
     
-class MainView extends Backbone.Marionette.View
+class MainView extends Marionette.View
   template: view_template
   templateContext:
     appName: 'freelaw'

@@ -14,7 +14,7 @@ IsEscapeModal = require('tbirds/behaviors/is-escape-modal').default
 MainChannel = Backbone.Radio.channel 'global'
 AppChannel = Backbone.Radio.channel 'ebcsv'
 
-class JsonView extends Backbone.Marionette.View
+class JsonView extends Marionette.View
   behaviors: [IsEscapeModal]
   template: tc.renderable (model) ->
     main = model.mainsection

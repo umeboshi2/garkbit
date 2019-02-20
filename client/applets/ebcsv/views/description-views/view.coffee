@@ -32,7 +32,7 @@ dsc_template = tc.renderable (model) ->
   
 
 ########################################
-class DscView extends Backbone.Marionette.View
+class DscView extends Marionette.View
   template: dsc_template
   ui:
     copy_btn: '#copy-dsc-btn'

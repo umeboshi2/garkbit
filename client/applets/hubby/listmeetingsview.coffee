@@ -9,7 +9,7 @@ HubChannel = Backbone.Radio.channel 'hubby'
 #################################
 
 
-class SimpleMeetingView extends Backbone.Marionette.View
+class SimpleMeetingView extends Marionette.View
   template: tc.renderable (model) ->
     name = "meeting"
     item_btn = ".btn.btn-default.btn-xs"
@@ -20,7 +20,7 @@ class SimpleMeetingView extends Backbone.Marionette.View
       #  tc.button ".edit-item.#{item_btn}.btn-info.fa.fa-edit", 'edit'
       #  tc.button ".delete-item.#{item_btn}.btn-danger.fa.fa-close", 'delete'
 
-class ListMeetingsView extends Backbone.Marionette.CompositeView
+class ListMeetingsView extends Marionette.CollectionView
   childView: SimpleMeetingView
   template: tc.renderable () ->
     tc.div '.listview-header', ->

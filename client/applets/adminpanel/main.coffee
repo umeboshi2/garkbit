@@ -1,4 +1,5 @@
 import Marionette from 'backbone.marionette'
+import AppRouter from 'marionette.approuter'
 import TkApplet from 'tbirds/tkapplet'
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 

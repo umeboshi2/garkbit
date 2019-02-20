@@ -11,7 +11,7 @@ navigateToUrl = require('tbirds/util/navigate-to-url').default
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'hubby'
-class ToolbarView extends Backbone.Marionette.View
+class ToolbarView extends Marionette.View
   template: tc.renderable () ->
     tc.div '.btn-group.btn-group-justified', ->
       tc.div '#show-calendar-button.btn.btn-default', ->

@@ -39,7 +39,7 @@ calendar_view_render = (view, element) ->
   AppChannel.request 'maincalendar:set-date'
         
   
-class TodoCalendarView extends Backbone.Marionette.View
+class TodoCalendarView extends Marionette.View
   template: todo_calendar
   ui:
     calendar: '#maincalendar'

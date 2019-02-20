@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import Marionette from 'backbone.marionette'
+import AppRouter from 'marionette.approuter'
 import TkApplet from 'tbirds/tkapplet'
 
 import './collections'
@@ -28,7 +29,7 @@ appletMenu = [
 ]
 
 
-class Router extends Marionette.AppRouter
+class Router extends AppRouter
   appRoutes:
     'hubby': 'mainview'
     'hubby/listmeetings': 'list_meetings'

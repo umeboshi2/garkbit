@@ -9,7 +9,7 @@ DefaultStaticDocumentTemplate = tc.renderable (doc) ->
       tc.raw marked doc.content
 
 
-class FrontDoorMainView extends Backbone.Marionette.View
+class FrontDoorMainView extends Marionette.View
   template: DefaultStaticDocumentTemplate
 
 module.exports = FrontDoorMainView

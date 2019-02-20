@@ -1,8 +1,9 @@
 Marionette = require 'backbone.marionette'
+import AppRouter from 'marionette.approuter'
 
 CfgController = require './controller'
 
-class CfgRouter extends Marionette.AppRouter
+class CfgRouter extends AppRouter
   appRoutes:
     'sofi/cfg': 'list_configs'
     'sofi/cfg/list': 'list_configs'

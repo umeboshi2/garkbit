@@ -23,7 +23,7 @@ class HasLateImages extends HasMasonryView
   onChildviewShowImage: (child) ->
     @setMasonryLayout()
 
-class ComicCollectionView extends Backbone.Marionette.CollectionView
+class ComicCollectionView extends Marionette.CollectionView
   childView: ComicEntryView
   emptyView: EmptyView
   # relay show:image event to parent
@@ -31,7 +31,7 @@ class ComicCollectionView extends Backbone.Marionette.CollectionView
     'show:image': 'show:image'
     
 listContainer = '#comiclist-container'
-class ComicListView extends Backbone.Marionette.View
+class ComicListView extends Marionette.View
   options:
     listContainer: listContainer
   ui: ->

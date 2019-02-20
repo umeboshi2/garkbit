@@ -34,7 +34,7 @@ class IFrameModalView extends BaseModalView
               
 
 ########################################
-class ComicImageView extends Backbone.Marionette.View
+class ComicImageView extends Marionette.View
   template: tc.renderable (model) ->
     img = model.image_src.replace '/lg/', '/sm/'
     img = img.replace 'http://', '//'
@@ -47,7 +47,7 @@ class ComicImageView extends Backbone.Marionette.View
   onDomRefresh: ->
     @trigger 'show:image'
     
-class ComicEntryView extends Backbone.Marionette.View
+class ComicEntryView extends Marionette.View
   template: tc.renderable (model) ->
     main = model.mainsection
     tc.div '.item.listview-list-entry.thumbnail.col-md-2', ->
@@ -206,7 +206,7 @@ class ComicEntryView extends Backbone.Marionette.View
       dataType: 'html'
       url: "/clzcore#{u.pathname}"
     xhr.done =>
-      view = new Backbone.Marionette.View
+      view = new Marionette.View
         template: xhr.responseText
       @showChildView 'info', view
     xhr.fail ->

@@ -92,7 +92,7 @@ getEpisodes = (start, end, timezone, cb) ->
     cb events
     
   
-class EpisodeCalendarView extends Backbone.Marionette.View
+class EpisodeCalendarView extends Marionette.View
   template: episodeCalendar
   ui:
     calendar: '.maincalendar'

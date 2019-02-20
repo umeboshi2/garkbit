@@ -12,7 +12,7 @@ MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'ebcsv'
 
-#class ComicListView extends Backbone.Marionette.CollectionView
+#class ComicListView extends Marionette.CollectionView
 #  childView: ComicEntryView
 
 importExportTemplate = tc.renderable (model) ->
@@ -152,7 +152,7 @@ class ImportExportView extends Marionette.View
     @ui.importButton.hide()
     
 
-class MainView extends Backbone.Marionette.View
+class MainView extends Marionette.View
   regions:
     body: '.body'
   template: tc.renderable (model) ->

@@ -18,7 +18,7 @@ class MembersModel extends XMLParseModel
     config = AppChannel.request 'get-msleg-config'
     return config.hr_membs
 
-class MainView extends Backbone.Marionette.View
+class MainView extends Marionette.View
   template: tc.renderable (model) ->
     tc.h1 "MS Legislature Demo"
     tc.div '.house-members'

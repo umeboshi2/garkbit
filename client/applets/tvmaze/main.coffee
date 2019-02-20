@@ -1,6 +1,7 @@
 import $ from 'jquery'
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
+import AppRouter from 'marionette.approuter'
 import TkApplet from 'tbirds/tkapplet'
 import capitalize from 'tbirds/util/capitalize'
 
@@ -38,7 +39,7 @@ if __DEV__
   worker.onmessage = (event) ->
     console.log event.data
   
-class Router extends Marionette.AppRouter
+class Router extends AppRouter
   appRoutes:
     'tvmaze': 'viewIndex'
     'tvmaze/searchshow': 'viewSearchShow'
