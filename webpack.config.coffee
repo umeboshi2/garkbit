@@ -117,7 +117,8 @@ if BuildEnvironment is 'production'
   UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
   OptimizeCssAssetsPlugin = require 'optimize-css-assets-webpack-plugin'
   extraPlugins.push new CleanPlugin(localBuildDir[BuildEnvironment])
-  #extraPlugins.push new CompressionPlugin()
+  extraPlugins.push new CompressionPlugin
+    deleteOriginalAssets: true
   WebPackOptimization.minimizer = [
    new OptimizeCssAssetsPlugin()
    new UglifyJsPlugin uglifyPluginOptions
