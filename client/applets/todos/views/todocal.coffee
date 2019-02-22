@@ -1,5 +1,6 @@
 $ = require 'jquery'
 Backbone = require 'backbone'
+Marionette = require 'backbone.marionette'
 tc = require 'teacup'
 
 FullCalendar = require 'fullcalendar'
