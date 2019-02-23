@@ -45,6 +45,7 @@
     "coffeescript": "^2.3.2",
     "compression-webpack-plugin": "^2.0.0",
     "css-loader": "^2.1.0",
+    "elizabot": "0.0.2",
     "exports-loader": "^0.7.0",
     "expose-loader": "^0.7.5",
     "extract-loader": "^3.1.0",
@@ -77,7 +78,7 @@
     "lovefield": "^2.1.12",
     "mini-css-extract-plugin": "^0.5.0",
     "minimist": "^1.2.0",
-    "mocha": "^6.0.0",
+    "mocha": "^6.0.1",
     "mocha-webpack": "^1.1.0",
     "moment": "^2.24.0",
     "node-noto-emoji": "^0.1.1",
@@ -93,16 +94,17 @@
     "shelljs": "^0.8.3",
     "stats-webpack-plugin": "^0.7.0",
     "style-loader": "^0.23.1",
-    "tbirds": "^0.4.25",
+    "tbirds": "^0.4.26",
     "themoviedb-javascript-library": "^3.0.3",
     "uglifyjs-webpack-plugin": "^2.1.1",
     "url-loader": "^1.1.2",
     "webpack": "^4.29.5",
     "webpack-bundle-analyzer": "^3.0.4",
     "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.1.14",
+    "webpack-dev-server": "^3.2.0",
     "webpack-manifest-plugin": "^2.0.4",
     "worker-loader": "^2.0.0",
-    "xml2js-parseonly": "github:umeboshi2/node-xml2js"
+    "xml2js-parseonly": "github:umeboshi2/node-xml2js",
+    "xterm": "^3.11.0"
   }
 }
