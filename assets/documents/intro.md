@@ -52,4 +52,5 @@ This site was built with:
 This is a page that discusses some of the 
 [projects](#pages/projects) I placed on github.
 
+[Web Development](#pages/web-development-intro)
 
