@@ -3,6 +3,11 @@
 
 A couple of apps:
 
+1. [ELIZA](#eliza)
+
+	An implementation of a very old program that simulates
+	a conversation.
+  
 1. [The Movie DB (tv shows)](#moviedb)
 
 	Search for television shows, as well as movies. Shows a

@@ -31,21 +31,30 @@ dev_menu =
     }
   ]
 
+demo_menu =
+  id: 'demo-menu'
+  label: 'Demos'
+  menu: [
+    {
+      label: 'ELIZA Terminal'
+      url: '#eliza'
+      icon: '.fa.fa-terminal.text-light.bg-dark'
+    },{
+      label: 'Movie DB API Demo'
+      url: '#moviedb'
+    },{
+      label: "TVMaze API/IndexedDb Demo"
+      url: '#tvmaze'
+    }
+  ]
+
 misc_menu =
   id: 'misc-menu'
   label: 'Misc Applets'
   menu: [
     {
-      label: 'Movie DB API Demo'
-      url: '#moviedb'
-    }
-    {
       label: 'Old Time Radio'
       url: '#netark/otrr/list'
-    }
-    {
-      label: "TVMaze API/IndexedDb Demo"
-      url: '#tvmaze'
     }
     {
       label: 'Bumblr'
@@ -79,6 +88,7 @@ misc_menu =
   ]
 
 config.navbarEntries = [
+  demo_menu
   misc_menu
   ]
 
