@@ -1,0 +1,27 @@
+@import '~xterm/dist/xterm';
+
+$black: #000;
+
+.xterm {
+    @extend .xterm;
+    //font-family: monospace, courier-new, courier;
+    font-family: Mono, monospace;
+
+    .composition-view {
+	@extend .composition-view;
+	background-color: green;
+	color: red;
+    }
+
+    .xterm-viewport {
+	@extend .xterm-viewport;
+	background-color: green;
+    }
+}
+
+.terminal-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
