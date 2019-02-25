@@ -6,9 +6,9 @@ dev_menu =
   label: 'Development Applets'
   menu: [
     {
-      label: 'ELIZA Terminal'
-      url: '#eliza'
-      icon: '.fa.fa-terminal.text-light.bg-dark'
+      label: 'Sunny'
+      url: '#sunny'
+      needUser: true
     },{
       label: 'Court Listener'
       url: '#freelaw'
