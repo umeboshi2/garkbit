@@ -102,6 +102,7 @@ class BaseYardLocationView extends View
       
   # need double arrow to use as callback
   locationSuccess: (position) =>
+    console.log "locationSuccess", position
     position = position.coords
     @currentPosition = position
     @ui.yardLocation.text yard_location_text position
@@ -111,20 +112,26 @@ class BaseYardLocationView extends View
       @ui.yardButton.text 'Set Position'
     @ui.yardButton.show()
 
-  locationError: () ->
+  locationError: () =>
     MessageChannel.request 'warning', 'Unable to get current location.'
+    console.log "@ui", @ui
+    @ui.yardButton.show()
+    @ui.yardButton.text 'Get Location'
+    @ui.yardLocation.text 'Unset'
     
     
-  get_location: ->
+  get_location: =>
     @ui.yardButton.hide()
     console.log "getting location..."
     @setGettingLocationHtml 'browser'
-    navigator.geolocation.getCurrentPosition @locationSuccess, @locationError
+    navigator.geolocation.getCurrentPosition @locationSuccess, @locationError,
+    timeout: 5000
 
   onDomRefresh: ->
     console.log "onDomRefresh called"
     @setGettingLocationHtml 'database'
     geoposition = @model.get 'geoposition'
+    console.log "geoposition", geoposition
     if geoposition
       @ui.yardLocation.text yard_location_text geoposition
       @ui.yardButton.text 'Update Location'

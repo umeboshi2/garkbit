@@ -4,12 +4,12 @@ import { make_dbchannel } from 'tbirds/crud/basecrudchannel'
 MainChannel = Backbone.Radio.channel 'global'
 AppChannel = Backbone.Radio.channel 'sunny'
 
-apipath = "/api/dev/sitedocuments"
+apiRoot = "/api/dev/sunny"
 
 AuthModel = MainChannel.request 'main:app:AuthModel'
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
 
-url = '/api/dev/basic/sunnyclients'
+url = "#{apiRoot}/client"
 class Client extends AuthModel
   urlRoot: url
     
@@ -21,7 +21,7 @@ class Clients extends AuthCollection
 
 make_dbchannel AppChannel, 'client', Client, Clients
   
-url = '/api/dev/basic/yards'
+url = "#{apiRoot}/yard"
 class Yard extends AuthModel
   urlRoot: url
 
@@ -31,7 +31,7 @@ class Yards extends AuthCollection
   
 make_dbchannel AppChannel, 'yard', Yard, Yards
 
-url = '/api/dev/basic/yardroutines'
+url = "#{apiRoot}/yardroutine"
 class YardRoutine extends AuthModel
   urlRoot: url
   defaults: ->
@@ -49,7 +49,7 @@ class YardRoutines extends AuthCollection
 make_dbchannel AppChannel, 'yardroutine', YardRoutine, YardRoutines
   
 
-url = '/api/dev/basic/yardroutinejobs'
+url = "#{apiRoot}/yardroutinejob"
 class YardRoutineJob extends AuthModel
   urlRoot: url
 

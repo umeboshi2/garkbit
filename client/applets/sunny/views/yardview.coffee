@@ -10,13 +10,10 @@ import {
   make_field_input
   make_field_textarea } from 'tbirds/templates/forms'
 
-Marionette = require 'backbone.marionette'
-
-{ EditYardView
-  NewYardView } = require './yardeditor'
+import { EditYardView, NewYardView } from './yardeditor'
 
 YardLocationView = require './yardlocation'
-YardRoutineView = require './yardroutine'
+import YardRoutineView from './yardroutine'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
@@ -33,12 +30,6 @@ class YardHeaderView extends View
       tc.text "#{model.sunnyclient.fullname}" || 'client'
 
 class YardViewer extends View
-  templateOrig: tc.renderable (model) ->
-    tc.div '#yard-header.listview-header'
-    tc.div '#location-container.listview-list-entry'
-    tc.div '#yard-editor.listview-list-entry'
-    tc.div '#yard-routine.listview-list-entry'
-    
   template: tc.renderable (model) ->
     tc.div '#yard-header.listview-header'
     tc.div '#yard-routine.listview-list-entry'
@@ -53,10 +44,11 @@ class YardViewer extends View
     
     
   _show_viewclass: (region, ViewClass) ->
+  showViewClass: (region, ViewClass) ->
     view = new ViewClass
       model: @model
     @showChildView region, view
-    
+
   onRender: ->
     if @model.has 'name'
       headerClass = YardHeaderView
@@ -64,10 +56,10 @@ class YardViewer extends View
     else
       headerClass = NewHeaderView
       editorClass = NewYardView
-    @_show_viewclass 'header', headerClass
-    @_show_viewclass 'editor', editorClass
-    @_show_viewclass 'location', YardLocationView
-    @_show_viewclass 'routine', YardRoutineView
+    @showViewClass 'header', headerClass
+    @showViewClass 'editor', editorClass
+    @showViewClass 'location', YardLocationView
+    @showViewClass 'routine', YardRoutineView
     
     
 export default YardViewer

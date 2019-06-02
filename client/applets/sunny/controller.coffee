@@ -26,25 +26,25 @@ class AppletLayout extends View
   
 
 class Controller extends MainController
-  layoutClass: AppletLayout
+  layoutClass: ToolbarAppletLayout
   clients: AppChannel.request 'client-collection'
   
   list_clients: () ->
-    @setup_layout_if_needed()
+    @setupLayoutIfNeeded()
     require.ensure [], () =>
       ListView = require './views/clientlist'
       view = new ListView
         collection: @clients
       response = @clients.fetch()
       response.done =>
-        @_show_content view
+        @layout.showChildView 'content', view
       response.fail ->
         MessageChannel.request 'danger', "Failed to load clients."
     # name the chunk
     , 'sunny-view-list-clients'
 
   new_client: () ->
-    @setup_layout_if_needed()
+    @setupLayoutIfNeeded()
     require.ensure [], () =>
       { NewClientView } = require './views/clienteditor'
       @layout.showChildView 'content', new NewClientView
@@ -52,9 +52,10 @@ class Controller extends MainController
     , 'sunny-view-new-client'
       
   add_yard: (client_id) ->
-    @setup_layout_if_needed()
+    @setupLayoutIfNeeded()
     require.ensure [], () =>
-      YardView = require './views/yardview'
+      YardView = require('./views/yardview').default
+      console.log "YardView", YardView
       # { NewYardView } = require './views/yardeditor'
       # view = new NewYardView
       model = AppChannel.request 'new-yard'
@@ -66,7 +67,7 @@ class Controller extends MainController
     , 'sunny-view-add-yard'
 
   view_yard: (yard_id) ->
-    @setup_layout_if_needed()
+    @setupLayoutIfNeeded()
     require.ensure [], () =>
       YardView = require './views/yardview'
       model = AppChannel.request 'get-yard', yard_id
@@ -93,7 +94,7 @@ class Controller extends MainController
     @layout.showChildView 'content', view
     
   edit_client: (id) ->
-    @setup_layout_if_needed()
+    @setupLayoutIfNeeded()
     require.ensure [], () =>
       { EditClientView } = require './views/clienteditor'
       model = AppChannel.request 'get-client', id
@@ -125,7 +126,7 @@ class Controller extends MainController
     
       
   view_client: (id) ->
-    @setup_layout_if_needed()
+    @setupLayoutIfNeeded()
     require.ensure [], () =>
       ClientMainView = require './views/viewclient'
       model = AppChannel.request 'get-client', id

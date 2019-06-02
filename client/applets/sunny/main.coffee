@@ -82,12 +82,15 @@ AppChannel = Backbone.Radio.channel 'sunny'
 appletMenu = [
   {
     label: 'List'
-    url: '#eliza'
+    url: '#sunny/clients'
     icon: '.fa.fa-list'
-  }
-  {
+  },{
+    label: 'New Client'
+    url: '#sunny/clients/new'
+    icon: '.fa.fa-list'
+  },{
     label: 'Calendar'
-    url: '#eliza/calendar'
+    url: '#sunny/calendar'
     icon: '.fa.fa-calendar'
   }
   ]

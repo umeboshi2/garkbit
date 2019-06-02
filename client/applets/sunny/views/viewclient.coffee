@@ -9,17 +9,25 @@ client_yard_teplate = tc.renderable (model) ->
     tc.a href:"#sunny/yards/view/#{model.id}", model.name
     
 client_view_template = tc.renderable (model) ->
+  #tc.div '.row.listview-list-entry', ->
   tc.div '.row.listview-list-entry', ->
-    tc.span "Name: #{model.name}"
-    tc.br()
-    tc.span "Full Name: #{model.fullname}"
-    tc.br()
-    tc.span "Email: #{model.email}"
-    tc.br()
-    tc.span "Description"
-    tc.br()
-    tc.div model.description
-    tc.span ".glyphicon.glyphicon-grain"
+    tc.table '.table', ->
+      tc.thead '.table-info', ->
+        tc.tr ->
+          tc.th scope:'col', "Option"
+          tc.th scope:'col', "Value"
+      tc.tr ->
+        tc.td "Name:"
+        tc.td "#{model.name}"
+      tc.tr ->
+        tc.td "Full Name:"
+        tc.td "#{model.fullname}"
+      tc.tr ->
+        tc.td "Email:"
+        tc.td "#{model.email}"
+      tc.tr ->
+        tc.td "Description"
+        tc.td model.description
   tc.div '.row', ->
     tc.div '.listview-header', ->
       tc.span 'Yards'

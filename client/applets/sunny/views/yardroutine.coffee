@@ -1,6 +1,6 @@
 import _ from 'underscore'
 import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
 import FullCalendar from 'fullcalendar'
 import 'fullcalendar/dist/fullcalendar.css'
@@ -55,7 +55,7 @@ class BaseYardRoutineEditor extends BootstrapFormView
     collection.add @model
     super arguments
     
-class YardRoutineInfo extends Backbone.Marionette.View
+class YardRoutineInfo extends View
   template:  tc.renderable (model) ->
     tc.span "Routine:"
     if model?.yardroutines
@@ -65,7 +65,7 @@ class YardRoutineInfo extends Backbone.Marionette.View
     tc.text ytext
     
 
-class BaseYardRoutineView extends Backbone.Marionette.View
+class BaseYardRoutineView extends View
   template:  tc.renderable (model) ->
     #tc.span "Routine:"
     #if model?.yardroutines
@@ -131,6 +131,6 @@ class BaseYardRoutineView extends Backbone.Marionette.View
 
     
     
-module.exports = BaseYardRoutineView
+export default BaseYardRoutineView
   
 
