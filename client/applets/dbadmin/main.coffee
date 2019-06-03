@@ -5,6 +5,7 @@ import TkApplet from 'tbirds/tkapplet'
 import capitalize from 'tbirds/util/capitalize'
 
 import Controller from './controller'
+import AdminRouter from '../../adminrouter'
 
 appName = 'dbadmin'
 
@@ -25,7 +26,7 @@ appletMenu = [
   }
   ]
 
-class Router extends AppRouter
+class Router extends AdminRouter
   appRoutes:
     'dbadmin': 'viewIndex'
     
