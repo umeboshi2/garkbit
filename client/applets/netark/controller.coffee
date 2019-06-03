@@ -86,7 +86,6 @@ class Controller extends MainController
       console.log "model---", mdata
       response = mdata.fetch()
       response.done =>
-        console.warn "response.done", mdata
         console.log "MODEL---------->", mdata
         view = new View
           model: mdata
