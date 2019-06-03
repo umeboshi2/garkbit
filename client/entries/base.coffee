@@ -4,7 +4,7 @@ import Backbone from 'backbone'
 #Backbone.Relational = require 'backbone-relational'
 
 #import 'backbone.routefilter'
-import Marionette from 'backbone.marionette'
+import { View } from 'backbone.marionette'
 import lf from 'lovefield'
 
 # setup backbone relational and jsonapi
@@ -19,13 +19,14 @@ import "bootstrap"
 import 'font-awesome/scss/font-awesome.scss'
 # FIXME need better way to resolve tbirds sass
 if not __useCssModules__
-  require '../../node_modules/tbirds/sass/cornsilk.scss'
+  require '../../node_modules/tbirds/sass/cornsilk-purple.scss'
 else
   require '../../node_modules/tbirds/sass/initial.scss'
   
 if __DEV__
   console.warn "__DEV__", __DEV__, "DEBUG", DEBUG
   Backbone.Radio.DEBUG = true
+
   
 import 'tbirds/applet-router'
 import IsEscapeModal from 'tbirds/behaviors/is-escape-modal'
@@ -69,7 +70,7 @@ MainChannel.reply 'export-to-file', (options) ->
   exportToFile options
   
 
-class BaseModalView extends Marionette.View
+class BaseModalView extends View
   behaviors: [IsEscapeModal]
   ui:
     close_btn: '#close-modal div'

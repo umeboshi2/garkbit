@@ -36,6 +36,11 @@ demo_menu =
   label: 'Demos'
   menu: [
     {
+      label: 'Taxes'
+      url: '#taxes'
+      #icon: '.fa.fa-anchor.text-light.bg-dark'
+      icon: '.fa.fa-dollar'
+    },{
       label: 'ELIZA Terminal'
       url: '#eliza'
       icon: '.fa.fa-terminal.text-light.bg-dark'
