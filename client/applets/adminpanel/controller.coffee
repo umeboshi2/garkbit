@@ -17,13 +17,14 @@ ResourceChannel = Backbone.Radio.channel 'resources'
 tc = require 'teacup'
 
 class ReadMeModel extends Backbone.Model
-  url: "https://raw.githubusercontent.com/umeboshi2/garkbit/master/README.md"
+  url: '/assets/documents/intro-admin.md'
   fetch: (options) ->
     options = options or {}
     options.dataType = 'text'
     super options
   parse: (response) ->
     content: response
+  
     
 frontdoor_template = tc.renderable () ->
   tc.div '.row', ->
@@ -102,12 +103,6 @@ class Controller extends MainController
     console.log "view_readme", @
     @setupLayoutIfNeeded()
     model = new ReadMeModel
-    if true and __DEV__
-      readme = require 'raw-loader!../../../assets/documents/intro.md'
-      model = new Backbone.Model content:readme
-      console.log "MODEL", model
-      @_view_resource model
-      return
     response = model.fetch()
     response.done =>
       @_view_resource model
