@@ -54,6 +54,8 @@ class UserMenuApp extends Toolkit.App
   initialize: (options) ->
     token = MainChannel.request "main:app:decode-auth-token"
     @options.user = token
+    if not token?.groups
+      token.groups = []
     view = new UserMenuView
       appConfig: @getOption 'appConfig'
       model: new Backbone.Model @getOption 'user'
