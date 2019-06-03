@@ -7,13 +7,17 @@ MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 
 class AdminRouter extends AppRouter
-  before: ->
+  # Backbone.Router prototype overridden by
+  # backbone.routefilter which provides "before" method
+  before: (route, params) ->
     user = MainChannel.request 'main:app:decode-auth-token'
+    isAdmin = false
     if not isObjectEmpty user
-      if 'admin' not in user.groups
-        MessageChannel.request 'danger', 'Admin access only!'
-        #navigate_to_url '/'
-    return
+      if 'admin' in user.groups
+        isAdmin = true
+    if not isAdmin
+      MessageChannel.request 'warning', 'Admin access only!'
+      navigate_to_url '/#frontdoor/login'
 
 export default AdminRouter
 
