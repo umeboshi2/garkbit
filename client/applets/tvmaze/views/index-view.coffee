@@ -14,7 +14,7 @@ MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'tvmaze'
 
-mainText = require 'raw-loader!../index-doc.md'
+mainText = require('raw-loader!../index-doc.md').default
 
 
 itemTemplate = tc.renderable (model) ->
