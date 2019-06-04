@@ -106,19 +106,18 @@ uglifyPluginOptions =
   sourceMap: true
   parallel: true
   uglifyOptions:
-    compress:
-      warnings: true
     warnings: true
 
+cleanWebpackOpts =
+  verbose: true
 
 if BuildEnvironment is 'production'
-  CleanPlugin = require 'clean-webpack-plugin'
+  { CleanWebpackPlugin } = require 'clean-webpack-plugin'
   CompressionPlugin = require 'compression-webpack-plugin'
   UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
   OptimizeCssAssetsPlugin = require 'optimize-css-assets-webpack-plugin'
-  extraPlugins.push new CleanPlugin(localBuildDir[BuildEnvironment])
-  #extraPlugins.push new CompressionPlugin
-  #  deleteOriginalAssets: false
+
+  extraPlugins.push new CleanWebpackPlugin(cleanWebpackOpts)
   WebPackOptimization.minimizer = [
    new OptimizeCssAssetsPlugin()
    new UglifyJsPlugin uglifyPluginOptions
