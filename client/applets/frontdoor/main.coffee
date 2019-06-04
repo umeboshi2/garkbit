@@ -38,6 +38,8 @@ class Router extends AppRouter
     'frontdoor/stats': 'statsView'
 
     'frontdoor/emojilist': 'viewEmojis'
+    'frontdoor/dbadmin': 'viewDbAdmin'
+    
 class Applet extends TkApplet
   Controller: Controller
   Router: Router
