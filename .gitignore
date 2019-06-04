@@ -113,3 +113,8 @@ stats-dev.json
 /.cltoken
 /.lcltoken
 
+# development databases
+/*.sqlite
+/*.sqlite-journal
+
+
