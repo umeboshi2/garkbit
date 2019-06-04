@@ -15,6 +15,7 @@ from pyramid.httpexceptions import HTTPNotFound
 from trumpet.views.base import BaseUserViewCallable
 from trumpet.views.resourceviews import SimpleModelResource
 from trumpet.views.resourceviews import BaseModelResource
+from trumpet.views.resourceviews import BaseResource
 
 from ..models.mymodel import ObjectSummary
 
@@ -51,8 +52,6 @@ class LeakView(SimpleModelResource):
     def post_a_summary(self):
         name = self.request.json['name']
         content = self.make_summary()
-        
-        print("NAME________________________{}".format(name))
         with transaction.manager:
             m = self.model()
             m.name = name
@@ -69,8 +68,36 @@ class LeakView(SimpleModelResource):
             return dict(foo='bar')
         else:
             raise HTTPNotFound
+
+@resource(collection_path='/api/dev/memdiff',
+          path='/api/dev/memdiff/{id}',
+          permission='dbadmin')
+class DiffView(BaseResource):
+    def __init__(self, request, context=None):
+        super(DiffView, self).__init__(request, context=context)
+
+    def __acl__(self):
+        # FIXME use better group principal
+        return [(Allow, 'group:1', 'dbadmin')]
+    
+    def collection_post(self):
+        print("REQUEST {}".format(self.request.json))
+        sums = []
+        for key in 'sum1', 'sum2':
+            sums.append(self.request.json[key])
+        with transaction.manager:
+            query = self.request.dbsession.query(ObjectSummary)
+            query = query.filter(ObjectSummary.id.in_(sums))
+            query = query.order_by(ObjectSummary.created)
+            dbsums = query.all()
+        sums = [m.content for m in dbsums]
+        diff = summary.get_diff(*sums)
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            summary.print_(diff)
         
-      
+        #import pdb ; pdb.set_trace()
+        return dict(result='testing', output=output.getvalue())
     
 
 
