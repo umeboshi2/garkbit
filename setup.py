@@ -17,13 +17,13 @@ requirements = [
     'gunicorn',
     'hattie>=0.2.21',
     'hornstone>=0.1.8',
-    'Pympler==0.5',
+    'Pympler>=0.7',
     'pyramid_jinja2',
     'pyramid_retry',
     'pyramid_force_https',
     'pyramid_jwt',
     'trumpet>=0.2.6',
-    'WSGIProxy2==0.4.4',
+    'WSGIProxy2>=0.4.6',
     # testing
     'pyramid_jsonapi',
     'paginate_sqlalchemy',
@@ -47,6 +47,12 @@ test_requirements = [
     # TODO: put package test requirements here
 ]
 
+console_scripts = [
+    'initialize_garkbit_db = garkbit.scripts.initializedb:main',
+    'initialize_garkbit_localdb = garkbit.scripts.initializelocaldb:main',
+    ]
+
+
 setup(
     name='garkbit',
     version='0.1.0',
@@ -60,9 +66,7 @@ setup(
         'paste.app_factory': [
             'main = garkbit:main',
         ],
-        'console_scripts': [
-            'initialize_garkbit_db = garkbit.scripts.initializedb:main',
-        ]
+        'console_scripts': console_scripts
     },
     include_package_data=True,
     install_requires=requirements,
