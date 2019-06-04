@@ -12,4 +12,5 @@ pyramid_jwt
 pyramid_jsonapi
 trumpet>=0.2.6
 WSGIProxy2>=0.4.6
-./
+-e .
+
