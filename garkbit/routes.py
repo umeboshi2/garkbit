@@ -43,7 +43,8 @@ def includeme(config):
         'sitecontent', 'auth', 'todos',
         'useradmin',
         'wikipages',
-        'ebcsv']
+        'ebcsv',
+        'sunny',]
     if not use_pj and False:
         scan_views.append('notfound')
     for view in scan_views:
