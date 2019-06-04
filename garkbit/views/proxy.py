@@ -7,14 +7,6 @@ from wsgiproxy import HostProxy
 
 from webob import Request
 
-APIROOT = '/api/dev/bsapi'
-
-rscroot = os.path.join(APIROOT, 'main')
-
-wiki_path = os.path.join(rscroot, 'archiveorg')
-
-last_modified_format = "%a, %d %b %Y %H:%M:%S %Z"
-
 
 class ProxyView(BaseUserViewCallable):
     def __init__(self, request):
