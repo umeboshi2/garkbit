@@ -12,12 +12,12 @@ import zipfile
 import requests
 from sqlalchemy import engine_from_config
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, PickleType
+# from sqlalchemy.ext.declarative import declarative_base
+# from sqlalchemy import Column, PickleType
 import zope.sqlalchemy
 import transaction
 
-from hornstone.models.base import BaseLongNameIdMixin
+# from hornstone.models.base import BaseLongNameIdMixin
 
 from hattie.database import Base
 from hattie.database import Meeting
@@ -44,8 +44,9 @@ if 'TMPHUBBYDB' in os.environ and runtimedir_varname in os.environ:
 
 else:
     # dburl = "postgresql://dbadmin@localhost/hubbytest"
-    dburl = "sqlite:///%(here)s/garkbit.sqlite" % dict(here=os.getcwd())
+    # dburl = "sqlite:///%(here)s/garkbit.sqlite" % dict(here=os.getcwd())
     dburl = 'postgresql://dbadmin@localhost/hubbytest'
+    dburl = "sqlite:///%(here)s/hattie.sqlite" % dict(here=os.getcwd())
 
 here = os.getcwd()
 print("dburl", dburl)
@@ -61,7 +62,7 @@ s = Session()
 pc = PickleCollector()
 if not os.path.isdir(pc.dir):
     os.makedirs(pc.dir)
-cc = ZipCollector(open('data.zip', 'rb'))
+#cc = ZipCollector(open('data.zip', 'rb'))
 manager = DatabaseManager(s, pc)
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
