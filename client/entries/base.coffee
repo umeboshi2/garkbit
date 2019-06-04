@@ -3,7 +3,7 @@ import _ from 'underscore'
 import Backbone from 'backbone'
 #Backbone.Relational = require 'backbone-relational'
 
-#import 'backbone.routefilter'
+require 'backbone.routefilter'
 import { View } from 'backbone.marionette'
 import lf from 'lovefield'
 
@@ -45,7 +45,7 @@ MainChannel.reply 'main:app:set-pagesize', (pagesize) ->
 MainChannel.reply 'main:app:get-pagesize', ->
   localStorage.getItem 'page-size'
 
-if __DEV__
+if __DEV__ and false
   require '../inspector'
 #require '../authmodels'
 require '../crud'

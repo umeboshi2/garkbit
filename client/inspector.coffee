@@ -1,7 +1,6 @@
 $= require 'jquery'
 _ = require 'underscore'
 Backbone = require 'backbone'
-require 'backbone.routefilter'
 Marionette = require 'backbone.marionette'
 
 
