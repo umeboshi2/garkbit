@@ -1,7 +1,7 @@
 import os
 
 from bs4 import BeautifulSoup
-from hornstone.scrapers.base import CacheCollector
+from hornstone.scrapers.base import BaseCollector
 
 
 url_prefix = 'http://en.wikipedia.org/wiki/'
@@ -40,10 +40,13 @@ def cleanup_wiki_page(content):
     return soup
 
 
-class WikiCollector(CacheCollector):
+class WikiCollector(BaseCollector):
+    def __init__(self, format='json'):
+        super(WikiCollector, self).__init__()
+        self.format = format
+
     def get_wiki_page(self, name):
         url = os.path.join(url_prefix, name)
-        data = self.get_from_cache(url)
-        if data is None:
-            self.save_to_cache(url)
-        return self.get_from_cache(url)
+        self.retrieve_page(url)
+        data = dict(info=self.info, content=self.content, url=self.url)
+        return data

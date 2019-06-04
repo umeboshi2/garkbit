@@ -5,11 +5,14 @@ from urllib.error import HTTPError
 
 # from pyramid.view import view_config, view_defaults
 from cornice.resource import resource, view
+# from bs4 import BeautifulSoup
+
+# from pyramid.view import view_config
+# from pyramid.view import view_defaults
 # from pyramid.httpexceptions import HTTPNotFound
 # from pyramid.httpexceptions import HTTPFound
 # from pyramid.httpexceptions import HTTPForbidden
-# from bs4 import BeautifulSoup
-from pyramid.view import view_config, view_defaults
+
 from pyramid.security import Allow
 from pyramid.security import Everyone, Authenticated
 from sqlalchemy.orm.exc import NoResultFound
@@ -29,6 +32,7 @@ wiki_path = os.path.join(rscroot, 'wikipages')
 
 last_modified_format = "%a, %d %b %Y %H:%M:%S %Z"
 
+
 class BaseManager(object):
     def __init__(self, session):
         self.session = session
@@ -38,6 +42,7 @@ class BaseManager(object):
 
     def get(self, id):
         return self.query().get(id)
+
 
 class GetByNameManager(BaseManager):
     def get_by_name_query(self, name):
@@ -50,13 +55,11 @@ class GetByNameManager(BaseManager):
         except NoResultFound:
             return None
 
+
 class WikiPageManager(GetByNameManager):
     dbmodel = WikiPage
 
-    
 
-
-#@view_defaults(permission="wikipages")
 @resource(collection_path=wiki_path,
           path=os.path.join(wiki_path, '{name}'),
           permission='wikipages')
