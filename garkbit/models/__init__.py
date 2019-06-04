@@ -6,14 +6,22 @@ import zope.sqlalchemy
 
 # import or define all models here to ensure they are attached to the
 # Base.metadata prior to any initialization routines
-from .mymodel import MyModel  # flake8: noqa
-from . import ebcsv
 
-from . import hubby
+# from .mymodel import MyModel  # flake8: noqa
+# from . import ebcsv
+# from . import hubby
 
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup
 configure_mappers()
+
+
+def make_local_settings(settings):
+    local_settings = dict()
+    local_settings['sqlalchemy.url'] = settings['hattie_dburl']
+    if 'tm.manager_hook' in settings:
+        local_settings['tm.manager_hook'] = settings['tm.manager_hook']
+    return local_settings
 
 
 def get_engine(settings, prefix='sqlalchemy.'):
@@ -80,5 +88,17 @@ def includeme(config):
         # r.tm is the transaction manager used by pyramid_tm
         lambda r: get_tm_session(session_factory, r.tm),
         'dbsession',
+        reify=True
+    )
+
+    local_settings = make_local_settings(settings)
+    local_session_factory = get_session_factory(get_engine(local_settings))
+    config.registry['local_dbsession_factory'] = session_factory
+
+    # make request.dbsession available for use in Pyramid
+    config.add_request_method(
+        # r.tm is the transaction manager used by pyramid_tm
+        lambda r: get_tm_session(local_session_factory, r.tm),
+        'local_dbsession',
         reify=True
     )
