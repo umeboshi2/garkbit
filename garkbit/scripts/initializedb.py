@@ -18,6 +18,7 @@ from ..models import (
 #from ..models import MyModel
 
 from ..models import usergroup
+from ..models import sunny
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
