@@ -1,0 +1,19 @@
+@import "node_modules/tbirds/sass/X11colors";
+
+//$primary-color: desaturate($color-BlanchedAlmond, 80%);
+$primary: lighten(desaturate($color-cornsilk2, 40%), 10%);
+
+//$primary: $color-DarkSlateBlue;
+
+//$secondary-color: darken($color-RosyBrown, 20%);
+$secondary: $color-DarkSlateBlue;
+
+$background: darken($primary, 20%);
+$body-bg: $background;
+$body-color: $black;
+
+$list-group-bg: darken(desaturate($color-BlanchedAlmond, 80%), 20%);
+
+$panel-bg: darken($background, 10%);
+
+$link-color: darken($color-DarkSlateBlue, 5%);
