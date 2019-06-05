@@ -1,23 +1,12 @@
 import os
-import contextlib
-import io
-import types
 
-import transaction
-from webob import Response
-from pympler import muppy
-from pympler import summary
 from pyramid.security import Allow
 from cornice.resource import resource
-from pyramid.httpexceptions import HTTPNotFound
+# from pyramid.httpexceptions import HTTPNotFound
 
 
-from trumpet.views.base import BaseUserViewCallable
 from trumpet.views.resourceviews import SimpleModelResource
-from trumpet.views.resourceviews import BaseModelResource
-from trumpet.views.resourceviews import BaseResource
 
-#from ..models.mymodel import ObjectSummary
 from ..models.sunny import (
     GeoPosition,
     MapLocation,
