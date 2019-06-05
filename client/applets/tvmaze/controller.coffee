@@ -7,6 +7,7 @@ import ToolbarView from 'tbirds/views/button-toolbar'
 import { MainController } from 'tbirds/controllers'
 import { ToolbarAppletLayout } from 'tbirds/views/layout'
 import navigate_to_url from 'tbirds/util/navigate-to-url'
+
 scroll_top_fast = require 'tbirds/util/scroll-top-fast'
 
 import './dbchannel'
@@ -101,7 +102,7 @@ class Controller extends MainController
     require.ensure [], () =>
       lcollection = AppChannel.request 'get-all-local-tvshows'
       Collection = AppChannel.request 'tv-show-search-collection'
-      View = require './views/sample-data-import'
+      View = require('./views/sample-data-import').default
       lcollection.fetch().then =>
         view = new View
         @layout.showChildView 'content', view

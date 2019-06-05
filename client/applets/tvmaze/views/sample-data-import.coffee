@@ -1,9 +1,9 @@
-{ map } = require 'underscore'
-$ = require 'jquery'
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-marked = require 'marked'
+import { map } from 'underscore'
+import $ from 'jquery'
+import Backbone from 'backbone'
+import Marionette from 'backbone.marionette'
+import tc from 'teacup'
+import marked from 'marked'
 
 navigate_to_url = require('tbirds/util/navigate-to-url').default
 { ProgressModel
@@ -193,5 +193,5 @@ class MainView extends Marionette.View
     show = shows.models[0]
     @importShow show
     
-module.exports = MainView
+export default MainView
 
