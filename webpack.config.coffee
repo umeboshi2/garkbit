@@ -84,12 +84,12 @@ common_plugins = [
       yandex: false
       windows: false
   new HtmlPlugin
-    template: './index.coffee'
+    template: './client/templates/index.coffee'
     filename: adminPage[BuildEnvironment]
     entryPoint: 'admin'
     inject: true
   new HtmlPlugin
-    template: './index.coffee'
+    template: './client/templates/index.coffee'
     filename: 'index.html'
     entryPoint: 'index'
     inject: true
