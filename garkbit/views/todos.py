@@ -1,25 +1,10 @@
 
 import os
-# from configparser import ConfigParser
-# from datetime import datetime
-# from urllib.error import HTTPError
 
 from pyramid.security import Allow, Authenticated
 from cornice.resource import resource
-# from cornice.resource import view
-# from pyramid.httpexceptions import HTTPNotFound
-# from pyramid.httpexceptions import HTTPFound
-# from pyramid.httpexceptions import HTTPForbidden
-# from sqlalchemy.orm.exc import NoResultFound
-# import transaction
 
 from trumpet.views.resourceviews import BaseModelResource
-
-# from hornstone.alchemy import TimeStampMixin
-
-# from pyramid.view import view_config
-# from pyramid.response import Response
-# import requests
 
 from alchemyjsonschema import SchemaFactory
 from alchemyjsonschema import NoForeignKeyWalker
