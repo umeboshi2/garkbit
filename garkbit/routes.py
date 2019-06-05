@@ -65,6 +65,7 @@ def includeme(config):
 
     config.add_route('home', '/')
     config.add_route('admin', '/admin')
+    config.scan('.views.client')
 
     config.include("akhet.static")
     config.add_static_route('garkbit', 'dist')
