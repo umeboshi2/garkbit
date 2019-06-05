@@ -161,7 +161,8 @@ class MainView extends Marionette.View
     tc.div '.body'
   onRender: ->
     app = MainChannel.request 'main:app:object'
-    dbConn = app.getState 'dbConn'
+    dbConn = app.dbConn
+    
     @collection = new Backbone.Collection
     view = new Marionette.CollectionView
       collection: @collection
