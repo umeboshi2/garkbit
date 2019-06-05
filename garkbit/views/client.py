@@ -9,9 +9,7 @@ from pyramid.httpexceptions import HTTPNotFound
 
 from trumpet.views.client import BaseClientView
 
-# from .base import BaseUserViewCallable
-from .util import make_app_page
-
+# from .util import make_app_page
 
 class MyResource(object):
     def __init__(self, name, parent=None):
@@ -19,7 +17,7 @@ class MyResource(object):
         self.__parent__ = parent
 
 
-@view_defaults(renderer='garkbit:templates/mainview_bs4.mako')
+# @view_defaults(renderer='garkbit:templates/mainview_bs4.mako')
 class ClientView(BaseClientView):
     @view_config(route_name='home')
     def index(self):
@@ -54,6 +52,7 @@ class ClientView(BaseClientView):
             raise HTTPNotFound('no way')
         
     def get_main(self, appname=None, basecolor=None):
+        raise RuntimeError("unused method get_main")
         settings = self.get_app_settings()
         if appname is None:
             appname = settings.get('default.js.mainapp', 'frontdoor')
