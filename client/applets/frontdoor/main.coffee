@@ -31,6 +31,8 @@ class Router extends AppRouter
     'frontdoor/view/*name': 'viewPage'
     'frontdoor/login': 'showLogin'
     'frontdoor/logout': 'showLogout'
+    'login': 'showLogin'
+    'logout': 'showLogout'
     #FIXME
     'pages/:name': 'viewPage'
     'frontdoor/upload': 'uploadView'

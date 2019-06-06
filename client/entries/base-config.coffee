@@ -5,7 +5,9 @@ import config from 'tbirds/app-config'
 import MainPageLayout from 'tbirds/tklayout'
 import emoji from 'node-emoji'
 
+import navbarBrandTemplate from './navbar-brand-template'
 import UserMenuApp from './user-menu-view'
+
 
 class Layout extends MainPageLayout
   template: tc.renderable () ->
@@ -25,17 +27,6 @@ class Layout extends MainPageLayout
     footer: '#footer'
 
   
-navbarBrandTemplate = tc.renderable (model) ->
-  padding = '.pt-2.pl-2.pr-2'
-  padding = "#{padding}.mb-0.rounded.border.border-secondary"
-  src = "/assets/Cartoon-Concierge.svg"
-  tc.a ".navbar-brand.bg-body-d5#{padding}", href:model.url, ->
-    tc.img '.mb-2', src:src, style:'width:1.5rem;height:1.5rem'
-    tm = emoji.get 'tm'
-    tc.span '.mt-2', "#{model.label}#{tm}"
-  tc.span '.toggle-container'
-
-
 config.userMenuApp = UserMenuApp
 config.layout = Layout
 config.hasUser = true
@@ -51,8 +42,10 @@ if __DEV__ and false
   config.authToken.refreshInterval = '10s'
 
 config.authToken.refreshIntervalMultiple = 3
-config.authToken.loginUrl = '#frontdoor/login'
+config.authToken.loginUrl = '#login'
 
 config.appRegion = '#root-div'
+#config.useNavbar = false
+
 
 export default config
