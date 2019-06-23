@@ -1,6 +1,5 @@
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
-import AppRouter from 'marionette.approuter'
 import TkApplet from 'tbirds/tkapplet'
 
 import './dbchannel'
@@ -9,6 +8,7 @@ import Controller from './controller'
 
 MainChannel = Backbone.Radio.channel 'global'
 AppChannel = Backbone.Radio.channel 'todos'
+AppRouter = MainChannel.request 'main:app:IndexRouter'
 
 class Router extends AppRouter
   appRoutes:

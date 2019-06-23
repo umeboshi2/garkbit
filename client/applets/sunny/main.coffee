@@ -1,6 +1,5 @@
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
-import AppRouter from 'marionette.approuter'
 import TkApplet from 'tbirds/tkapplet'
 import capitalize from 'tbirds/util/capitalize'
 
@@ -10,7 +9,7 @@ import Controller from './controller'
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'sunny'
-
+AppRouter = MainChannel.request 'main:app:IndexRouter'
 
 # Have a set of default routines
 # make from cut, weed, edge, trim

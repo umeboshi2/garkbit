@@ -14,7 +14,9 @@ import TH from 'tbirds/token-handler'
 import objectEmpty from '../object-empty'
 
 import './base'
+import IndexRouter from '../indexrouter'
 import FooterView from './footerview'
+import './site-nav'
 
 pkg = require '../../package.json'
 pkgmodel = new Backbone.Model pkg
@@ -25,12 +27,14 @@ import bumblrSchema from '../applets/bumblr/dbschema'
 import tvmazeSchema from '../applets/tvmaze/dbschema'
 import mslegSchema from '../applets/msleg/dbschema'
 
-import MainAppConfig from './index-config'
+import MainAppConfig from './base-config'
 
 setupAuthModels MainAppConfig
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
+SiteNavChannel = Backbone.Radio.channel 'site-nav'
+
 
 show_footer = ->
   token = MainChannel.request 'main:app:decode-auth-token'
@@ -56,6 +60,7 @@ app.on 'before:start', ->
   MainChannel.request 'main:app:switch-theme', theme
   
 app.on 'start', ->
+  SiteNavChannel.request 'set-index-entries'
   #show_footer()
   #setInterval show_footer, ms '5s'
   refreshOpts =

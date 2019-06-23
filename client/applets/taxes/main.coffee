@@ -1,6 +1,5 @@
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
-import AppRouter from 'marionette.approuter'
 import TkApplet from 'tbirds/tkapplet'
 import capitalize from 'tbirds/util/capitalize'
 
@@ -10,7 +9,7 @@ appName = 'taxes'
 
 MainChannel = Backbone.Radio.channel 'global'
 AppChannel = Backbone.Radio.channel appName
-
+AppRouter = MainChannel.request 'main:app:IndexRouter'
 
 appletMenu = [
   {

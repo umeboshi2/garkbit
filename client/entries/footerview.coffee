@@ -11,7 +11,7 @@ require './base'
 pkg = require '../../package.json'
 pkgmodel = new Backbone.Model pkg
 
-MainAppConfig = require './index-config'
+MainAppConfig = require './base-config'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'

@@ -1,11 +1,11 @@
 import Marionette from 'backbone.marionette'
-import AppRouter from 'marionette.approuter'
 import TkApplet from 'tbirds/tkapplet'
 
 import Controller from './controller'
 
 MainChannel = Backbone.Radio.channel 'global'
 AppChannel = Backbone.Radio.channel 'frontdoor'
+AppRouter = MainChannel.request 'main:app:IndexRouter'
 
 appletEntries = [
   {
@@ -49,6 +49,7 @@ class Applet extends TkApplet
   onStop: ->
     console.log "(Child) Stopping frontdoor", @.isRunning()
     super()
+  
   appletEntries: [
     {
       label: 'Main Menu'

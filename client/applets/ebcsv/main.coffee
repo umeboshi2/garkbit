@@ -1,6 +1,5 @@
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
-import AppRouter from 'marionette.approuter'
 import TkApplet from 'tbirds/tkapplet'
 
 require './dbchannel'
@@ -10,6 +9,7 @@ import Controller from './controller'
 
 MainChannel = Backbone.Radio.channel 'global'
 ResourceChannel = Backbone.Radio.channel 'resources'
+AppRouter = MainChannel.request 'main:app:IndexRouter'
 
 menuEntries = [
   {

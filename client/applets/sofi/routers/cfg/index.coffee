@@ -1,7 +1,11 @@
-Marionette = require 'backbone.marionette'
-import AppRouter from 'marionette.approuter'
+import Backbone from 'backbone'
+import Marionette from 'backbone.marionette'
 
 CfgController = require './controller'
+
+MainChannel = Backbone.Radio.channel 'global'
+MessageChannel = Backbone.Radio.channel 'messages'
+AppRouter = MainChannel.request 'main:app:IndexRouter'
 
 class CfgRouter extends AppRouter
   appRoutes:
