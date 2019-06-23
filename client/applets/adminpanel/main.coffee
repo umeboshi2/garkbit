@@ -1,5 +1,4 @@
 import Marionette from 'backbone.marionette'
-import AppRouter from 'marionette.approuter'
 import TkApplet from 'tbirds/tkapplet'
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 
@@ -10,19 +9,20 @@ import userAdminRouter from './routers/useradmin'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
+SiteNavChannel = Backbone.Radio.channel 'site-nav'
 
 userAdminEntries = [
   {
     label: 'List Users'
-    url: '#adminpanel/user/list'
+    url: '#admin/user/list'
     icon: '.fa.fa-list'
   },{
     label: 'Add New User'
-    url: '#adminpanel/user/add'
+    url: '#admin/user/add'
     icon: '.fa.fa-plus'
   },{
     label: 'Hubby Dbadmin'
-    url: '#adminpanel/dbadmin/hubby'
+    url: '#admin/dbadmin/hubby'
     icon: '.fa.fa-database'
   }
 ]
@@ -37,11 +37,11 @@ appletEntries = [
 class Router extends AdminRouter
   appRoutes:
     #'': 'frontdoor'
-    'adminpanel': 'frontdoor'
-    'adminpanel/view': 'frontdoor'
-    'adminpanel/login': 'show_login'
-    'adminpanel/logout': 'show_logout'
-    'adminpanel/dbadmin/hubby': 'viewHubby'
+    'admin': 'frontdoor'
+    'admin/view': 'frontdoor'
+    'admin/login': 'show_login'
+    'admin/logout': 'show_logout'
+    'admin/dbadmin/hubby': 'viewHubby'
     
 class Applet extends TkApplet
   Controller: Controller
@@ -50,9 +50,12 @@ class Applet extends TkApplet
   extraRouters:
     useradmin: userAdminRouter
 
+  onStart: ->
+    SiteNavChannel.request 'set-admin-entries'
+    
 
   onStop: ->
-    console.log "(Child) Stopping adminpanel", @.isRunning()
+    console.log "(Child) Stopping admin", @.isRunning()
     super()
 
 export default Applet

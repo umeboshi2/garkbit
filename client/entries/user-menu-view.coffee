@@ -28,7 +28,7 @@ user_menu = tc.renderable (user) ->
       # FIXME need better way to figure out admin access
       if 'admin' in user.groups
         tc.li ->
-          tc.a entryLinkItem, href:'/admin', 'Administration'
+          tc.a entryLinkItem, href:'#admin', 'Administration'
         tc.li ->
           tc.a entryLinkItem, href:'#dbadmin', 'Database'
       tc.li ->
