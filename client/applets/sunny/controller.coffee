@@ -141,7 +141,23 @@ class Controller extends MainController
     # name the chunk
     , 'sunny-view-client-view'
       
+  mapView: ->
+    @setupLayoutIfNeeded()
+    console.log 'layout should be ready'
+    require.ensure [], () =>
+      ViewClass = require './views/mapview'
+      view = new ViewClass
+      @layout.showChildView 'content', view
+      #content = @layout.getRegion 'content'
+      #content.empty()
+      #content.show view
+      #@_show_content view
+      console.log 'view shown?', view
       
+    # name the chunk
+    , 'sunny-map-view'
+
+    
 module.exports = Controller
 
   

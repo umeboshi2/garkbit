@@ -89,9 +89,9 @@ appletMenu = [
     url: '#sunny/clients/new'
     icon: '.fa.fa-list'
   },{
-    label: 'Calendar'
-    url: '#sunny/calendar'
-    icon: '.fa.fa-calendar'
+    label: 'Map View'
+    url: '#sunny/mapview'
+    icon: '.fa.fa-globe'
   }
   ]
 
@@ -108,6 +108,7 @@ class Router extends AppRouter
     'sunny/yards/view/:id': 'view_yard'
 
     'sunny/yards/routines/:yard_id': 'yard_routines'
+    'sunny/mapview': 'mapView'
     
 
 class Applet extends TkApplet

@@ -59,6 +59,17 @@ class YardRoutineJobs extends AuthCollection
 
 make_dbchannel AppChannel, 'yardroutinejob', YardRoutineJob, YardRoutineJobs
 
+url = '/api/dev/sunny/gpslocations'
+class GeoLocation extends AuthModel
+  urlRoot: url
+
+class GeoLocationCollection extends AuthCollection
+  model: GeoLocation
+  url: url
+
+make_dbchannel AppChannel, 'location', GeoLocation, GeoLocationCollection
+
+
 
 module.exports =
   Clients: Clients
