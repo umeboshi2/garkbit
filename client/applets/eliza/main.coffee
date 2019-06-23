@@ -14,14 +14,9 @@ AppChannel = Backbone.Radio.channel appName
 
 appletMenu = [
   {
-    label: 'List'
+    label: 'Main'
     url: '#eliza'
-    icon: '.fa.fa-list'
-  }
-  {
-    label: 'Calendar'
-    url: '#eliza/calendar'
-    icon: '.fa.fa-calendar'
+    icon: '.fa.fa-terminal.text-light.bg-dark'
   }
   ]
 
