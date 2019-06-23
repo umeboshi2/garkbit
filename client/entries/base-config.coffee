@@ -47,5 +47,11 @@ config.authToken.loginUrl = '#login'
 config.appRegion = '#root-div'
 #config.useNavbar = false
 
+config.appletRoutes =
+  pages: 'frontdoor'
+  login: 'frontdoor'
+  logout: 'frontdoor'
+  admin: 'adminpanel'
+  profile: 'userprofile'
 
 export default config
