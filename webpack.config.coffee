@@ -55,11 +55,6 @@ loadCssRule =
   test: /\.css$/
   use: ['style-loader', 'css-loader']
 
-# workaround for html on dev server
-adminPage =
-  development: 'admin'
-  production: 'admin.html'
-
 common_plugins = [
   new webpack.DefinePlugin DefinePluginOpts[BuildEnvironment]
   new StatsPlugin 'stats.json',
@@ -132,7 +127,6 @@ WebPackConfig =
   optimization: WebPackOptimization
   entry:
     index: './client/entries/index.coffee'
-    admin: './client/entries/admin.coffee'
   output: WebPackOutput
   plugins: AllPlugins
   module:
