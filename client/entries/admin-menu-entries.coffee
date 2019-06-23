@@ -2,10 +2,6 @@ misc_menu =
   label: 'Misc Applets'
   menu: [
     {
-      label: 'Themes'
-      url: '#adminpanel/themes'
-    }
-    {
       label: 'Bumblr'
       url: '#bumblr'
     }
@@ -18,7 +14,7 @@ misc_menu =
 
 UserAdmin =
   label: "User Admin"
-  url: "#adminpanel/useradmin"
+  url: "#admin/useradmin"
   needUser: true
   
 SiteDocs =

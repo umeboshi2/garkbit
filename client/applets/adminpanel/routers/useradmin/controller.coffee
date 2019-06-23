@@ -17,7 +17,7 @@ class Controller extends CrudController
     entryField: 'fullname'
     modelName: 'user'
     label: 'user'
-    routeName: 'adminpanel'
+    routeName: 'admin'
   channelName: 'useradmin'
   initialize: (options) ->
     @applet = MainChannel.request 'main:applet:get-applet', 'adminpanel'

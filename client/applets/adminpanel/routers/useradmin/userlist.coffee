@@ -15,19 +15,19 @@ BaseListView = MainChannel.request 'crud:view:list'
 templateOptions =
   name: 'user'
   entryField: 'fullname'
-  routeName: 'adminpanel'
+  routeName: 'admin'
   
 itemTemplate = MainChannel.request 'crud:template:item', templateOptions
 listTemplate = MainChannel.request 'crud:template:list', templateOptions
 
 class ItemView extends BaseItemView
-  route_name: 'adminpanel'
+  route_name: 'admin'
   template: itemTemplate
   item_type: 'user'
   
 
 class ListView extends BaseListView
-  route_name: 'adminpanel'
+  route_name: 'admin'
   childView: ItemView
   template: listTemplate
   childViewContainer: '#user-container'

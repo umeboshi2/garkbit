@@ -27,7 +27,7 @@ devMenu =
       url: '#msleg'
     },{
       label: 'Admin Panel'
-      url: '#adminpanel'
+      url: '#admin'
       needUser: true
     }
   ]

@@ -5,10 +5,10 @@ import AdminRouter from '../../../../adminrouter'
 
 class Router extends AdminRouter
   appRoutes:
-    'adminpanel/useradmin': 'listUsers'
-    'adminpanel/user/list': 'listUsers'
-    'adminpanel/user/add': 'addNewUser'
-    'adminpanel/user/view/:id': 'viewUser'
-    'adminpanel/user/edit/:id': 'editUser'
+    'admin/useradmin': 'listUsers'
+    'admin/user/list': 'listUsers'
+    'admin/user/add': 'addNewUser'
+    'admin/user/view/:id': 'viewUser'
+    'admin/user/edit/:id': 'editUser'
 
 export default { router: Router, controller: Controller }
