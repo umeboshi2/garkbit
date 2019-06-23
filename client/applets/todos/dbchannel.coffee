@@ -35,16 +35,17 @@ class TodoCalendar extends AuthCollection
 
 todo_cal = new TodoCalendar
 TodoChannel.reply 'todocal-collection', ->
-  todo_cal
+  return todo_cal
 
 
 current_calendar_date = undefined
 TodoChannel.reply 'maincalendar:set-date', () ->
   cal = $ '#maincalendar'
   current_calendar_date = cal.fullCalendar 'getDate'
+  return
 
 TodoChannel.reply 'maincalendar:get-date', () ->
-  current_calendar_date
+  return current_calendar_date
   
 if __DEV__
   window.todo_collection = todo_collection
