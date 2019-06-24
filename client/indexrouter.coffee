@@ -12,8 +12,6 @@ class IndexRouter extends AppRouter
   # backbone.routefilter which provides "before" method
   before: (route, params) ->
     user = MainChannel.request 'main:app:decode-auth-token'
-    if not isObjectEmpty user and __DEV__
-      console.warn 'user present'
   onRoute: ->
     SiteNavChannel.request 'set-index-entries'
 
