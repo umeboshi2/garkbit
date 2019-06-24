@@ -22,21 +22,24 @@ def includeme(config):
                     request_method='POST', renderer='json')
 
     # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    # DbAdmin views
+    # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    config.scan('.views.dbadmin')
+
+    # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     # Proxy view
     # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    #config.add_route('proxy', '/api/dev/proxy/*subpath')
     config.add_route('proxy', '/api/dev/proxy/{encoded}')
     config.add_view('.views.proxy.ProxyView', route_name='proxy')
 
     # muppy view
     config.scan('.views.memleak')
-    
 
     use_pj = asbool(settings.get('api.use_pyramid_jsonapi', False))
 
     # FIXME it seems that cornice is also interfering
     # with "notfound" view?
-    # https://cornice.readthedocs.io/en/stable/faq.html#cornice-registers-exception-handlers-how-do-i-deal-with-it
+    # https://cornice.readthedocs.io/en/stable/faq.html#cornice-registers-exception-handlers-how-do-i-deal-with-it # noqa
     # See if we can handle 404 with different views based on route
     # FIXME jsonapi has "notfound" view
     scan_views = [
@@ -44,7 +47,7 @@ def includeme(config):
         'useradmin',
         'wikipages',
         'ebcsv',
-        'sunny',]
+        'sunny']
     if not use_pj and False:
         scan_views.append('notfound')
     for view in scan_views:
@@ -64,7 +67,6 @@ def includeme(config):
         config.scan('.views.hubby')
 
     config.add_route('home', '/')
-    config.add_route('admin', '/admin')
     config.scan('.views.client')
 
     config.include("akhet.static")
