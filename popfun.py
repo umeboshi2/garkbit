@@ -20,11 +20,12 @@ import transaction
 # from hornstone.models.base import BaseLongNameIdMixin
 
 from hattie.database import Base
-from hattie.database import Meeting
+# from hattie.database import Meeting
 from hattie.util import make_true_date, legistar_id_guid
 
 # from hubby.collector.main import MainCollector
-from hattie.collector.main import PickleCollector, ZipCollector
+from hattie.collector.main import PickleCollector
+# from hattie.collector.main import ZipCollector
 from hattie.dbmanager import DatabaseManager
 
 # another place for this
@@ -62,10 +63,16 @@ s = Session()
 pc = PickleCollector()
 if not os.path.isdir(pc.dir):
     os.makedirs(pc.dir)
-#cc = ZipCollector(open('data.zip', 'rb'))
+
+# cc = ZipCollector(open('data.zip', 'rb'))
 manager = DatabaseManager(s, pc)
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+class NoMeetingFilePresent(Exception):
+    pass
+
 
 # needs data/
 def get_rss_content(year, url):
@@ -86,13 +93,11 @@ def get_rss_content(year, url):
     return content
 
 
-
-
 # needs data/
 def get_pickle_file(prefix, id):
     filename = 'data/{}-{}.pickle'.format(prefix, id)
     if not os.path.isfile(filename):
-        raise RuntimeError("{} not there.".format(filename))
+        raise NoMeetingFilePresent("{} not there.".format(filename))
     with open(filename, 'rb') as infile:
         content = Pickle.load(infile)
     return content['result']
@@ -180,7 +185,14 @@ def get_meeting(meeting):
 
 # needs data/
 def get_year_meetings(year):
-    return (get_meeting(m) for m in get_meetings_from_rss(year))
+    meetings = list()
+    for rss_meeting in get_meetings_from_rss(year):
+        try:
+            meeting = get_meeting(rss_meeting)
+            meetings.append(meeting)
+        except NoMeetingFilePresent:
+            print("Skipping rss meeting {}".format(rss_meeting))
+    return meetings
 
 
 def get_new_meetings(year, month):
@@ -206,6 +218,7 @@ def get_meeting_files(meeting):
             fname = manager.collector.get_filename('action', action['id'])
             files.append(fname)
     return files
+
 
 def remove_html_content():
     dirname = 'data'
@@ -243,6 +256,7 @@ def scrape_year(year, merge=True):
     else:
         print("NO MERGE")
 
+
 def add_meetings_scrapeit():
     years = list(RSS_YEARLY_FEEDS.keys())
     years.sort()
@@ -250,7 +264,7 @@ def add_meetings_scrapeit():
         scrape_year(year, merge=False)
     manager.add_meetings()
 
-    
+
 def scrapeit():
     manager.add_people()
     manager.add_departments()
