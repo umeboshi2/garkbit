@@ -19,7 +19,9 @@ from sqlalchemy import (
     ForeignKey,
 )
 # from sqlalchemy.orm import relationship
-from hornstone.alchemy import SerialBase, TimeStampMixin
+from hornstone.alchemy import TimeStampMixin
+from hornstone.models.base import BaseIdMixin
+
 
 from .meta import Base
 
@@ -28,10 +30,8 @@ from .meta import Base
 # from sqlalchemy.exc import IntegrityError
 
 
-
-class GeoPosition(Base, TimeStampMixin):
+class GeoPosition(Base, BaseIdMixin):
     __tablename__ = 'geopositions'
-    id = Column(Integer, primary_key=True)
     accuracy = Column(Integer)
     altitude = Column(Float)
     altitudeAccuracy = Column(Float)
@@ -40,7 +40,9 @@ class GeoPosition(Base, TimeStampMixin):
     longitude = Column(Float)
     speed = Column(Float)
 
-
+    def __repr__(self):
+        return "<GeoPosition {}: {}x{}>".format(
+            self.id, self.latitude, self.longitude)
 
 
 class MapLocation(Base, TimeStampMixin):
@@ -51,26 +53,25 @@ class MapLocation(Base, TimeStampMixin):
     description = Column(Unicode)
 
 
-class SunnyClient(Base, TimeStampMixin):
+class SunnyClient(Base, BaseIdMixin):
     __tablename__ = 'sunny_clients'
-    id = Column(Integer, primary_key=True)
     name = Column(Unicode(100), unique=True)
     fullname = Column(Unicode)
     email = Column(Unicode)
     description = Column(Unicode)
 
 
-class Yard(Base, TimeStampMixin):
+class Yard(Base, BaseIdMixin):
     __tablename__ = 'sunny_yards'
-    id = Column(Integer, primary_key=True)
     name = Column(Unicode(100), unique=True)
     description = Column(Unicode)
     jobdetails = Column(Unicode)
+    sunnyclient_id = Column(Integer, ForeignKey('sunny_clients.id'))
+    location_id = Column(Integer, ForeignKey('geopositions.id'))
 
 
-class SingleClientJob(Base, TimeStampMixin):
+class SingleClientJob(Base, BaseIdMixin):
     __tablename__ = 'sunny_single_client_jobs'
-    id = Column(Integer, primary_key=True)
     client_id = Column(Integer, ForeignKey('sunny_clients.id'))
     due_date = Column(Date)
     start = Column(DateTime)
@@ -82,9 +83,8 @@ class SingleClientJob(Base, TimeStampMixin):
     status = Column(Unicode)
 
 
-class SingleYardJob(Base, TimeStampMixin):
+class SingleYardJob(Base, BaseIdMixin):
     __tablename__ = 'sunny_single_yard_jobs'
-    id = Column(Integer, primary_key=True)
     yard_id = Column(Integer, ForeignKey('sunny_yards.id'))
     due_date = Column(Date)
     start = Column(DateTime)
@@ -96,9 +96,8 @@ class SingleYardJob(Base, TimeStampMixin):
     status = Column(Unicode)
 
 
-class YardRoutineJob(Base, TimeStampMixin):
+class YardRoutineJob(Base, BaseIdMixin):
     __tablename__ = 'sunny_yard_routine_jobs'
-    id = Column(Integer, primary_key=True)
     yard_id = Column(Integer, ForeignKey('sunny_yards.id'))
     due_date = Column(Date)
     start = Column(DateTime)
