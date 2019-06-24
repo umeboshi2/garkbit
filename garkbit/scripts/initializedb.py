@@ -15,10 +15,10 @@ from ..models import (
     get_session_factory,
     get_tm_session,
     )
-#from ..models import MyModel
 
 from ..models import usergroup
-from ..models import sunny
+from ..models import sunny  # noqa: F401
+
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
