@@ -57,10 +57,12 @@ def populate_users(session, admin_username='admin'):
             session.add(user)
 
 
-def populate_usergroups(session):
+def populate_usergroups(session, admin_username='admin'):
     with transaction.manager:
-        admins = [(1, 1)]  # admin user should be 1
-        ulist = admins
+        admin_groupname = 'admin'
+        user = session.query(User).filter_by(username=admin_username).one()
+        group = session.query(Group).filter_by(name=admin_groupname).one()
+        ulist = [(group.id, user.id)]
         for gid, uid in ulist:
             row = UserGroup(gid, uid)
             session.add(row)
