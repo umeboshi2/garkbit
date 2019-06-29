@@ -27,7 +27,7 @@ Model_Map = dict(geoposition=GeoPosition,
                  singleyardjob=SingleYardJob,
                  )
 
-print("Model_Map {}".format(Model_Map))
+
 
 
 #@resource(collection_path=apiroot, path=os.path.join(apiroot, '{id}'),
