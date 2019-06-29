@@ -16,7 +16,7 @@ requirements = [
     'alembic',
     'gunicorn',
     'hattie>=0.2.22',
-    'hornstone>=0.1.8',
+    'hornstone>=0.1.16',
     'Pympler>=0.7',
     'pyramid_jinja2',
     'pyramid_retry',
