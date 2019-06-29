@@ -12,6 +12,10 @@ demoMenu =
       url: '#eliza'
       icon: '.fa.fa-terminal.text-light.bg-dark'
     },{
+      label: 'Simple timeclock'
+      url: '#hourly'
+      icon: '.fa.fa-clock-o'
+    },{
       label: 'Movie DB API Demo'
       url: '#moviedb'
     },{
