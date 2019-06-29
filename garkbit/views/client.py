@@ -25,12 +25,6 @@ class ClientView(BaseClientView):
                                                  'index')
         return self.data
 
-    @view_config(route_name='admin')
-    def admin(self):
-        self.data['appname'] = self.settings.get('default.js.admin_app',
-                                                 'admin')
-        return self.data
-
     def handle_get(self):
         request = self.request
         view = request.view_name
