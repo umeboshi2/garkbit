@@ -19,12 +19,12 @@ useCornsilkPurple = ->
   else
     require '../../node_modules/tbirds/sass/initial.scss'
   
-useDarkSeaGreen = ->
-  if not __useCssModules__
-    #require '../../node_modules/tbirds/sass/cornsilk-purple.scss'
-    require '../../sass/DarkSeaGreen.scss'
-  else
-    require '../../node_modules/tbirds/sass/initial.scss'
+#useDarkSeaGreen = ->
+#  if not __useCssModules__
+#    #require '../../node_modules/tbirds/sass/cornsilk-purple.scss'
+#    require '../../sass/DarkSeaGreen.scss'
+#  else
+#    require '../../node_modules/tbirds/sass/initial.scss'
   
   
 
