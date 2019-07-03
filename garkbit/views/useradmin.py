@@ -17,6 +17,7 @@ from alchemyjsonschema import NoForeignKeyWalker
 # from hornstone.alchemy import TimeStampMixin
 # from trumpet.views.resourceviews import BaseResource
 from trumpet.views.resourceviews import SimpleModelResource
+from trumpet.util import encrypt_password
 
 from ..models.usergroup import USERMODELS
 
@@ -39,7 +40,21 @@ class GenericView(SimpleModelResource):
     def __acl__(self):
         return [(Allow, Authenticated, 'useradmin')]
 
-    def collection_post(self):
+    def collection_post_user(self):
+        with transaction.manager:
+            m = self.model()
+            for field in self.request.json:
+                value = self.request.json[field]
+                if type(value) is dict:
+                    print("value of field {} is dict".format(field))
+                setattr(m, field, value)
+            # FIXME: add better password here
+            m.password = encrypt_password('1234')
+            self.db.add(m)
+            self.db.flush()
+        return self.serialize_object(m)
+
+    def collection_post_generic(self):
         with transaction.manager:
             m = self.model()
             for field in self.request.json:
@@ -53,3 +68,10 @@ class GenericView(SimpleModelResource):
             self.db.add(m)
             self.db.flush()
         return self.serialize_object(m)
+
+    def collection_post(self):
+        model = self.request.matchdict['model']
+        if model == 'users':
+            return self.collection_post_user()
+        else:
+            return self.collection_post_generic()
