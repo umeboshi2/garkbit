@@ -2,7 +2,7 @@ Akhet
 alembic
 gunicorn
 hattie>=0.2.22
-hornstone>=0.1.16
+hornstone>=0.1.19
 paginate_sqlalchemy
 Pympler==0.7
 pyramid_jinja2
@@ -10,7 +10,7 @@ pyramid_retry
 pyramid_force_https
 pyramid_jwt
 pyramid_jsonapi
-trumpet>=0.2.6
+trumpet>=0.2.7
 WSGIProxy2>=0.4.6
 -e .
 
