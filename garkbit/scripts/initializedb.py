@@ -17,7 +17,8 @@ from ..models import (
     )
 
 from ..models import usergroup
-from ..models import sunny  # noqa: F401
+# from ..models import sunny  # noqa: F401
+from ..models import hourly  # noqa: F401
 
 
 def usage(argv):
