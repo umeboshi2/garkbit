@@ -47,7 +47,9 @@ def includeme(config):
         'useradmin',
         'wikipages',
         'ebcsv',
-        'sunny']
+        'sunny',
+        'hourly',
+    ]
     if not use_pj and False:
         scan_views.append('notfound')
     for view in scan_views:
