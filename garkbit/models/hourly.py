@@ -18,15 +18,16 @@ from sqlalchemy import (
     func,
     ForeignKey,
 )
+from sqlalchemy.orm import relationship, backref
 from sqlalchemy_utils import UUIDType
 
-# from sqlalchemy.orm import relationship
 from hornstone.alchemy import TimeStampMixin
-from hornstone.models.base import BaseIdMixin
 from hornstone.models.base import BaseUUIDMixin
 
 
 from .meta import Base
+# from .usergroup import User
+
 
 # imports for populate()
 # import transaction
@@ -38,21 +39,23 @@ WorkerStatusType = Enum('on', 'off',
 
 class Worker(Base, TimeStampMixin):
     __tablename__ = 'hourly_workers'
-    user_id = Column(UUIDType, ForeignKey('users.id'),
-                     primary_key=True)
+    id = Column(UUIDType, ForeignKey('users.id'),
+                primary_key=True)
+    # session_id = Column(UUIDType, ForeignKey('hourly_work_sessions.id'))
+    status = Column(WorkerStatusType)
 
 
 class WorkSession(Base, BaseUUIDMixin):
     __tablename__ = 'hourly_work_sessions'
-    worker_id = Column(UUIDType, ForeignKey('hourly_workers.user_id'))
-    start = Column(DateTime)
+    #worker_id = Column(UUIDType, ForeignKey('hourly_workers.id'))
+    worker_id = Column(UUIDType, ForeignKey(Worker.id))
+    start = Column(DateTime, default=func.now())
     end = Column(DateTime)
 
 
-class CurrentStatus(Base, TimeStampMixin):
-    __tablename__ = 'hourly_current_status'
-    worker_id = Column(UUIDType, ForeignKey('hourly_workers.user_id'),
-                       primary_key=True)
-    session_id = Column(UUIDType,
-                        ForeignKey('hourly_work_sessions.id'))
-    status = Column(WorkerStatusType)
+#######################################################
+# Relationships
+#######################################################
+
+Worker.user = relationship('User', uselist=False)
+Worker.sessions = relationship('WorkSession')
