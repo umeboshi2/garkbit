@@ -114,6 +114,10 @@ class BaseNewFormView extends BaseFormView
     collection = channel.request "db:#{name}:collection"
     collection.add @model
     super()
+
+  onSuccess: (model) ->
+    return model
+    
     
 class BaseEditFormView extends BaseFormView
   # the model should be assigned in the controller
