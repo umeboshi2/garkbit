@@ -20,8 +20,20 @@ class Controller extends MainController
   viewIndex: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
+      ws_collection = AppChannel.request 'worksession-collection'
+      response = ws_collection.fetch()
+      response.done ->
+        console.log "sessions fetched", ws_collection
+      statusCollection = AppChannel.request 'status-collection'
+      console.log 'statusCollection is', statusCollection
+      token = MainChannel.request 'main:app:decode-auth-token'
+      console.log "token is ", token
+      id = token.uid
+      Worker = AppChannel.request 'worker-modelClass'
+      worker = new Worker id:token.uid
       View = require './views/index-view'
       view = new View
+        model: worker
       @layout.showChildView 'content', view
     # name the chunk
     , 'hourly-view-index'
@@ -33,6 +45,34 @@ class Controller extends MainController
       @layout.showChildView 'content', view
     # name the chunk
     , 'hourly-view-calendar'
+
+  viewWorkers: ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      collection = AppChannel.request 'worker-collection'
+      View = require('./views/list-workers').default
+      view = new View
+        collection: collection
+      @layout.showChildView 'content', view
+      response = collection.fetch()
+      response.done ->
+        console.log "workers fetched"
+    # name the chunk
+    , 'hourly-view-list-workers'
+        
+  viewPotentialWorkers: ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      pworkers = AppChannel.request 'get-potential-workers'
+      View = require('./views/potential-workers').default
+      view = new View
+        collection: pworkers
+      response = pworkers.fetch()
+      response.done ->
+        console.log "pworkers fetched", pworkers
+      @layout.showChildView 'content', view
+    # name the chunk
+    , 'hourly-view-potential-workers'
 
       
 export default Controller
