@@ -4,7 +4,10 @@ from datetime import datetime
 from pyramid.security import Allow
 from pyramid.security import Authenticated
 from cornice.resource import resource
+from cornice.resource import view
 # from pyramid.httpexceptions import HTTPNotFound
+from pyramid.httpexceptions import HTTPNotAcceptable
+
 import transaction
 from sqlalchemy import desc
 
@@ -67,18 +70,11 @@ class HourlyCrudView(SimpleModelResource):
         return self.serialize_object(m)
 
     def collection_post_worker(self):
-        print("in collection_post_worker+++++++++++++++++++++++")
         with transaction.manager:
-            mtype = self.model
-            print("MODEL__________{}".format(mtype))
-            data = self.request.json
-            print("DATA++++++++++++{}".format(data))
             worker = Worker()
             worker.id = self.request.json['id']
             self.db.add(worker)
-        
-        #import pdb ; pdb.set_trace()
-        
+
     def collection_post(self):
         model = self.request.matchdict['model']
         if model == 'workers':
@@ -90,13 +86,10 @@ class HourlyCrudView(SimpleModelResource):
         if self.model is Worker:
             return self.serialize_object(dbobj)
 
-
     def collection_get(self):
         model = self.request.matchdict['model']
         if model == 'workers':
-            print("collection_get", 'workers')
             data = super(HourlyCrudView, self).collection_get()
-            print("collection_get DATA", data)
             return data
 
 
@@ -121,13 +114,19 @@ class PotentialWorkerView(BaseModelResource):
         return query
 
 
+##################################################
+# time clock view
+##################################################
 clock_root = os.path.join(apiroot, 'time-clock')
 
 
 @resource(collection_path=clock_root, path=os.path.join(clock_root, '{id}'))
 class TimeClockView(BaseModelResource):
     def collection_post(self):
+        """Worker clocks in."""
         worker = self.db.query(Worker).get(self.request.user.id)
+        if worker.status == 'on':
+            raise HTTPNotAcceptable
         print("POST: WORKER IS", worker)
         with transaction.manager:
             session = WorkSession()
@@ -137,15 +136,16 @@ class TimeClockView(BaseModelResource):
             self.db.add(worker)
 
     def _get_latest_session(self, worker_id):
-        # get latest work session
         q = self.db.query(WorkSession).filter_by(worker_id=worker_id)
-        #q = q.order_by('start desc').limit(1)
-        #q = q.order_by('start desc').limit(1)
         q = q.order_by(desc('start')).limit(1)
         return q.one()
-        
+
     def put(self):
+        """Worker clocks out."""
         worker = self.db.query(Worker).get(self.request.user.id)
+        print("WORKER CLOCK OUT", worker.serialize())
+        if worker.status == 'off':
+            raise HTTPNotAcceptable
         print("PUT: WORKER IS", worker)
         # get latest work session
         session = self._get_latest_session(worker.id)
@@ -158,7 +158,9 @@ class TimeClockView(BaseModelResource):
     def collection_get(self):
         worker = self.db.query(Worker).get(self.request.user.id)
         session = self._get_latest_session(worker.id)
-        return session.serialize()
-    
-            
-        
+        # include session id as the id so that we can PUT when
+        # clocking out
+        data = dict(worker=self.serialize_object(worker),
+                    session=session.serialize(),
+                    id=str(session.id))
+        return data
