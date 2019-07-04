@@ -68,6 +68,9 @@ class StatusView extends Marionette.View
       url: clock.urlRoot)
     response.done =>
       @clockUserIn()
+    response.fail ->
+      MessageChannel.request 'warning', response.responseJSON.code
+      
 
   punchOut: ->
     worker_id = @model.get 'id'
@@ -75,12 +78,11 @@ class StatusView extends Marionette.View
       worker_id: worker_id
     response = clock.fetch()
     response.done =>
-      console.log "clock is", clock
-      console.log "Session id", clock.get 'id'
-
       presponse = clock.save()
       presponse.done =>
         @clockUserOut()
+      presponse.fail ->
+        MessageChannel.request 'warning', presponse.responseJSON.code
 
   clockUserOut: ->
     @model.set 'status', 'off'
