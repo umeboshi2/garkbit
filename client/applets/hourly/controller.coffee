@@ -20,15 +20,7 @@ class Controller extends MainController
   viewIndex: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      ws_collection = AppChannel.request 'worksession-collection'
-      response = ws_collection.fetch()
-      response.done ->
-        console.log "sessions fetched", ws_collection
-      statusCollection = AppChannel.request 'status-collection'
-      console.log 'statusCollection is', statusCollection
       token = MainChannel.request 'main:app:decode-auth-token'
-      console.log "token is ", token
-      id = token.uid
       Worker = AppChannel.request 'worker-modelClass'
       worker = new Worker id:token.uid
       View = require './views/index-view'
