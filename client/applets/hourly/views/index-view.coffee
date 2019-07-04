@@ -23,20 +23,28 @@ class NotAWorkerView extends Marionette.View
 statusTemplate = tc.renderable (model) ->
   tc.div '.row.listview-list-entry', ->
     tc.text "#{model.user.fullname} is a worker."
+  tc.div '.row.listview-list-entry.work-session'
+  clockOptions =
+    action: 'in'
+    btnClass: '.clock-btn.btn.btn-info.fa.fa-clock-o'
   clockLabel = 'in'
   if model.status is null
     tc.div '.row.listview-list-entry', ->
       tc.text "#{model.user.fullname} has never clocked in."
   if model.status is 'on'
-    clockLabel = 'out'
-  tc.div '.row.listview-list-entry', ->
-    tc.button ".clock-btn.btn-info.fa.fa-clock-o", ->
-      tc.text "Clock #{clockLabel}"
+    clockOptions.action = 'out'
+    clockOptions.btnClass = '.clock-btn.btn.btn-warning.fa.fa-clock-o'
+  tc.div '.row', ->
+    tc.button clockOptions.btnClass, ->
+      tc.text "Clock #{clockOptions.action}"
 
 class StatusView extends Marionette.View
   template: statusTemplate
   ui: ->
     clockBtn: '.clock-btn'
+    workSessionRegion: '.work-session'
+  regions:
+    workSessionRegion: '@ui.workSessionRegion'
   events: ->
     'click @ui.clockBtn': 'punchClock'
   punchClock: ->
@@ -59,8 +67,7 @@ class StatusView extends Marionette.View
       type: 'POST'
       url: clock.urlRoot)
     response.done =>
-      @render()
-      
+      @clockUserIn()
 
   punchOut: ->
     worker_id = @model.get 'id'
@@ -73,7 +80,17 @@ class StatusView extends Marionette.View
 
       presponse = clock.save()
       presponse.done =>
-        @render()
+        @clockUserOut()
+
+  clockUserOut: ->
+    @model.set 'status', 'off'
+    console.log '@clockUserOut', @model
+    @render()
+
+  clockUserIn: ->
+    @model.set 'status', 'on'
+    console.log '@clockUserIn', @model
+    @render()
     
     
   insertNewStatus: ->
