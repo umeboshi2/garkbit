@@ -10,7 +10,7 @@ pyramid_retry
 pyramid_force_https
 pyramid_jwt
 pyramid_jsonapi
-trumpet>=0.2.7
+trumpet>=0.2.8
 WSGIProxy2>=0.4.6
 -e .
 
