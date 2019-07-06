@@ -14,7 +14,7 @@ misc_menu =
 
 UserAdmin =
   label: "User Admin"
-  url: "#admin/useradmin"
+  url: "#useradmin"
   needUser: true
   
 SiteDocs =
