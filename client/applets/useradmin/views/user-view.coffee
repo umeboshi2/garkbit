@@ -4,86 +4,14 @@ import tc from 'teacup'
 import marked from 'marked'
 import axios from 'axios'
 
+import AvailableGroupView from './available-groups'
+import CurrentGroupView from './current-groups'
+
+
 MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'useradmin'
 
-currentItemTemplate = tc.renderable (model) ->
-  tc.span '.mr-auto', ->
-    #href = model.itemViewUrl
-    #tc.a href:href, model.itemLabel
-    tc.text model.name
-  tc.span '.ml-auto.btn-group.pull-right', ->
-    tc.button '.remove-item.btn.btn-sm.btn-info.fa.fa-minus', 'remove'
-
-class CurrentGroupView extends Marionette.View
-  tagname: 'li'
-  className: -> 'list-group-item row'
-  template: currentItemTemplate
-  ui: ->
-    removeItem: '.remove-item'
-    item: '.list-group-item'
-  events: ->
-    'click @ui.removeItem': 'removeItem'
-    'user:groups:change': 'onUserGroupsChange'
-  onUserGroupsChange: ->
-    console.log "onUserGroupsChange"
-  #triggers:
-  #  'user:groups:change': 'user:groups:change'
-  removeItem: ->
-    user = @getOption 'user'
-    group = @model
-    usergroups = AppChannel.request 'db:usergroup:collection'
-    Model = AppChannel.request 'db:usergroup:modelClass'
-    usergroup = new Model
-      group_id: group.id
-      user_id: user.id
-    response = usergroup.fetch()
-    
-    response.fail ->
-      MessageChannel.request 'danger', 'failed to retrieve model'
-    response.done =>
-      console.log "usergroup is ", usergroup, usergroup.isNew()
-      delresponse = usergroup.destroy()
-      delresponse.done =>
-        @trigger "user:groups:change"
-      delresponse.fail ->
-        MessageChannel.request 'danger', 'failed to remove it'
-      
-     
-    
-availableItemTemplate = tc.renderable (model) ->
-  tc.span '.mr-auto', ->
-    tc.text model.name
-  tc.span '.ml-auto.btn-group.pull-right', ->
-    tc.button '.add-item.btn.btn-sm.btn-info.fa.fa-plus', 'add'
-
-
-class AvailableGroupView extends Marionette.View
-  tagname: 'li'
-  className: -> 'list-group-item row'
-  template: availableItemTemplate
-  ui: ->
-    addItem: '.add-item'
-    item: '.list-group-item'
-  events: ->
-    'click @ui.addItem': 'addItem'
-
-  addItem: ->
-    user = @getOption 'user'
-    group = @model
-
-    Model = AppChannel.request 'db:usergroup:modelClass'
-    usergroup = new Model
-      group_id: group.id
-      user_id: user.id
-    console.log "addItem usergroup", usergroup
-    response = usergroup.save()
-    response.fail ->
-      MessageChannel
-     
-    
 simpleTemplate = tc.renderable (model) ->
-  console.warn "MODEL", model
   tc.div '.row', ->
     tc.div '.col', ->
       tc.dl ->
@@ -111,10 +39,16 @@ class MainView extends Marionette.View
   regions:
     available: '@ui.available'
     current: '@ui.current'
-  onUserGroupsChange: ->
-    console.log "onUserGroupsChange"
-    @render()
-  onRender: ->
+  childViewEvents:
+    'user:groups:change': 'groupsChanged'
+
+  groupsChanged: ->
+    console.log "groupsChanged"
+    response = @model.fetch()
+    response.done =>
+      @render()
+     
+  showCurrentGroups: ->
     user = @model
     collection = new Backbone.Collection user.get 'groups'
     currentGroupsView = new Marionette.CollectionView
@@ -124,35 +58,38 @@ class MainView extends Marionette.View
       childView: CurrentGroupView
       childViewOptions:
         user: @model
-      childViewEvents:
+      childViewTriggers:
         'user:groups:change': 'user:groups:change'
-        
     @showChildView 'current', currentGroupsView
-    
-      
-    console.log "MainView user", user
+    currentGroupsView.on 'user:groups:change', @somethingHappened
+
+  showAvailableGroups: (groups) ->
+    user = @model
     currentGroups = user.get 'groups'
     currentGids = (g.id for g in currentGroups)
+    available = new Backbone.Collection
+    groups.forEach (g) ->
+      if g.id not in currentGids
+        available.add g
+    view = new Marionette.CollectionView
+      channelName: 'useradmin'
+      tagName: 'ul'
+      className: 'list-group'
+      collection: available
+      childView: AvailableGroupView
+      childViewOptions:
+        user: @model
+      childViewTriggers:
+        'user:groups:change': 'user:groups:change'
+    @showChildView 'available', view
+    
+  onRender: ->
+    user = @model
+    @showCurrentGroups()
     groups = AppChannel.request 'db:group:collection'
     response = groups.fetch()
     response.done =>
-      available = new Backbone.Collection
-      groups.forEach (g) ->
-        if g.id not in currentGids
-          available.add g
+      @showAvailableGroups groups
       
-        
-      view = new Marionette.CollectionView
-        channelName: 'useradmin'
-        tagName: 'ul'
-        className: 'list-group'
-        collection: available
-        childView: AvailableGroupView
-        childViewOptions:
-          user: @model
-        childViewEvents:
-          'user:groups:change': 'user:groups:change'
-      @showChildView 'available', view
-    
 
 export default MainView
