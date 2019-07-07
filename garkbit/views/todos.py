@@ -6,8 +6,8 @@ from cornice.resource import resource
 
 from trumpet.views.resourceviews import BaseModelResource
 
-from alchemyjsonschema import SchemaFactory
-from alchemyjsonschema import NoForeignKeyWalker
+# from alchemyjsonschema import SchemaFactory
+# from alchemyjsonschema import NoForeignKeyWalker
 
 from ..models.mymodel import Todo
 
@@ -24,7 +24,7 @@ class ModelView(BaseModelResource):
 
     def __init__(self, request, context=None):
         super(ModelView, self).__init__(request, context=context)
-        self.factory = SchemaFactory(NoForeignKeyWalker)
+        # self.factory = SchemaFactory(NoForeignKeyWalker)
 
     @property
     def model_map(self):
