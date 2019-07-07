@@ -79,7 +79,6 @@ class Controller extends MainController
       response.fail ->
         MessageChannel.request 'danger', 'failed to get user'
       response.done =>
-        console.log "user fetched", model
         @layout.showChildView 'content', view
     # name the chunk
     , 'useradmin-view-view-user'
