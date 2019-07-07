@@ -25,7 +25,6 @@ requirements = [
     'trumpet>=0.2.9',
     'WSGIProxy2>=0.4.6',
     # testing
-    'pyramid_jsonapi',
     'paginate_sqlalchemy',
 ]
 

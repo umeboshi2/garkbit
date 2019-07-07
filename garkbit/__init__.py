@@ -2,14 +2,12 @@ import os
 import json
 import datetime
 
-from paste.deploy.converters import asbool
+# from paste.deploy.converters import asbool
 from pyramid.config import Configurator
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.renderers import JSON
 
 from pympler import tracker
-
-import pyramid_jsonapi
 
 
 def groupfinder(userid, request):
@@ -72,13 +70,6 @@ def main(global_config, **settings):
 
     authz_policy = ACLAuthorizationPolicy()
     config.set_authorization_policy(authz_policy)
-
-    use_pj = asbool(settings.get('api.use_pyramid_jsonapi', False))
-    if True or use_pj:
-        from .models.usergroup import User, Group
-        pj = pyramid_jsonapi.PyramidJSONAPI(config, [User, Group])
-        # ep = pj.endpoint_data.endpoints
-        pj.create_jsonapi()
 
     config.include('.routes')
 
