@@ -94,6 +94,17 @@ class Controller extends MainController
     template = MainChannel.request 'crud:template:form', viewOptions
     viewOptions.template = template
     @editModel viewOptions
+
+  addUser: ->
+    Model = @getChannel().request 'db:user:modelClass'
+    viewOptions =
+      modelName: 'user'
+      fieldList: ['username', 'fullname', 'email']
+      entryField: 'fullname'
+      channelName: @channelName
+    template = MainChannel.request 'crud:template:form', viewOptions
+    viewOptions.template = template
+    @addModel viewOptions
     
   listGroups: ->
     @setupLayoutIfNeeded()

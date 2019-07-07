@@ -23,9 +23,17 @@ appletMenu = [
     url: '#useradmin/user/list'
     icon: '.fa.fa-list'
   },{
+    label: 'Add User'
+    url: '#useradmin/user/add'
+    icon: '.fa.fa-plus'
+  },{
     label: 'Groups'
     url: '#useradmin/group/list'
     icon: '.fa.fa-list'
+  },{
+    label: 'Add Group'
+    url: '#useradmin/group/add'
+    icon: '.fa.fa-plus'
   }
   ]
 
@@ -33,7 +41,7 @@ class Router extends AdminRouter
   appRoutes:
     'useradmin': 'viewIndex'
     'useradmin/user/list': 'listUsers'
-    'useradmin/user/add': 'viewIndex'
+    'useradmin/user/add': 'addUser'
     'useradmin/user/view/:id': 'viewUser'
     'useradmin/user/edit/:id': 'editUser'
     'useradmin/group/list': 'listGroups'
