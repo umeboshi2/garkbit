@@ -1,8 +1,6 @@
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
 import tc from 'teacup'
-import marked from 'marked'
-import axios from 'axios'
 
 import AvailableGroupView from './available-groups'
 import CurrentGroupView from './current-groups'
