@@ -1,8 +1,10 @@
 import os
 from datetime import datetime
 
+from dateutil.parser import parse as dateparse
 from pyramid.security import Allow
 from pyramid.security import Authenticated
+from pyramid.view import view_config
 from cornice.resource import resource
 from cornice.resource import view
 # from pyramid.httpexceptions import HTTPNotFound
@@ -11,8 +13,10 @@ from pyramid.httpexceptions import HTTPNotAcceptable
 import transaction
 from sqlalchemy import desc
 
+from trumpet.views.base import BaseViewCallable
 from trumpet.views.resourceviews import SimpleModelResource
 from trumpet.views.resourceviews import BaseModelResource
+from trumpet.views.util import get_start_end_from_request
 
 from ..models.hourly import (
     Worker,
@@ -164,3 +168,47 @@ class TimeClockView(BaseModelResource):
                     session=session.serialize(),
                     id=str(session.id))
         return data
+
+
+##################################################
+# calendar view
+##################################################
+calendar_root = os.path.join(apiroot, 'calendar')
+
+
+# json view for calendar
+#@view_config(
+class SessionCalendarView(BaseViewCallable):
+    def __init__(self, request):
+        super(SessionCalendarView, self).__init__(request)
+        self.get_ranged_worksessions()
+
+    def _get_bare_start_end(self):
+        start = self.request.GET['start']
+        end = self.request.GET['end']
+        print("START, END", start, end)
+        return start, end
+
+    def _get_start_end_from_request(self, timestamps):
+        start, end = self._get_bare_start_end()
+        if not timestamps:
+            start = dateparse(start)
+            end = dateparse(end)
+        return start, end
+
+    def _range_filter(self, query, start, end):
+        query = query.filter(WorkSession.start >= start)
+        query = query.filter(WorkSession.end <= end)
+        return query
+
+    # json responses should not be lists
+    # this method is for the fullcalendar
+    # widget. Fullcalendar v2 uses yyyy-mm-dd
+    # for start and end parameters, rather than
+    # timestamps.
+    def get_ranged_worksessions(self, timestamps=False):
+        start, end = self._get_start_end_from_request(timestamps)
+        start, end = get_start_end_from_request(self.request)
+        query = self.request.dbsession.query(WorkSession)
+        query = self._range_filter(query, start, end)
+        self.data = [s.serialize() for s in query]
