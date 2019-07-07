@@ -5,10 +5,13 @@ import os
 
 from cornice.resource import resource
 # from cornice.resource import view
+
+# from cornice.resource import view
 # from pyramid.response import Response
 # from pyramid.httpexceptions import HTTPNotFound, HTTPFound, HTTPForbidden
 from sqlalchemy.orm.exc import NoResultFound
-from pyramid.security import Allow, Authenticated
+from pyramid.security import Allow
+# from pyramid.security import Deny, Everyone, Authenticated
 import transaction
 # import requests
 # from alchemyjsonschema import SchemaFactory
@@ -40,7 +43,7 @@ class GenericView(SimpleModelResource):
         return USERMODELS
 
     def __acl__(self):
-        return [(Allow, Authenticated, 'useradmin')]
+        return [(Allow, 'group:admin', 'useradmin')]
 
     def collection_post_user(self):
         with transaction.manager:
@@ -98,10 +101,14 @@ class GenericView(SimpleModelResource):
 usergroup_path = os.path.join(APIROOT, 'usergroup')
 
 @resource(collection_path=usergroup_path,
-          path=os.path.join(usergroup_path, '{gid}', '{uid}'))
+          path=os.path.join(usergroup_path, '{gid}', '{uid}'),
+          permission='useradmin')
 class UserGroupResource(BaseResource):
     def __init__(self, request, context=None):
         super(UserGroupResource, self).__init__(request, context=context)
+
+    def __acl__(self):
+        return [(Allow, 'group:admin', 'useradmin')]
 
     def _get_model(self):
         group_id = self.request.matchdict['gid']
@@ -132,12 +139,7 @@ class UserGroupResource(BaseResource):
         return model.serialize()
 
     def delete(self):
-        group_id = self.request.matchdict['gid']
-        user_id = self.request.matchdict['uid']
         with transaction.manager:
-            query = self.request.dbsession.query(UserGroup)
-            query = query.filter_by(group_id=group_id)
-            query = query.filter_by(user_id=user_id)
-            model = query.one()
+            model = self._get_model()
             self.request.dbsession.delete(model)
         return dict(result="success")
