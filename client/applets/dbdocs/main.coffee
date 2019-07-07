@@ -1,6 +1,6 @@
 import Marionette from 'backbone.marionette'
 import TkApplet from 'tbirds/tkapplet'
-import AdminRouter from '../../adminrouter'
+import AdminRouter from '../../entries/adminrouter'
 
 
 import './dbchannel'

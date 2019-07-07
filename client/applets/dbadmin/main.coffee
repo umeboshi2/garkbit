@@ -4,7 +4,7 @@ import TkApplet from 'tbirds/tkapplet'
 import capitalize from 'tbirds/util/capitalize'
 
 import Controller from './controller'
-import AdminRouter from '../../adminrouter'
+import AdminRouter from '../../entries/adminrouter'
 
 appName = 'dbadmin'
 

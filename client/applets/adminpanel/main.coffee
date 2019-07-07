@@ -2,9 +2,9 @@ import Marionette from 'backbone.marionette'
 import TkApplet from 'tbirds/tkapplet'
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 
-import './dbchannel'
+#import './dbchannel'
 import Controller from './controller'
-import AdminRouter from '../../adminrouter'
+import AdminRouter from '../../entries/adminrouter'
 import userAdminRouter from './routers/useradmin'
 
 MainChannel = Backbone.Radio.channel 'global'

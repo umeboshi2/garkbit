@@ -1,7 +1,7 @@
 import Marionette from 'backbone.marionette'
 import Controller from './controller'
 
-import AdminRouter from '../../../../adminrouter'
+import AdminRouter from '../../../../entries/adminrouter'
 
 class Router extends AdminRouter
   appRoutes:
