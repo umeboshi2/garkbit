@@ -23,15 +23,17 @@ class MapView extends Marionette.View
     @Map = Leaflet.map 'map-view'
     zoom_level = 13
     location = [31.33, -89.28]
-    #@Map.setView location, zoom_level
-    @Map.on 'moveend', @getCenter
-    @Map.on 'locationerror', @onLocationError
-    @Map.locate
-      setView: true
-      watch: true
     layer = Leaflet.tileLayer 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
     layer.addTo @Map
     console.log "MAP, LAYER", @Map, layer
+    #@Map.setView location, zoom_level
+    @Map.on 'moveend', @getCenter
+    @Map.on 'locationerror', @onLocationError
+    @Map.on 'locationfound', @onLocationFound
+    @Map.locate
+      setView: true
+      watch: true
+      timeout: 1000
     circle = Leaflet.circle location, 200
     circle.addTo @Map
       
@@ -42,6 +44,9 @@ class MapView extends Marionette.View
     console.log "unable to get location"
     location = [31.33, -89.28]
     @Map.setView location, 13
+
+  onLocationFound: (event) ->
+    console.log "location found", event
     
 module.exports = MapView
 
