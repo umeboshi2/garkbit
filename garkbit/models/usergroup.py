@@ -1,8 +1,11 @@
 from configparser import ConfigParser
 from io import StringIO
 
-from sqlalchemy import Column
-from sqlalchemy import Integer, Boolean
+# from sqlalchemy import Column
+# from sqlalchemy import Integer, Boolean
+# from sqlalchemy.orm import relationship
+# from sqlalchemy.orm import backref
+
 from hornstone.models.usergroup import UserMixin, GroupMixin, UserGroupMixin
 
 from .meta import Base
@@ -28,12 +31,18 @@ class UserGroup(Base, UserGroupMixin):
         self.user_id = uid
 
 
+# #############################################################################
+# relationships
+# #############################################################################
+
+
 USERMODELS = dict(users=User, groups=Group,
-                  UserGroup=UserGroup)
+                  usergroup=UserGroup)
 
 
 def populate_groups(session):
-    groups = ['admin', 'editor', 'manager']
+    groups = ['admin', 'editor', 'manager',
+              'worker', 'boss']
     for gname in groups:
         try:
             with transaction.manager:
