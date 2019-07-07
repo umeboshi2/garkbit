@@ -44,7 +44,7 @@ calendarTemplate = tc.renderable () ->
   tc.div '#loading', ->
     tc.h2 ->
       tc.i '.fa.fa-spinner.fa-spin'
-      tc.text 'Loading Meetings'
+      tc.text 'Loading Work Sessions'
   tc.div '#maincalendar'
 
 loadingCalendarEvents = (isTrue) ->
@@ -91,10 +91,14 @@ class CalendarView extends Marionette.View
         left: 'prevYear, nextYear'
         center: 'title'
         right: 'prev, next'
-      three: false
+      theme: false
       defaultView: 'agendaWeek'
       #eventSources: sampleWeek
-      events: sampleWeek
+      eventSources:
+        [
+          url: '/api/dev/hourly/calendar'
+        ]
+      #events: sampleWeek
       #eventRender:
       #viewRender
       loading: loadingCalendarEvents

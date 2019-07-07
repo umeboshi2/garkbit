@@ -1,5 +1,8 @@
+import _ from 'underscore'
 import Backbone from 'backbone'
+import Marionette from 'backbone.marionette'
 import { make_dbchannel } from 'tbirds/crud/basecrudchannel'
+import DbCollection from 'tbirds/dbcollection'
 
 MainChannel = Backbone.Radio.channel 'global'
 AppChannel = Backbone.Radio.channel 'hourly'
@@ -9,38 +12,34 @@ apiRoot = "/api/dev/hourly"
 AuthModel = MainChannel.request 'main:app:AuthModel'
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
 
+defaultOptions =
+  channelName: 'hourly'
 
-url = "#{apiRoot}/crud/workers"
+
+workersUrl = "#{apiRoot}/crud/workers"
 class Worker extends AuthModel
-  urlRoot: url
+  urlRoot: workersUrl
 
 class Workers extends AuthCollection
   model: Worker
-  url: url
+  url: workersUrl
+dbcfg = new DbCollection _.extend defaultOptions,
+  modelName: 'worker'
+  modelClass: Worker
+  collectionClass: Workers
 
-make_dbchannel AppChannel, 'worker', Worker, Workers
-
-
-url = "#{apiRoot}/crud/worksessions"
+workSessionUrl = "#{apiRoot}/crud/worksessions"
 class WorkSession extends AuthModel
-  urlRoot: url
+  urlRoot: workSessionUrl
   
 class WorkSessions extends AuthCollection
   model: WorkSession
-  url: url
-
-make_dbchannel AppChannel, 'worksession', WorkSession, WorkSession
-
-url = "#{apiRoot}/crud/statuses"
-class WorkStatus extends AuthModel
-  urlRoot: url
-  idAttribute: 'worker_id'
+  url: workSessionUrl
+dbcfg = new DbCollection _.extend defaultOptions,
+  modelName: 'worksession'
+  modelClass: WorkSession
+  collectionClass: WorkSessions
   
-class StatusCollection extends AuthCollection
-  model: WorkStatus
-  url: url
-  
-make_dbchannel AppChannel, 'status', WorkStatus, StatusCollection
 
 class PotentialWorkers extends AuthCollection
   url: "#{apiRoot}/potential-workers"

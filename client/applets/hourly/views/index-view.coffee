@@ -2,6 +2,7 @@ import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
 import tc from 'teacup'
 import marked from 'marked'
+import moment from 'moment'
 
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 import TimeClock from '../timeclock-model'
@@ -38,6 +39,25 @@ statusTemplate = tc.renderable (model) ->
     tc.button clockOptions.btnClass, ->
       tc.text "Clock #{clockOptions.action}"
 
+sessionTemplate = tc.renderable (model) ->
+  tc.div ->
+    session = model.session
+    status = model.worker.status
+    if status == 'off' and session.end
+      end = moment(session.end)
+      tc.text "Your last session ended #{end.fromNow()}"
+    else if status == 'on'
+      #start = new Date session.start
+      start = moment(session.start)
+      tc.text "You have been working since #{start.fromNow()}"
+
+class SessionView extends Marionette.View
+  template: sessionTemplate
+  onSomething: ->
+    worker_id = @model.get 'id'
+    clock = new TimeClock
+      worker_id: worker_id
+  
 class StatusView extends Marionette.View
   template: statusTemplate
   ui: ->
@@ -47,17 +67,23 @@ class StatusView extends Marionette.View
     workSessionRegion: '@ui.workSessionRegion'
   events: ->
     'click @ui.clockBtn': 'punchClock'
+  onRender: ->
+    worker = @model
+    clock = new TimeClock
+    response = clock.fetch()
+    response.done =>
+      view = new SessionView
+        model: clock
+      @showChildView 'workSessionRegion', view
   punchClock: ->
     worker = @model
     status = @model.get 'status'
-    console.log "punchClock", worker, status
     if status in ['off', null]
       @punchIn()
     else if status == 'on'
       @punchOut()
     else
       MessageChannel.request 'warning', "Bad worker status #{status}"
-      
 
   punchIn: ->
     worker_id = @model.get 'id'
@@ -67,7 +93,7 @@ class StatusView extends Marionette.View
       type: 'POST'
       url: clock.urlRoot)
     response.done =>
-      @clockUserIn()
+      @updateLocalStatus 'on'
     response.fail ->
       MessageChannel.request 'warning', response.responseJSON.code
       
@@ -80,27 +106,13 @@ class StatusView extends Marionette.View
     response.done =>
       presponse = clock.save()
       presponse.done =>
-        @clockUserOut()
+        @updateLocalStatus 'off'
       presponse.fail ->
         MessageChannel.request 'warning', presponse.responseJSON.code
 
-  clockUserOut: ->
-    @model.set 'status', 'off'
-    console.log '@clockUserOut', @model
+  updateLocalStatus: (status) ->
+    @model.set 'status', status
     @render()
-
-  clockUserIn: ->
-    @model.set 'status', 'on'
-    console.log '@clockUserIn', @model
-    @render()
-    
-    
-  insertNewStatus: ->
-    worker = @model
-    Model = AppChannel.request 'status-modelClass'
-    model = new Model
-      worker_id: worker.get 'id'
-    return response
     
 class MainView extends Marionette.View
   template: view_template

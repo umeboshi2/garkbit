@@ -16,19 +16,20 @@ AppChannel = Backbone.Radio.channel 'hourly'
 import './dbchannel'
 
 class Controller extends MainController
+  channelName: 'hourly'
   layoutClass: ToolbarAppletLayout
   viewIndex: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       token = MainChannel.request 'main:app:decode-auth-token'
-      Worker = AppChannel.request 'worker-modelClass'
-      worker = new Worker id:token.uid
+      worker = @getChannel().request 'db:worker:new', id: token.uid
       View = require './views/index-view'
       view = new View
         model: worker
       @layout.showChildView 'content', view
     # name the chunk
     , 'hourly-view-index'
+    
   viewCalendar: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
@@ -41,7 +42,7 @@ class Controller extends MainController
   viewWorkers: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      collection = AppChannel.request 'worker-collection'
+      collection = @getChannel().request 'db:worker:collection'
       View = require('./views/list-workers').default
       view = new View
         collection: collection
