@@ -3,6 +3,10 @@
 
 A couple of apps:
 
+1. [Hourly](#hourly)
+
+	A simple timeclock.
+  
 1. [ELIZA](#eliza)
 
 	An implementation of a very old program that simulates
