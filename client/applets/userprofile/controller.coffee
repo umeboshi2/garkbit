@@ -55,19 +55,17 @@ class ToolbarView extends Marionette.View
     
 class Controller extends MainController
   layoutClass: ToolbarAppletLayout
-  setupLayoutIfNeeded: ->
-    super()
-    view = new ToolbarView
-      model: toolbarData
-    @layout.showChildView 'toolbar', view
-  
   show_profile: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      ViewClass = require './mainview'
+      ViewClass = require './views/index-view'
       token = MainChannel.request 'main:app:decode-auth-token'
+      console.log "TOKEN", token
       view = new ViewClass
         model: new Backbone.Model token
+        templateContext:
+          title: token.fullname
+          text: "#{token.fullname} (#{token.name})"
       @layout.showChildView 'content', view
     # name the chunk
     , 'userprofile-view-show-profile'
