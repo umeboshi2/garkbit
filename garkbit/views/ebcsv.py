@@ -13,8 +13,8 @@ from pyramid.security import Allow, Authenticated
 # import transaction
 import requests
 
-from alchemyjsonschema import SchemaFactory
-from alchemyjsonschema import NoForeignKeyWalker
+# from alchemyjsonschema import SchemaFactory
+# from alchemyjsonschema import NoForeignKeyWalker
 
 # from hornstone.alchemy import TimeStampMixin
 # from trumpet.views.resourceviews import BaseResource
@@ -45,7 +45,7 @@ class EbClzView(SimpleModelResource):
         super(EbClzView, self).__init__(request, context=context)
         self.limit = 25
         self._use_pagination = True
-        self.factory = SchemaFactory(NoForeignKeyWalker)
+        # self.factory = SchemaFactory(NoForeignKeyWalker)
 
     @property
     def model_map(self):
