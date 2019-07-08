@@ -56,7 +56,7 @@ class Controller extends MainController
   viewPotentialWorkers: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      pworkers = AppChannel.request 'get-potential-workers'
+      pworkers = @getChannel().request 'get-potential-workers'
       View = require('./views/potential-workers').default
       view = new View
         collection: pworkers
