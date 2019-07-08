@@ -4,14 +4,15 @@ from datetime import datetime
 from dateutil.parser import parse as dateparse
 from pyramid.security import Allow
 from pyramid.security import Authenticated
-from pyramid.view import view_config
+# from pyramid.view import view_config
 from cornice.resource import resource
-from cornice.resource import view
+# from cornice.resource import view
 # from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPNotAcceptable
 
 import transaction
 from sqlalchemy import desc
+from sqlalchemy import func
 
 from trumpet.views.base import BaseViewCallable
 from trumpet.views.resourceviews import SimpleModelResource
@@ -154,7 +155,7 @@ class TimeClockView(BaseModelResource):
         # get latest work session
         session = self._get_latest_session(worker.id)
         with transaction.manager:
-            session.end = datetime.now()
+            session.end = func.now()
             worker.status = 'off'
             self.db.add(session)
             self.db.add(worker)
