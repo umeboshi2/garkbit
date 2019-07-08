@@ -11,3 +11,19 @@ def make_token(request, user):
 def get_user(request):
     userid = request.unauthenticated_userid
     return request.dbsession.query(User).get(userid)
+
+
+def groupfinder(userid, request):
+    """
+    Default groupfinder implementaion for pyramid applications
+
+    :param userid:
+    :param request:
+    :return:
+    """
+    if userid and hasattr(request, 'user') and request.user:
+        groups = ['group:%s' % g.name for g in request.user.groups]
+        return groups
+    return []
+
+

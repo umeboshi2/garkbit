@@ -9,20 +9,7 @@ from pyramid.renderers import JSON
 
 from pympler import tracker
 
-
-def groupfinder(userid, request):
-    """
-    Default groupfinder implementaion for pyramid applications
-
-    :param userid:
-    :param request:
-    :return:
-    """
-    if userid and hasattr(request, 'user') and request.user:
-        groups = ['group:%s' % g.name for g in request.user.groups]
-        return groups
-    return []
-
+from .util import groupfinder
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
