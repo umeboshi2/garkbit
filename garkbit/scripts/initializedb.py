@@ -16,9 +16,13 @@ from ..models import (
     get_tm_session,
     )
 
-from ..models import usergroup
-# from ..models import sunny  # noqa: F401
-from ..models import hourly  # noqa: F401
+from ..models import (  # noqa: F401
+    usergroup,
+    hourly,
+    wikipage,
+    todo,
+    site_document,
+    )
 
 
 def usage(argv):
