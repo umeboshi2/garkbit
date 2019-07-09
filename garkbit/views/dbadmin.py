@@ -12,9 +12,9 @@ from trumpet.views.resourceviews import apiroot
 from trumpet.views.resourceviews import BaseModelResource
 from trumpet.views.base import BaseUserViewCallable
 
-from ..models.mymodel import SiteDocument
-from ..models.mymodel import WikiPage
-from ..models.mymodel import Todo
+from ..models.site_document import SiteDocument
+from ..models.wikipage import WikiPage
+from ..models.todo import Todo
 
 from .util import make_resource
 
