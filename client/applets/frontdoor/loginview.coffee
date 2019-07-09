@@ -26,7 +26,7 @@ login_form =  tc.renderable (user) ->
       name: 'password'
       type: 'password'
       placeholder: 'Type your password here....'
-  tc.input '.btn.btn-default', type:'submit', value:'login'
+  tc.input '.btn.btn-primary', type:'submit', value:'login'
   tc.div '.spinner.fa.fa-spinner.fa-spin'
 
 
