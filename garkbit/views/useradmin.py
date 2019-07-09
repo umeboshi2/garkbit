@@ -42,6 +42,10 @@ class GenericView(SimpleModelResource):
     def model_map(self):
         return USERMODELS
 
+    def __permitted_methods__(self):
+        return ['collection_get', 'collection_post',
+                'get', 'post', 'put', 'delete']
+    
     def __acl__(self):
         return [(Allow, 'group:admin', 'useradmin')]
 
