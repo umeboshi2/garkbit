@@ -1,5 +1,4 @@
 import Backbone from 'backbone'
-import { make_dbchannel } from 'tbirds/crud/basecrudchannel'
 
 MainChannel = Backbone.Radio.channel 'global'
 AppChannel = Backbone.Radio.channel 'hourly'

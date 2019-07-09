@@ -11,9 +11,6 @@ MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'hourly'
 
-view_template = tc.renderable (model) ->
-  tc.div '.row.status'
-
 notAWorkerTemplate = tc.renderable (model) ->
   tc.div '.row.listview-list-entry', ->
     tc.text "You are not a worker."
@@ -114,8 +111,11 @@ class StatusView extends Marionette.View
     @model.set 'status', status
     @render()
     
+viewTemplate = tc.renderable (model) ->
+  tc.div '.row.status'
+
 class MainView extends Marionette.View
-  template: view_template
+  template: viewTemplate
   ui: ->
     status: '.status'
   regions:

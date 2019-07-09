@@ -1,7 +1,6 @@
 import _ from 'underscore'
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
-import { make_dbchannel } from 'tbirds/crud/basecrudchannel'
 import DbCollection from 'tbirds/dbcollection'
 
 MainChannel = Backbone.Radio.channel 'global'

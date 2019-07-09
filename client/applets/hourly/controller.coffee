@@ -50,6 +50,8 @@ class Controller extends MainController
       response = collection.fetch()
       response.done ->
         console.log "workers fetched"
+      response.fail ->
+        MessageChannel.request 'danger', response.responseJSON.message
     # name the chunk
     , 'hourly-view-list-workers'
         
@@ -63,6 +65,9 @@ class Controller extends MainController
       response = pworkers.fetch()
       response.done ->
         console.log "pworkers fetched", pworkers
+      response.fail ->
+        console.log "pworkers.fetch() failed", response
+        MessageChannel.request 'danger', response.responseJSON.message
       @layout.showChildView 'content', view
     # name the chunk
     , 'hourly-view-potential-workers'

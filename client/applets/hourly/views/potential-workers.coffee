@@ -3,8 +3,6 @@ import Marionette from 'backbone.marionette'
 import tc from 'teacup'
 import marked from 'marked'
 
-{ navigate_to_url } = require 'tbirds/util/navigate-to-url'
-
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'hourly'
@@ -28,20 +26,10 @@ class ItemView extends Marionette.View
     'click @ui.addItem': 'addItem'
 
   addItem: ->
-    console.log "addItem called", @model
-    console.log "json", @model.toJSON()
-    model = AppChannel.request 'new-worker'
-    modelClass = AppChannel.request 'worker-modelClass'
+    modelClass = AppChannel.request 'db:worker:modelClass'
     model = new modelClass
       id: @model.get 'id'
       status: 'off'
-    collectionClass = AppChannel.request 'worker-collectionClass'
-    console.log "model", model
-    console.log "model.toJSON()", model.toJSON()
-    
-    #collection = new collectionClass
-    #console.log "collection is", collection
-    #collection.add model
     # https://stackoverflow.com/a/24915961/1869821
     response = model.save(null,
       type: 'POST'
@@ -64,11 +52,6 @@ listTemplate = tc.renderable ->
   tc.div '.pworkers-container.list-group'
 
 
-view_template = tc.renderable (model) ->
-  tc.div '.row.listview-list-entry', ->
-    tc.raw marked "# Potential Workers."
-
-
 class ListView extends Marionette.View
   template: listTemplate
   ui: ->
@@ -83,6 +66,11 @@ class ListView extends Marionette.View
       childView: ItemView
     @showChildView 'itemList', view
     
+view_template = tc.renderable (model) ->
+  tc.div '.row.listview-list-entry', ->
+    tc.raw marked "# Potential Workers."
+
+
 class MainView extends Marionette.View
   template: view_template
   templateContext:
