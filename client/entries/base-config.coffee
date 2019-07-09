@@ -15,7 +15,7 @@ class Layout extends MainPageLayout
     tc.div ".container-fluid", ->
       tc.div '#navbar-view-container'
       tc.div '.row.fixed-bottom', ->
-        tc.div '.col-md-4', ->
+        tc.div '.col-md', ->
           tc.div '#messages'
       tc.div '#applet-content'
       tc.div '#footer'
