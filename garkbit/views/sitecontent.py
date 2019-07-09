@@ -5,7 +5,7 @@ import transaction
 from trumpet.views.resourceviews import BaseResource, apiroot
 from trumpet.views.resourceviews import BaseModelResource
 
-from ..models.mymodel import SiteDocument
+from ..models.site_document import SiteDocument
 
 from .util import make_resource
 

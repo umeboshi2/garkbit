@@ -17,7 +17,7 @@ from trumpet.views.resourceviews import SimpleModelResource
 from trumpet.views.resourceviews import BaseModelResource
 from trumpet.views.resourceviews import BaseResource
 
-from ..models.mymodel import ObjectSummary
+from ..models.object_summary import ObjectSummary
 
 apiroot = '/api/dev/memleak/{model}'
 

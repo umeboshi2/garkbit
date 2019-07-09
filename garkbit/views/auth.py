@@ -6,7 +6,7 @@ from sqlalchemy.exc import DBAPIError
 import transaction
 from trumpet.util import password_matches, encrypt_password
 
-from ..models.mymodel import User
+from ..models.usergroup import User
 from ..util import make_token
 
 

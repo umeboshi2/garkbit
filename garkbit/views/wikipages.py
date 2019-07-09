@@ -20,7 +20,7 @@ import transaction
 
 from trumpet.views.resourceviews import BaseResource
 
-from ..models.mymodel import WikiPage
+from ..models.wikipage import WikiPage
 from ..scrapers.wikipedia import WikiCollector, cleanup_wiki_page
 
 
@@ -71,6 +71,9 @@ class WikiPageView(BaseResource):
         self.limit = 10
         print("EFFP {}".format(self.request.effective_principals))
 
+    def __permitted_methods__(self):
+        return ['collection_get', 'get']
+
     def __acl__(self):
         return [(Allow, Everyone, 'list'),
                 (Allow, Authenticated, 'wikipages')]
@@ -87,7 +90,13 @@ class WikiPageView(BaseResource):
         data = {}
         for key in dbobj.keys():
             data[key] = getattr(dbobj, key)
+        data['id'] = str(dbobj.id)
         return data
+
+    def serialize_object(self, dbobj):
+        obj = super(WikiPageView, self).serialize_object(dbobj)
+        obj['id'] = str(dbobj.id)
+        return obj
 
     def get(self):
         name = self.request.matchdict['name']
