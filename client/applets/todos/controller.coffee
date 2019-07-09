@@ -44,7 +44,7 @@ AppChannel.reply 'get-toolbar-entries', ->
 
 class Controller extends MainController
   layoutClass: ToolbarAppletLayout
-  collection: AppChannel.request 'todo-collection'
+  collection: AppChannel.request 'db:todo:collection'
   setupLayoutIfNeeded: ->
     super()
     toolbar = new ToolbarView
@@ -93,7 +93,7 @@ class Controller extends MainController
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       { EditView } = require './views/editor'
-      model = AppChannel.request 'get-todo', id
+      model = AppChannel.request 'db:todo:get', id
       @_loadView EditView, model, 'todo'
     # name the chunk
     , 'todos-edit-todo'
@@ -102,10 +102,7 @@ class Controller extends MainController
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       MainView = require './views/viewtodo'
-      model = AppChannel.request 'new-todo'
-      model.id = id
-      model.set 'id', id
-      console.log "model", model
+      model = AppChannel.request 'db:todo:get', id
       response = model.fetch()
       response.done =>
         view = new MainView

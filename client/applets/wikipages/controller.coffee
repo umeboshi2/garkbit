@@ -21,7 +21,7 @@ AppChannel.reply 'get-toolbar-entries', ->
 
 class Controller extends MainController
   layoutClass: ToolbarAppletLayout
-  collection: AppChannel.request 'wikipage-collection'
+  collection: AppChannel.request 'db:wikipage:collection'
   setupLayoutIfNeeded: ->
     super()
     toolbar = new ToolbarView
@@ -71,7 +71,7 @@ class Controller extends MainController
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       MainView = require './views/pageview'
-      model = AppChannel.request 'get-wikipage', name
+      model = AppChannel.request 'db:wikipage:get', name
       console.log "MODEL", model
       @_load_view MainView, model, 'wikipage'
     # name the chunk

@@ -23,7 +23,7 @@ class Controller extends MainController
       collection: toolbarEntryCollection
     @layout.showChildView 'toolbar', toolbar
 
-  collection: ResourceChannel.request 'document-collection'
+  collection: ResourceChannel.request 'db:document:collection'
   
   list_pages: () ->
     @setupLayoutIfNeeded()
@@ -44,7 +44,7 @@ class Controller extends MainController
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       { EditPageView } = require './views/editor'
-      model = ResourceChannel.request 'get-document', id
+      model = ResourceChannel.request 'db:document:get', id
       @_loadView EditPageView, model
     # name the chunk
     , 'dbdocs-view-edit-page'
@@ -53,7 +53,7 @@ class Controller extends MainController
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       PageView = require './views/pageview'
-      model = ResourceChannel.request 'get-document', id
+      model = ResourceChannel.request 'db:document:get', id
       @_loadView PageView, model
     # name the chunk
     , 'dbdocs-view-doc-page'

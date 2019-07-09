@@ -1,24 +1,26 @@
-Backbone = require 'backbone'
-
-{ make_dbchannel } = require 'tbirds/crud/basecrudchannel'
+import _ from 'underscore'
+import Backbone from 'backbone'
+import Marionette from 'backbone.marionette'
+import DbCollection from 'tbirds/dbcollection'
 
 MainChannel = Backbone.Radio.channel 'global'
-ResourceChannel = Backbone.Radio.channel 'resources'
+MessageChannel = Backbone.Radio.channel 'messages'
 
-apipath = "/api/dev/sitedocuments"
+apiRoot = "/api/dev/sitedocuments"
 
 AuthModel = MainChannel.request 'main:app:AuthModel'
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
 
+defaultOptions =
+  channelName: 'resources'
+
 class Document extends AuthModel
-  urlRoot: apipath
+  urlRoot: apiRoot
   
 class DocumentCollection extends AuthCollection
-  url: apipath
+  url: apiRoot
   model: Document
-
-make_dbchannel ResourceChannel, 'document', Document, DocumentCollection
-
-module.exports =
-  DocumentCollection: DocumentCollection
-
+dbcfg = new DbCollection _.extend defaultOptions,
+  modelName: 'document'
+  modelClass: Document
+  collectionClass: DocumentCollection

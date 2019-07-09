@@ -60,10 +60,10 @@ class BasePageEditor extends BootstrapFormView
     
 class NewPageView extends BasePageEditor
   createModel: ->
-    ResourceChannel.request 'new-document'
+    ResourceChannel.request 'db:document:new'
     
   saveModel: ->
-    docs = ResourceChannel.request 'document-collection'
+    docs = ResourceChannel.request 'db:document:collection'
     docs.add @model
     super arguments...
 

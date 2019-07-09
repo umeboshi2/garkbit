@@ -1,6 +1,7 @@
-import Backbone from  'backbone'
-
-import { make_dbchannel } from 'tbirds/crud/basecrudchannel'
+import _ from 'underscore'
+import Backbone from 'backbone'
+import Marionette from 'backbone.marionette'
+import DbCollection from 'tbirds/dbcollection'
 
 MainChannel = Backbone.Radio.channel 'global'
 AppChannel = Backbone.Radio.channel 'wikipages'
@@ -12,6 +13,8 @@ AuthCollection = MainChannel.request 'main:app:AuthCollection'
 apiroot = "/api/dev/bsapi/main"
 url = "#{apiroot}/wikipages"
 
+defaultOptions =
+  channelName: 'wikipages'
 
 class WikiPage extends AuthModel
   urlRoot: url
@@ -19,11 +22,8 @@ class WikiPage extends AuthModel
 class WikiPageCollection extends AuthCollection
   url: url
   model: WikiPage
+dbcfg = new DbCollection _.extend defaultOptions,
+  modelName: 'wikipage'
+  modelClass: WikiPage
+  collectionClass: WikiPageCollection
 
-wikipage_collection = new WikiPageCollection()
-
-make_dbchannel AppChannel, 'wikipage', WikiPage, WikiPageCollection
-
-export {
-  WikiPageCollection
-  }

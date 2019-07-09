@@ -63,12 +63,12 @@ class BaseEditor extends BootstrapFormView
     
 class NewView extends BaseEditor
   createModel: ->
-    todo = AppChannel.request 'new-todo'
+    todo = AppChannel.request 'db:todo:new'
     todo.set 'completed', false
     return todo
     
   saveModel: ->
-    collection = AppChannel.request 'todo-collection'
+    collection = AppChannel.request 'db:todo:collection'
     collection.add @model
     super arguments...
     

@@ -1,5 +1,8 @@
+import _ from 'underscore'
 import Backbone from 'backbone'
-import { make_dbchannel } from 'tbirds/crud/basecrudchannel'
+import Marionette from 'backbone.marionette'
+
+import DbCollection from 'tbirds/dbcollection'
 
 MainChannel = Backbone.Radio.channel 'global'
 AppChannel = Backbone.Radio.channel 'sunny'
@@ -9,6 +12,10 @@ apiRoot = "/api/dev/sunny"
 AuthModel = MainChannel.request 'main:app:AuthModel'
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
 
+dbcfg = {}
+defaultOptions =
+  channelName: 'sunny'
+  
 url = "#{apiRoot}/client"
 class Client extends AuthModel
   urlRoot: url
@@ -16,11 +23,12 @@ class Client extends AuthModel
 class Clients extends AuthCollection
   model: Client
   url: url
+dbcfg.client = new DbCollection _.extend defaultOptions,
+  modelName: 'client'
+  modelClass: Client
+  collectionClass: Clients
 
 
-
-make_dbchannel AppChannel, 'client', Client, Clients
-  
 url = "#{apiRoot}/yard"
 class Yard extends AuthModel
   urlRoot: url
@@ -28,8 +36,10 @@ class Yard extends AuthModel
 class Yards extends AuthCollection
   model: Yard
   url: url
-  
-make_dbchannel AppChannel, 'yard', Yard, Yards
+dbcfg.yard = new DbCollection _.extend defaultOptions,
+  modelName: 'yard'
+  modelClass: Yard
+  collectionClass: Yards
 
 url = "#{apiRoot}/yardroutine"
 class YardRoutine extends AuthModel
@@ -45,9 +55,10 @@ class YardRoutine extends AuthModel
 class YardRoutines extends AuthCollection
   model: YardRoutine
   url: url
-
-make_dbchannel AppChannel, 'yardroutine', YardRoutine, YardRoutines
-  
+dbcfg.yardroutine = new DbCollection _.extend defaultOptions,
+  modelName: 'yardroutine'
+  modelClass: YardRoutine
+  collectionClass: YardRoutines
 
 url = "#{apiRoot}/yardroutinejob"
 class YardRoutineJob extends AuthModel
@@ -56,8 +67,11 @@ class YardRoutineJob extends AuthModel
 class YardRoutineJobs extends AuthCollection
   model: YardRoutineJob
   url: url
+dbcfg.yardroutinejob = new DbCollection _.extend defaultOptions,
+  modelName: 'yardroutinejob'
+  modelClass: YardRoutineJob
+  collectionClass: YardRoutineJobs
 
-make_dbchannel AppChannel, 'yardroutinejob', YardRoutineJob, YardRoutineJobs
 
 url = '/api/dev/sunny/gpslocations'
 class GeoLocation extends AuthModel
@@ -66,9 +80,10 @@ class GeoLocation extends AuthModel
 class GeoLocationCollection extends AuthCollection
   model: GeoLocation
   url: url
-
-make_dbchannel AppChannel, 'location', GeoLocation, GeoLocationCollection
-
+dbcfg.location = new DbCollection _.extend defaultOptions
+  modelName: 'location'
+  modelClass: GeoLocation
+  collectionClass: GeoLocationCollection
 
 
 module.exports =
