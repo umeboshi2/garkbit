@@ -18,42 +18,26 @@ from sqlalchemy import (
     func,
     ForeignKey,
 )
-# from sqlalchemy.orm import relationship
 from hornstone.alchemy import TimeStampMixin
-from hornstone.models.base import BaseIdMixin
+from sqlalchemy.orm import relationship
+from sqlalchemy_utils import UUIDType
 
+from hornstone.models.base import BaseIdMixin
+from hornstone.models.base import BaseUUIDMixin
 
 from .meta import Base
-
-# imports for populate()
-# import transaction
-# from sqlalchemy.exc import IntegrityError
-
-
-class GeoPosition(Base, BaseIdMixin):
-    __tablename__ = 'geopositions'
-    accuracy = Column(Integer)
-    altitude = Column(Float)
-    altitudeAccuracy = Column(Float)
-    heading = Column(Float)
-    latitude = Column(Float)
-    longitude = Column(Float)
-    speed = Column(Float)
-
-    def __repr__(self):
-        return "<GeoPosition {}: {}x{}>".format(
-            self.id, self.latitude, self.longitude)
+from .geoposition import GeoPosition
 
 
 class MapLocation(Base, TimeStampMixin):
     __tablename__ = 'sunny_maplocations'
-    id = Column(Integer,
+    id = Column(UUIDType,
                 ForeignKey('geopositions.id'), primary_key=True)
     name = Column(Unicode(100), unique=True)
     description = Column(Unicode)
 
 
-class SunnyClient(Base, BaseIdMixin):
+class SunnyClient(Base, BaseUUIDMixin):
     __tablename__ = 'sunny_clients'
     name = Column(Unicode(100), unique=True)
     fullname = Column(Unicode)
@@ -61,18 +45,20 @@ class SunnyClient(Base, BaseIdMixin):
     description = Column(Unicode)
 
 
-class Yard(Base, BaseIdMixin):
+class Yard(Base, BaseUUIDMixin):
     __tablename__ = 'sunny_yards'
     name = Column(Unicode(100), unique=True)
     description = Column(Unicode)
     jobdetails = Column(Unicode)
-    sunnyclient_id = Column(Integer, ForeignKey('sunny_clients.id'))
-    location_id = Column(Integer, ForeignKey('geopositions.id'))
+    sunnyclient_id = Column(UUIDType,
+                            ForeignKey('sunny_clients.id'))
+    location_id = Column(UUIDType,
+                         ForeignKey('sunny_maplocations.id'))
 
 
-class SingleClientJob(Base, BaseIdMixin):
+class SingleClientJob(Base, BaseUUIDMixin):
     __tablename__ = 'sunny_single_client_jobs'
-    client_id = Column(Integer, ForeignKey('sunny_clients.id'))
+    client_id = Column(UUIDType, ForeignKey('sunny_clients.id'))
     due_date = Column(Date)
     start = Column(DateTime)
     end = Column(DateTime)
@@ -83,9 +69,9 @@ class SingleClientJob(Base, BaseIdMixin):
     status = Column(Unicode)
 
 
-class SingleYardJob(Base, BaseIdMixin):
+class SingleYardJob(Base, BaseUUIDMixin):
     __tablename__ = 'sunny_single_yard_jobs'
-    yard_id = Column(Integer, ForeignKey('sunny_yards.id'))
+    yard_id = Column(UUIDType, ForeignKey('sunny_yards.id'))
     due_date = Column(Date)
     start = Column(DateTime)
     end = Column(DateTime)
@@ -96,9 +82,9 @@ class SingleYardJob(Base, BaseIdMixin):
     status = Column(Unicode)
 
 
-class YardRoutineJob(Base, BaseIdMixin):
+class YardRoutineJob(Base, BaseUUIDMixin):
     __tablename__ = 'sunny_yard_routine_jobs'
-    yard_id = Column(Integer, ForeignKey('sunny_yards.id'))
+    yard_id = Column(UUIDType, ForeignKey('sunny_yards.id'))
     due_date = Column(Date)
     start = Column(DateTime)
     end = Column(DateTime)
@@ -110,6 +96,11 @@ class YardRoutineJob(Base, BaseIdMixin):
     status = Column(Unicode)
 
 
+MapLocation.location = relationship('GeoPosition', uselist=False)
+Yard.client = relationship('SunnyClient', uselist=False)
+Yard.location = relationship('MapLocation', uselist=False)
+
+    
 SUNNY_MODELS = dict(
     geoposition=GeoPosition,
     maplocation=MapLocation,
