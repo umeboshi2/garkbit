@@ -3,6 +3,10 @@ devMenu =
   label: 'Development Applets'
   menu: [
     {
+      label: 'DB Admin'
+      url: '#dbadmin'
+      needUser: true
+    },{
       label: 'User Admin'
       url: '#useradmin'
       needUser: true
