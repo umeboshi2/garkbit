@@ -17,15 +17,21 @@ itemTemplate = tc.renderable (model) ->
 
 itemTemplate = tc.renderable (model) ->
   itemButton = '.btn.btn-secondary.btn-sm'
+  statusButtonMap =
+    "on": "btn-success"
+    "off": "btn-warning"
   tc.span '.mr-auto', ->
     model.user.username
   if model.status
-    status = model.status.status
+    status = model.status
+    statusButton = "#{itemButton}.#{statusButtonMap[status]}"
   else
     status = "No status set."
+    statusButton = itemButton
   tc.span '.ml-auto.btn-group.pull-right', ->
     console.log "model.status", status
-    tc.button ".add-item.#{itemButton}.btn-info", status
+    console.log statusButton
+    tc.button ".add-item.#{statusButton}", status
     
 class ItemView extends Marionette.View
   template: itemTemplate
