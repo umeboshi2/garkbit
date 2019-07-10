@@ -59,7 +59,47 @@ def create_model(Model, obj):
     return model
 
 
+def merge_users(session, data):
+    with transaction.manager:
+        session.query(UserGroup).delete()
+        session.query(Group).delete()
+        session.query(User).delete()
+        session.flush()
+    with transaction.manager:
+        Model = User
+        name = Model.__name__
+        objects = data[name]
+        print("{} has {} objects.".format(name, len(objects)))
+        for obj in objects:
+            model = Model()
+            for key in obj:
+                setattr(model, key, obj[key])
+            session.add(model)
+        session.flush()
+    print("Imported Users")
+    with transaction.manager:
+        Model = Group
+        name = Model.__name__
+        objects = data[name]
+        print("{} has {} objects.".format(name, len(objects)))
+        for obj in objects:
+            model = Model()
+            for key in obj:
+                setattr(model, key, obj[key])
+            session.add(model)
+        session.flush()
+    print("Imported Groups")
+    with transaction.manager:
+        for obj in data['UserGroup']:
+            model = UserGroup(obj['group_id'], obj['user_id'])
+            for key in obj:
+                setattr(model, key, obj[key])
+            session.add(model)
+        session.flush()
+    print("Imported user/group")
+    return data
 
+            
 @resource(collection_path="/api/dev/dbadmin",
           path="/api/dev/dbadmin/{view}",
           permission='dbadmin')
@@ -97,13 +137,20 @@ class DbAdminView(BaseModelResource):
 
     def import_data(self):
         data = self.import_zipfile()
+        session = self.request.dbsession
+        self.delete_all()
+        merge_users(session, data)
         with transaction.manager:
             for Model in ALL_MODELS:
                 name = Model.__name__
                 objects = data[name]
                 print("{} has {} objects.".format(name, len(objects)))
                 for obj in objects:
-                    model = create_model(Model, obj)
+                    model = session.query(Model).get(obj['id'])
+                    if model is None:
+                        model = Model()
+                    for key in obj:
+                        setattr(model, key, obj[key])
                     self.request.dbsession.add(model)
                 print("Imported {}".format(name))
         return data
