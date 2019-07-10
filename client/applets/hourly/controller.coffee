@@ -22,7 +22,7 @@ class Controller extends MainController
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       token = MainChannel.request 'main:app:decode-auth-token'
-      worker = @getChannel().request 'db:worker:new', id: token.uid
+      worker = @getChannel().request 'db:worker:get', token.uid
       View = require './views/index-view'
       view = new View
         model: worker
