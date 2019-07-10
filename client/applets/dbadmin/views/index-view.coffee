@@ -106,8 +106,8 @@ class DropZoneView extends Marionette.View
       console.log "MODEL", model
       data = model.get 'data'
       output = model.get 'output'
-      MessageChannel.request 'success', "Finished import year #{data.year}"
-      @ui.statusMsg.text "Finished import year #{data.year}"
+      MessageChannel.request 'success', "Finished import"
+      @ui.statusMsg.text "Finished import"
       
       
   readFile: (file) ->

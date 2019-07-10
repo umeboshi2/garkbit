@@ -123,7 +123,8 @@ class MainView extends Marionette.View
   templateContext:
     appName: 'hourly'
   onRender: ->
-    console.log "MODEL IS", @model
+    if __DEV__
+      console.log "MODEL IS", @model
     response = @model.fetch()
     response.done =>
       view = new StatusView
