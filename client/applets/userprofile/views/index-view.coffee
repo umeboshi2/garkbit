@@ -27,6 +27,10 @@ userProfileTemplate = tc.renderable (model) ->
     tc.div '.card-body', ->
       tc.h5 '.card-title', model.title
       tc.div '.card-text', ->
+        tc.text 'Groups'
+        tc.ul '.list-group', ->
+          for g in model.groups
+            tc.li '.list-group-item', g
         # tc.raw marked model.text
         tc.a '.btn.btn-primary', href:"#profile/chpassword", 'Change Password'
         tc.a '.btn.btn-info', href:"#profile/mapview", 'Map'
