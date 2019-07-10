@@ -22,6 +22,7 @@ from ..models import (  # noqa: F401
     wikipage,
     todo,
     site_document,
+    geoposition,
     )
 
 
