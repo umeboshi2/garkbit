@@ -22,7 +22,7 @@ requirements = [
     'pyramid_retry',
     'pyramid_force_https',
     'pyramid_jwt',
-    'trumpet>=0.2.9',
+    'trumpet>=0.2.10',
     'WSGIProxy2>=0.4.6',
     # testing
     'paginate_sqlalchemy',
