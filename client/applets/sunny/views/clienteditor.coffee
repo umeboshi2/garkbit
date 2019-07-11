@@ -50,10 +50,10 @@ class BaseClientEditor extends BootstrapFormView
 
 class NewClientView extends BaseClientEditor
   createModel: ->
-    AppChannel.request 'new-client'
+    AppChannel.request 'db:client:new'
 
   saveModel: ->
-    clients = AppChannel.request 'client-collection'
+    clients = AppChannel.request 'db:client:collection'
     clients.add @model
     super arguments
     

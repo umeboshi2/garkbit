@@ -97,7 +97,7 @@ appletMenu = [
 
 class Router extends AppRouter
   appRoutes:
-    'sunny': 'list_clients'
+    'sunny': 'listClients'
     'sunny/clients': 'listClients'
     'sunny/clients/new': 'newClient'
     'sunny/clients/edit/:id': 'editClient'
