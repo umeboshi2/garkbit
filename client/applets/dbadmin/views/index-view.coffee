@@ -36,7 +36,7 @@ dropzoneTemplate = tc.renderable (model) ->
     tc.div '.card-body', ->
       tc.div '.parse-btn.btn.btn-primary', style:'display:none', ->
         tc.text 'upload dropped data dump'
-      tc.input '.file-input.input', type:'file'
+      tc.input '.file-input.input.btn.btn-success', type:'file'
       tc.span '.parse-chosen-btn.btn.btn-primary',
       style:'display:none', ->
         tc.text 'Parse dropped meetings'
