@@ -32,6 +32,7 @@ appletMenu = [
   ]
 
 class Router extends AppRouter
+  channelName: appName
   appRoutes:
     'muppy': 'viewIndex'
     'muppy/summaries': 'listSummaries'

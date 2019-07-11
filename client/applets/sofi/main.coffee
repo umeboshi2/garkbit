@@ -14,6 +14,7 @@ ResourceChannel = Backbone.Radio.channel 'resources'
 AppRouter = MainChannel.request 'main:app:IndexRouter'
 
 class Router extends AppRouter
+  channelName: 'sofi'
   appRoutes:
     'sofi': 'main_view'
 

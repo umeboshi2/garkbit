@@ -26,6 +26,7 @@ appletMenu = [
   ]
 
 class Router extends AppRouter
+  channelName: appName
   appRoutes:
     'msleg': 'viewIndex'
     

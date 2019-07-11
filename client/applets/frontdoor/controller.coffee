@@ -107,12 +107,10 @@ class Controller extends MainController
       MessageChannel.request 'warning', 'failed to get readme'
 
   viewPage: (name) ->
-    console.log "NAME IS", name
+    if __DEV__
+      console.log "NAME IS", name
     @setupLayoutIfNeeded()
     model = MainChannel.request 'main:app:get-document', name
-    #model = new AssetDocument()
-    #model.url = path.join urlRoot, name
-    console.log "MODEL IS", model
     response = model.fetch()
     response.done =>
       @_viewResource model

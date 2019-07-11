@@ -29,6 +29,7 @@ appletMenu = [
 ]
 
 class Router extends AppRouter
+  channelName: appName
   appRoutes:
     'netark': 'viewIndex'
     'netark/otrr/list': 'listOtrr'

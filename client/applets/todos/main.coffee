@@ -11,6 +11,7 @@ AppChannel = Backbone.Radio.channel 'todos'
 AppRouter = MainChannel.request 'main:app:IndexRouter'
 
 class Router extends AppRouter
+  channelName: 'todos'
   appRoutes:
     'todos': 'list_todos'
     'todos/completed': 'list_completed_todos'

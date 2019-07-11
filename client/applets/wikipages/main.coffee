@@ -12,6 +12,7 @@ AppChannel = Backbone.Radio.channel 'wikipages'
 AppRouter = MainChannel.request 'main:app:IndexRouter'
 
 class Router extends AppRouter
+  channelName: 'wikipages'
   appRoutes:
     'wikipages': 'list_wikipages'
     'wikipages/view/:name': 'view_wikipage'

@@ -21,6 +21,7 @@ appletMenu = [
   ]
 
 class Router extends AppRouter
+  channelName: appName
   appRoutes:
     'eliza': 'viewIndex'
     

@@ -24,6 +24,7 @@ if __DEV__
     icon: '.fa.fa-smile-o.text-dark.bg-warning'
     
 class Router extends AppRouter
+  channelName: 'frontdoor'
   appRoutes:
     '': 'frontdoor'
     'frontdoor': 'frontdoor'

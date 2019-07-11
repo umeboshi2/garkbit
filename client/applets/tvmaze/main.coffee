@@ -39,6 +39,7 @@ if __DEV__
     console.log event.data
   
 class Router extends AppRouter
+  channelName: appName
   appRoutes:
     'tvmaze': 'viewIndex'
     'tvmaze/searchshow': 'viewSearchShow'

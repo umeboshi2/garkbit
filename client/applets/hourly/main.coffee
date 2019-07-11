@@ -32,6 +32,7 @@ appletMenu = [
   ]
 
 class Router extends AppRouter
+  channelName: 'hourly'
   appRoutes:
     'hourly': 'viewIndex'
     'hourly/calendar': 'viewCalendar'

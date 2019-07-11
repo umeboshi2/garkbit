@@ -27,6 +27,7 @@ appletMenu = [
   ]
 
 class Router extends AppRouter
+  channelName: appName
   appRoutes:
     'usgov': 'view_index'
     

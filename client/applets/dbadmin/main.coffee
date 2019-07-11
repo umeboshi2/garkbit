@@ -26,6 +26,7 @@ appletMenu = [
   ]
 
 class Router extends AdminRouter
+  channelName: appName
   appRoutes:
     'dbadmin': 'viewIndex'
     

@@ -20,6 +20,7 @@ appletMenu = [
   ]
 
 class Router extends AppRouter
+  channelName: appName
   appRoutes:
     'taxes': 'viewIndex'
     'taxes/pages/*name': 'viewPage'

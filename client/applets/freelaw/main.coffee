@@ -26,6 +26,7 @@ appletMenu = [
   ]
 
 class Router extends AppRouter
+  channelName: appName
   appRoutes:
     #'freelaw': 'viewIndex'
     'freelaw': 'listClusters'

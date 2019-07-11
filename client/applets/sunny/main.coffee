@@ -96,6 +96,7 @@ appletMenu = [
 
 
 class Router extends AppRouter
+  channelName: 'sunny'
   appRoutes:
     'sunny': 'listClients'
     'sunny/clients': 'listClients'

@@ -26,6 +26,7 @@ appletMenu = [
 ]
 
 class Router extends AppRouter
+  channelName: 'userprofile'
   appRoutes:
     'profile': 'show_profile'
     'profile/editconfig': 'editConfig'

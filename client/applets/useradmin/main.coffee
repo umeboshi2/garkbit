@@ -38,6 +38,7 @@ appletMenu = [
   ]
 
 class Router extends AdminRouter
+  channelName: appName
   appRoutes:
     'useradmin': 'viewIndex'
     'useradmin/user/list': 'listUsers'
