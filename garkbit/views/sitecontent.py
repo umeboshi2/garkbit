@@ -16,3 +16,6 @@ site_documents_api_path = os.path.join(apiroot(), 'sitedocuments')
 @resource(**make_resource(site_documents_api_path))
 class SiteDocumentResource(BaseModelResource):
     model = SiteDocument
+    def __permitted_methods__(self):
+        return ['collection_get']
+    
