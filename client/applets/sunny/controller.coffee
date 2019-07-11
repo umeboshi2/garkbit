@@ -27,9 +27,9 @@ class AppletLayout extends View
 
 class Controller extends MainController
   layoutClass: ToolbarAppletLayout
-  clients: AppChannel.request 'client-collection'
+  clients: AppChannel.request 'db:client:collection'
   
-  list_clients: () ->
+  listClients: () ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       ListView = require './views/clientlist'
@@ -43,7 +43,7 @@ class Controller extends MainController
     # name the chunk
     , 'sunny-view-list-clients'
 
-  new_client: () ->
+  newClient: () ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       { NewClientView } = require './views/clienteditor'
@@ -51,14 +51,14 @@ class Controller extends MainController
     # name the chunk
     , 'sunny-view-new-client'
       
-  add_yard: (client_id) ->
+  addYard: (client_id) ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       YardView = require('./views/yardview').default
       console.log "YardView", YardView
       # { NewYardView } = require './views/yardeditor'
       # view = new NewYardView
-      model = AppChannel.request 'new-yard'
+      model = AppChannel.request 'db:yard:new'
       model.set 'sunnyclient_id', client_id
       view = new YardView
         model: model
@@ -66,11 +66,11 @@ class Controller extends MainController
     # name the chunk
     , 'sunny-view-add-yard'
 
-  view_yard: (yard_id) ->
+  viewYard: (yard_id) ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       YardView = require './views/yardview'
-      model = AppChannel.request 'get-yard', yard_id
+      model = AppChannel.request 'db:yard:get', yard_id
       if model.has 'sunnyclient'
         @_show_edit_client YardView, model
       else
@@ -85,7 +85,7 @@ class Controller extends MainController
     # name the chunk
     , 'sunny-view-yard-view'
 
-  yard_routines: (yard_id) ->
+  yardRoutines: (yard_id) ->
     console.log 'yard_routines', yard_id
     
   _show_edit_client: (vclass, model) ->
@@ -93,11 +93,11 @@ class Controller extends MainController
       model: model
     @layout.showChildView 'content', view
     
-  edit_client: (id) ->
+  editClient: (id) ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       { EditClientView } = require './views/clienteditor'
-      model = AppChannel.request 'get-client', id
+      model = AppChannel.request 'db:client:get', id
       if model.has 'name'
         @_show_edit_client EditClientView, model
       else
@@ -111,7 +111,7 @@ class Controller extends MainController
       
 
   _fetch_yards_and_view_client: (client, viewclass) ->
-    yards = AppChannel.request 'yard-collection'
+    yards = AppChannel.request 'db:yard:collection'
     yresponse = yards.fetch
       data:
         sunnyclient_id: client.id
@@ -125,11 +125,11 @@ class Controller extends MainController
       MessageChannel.request 'danger', 'Failed to load yards.'
     
       
-  view_client: (id) ->
+  viewClient: (id) ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       ClientMainView = require './views/viewclient'
-      model = AppChannel.request 'get-client', id
+      model = AppChannel.request 'db:client:get', id
       if model.has 'name'
         @_fetch_yards_and_view_client model, ClientMainView
       else

@@ -98,15 +98,15 @@ appletMenu = [
 class Router extends AppRouter
   appRoutes:
     'sunny': 'list_clients'
-    'sunny/clients': 'list_clients'
-    'sunny/clients/new': 'new_client'
-    'sunny/clients/edit/:id': 'edit_client'
-    'sunny/clients/view/:id': 'view_client'
+    'sunny/clients': 'listClients'
+    'sunny/clients/new': 'newClient'
+    'sunny/clients/edit/:id': 'editClient'
+    'sunny/clients/view/:id': 'viewClient'
 
-    'sunny/yards/add/:client_id': 'add_yard'
-    'sunny/yards/view/:id': 'view_yard'
+    'sunny/yards/add/:client_id': 'addYard'
+    'sunny/yards/view/:id': 'viewYard'
 
-    'sunny/yards/routines/:yard_id': 'yard_routines'
+    'sunny/yards/routines/:yard_id': 'yardRoutines'
     'sunny/mapview': 'mapView'
     
 

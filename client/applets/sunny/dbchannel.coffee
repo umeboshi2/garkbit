@@ -7,7 +7,7 @@ import DbCollection from 'tbirds/dbcollection'
 MainChannel = Backbone.Radio.channel 'global'
 AppChannel = Backbone.Radio.channel 'sunny'
 
-apiRoot = "/api/dev/sunny"
+apiRoot = "/api/dev/sunny/crud"
 
 AuthModel = MainChannel.request 'main:app:AuthModel'
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
@@ -80,16 +80,9 @@ class GeoLocation extends AuthModel
 class GeoLocationCollection extends AuthCollection
   model: GeoLocation
   url: url
-dbcfg.location = new DbCollection _.extend defaultOptions
+dbcfg.location = new DbCollection _.extend defaultOptions,
   modelName: 'location'
   modelClass: GeoLocation
   collectionClass: GeoLocationCollection
 
-
-module.exports =
-  Clients: Clients
-  Yards: Yards
-  YardRoutines: YardRoutines
-  YardRoutineJobs: YardRoutineJobs
-  
-
+export default dbcfg
