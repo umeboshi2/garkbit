@@ -1,12 +1,11 @@
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
 import tc from 'teacup'
-import marked from 'marked'
-import navigate_to_url from 'tbirds/util/navigate-to-url'
 
 userIcon = require 'node-noto-emoji/dist/man'
 
 MainChannel = Backbone.Radio.channel 'global'
+AppChannel = Backbone.Radio.channel 'userprofile'
 
 user_profile_template = tc.renderable (model) ->
   tc.div ->
@@ -31,13 +30,59 @@ userProfileTemplate = tc.renderable (model) ->
         tc.ul '.list-group', ->
           for g in model.groups
             tc.li '.list-group-item', g
-        # tc.raw marked model.text
-        tc.a '.btn.btn-primary', href:"#profile/chpassword", 'Change Password'
-        tc.a '.btn.btn-info', href:"#profile/mapview", 'Map'
+        tc.button '.chpass-btn.btn.btn-primary', 'Change Password'
+        tc.button '.map-btn.btn.btn-info', 'Map'
+      tc.div '.card-text.child-container'
+      
       
 
 class UserMainView extends Marionette.View
   template: userProfileTemplate
+  ui:
+    childContainer: '.child-container'
+    mapBtn: '.map-btn'
+    chpassContainer: '.chpass-container'
+    chpassBtn: '.chpass-btn'
+  regions:
+    childContainer: '@ui.childContainer'
+  events:
+    'click @ui.mapBtn': 'mapBtnClicked'
+    'click @ui.chpassBtn': 'chpassBtnClicked'
+
+  _childButtonClicked: (currentViewName, showMethod) ->
+    region = @getRegion 'childContainer'
+    showView = false
+    if region.hasView()
+      viewName = region.currentView.constructor.name
+      if viewName != currentViewName
+        showView = true
+      region.empty()
+    else
+      showView = true
+    if showView
+      @[showMethod]()
+
+    
+  mapBtnClicked: =>
+    @_childButtonClicked 'MapView', 'showMapView'
+  chpassBtnClicked: ->
+    @_childButtonClicked 'ChangePasswordView', 'showChpassView'
+  showMapView: ->
+    require.ensure [], () =>
+      ViewClass = require './mapview'
+      view = new ViewClass
+      @showChildView 'childContainer', view
+    # name the chunk
+    , 'userprofile-view-map-childview'
+  showChpassView: ->
+    require.ensure [], () =>
+      ViewClass = require('./chpassview').default
+      view = new ViewClass
+        model: AppChannel.request 'new-password-model'
+      @showChildView 'childContainer', view
+    # name the chunk
+    , 'userprofile-view-chpass-childview'
+    
 
 module.exports = UserMainView
 

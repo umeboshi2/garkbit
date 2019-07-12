@@ -9,21 +9,16 @@ navigate_to_url = require 'tbirds/util/navigate-to-url'
 
 MainChannel = Backbone.Radio.channel 'global'
 
-old_map_view_template = tc.renderable (model) ->
+map_view_template = tc.renderable (model) ->
   tc.div '.row', ->
     tc.h2 "Map View"
   tc.div '.row', ->
     tc.div '.col.status-message'
   tc.div "#map-view.row", style:'height:20em;'
 
-
-mapViewTemplate = tc.renderable (model) ->
-  tc.div '.row', ->
-    tc.div '.col.status-message'
-  tc.div "#map-view.row", style:'height:20em;'
-  
+    
 class MapView extends Marionette.View
-  template: mapViewTemplate
+  template: map_view_template
   ui:
     map: '#map-view'
     statusMsg: '.status-message'

@@ -73,7 +73,7 @@ class Controller extends MainController
   view_map: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      ViewClass = require './mapview'
+      ViewClass = require './views/mapview'
       token = MainChannel.request 'main:app:decode-auth-token'
       view = new ViewClass
         model: new Backbone.Model token
@@ -84,7 +84,7 @@ class Controller extends MainController
   editConfig: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      ViewClass = require('./configview').default
+      ViewClass = require('./views/configview').default
       token = MainChannel.request 'main:app:decode-auth-token'
       view = new ViewClass
         model: new Backbone.Model token
@@ -95,7 +95,7 @@ class Controller extends MainController
   change_password: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      ViewClass = require('./chpassview').default
+      ViewClass = require('./views/chpassview').default
       view = new ViewClass
         model: AppChannel.request 'new-password-model'
       @layout.showChildView 'content', view
