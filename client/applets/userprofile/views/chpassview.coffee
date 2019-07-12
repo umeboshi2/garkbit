@@ -2,6 +2,7 @@ import $ from 'jquery'
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
 import tc from 'teacup'
+import codenamize from '@codenamize/codenamize'
 
 import BootstrapFormView from 'tbirds/views/bsformview'
 import capitalize from 'tbirds/util/capitalize'
@@ -14,7 +15,33 @@ MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 
 
+class PasswordHintView extends Marionette.View
+  className: 'col'
+  template: tc.renderable ->
+    tc.span '.chpass-recommend.mr-auto'
+    tc.span '.ml-auto.pull-right', ->
+      tc.button '.btn.btn-info.btn-sm', 'change'
+  ui: ->
+    chpassRecommend: '.chpass-recommend'
+    button: '.btn'
+  events:
+    'click @ui.button': 'buttonClicked'
+  onRender: ->
+    @updateRecommended()
+  buttonClicked: ->
+    @updateRecommended()
+  updateRecommended: ->
+    now = new Date
+    newpass = codenamize
+      seed: now.toString()
+      adjectiveCount: 2
+      maxItemChars: 5
+    msg = "Try: #{newpass}"
+    @ui.chpassRecommend.text msg
+    
+
 chpass_form = tc.renderable () ->
+  tc.div '.row.password-hint'
   form_group_input_div
     input_id: 'input_password'
     label: 'Password'
@@ -33,17 +60,20 @@ chpass_form = tc.renderable () ->
       'data-validation': 'confirm'
   tc.input '.btn.btn-success.btn-sm', type:'submit', value:"Change Password"
       
-
 class ChangePasswordView extends BootstrapFormView
   template: chpass_form
   fieldList: ['password', 'confirm']
   ui: ->
     uiobject = make_field_input_ui @fieldList
     uiobject.submit = 'input[type="submit"]'
+    uiobject.passwordHint = '.password-hint'
     return uiobject
-  onDomRefresh: ->
+  regions:
+    passwordHint: '@ui.passwordHint'
+  onRender: ->
     @ui.submit.hide()
-    
+    view = new PasswordHintView
+    @showChildView 'passwordHint', view
   createModel: ->
     @model
     
