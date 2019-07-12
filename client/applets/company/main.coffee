@@ -4,6 +4,7 @@ import AppRouter from 'marionette.approuter'
 import TkApplet from 'tbirds/tkapplet'
 import capitalize from 'tbirds/util/capitalize'
 
+import AdminRouter from '../../entries/adminrouter'
 import Controller from './controller'
 
 appName = 'company'
@@ -25,8 +26,13 @@ appletMenu = [
   }
   ]
 
-class Router extends AppRouter
+class Router extends AdminRouter
   channelName: appName
+  permittedGroups: [
+    'admin'
+    'boss'
+    ]
+  navbarEntries: 'index'
   appRoutes:
     'company': 'viewIndex'
     
