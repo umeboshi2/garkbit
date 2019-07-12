@@ -33,6 +33,7 @@ SiteNavChannel.reply 'set-index-entries', ->
     demoMenu
     miscMenu
     ]
+  entries = []
   if __DEV__
     entries.push devMenu
   NavbarChannel.request 'clear-entries', 'site'

@@ -34,9 +34,12 @@ class AssetDocument extends Backbone.Model
 
 class AssetCollection extends Backbone.Collection
   urlRoot: urlRoot
-    
+
+intro = 'intro'
+if __DEV__
+  intro = 'intro-dev'
 class ReadMeModel extends AssetDocument
-  url: "/assets/documents/intro.md"
+  url: "/assets/documents/#{intro}.md"
 
 frontdoor_template = tc.renderable () ->
   #tc.div '#main-content.col-sm-10.col-sm-offset-1'
