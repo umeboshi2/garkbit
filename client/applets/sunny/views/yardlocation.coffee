@@ -23,9 +23,10 @@ yard_location_text = (position) ->
 
 class BaseYardLocationView extends View
   template:  tc.renderable (model) ->
+    console.log "yardlocation view", model
     tc.span "Location:"
-    if model?.geoposition
-      ytext = yard_location_text model.geoposition
+    if model?.location
+      ytext = yard_location_text model.location
     else
       ytext = 'Not Set'
     tc.div '#yard-location-button.btn.btn-default.pull-right', ''
@@ -130,13 +131,13 @@ class BaseYardLocationView extends View
   onDomRefresh: ->
     console.log "onDomRefresh called"
     @setGettingLocationHtml 'database'
-    geoposition = @model.get 'geoposition'
-    console.log "geoposition", geoposition
-    if geoposition
-      @ui.yardLocation.text yard_location_text geoposition
+    location = @model.get 'location'
+    console.log "location", location
+    if location
+      @ui.yardLocation.text yard_location_text location
       @ui.yardButton.text 'Update Location'
       return
-    else if not geoposition?.latitude and @model.id
+    else if not location?.latitude and @model.id
       msg = "There is no gps location for this yard!"
       MessageChannel.request 'warning', msg
     @ui.yardLocation.text 'Unset'

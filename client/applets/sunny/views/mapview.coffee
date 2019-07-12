@@ -15,7 +15,7 @@ import iconUrl from './glyph-marker-icon'
 #  GhostCollection } = require '../../ghost/base'
 
 MainChannel = Backbone.Radio.channel 'global'
-SunnyChannel = Backbone.Radio.channel 'sunny'
+AppChannel = Backbone.Radio.channel 'sunny'
 GpsChannel = Backbone.Radio.channel 'gps'
 
 AuthModel = MainChannel.request 'main:app:AuthModel'
@@ -76,21 +76,15 @@ class MapView extends View
       
     
   addYardMarkers: ->
-    yards = SunnyChannel.request 'yard-collection'
-    fullyards = yards
-    if false
-      fullyards = new AuthCollection
-      #  model: yards.model
-      #  url: ->
-      #    "#{yards.url}/include"
-      fullyards.model = yards.model
-      fullyards.url = "#{yards.url}/include"
-    response = fullyards.fetch()
+    yards = AppChannel.request 'db:yard:collection'
+    response = yards.fetch
+      data:
+        limit: 50
     response.done =>
-      console.log "FULLYARDS", fullyards
-      for model in fullyards.models
+      console.log "YARDS", yards
+      for model in yards.models
         do (model) =>
-          atts = model.attributes.geoposition
+          atts = model.attributes.location
           if atts.latitude
             loc = [atts.latitude, atts.longitude]
             marker = Leaflet.marker loc,

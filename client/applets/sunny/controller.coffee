@@ -69,7 +69,7 @@ class Controller extends MainController
   viewYard: (yard_id) ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      YardView = require './views/yardview'
+      YardView = require('./views/yardview').default
       model = AppChannel.request 'db:yard:get', yard_id
       if model.has 'sunnyclient'
         @_show_edit_client YardView, model
@@ -114,7 +114,8 @@ class Controller extends MainController
     yards = AppChannel.request 'db:yard:collection'
     yresponse = yards.fetch
       data:
-        sunnyclient_id: client.id
+        where:
+          sunnyclient_id: client.id
     yresponse.done =>
       view = new viewclass
         model: client

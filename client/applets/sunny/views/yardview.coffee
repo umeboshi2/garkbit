@@ -27,7 +27,7 @@ class YardHeaderView extends View
   template: tc.renderable (model) ->
     tc.text "Yard #{model.name} of "
     tc.a href:"#sunny/clients/view/#{model.sunnyclient_id}", ->
-      tc.text "#{model.sunnyclient.fullname}" || 'client'
+      tc.text "#{model.client.fullname}" || 'client'
 
 class YardViewer extends View
   template: tc.renderable (model) ->
