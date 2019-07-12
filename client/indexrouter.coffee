@@ -13,8 +13,9 @@ class IndexRouter extends AppRouter
   before: (route, params) ->
     user = MainChannel.request 'main:app:decode-auth-token'
   onRoute: ->
-    SiteNavChannel.request 'set-index-entries'
-
+    navbarEntries = @getOption('navbarEntries') or 'index'
+    SiteNavChannel.request "set-#{navbarEntries}-entries"
+    
 MainChannel.reply 'main:app:IndexRouter', ->
   return IndexRouter
   

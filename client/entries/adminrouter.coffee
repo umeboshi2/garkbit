@@ -12,15 +12,18 @@ class AdminRouter extends AppRouter
   # backbone.routefilter which provides "before" method
   before: (route, params) ->
     user = MainChannel.request 'main:app:decode-auth-token'
-    isAdmin = false
+    hasAccess = false
+    permittedGroups = @getOption('permittedGroups') or ['admin']
     if not isObjectEmpty user
-      if 'admin' in user.groups
-        isAdmin = true
-    if not isAdmin
-      MessageChannel.request 'warning', 'Admin access only!'
+      for gname in user.groups
+        if gname in permittedGroups
+          hasAccess = true
+    if not hasAccess
+      MessageChannel.request 'warning', 'Restricted access only!'
       navigate_to_url '/#frontdoor/login'
   onRoute: ->
-    SiteNavChannel.request 'set-admin-entries'
+    navbarEntries = @getOption('navbarEntries') or 'admin'
+    SiteNavChannel.request "set-#{navbarEntries}-entries"
 
 export default AdminRouter
 
