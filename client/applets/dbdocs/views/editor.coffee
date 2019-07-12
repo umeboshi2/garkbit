@@ -22,7 +22,7 @@ EditForm = tc.renderable (model) ->
   tc.div '.listview-header', 'Document'
   for field in basicFields
     make_field_input(field)(model)
-  make_field_select(field, ['html', 'markdown'])(model)
+  make_field_select('doctype', ['html', 'markdown'])(model)
   tc.div '#ace-editor', style:'position:relative;width:100%;height:40em;'
   tc.input '.btn.btn-default', type:'submit', value:"Submit"
   tc.div '.spinner.fa.fa-spinner.fa-spin'
@@ -35,7 +35,9 @@ class BasePageEditor extends BootstrapFormView
   template: EditForm
   ui: ->
     uiobject = make_field_input_ui @fieldList
-    _.extend uiobject, {'editor': '#ace-editor'}
+    _.extend uiobject,
+      editor: '#ace-editor'
+      doctype: 'select[name="select_doctype"]'
     return uiobject
   
   behaviors:
@@ -52,6 +54,7 @@ class BasePageEditor extends BootstrapFormView
       @model.set field, @ui[field].val()
     # update from ace-editor
     @model.set 'content', @editor.getValue()
+    @model.set 'doctype', @ui.doctype.val()
 
   onSuccess: (model) ->
     name = @model.get 'name'
@@ -71,9 +74,8 @@ class EditPageView extends BasePageEditor
   # the model should be assigned in the controller
   createModel: ->
     @model
-    
+
 export {
   NewPageView
   EditPageView
   }
-
