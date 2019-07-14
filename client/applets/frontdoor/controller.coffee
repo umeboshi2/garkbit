@@ -16,6 +16,7 @@ MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 DocChannel = Backbone.Radio.channel 'static-documents'
 ResourceChannel = Backbone.Radio.channel 'resources'
+SiteNavChannel = Backbone.Radio.channel 'site-nav'
 
 tc = require 'teacup'
 
@@ -95,7 +96,8 @@ class Controller extends MainController
     
   showLogout: ->
     MainChannel.request 'main:app:destroy-auth-token'
-    navigate_to_url '/'
+    SiteNavChannel.request 'set-index-entries'
+    navigate_to_url '#'
     
   frontdoor_hasuser: (user) ->
     @defaultView()
