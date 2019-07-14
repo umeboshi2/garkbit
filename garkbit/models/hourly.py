@@ -31,7 +31,7 @@ WorkerStatusType = Enum('on', 'off',
                         name="hourly_worker_status_type_enum")
 
 
-class Worker(Base, TimeStampMixin):
+class HourlyWorker(Base, TimeStampMixin):
     __tablename__ = 'hourly_workers'
     id = Column(UUIDType, ForeignKey('users.id'),
                 primary_key=True)
@@ -39,9 +39,9 @@ class Worker(Base, TimeStampMixin):
     status = Column(WorkerStatusType)
 
 
-class WorkSession(Base, BaseUUIDMixin):
+class HourlyWorkSession(Base, BaseUUIDMixin):
     __tablename__ = 'hourly_work_sessions'
-    worker_id = Column(UUIDType, ForeignKey(Worker.id))
+    worker_id = Column(UUIDType, ForeignKey(HourlyWorker.id))
     start = Column(DateTime, default=func.now())
     end = Column(DateTime)
 
@@ -50,5 +50,5 @@ class WorkSession(Base, BaseUUIDMixin):
 # Relationships
 #######################################################
 
-Worker.user = relationship('User', uselist=False)
-Worker.sessions = relationship('WorkSession')
+HourlyWorker.user = relationship('User', uselist=False)
+HourlyWorker.sessions = relationship('HourlyWorkSession')

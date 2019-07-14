@@ -34,8 +34,9 @@ loginTemplate = tc.renderable (user) ->
             placeholder: 'Type your password here....'
         tc.div '.spinner.fa.fa-spinner.fa-spin'
       tc.div '.modal-footer', ->
-        tc.button '.btn.btn-warning.fa.fa-close.mr-auto',
-        data:dismiss:'modal', "Cancel"
+        if not __DEV__
+          tc.button '.btn.btn-warning.fa.fa-close.mr-auto',
+          data:dismiss:'modal', "Cancel"
         
         #tc.input '.btn.btn-primary.login-btn', type:'submit',
         #data:dismiss:'modal', value:'login'

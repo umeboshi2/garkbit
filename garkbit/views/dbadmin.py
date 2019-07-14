@@ -24,7 +24,7 @@ from ..models.geoposition import GeoPosition
 from ..models.site_document import SiteDocument
 from ..models.wikipage import WikiPage
 from ..models.todo import Todo
-from ..models.hourly import Worker, WorkSession
+from ..models.hourly import HourlyWorker, HourlyWorkSession
 # from ..models.object_summary import ObjectSummary
 
 
@@ -33,8 +33,8 @@ from .util import make_resource
 
 ALL_MODELS = dict(user=User, group=Group, usergroup=UserGroup,
                   geoposition=GeoPosition, site_document=SiteDocument,
-                  wikipage=WikiPage, todo=Todo, worker=Worker,
-                  worksession=WorkSession)
+                  wikipage=WikiPage, todo=Todo, worker=HourlyWorker,
+                  worksession=HourlyWorkSession)
 
 USERGROUP_MODELS = [
     User,
@@ -47,8 +47,8 @@ ALL_MODELS = [
     SiteDocument,
     WikiPage,
     Todo,
-    Worker,
-    WorkSession,
+    HourlyWorker,
+    HourlyWorkSession,
     ]
 
 

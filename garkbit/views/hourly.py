@@ -21,8 +21,8 @@ from trumpet.views.resourceviews import BaseModelResource
 from trumpet.views.util import get_start_end_from_request
 
 from ..models.hourly import (
-    Worker,
-    WorkSession,
+    HourlyWorker as Worker,
+    HourlyWorkSession as WorkSession,
     )
 
 from ..models.usergroup import User, Group, UserGroup
