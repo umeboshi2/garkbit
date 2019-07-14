@@ -39,7 +39,7 @@ class Controller extends MainController
       response.done =>
         @layout.showChildView 'content', view
       response.fail ->
-        MessageChannel.request 'danger', "Failed to load clients."
+        MessageChannel.request 'xhr-error', response
     # name the chunk
     , 'sunny-view-list-clients'
 
@@ -80,8 +80,8 @@ class Controller extends MainController
             include: '*'
         response.done =>
           @_show_edit_client YardView, model
-        response.fail ->
-          MessageChannel.request 'danger', "Failed to load yard data."
+      response.fail ->
+        MessageChannel.request 'xhr-error', response
     # name the chunk
     , 'sunny-view-yard-view'
 
@@ -105,7 +105,7 @@ class Controller extends MainController
         response.done =>
           @_show_edit_client EditClientView, model
         response.fail ->
-          MessageChannel.request 'danger', "Failed to load client data."
+          MessageChannel.request 'xhr-error', response
     # name the chunk
     , 'sunny-view-edit-client'
       
