@@ -32,6 +32,7 @@ if __DEV__
 import 'tbirds/applet-router'
 import IsEscapeModal from 'tbirds/behaviors/is-escape-modal'
 import exportToFile from 'tbirds/util/export-to-file'
+import LoginModal from './loginview'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
@@ -51,7 +52,6 @@ if __DEV__ and false
 #require '../authmodels'
 require '../crud'
 require '../static-documents'
-#require '../site-schema'
 
 
 MainChannel.reply 'main:app:switch-theme', (theme) ->
@@ -79,15 +79,9 @@ class BaseModalView extends View
 MainChannel.reply 'main:app:BaseModalView', ->
   BaseModalView
   
-show_modal = (view, backdrop=false) ->
-  app = MainChannel.request 'main:app:object'
-  modal_region = app.getView().getRegion 'modal'
-  modal_region.backdrop = backdrop
-  modal_region.show view
-
-MainChannel.reply 'show-modal', (view, backdrop=false) ->
-  console.warn 'show-modal', backdrop
-  show_modal view, false
+MainChannel.reply 'main:app:show-login', ->
+  view = new LoginModal
+  MainChannel.request 'main:app:show-modal', view
   
 
 
