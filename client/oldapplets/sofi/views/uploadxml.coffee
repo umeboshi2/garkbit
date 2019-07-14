@@ -23,10 +23,10 @@ dropzone_template = tc.renderable (model) ->
             #tc.input '.forsale-cbox.checkbox', type:'checkbox', checked:''
             tc.input '.forsale-cbox.checkbox', type:'checkbox',
             tc.text "Select only comics for sale."
-          tc.div '.parse-btn.btn.btn-default', style:'display:none', ->
+          tc.div '.parse-btn.btn.btn-primary', style:'display:none', ->
             tc.text 'Parse Dropped File'
           tc.input '.xml-file-input.input', type:'file'
-          tc.span '.parse-chosen-button.btn.btn-default',
+          tc.span '.parse-chosen-button.btn.btn-primary',
           style:'display:none', ->
             tc.text 'Parse input file.'
   

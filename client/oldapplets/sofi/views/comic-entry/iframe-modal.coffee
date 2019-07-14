@@ -27,7 +27,7 @@ class IFrameModalView extends BaseModalView
           tc.iframe style:"width:97%;height:75vh;", src: src
         tc.div '.modal-footer', ->
           tc.ul '.list-inline', ->
-            btnclass = 'btn.btn-default.btn-sm'
+            btnclass = 'btn.btn-primary.btn-sm'
             tc.li "#close-modal", ->
               modal_close_button 'Close', 'check'
               

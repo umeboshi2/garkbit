@@ -12,7 +12,7 @@ HubChannel = Backbone.Radio.channel 'hubby'
 class SimpleMeetingView extends Marionette.View
   template: tc.renderable (model) ->
     name = "meeting"
-    item_btn = ".btn.btn-default.btn-xs"
+    item_btn = ".btn.btn-primary.btn-xs"
     tc.li ".list-group-item.#{name}-item", ->
       tc.span ->
         tc.a href:"#hubby/viewperson/#{model.id}", model.title
@@ -23,7 +23,7 @@ class SimpleMeetingView extends Marionette.View
 
 class PersonEntry extends Marionette.View
   template: tc.renderable (model) ->
-    btn = ".btn.btn-default.btn-sm"
+    btn = ".btn.btn-primary.btn-sm"
     console.log "MODEL", model
     tc.div '.listview-list-entry', ->
       tc.span "#{model.firstname} #{model.lastname}"

@@ -12,8 +12,8 @@ current_font_size = 100
 view_template = tc.renderable (model) ->
   tc.div '.row.listview-list-entry.text-center', ->  
     tc.strong model.name
-  tc.div '.zoom-out.btn.btn-default.fa.fa-minus'
-  tc.div '.zoom-in.btn.btn-default.fa.fa-plus'
+  tc.div '.zoom-out.btn.btn-primary.fa.fa-minus'
+  tc.div '.zoom-in.btn.btn-primary.fa.fa-plus'
   tc.div '.row.listview-list-entry', ->
     tc.div '.wikipage', style:"font-size: #{current_font_size}%;", ->
       tc.raw model.content

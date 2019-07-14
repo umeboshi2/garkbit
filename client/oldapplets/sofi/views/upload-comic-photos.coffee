@@ -27,7 +27,7 @@ class PhotoEntryView extends Marionette.View
       tc.div '.listview-list-entry', ->
         tc.img '.img-responsive.img-thumbnail',
         src:"/thumbs/#{model.filename}"
-        tc.button '.delete-btn.btn.btn-default',
+        tc.button '.delete-btn.btn.btn-primary',
         data:photoid:model.id, 'Delete'
   ui:
     deleteButton: '.delete-btn'

@@ -23,7 +23,7 @@ class BaseComicEntryView extends BaseEntryView
     context =
       entryClasses: ".item.listview-list-entry.thumbnail"
       columnClass: "col-sm-2"
-      infoButtonClasses: ".fa.fa-info.fa-pull-left.btn.btn-default.btn-sm"
+      infoButtonClasses: ".fa.fa-info.fa-pull-left.btn.btn-primary.btn-sm"
     # do something if necessary
     if @model.has 'inDatabase'
       inDatabase = @model.get 'inDatabase'

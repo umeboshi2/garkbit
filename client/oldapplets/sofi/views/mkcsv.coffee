@@ -114,8 +114,8 @@ class ComicsView extends Marionette.View
       csvDscSelect model.ebdscCollection
       tc.div '.workspace-select'
     tc.hr()
-    tc.div '.mkcsv-button.btn.btn-default', "Preview CSV Data"
-    tc.div '.show-comics-button.btn.btn-default', "Show Comics"
+    tc.div '.mkcsv-button.btn.btn-primary', "Preview CSV Data"
+    tc.div '.show-comics-button.btn.btn-primary', "Show Comics"
     tc.div '.body'
   onRender: ->
     view = new WorkspaceSelect

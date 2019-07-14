@@ -222,24 +222,24 @@ class RestoreUrlsView extends Marionette.View
   template: tc.renderable (model) ->
     tc.div '.listview-header', ->
       tc.div "Restore the image urls to the server."
-    tc.label '.restore-label.btn.btn-default.btn-file', ->
+    tc.label '.restore-label.btn.btn-primary.btn-file', ->
       tc.span 'restore '
       tc.input '.restore-button.input', type:'file', style: 'display:none'
-    tc.button '.upload-button.btn.btn-default', style: 'display:none'
+    tc.button '.upload-button.btn.btn-primary', style: 'display:none'
     
   restore_changed: (event) ->
     #@ui.restore_btn.show()
     @ui.restore_btn.hide()
     @ui.upload_btn.show()
     @ui.restore_lbl.hide()
-    @ui.restore_lbl.removeClass('btn btn-default')
+    @ui.restore_lbl.removeClass('btn btn-primary')
     fname = event.target.files[0].name
     @ui.upload_btn.text "Upload #{fname}"
     
   reset_restore_button: ->
     @ui.restore_btn.hide()
     @ui.restore_lbl.show()
-    @ui.restore_lbl.addClass('btn btn-default')
+    @ui.restore_lbl.addClass('btn btn-primary')
     @ui.restore_lbl.val ''
     @ui.upload_btn.hide()
     

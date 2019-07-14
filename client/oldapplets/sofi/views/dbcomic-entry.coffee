@@ -27,7 +27,7 @@ make_simple_dl = tc.renderable (dt, dd) ->
     tc.dd dd
     
 make_entry_buttons = tc.renderable (model) ->
-  btn_style = '.btn.btn-default'
+  btn_style = '.btn.btn-primary'
   tc.span ".info-button#{btn_style}", ->
     tc.i '.fa.fa-info', ' Info'
   tc.span ".photos-button#{btn_style}", ->

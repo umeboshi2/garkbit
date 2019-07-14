@@ -63,7 +63,7 @@ class SimpleWorkspaceList extends Marionette.View
     tc.div '.listview-header', 'Workspaces'
     tc.div '.input-group', ->
       tc.span '.input-group-btn', ->
-        tc.button '.new-workspace-button.btn.btn-default', ->
+        tc.button '.new-workspace-button.btn.btn-primary', ->
           tc.text 'Create workspace'
       tc.input '.form-control', type:'text', name:'workspace'
     tc.div '.workspaces', ->
@@ -71,7 +71,7 @@ class SimpleWorkspaceList extends Marionette.View
         tc.div '.panel', ->
           tc.div '.panel-body', ->
             tc.a href:"#sofi/comics/workspace/view/#{item.name}", item.name
-            tc.button '.add-button.btn.btn-default.btn-xs.pull-right',
+            tc.button '.add-button.btn.btn-primary.btn-xs.pull-right',
             'data-workspace':item.name, 'Add Comics'
           
   

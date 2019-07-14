@@ -70,7 +70,7 @@ class ModalDescView extends BaseModalView
             tc.raw model.Description
         tc.div '.modal-footer', ->
           tc.ul '.list-inline', ->
-            btnclass = 'btn.btn-default.btn-sm'
+            btnclass = 'btn.btn-primary.btn-sm'
             tc.li "#close-modal", ->
               modal_close_button 'Close', 'check'
 
@@ -120,9 +120,9 @@ class CsvTableRow extends Marionette.View
   template: tc.renderable (model) ->
     tc.td ->
       tc.div '.btn-group.btn-group-justified', ->
-        tc.div '.show-desc-button.btn.btn-default.btn-xs', ->
+        tc.div '.show-desc-button.btn.btn-primary.btn-xs', ->
           tc.i '.fa.fa-eye'
-        tc.div '.show-row-button.btn.btn-default.btn-xs', ->
+        tc.div '.show-row-button.btn.btn-primary.btn-xs', ->
           tc.i '.fa.fa-list'
     Object.keys(model.csvheader).forEach (field) ->
       tc.td style:cell_style, model[field]
@@ -210,8 +210,8 @@ class ComicsView extends Marionette.View
     filename = "export-#{timestring}.csv"
     tc.div '.listview-header', ->
       tc.text "Preview CSV"
-    tc.div '.fileexchange-button.btn.btn-default', "Ebay Upload"
-    tc.div '.mkcsv-button.btn.btn-default', "Create CSV"
+    tc.div '.fileexchange-button.btn.btn-primary', "Ebay Upload"
+    tc.div '.mkcsv-button.btn.btn-primary', "Create CSV"
     tc.input '.form-control', value:filename, name:'csvfilename'
     tc.div '.body'
   ui:

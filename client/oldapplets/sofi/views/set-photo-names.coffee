@@ -31,7 +31,7 @@ class MainView extends Marionette.View
         tc.div '.photo-names'
       tc.div '.input-group', ->
         tc.span '.input-group-btn', ->
-          tc.button '.new-button.btn.btn-default', ->
+          tc.button '.new-button.btn.btn-primary', ->
             tc.text 'Add Name '
             tc.i '.fa.fa-plus-square'
         tc.input '.form-control', type:'text', name:'photoname'

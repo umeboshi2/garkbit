@@ -19,12 +19,12 @@ dropzone_template = tc.renderable (model) ->
       tc.div '.card', ->
         tc.div '.card-header', ->
           tc.text 'Drop an xml file, or use the '
-          tc.button '.sample-comics-button.btn.btn-default', "Example data."
+          tc.button '.sample-comics-button.btn.btn-primary', "Example data."
         tc.div '.card-body', ->
-          tc.div '.parse-btn.btn.btn-default', style:'display:none', ->
+          tc.div '.parse-btn.btn.btn-primary', style:'display:none', ->
             tc.text 'Parse Dropped File'
           tc.input '.xml-file-input.input', type:'file'
-          tc.span '.parse-chosen-button.btn.btn-default',
+          tc.span '.parse-chosen-button.btn.btn-primary',
           style:'display:none', ->
             tc.text 'Parse input file.'
   
