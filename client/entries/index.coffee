@@ -1,9 +1,7 @@
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
-import jwtDecode from 'jwt-decode'
 import ms from 'ms'
 
-import navigate_to_url from 'tbirds/util/navigate-to-url'
 import TopApp from 'tbirds/top-app'
 import TkAppState from 'tbirds/top-app'
 import createMainApp from 'tbirds/start-main-app'
@@ -15,17 +13,13 @@ import objectEmpty from '../object-empty'
 
 import './base'
 import IndexRouter from '../indexrouter'
-import FooterView from './footerview'
 import './site-nav'
 
-pkg = require '../../package.json'
-pkgmodel = new Backbone.Model pkg
-
-#import lf from 'lovefield
-import ebcsvSchema from '../applets/ebcsv/dbschema'
 import bumblrSchema from '../applets/bumblr/dbschema'
 import tvmazeSchema from '../applets/tvmaze/dbschema'
-import mslegSchema from '../applets/msleg/dbschema'
+# these are in ../oldapplets
+# import ebcsvSchema from '../applets/ebcsv/dbschema'
+# import mslegSchema from '../applets/msleg/dbschema'
 
 import MainAppConfig from './base-config'
 
@@ -36,23 +30,14 @@ MessageChannel = Backbone.Radio.channel 'messages'
 SiteNavChannel = Backbone.Radio.channel 'site-nav'
 
 
-show_footer = ->
-  token = MainChannel.request 'main:app:decode-auth-token'
-  pkgmodel.set 'token', token
-  pkgmodel.set 'remaining', TH.accessTimeRemaining()
-  view = new FooterView
-    model: pkgmodel
-  footer_region = app.getView().getRegion 'footer'
-  footer_region.show view
-
 app = createMainApp MainAppConfig
 
 if __DEV__
   # DEBUG attach app to window
   window.App = app
 
-# register the main router
-MainChannel.request 'main:app:route'
+# create the main router
+MainChannel.request 'main:app:create-main-router'
 
 app.on 'before:start', ->
   theme = MainChannel.request 'main:app:get-theme'
@@ -72,10 +57,10 @@ app.on 'start', ->
   setInterval keep_fresh, ms '10s'
 
 schemas =
-  ebcsv: ebcsvSchema
+  # ebcsv: ebcsvSchema
+  # msleg: mslegSchema
   bumblr: bumblrSchema
   tvmaze: tvmazeSchema
-  msleg: mslegSchema
   
 dbConns = {}
 
