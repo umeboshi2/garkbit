@@ -18,7 +18,7 @@ YardForm = tc.renderable (model) ->
   #make_field_input('sunnyclient_id')(model)
   for field in ['description', 'jobdetails']
     make_field_textarea(field)(model)
-  tc.input '.btn.btn-default', type:'submit', value:"Submit"
+  tc.input '.btn.btn-primary', type:'submit', value:"Submit"
   tc.div '.spinner.fa.fa-spinner.fa-spin'
   
 class BaseYardEditor extends BootstrapFormView

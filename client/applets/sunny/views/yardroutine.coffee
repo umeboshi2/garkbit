@@ -28,7 +28,7 @@ class BaseYardRoutineEditor extends BootstrapFormView
     for field in model.fieldList
       make_field_input(field)(model)
     make_field_textarea('description')(model)
-    tc.input '.btn.btn-default', type:'submit', value:"Submit"
+    tc.input '.btn.btn-primary', type:'submit', value:"Submit"
     tc.div '.spinner.fa.fa-spinner.fa-spin'
     
   ui: ->
@@ -72,7 +72,7 @@ class BaseYardRoutineView extends View
     #  ytext = "We have a routine"
     #else
     #  ytext = 'Not Set'
-    tc.div '#yard-routine-button.btn.btn-default.pull-right', ''
+    tc.div '#yard-routine-button.btn.btn-primary.pull-right', ''
     tc.div "#yard-routine"
 
   regions:

@@ -21,7 +21,7 @@ searchForm = tc.renderable ->
     input_attributes:
       name: 'tv_show'
       placeholder: 'tiny toons'
-  tc.input '.btn.btn-default.btn-sm', type:'submit', value:'Search'
+  tc.input '.btn.btn-primary.btn-sm', type:'submit', value:'Search'
   tc.div '.spinner.fa.fa-spinner.fa-spin'
 
 class SearchFormView extends BootstrapFormView

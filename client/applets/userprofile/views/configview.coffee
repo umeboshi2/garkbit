@@ -37,7 +37,7 @@ config_template = tc.renderable (model) ->
     input_attributes:
       name: 'pagesize'
       value: MainChannel.request 'main:app:get-pagesize'
-  tc.input '.btn.btn-default', type:'submit', value:"Submit"
+  tc.input '.btn.btn-primary', type:'submit', value:"Submit"
   tc.div '.spinner.fa.fa-spinner.fa-spin'
 
 class UserConfigView extends BootstrapFormView

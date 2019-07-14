@@ -24,7 +24,7 @@ class BaseClientEditor extends BootstrapFormView
     for field in model.fieldList
       make_field_input(field)(model)
     make_field_textarea('description')(model)
-    tc.input '.btn.btn-default', type:'submit', value:"Submit"
+    tc.input '.btn.btn-primary', type:'submit', value:"Submit"
     tc.div '.spinner.fa.fa-spinner.fa-spin'
     
   ui: ->

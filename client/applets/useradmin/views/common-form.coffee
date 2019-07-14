@@ -18,7 +18,7 @@ formInputsFactory = (opts) ->
     tc.div '.listview-header', model[opts.entryField]
     for field in opts.fieldList
       make_field_input(field)(model)
-    tc.input '.btn.btn-default', type:'submit', value:'Submit'
+    tc.input '.btn.btn-primary', type:'submit', value:'Submit'
     tc.div '.spinner.fa.fa-spinner.fa-spin'
     
 class BaseFormView extends BootstrapFormView

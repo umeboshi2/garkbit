@@ -41,7 +41,7 @@ class ThemeSwitchView extends Marionette.View
   template: tc.renderable (model) ->
     tc.div ->
       THEMES.forEach (theme) ->
-        tc.div ".theme.btn.btn-default", theme
+        tc.div ".theme.btn.btn-primary", theme
   switch_theme: (event) ->
     target = $(event.target)
     theme = target.html()

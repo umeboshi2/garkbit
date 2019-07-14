@@ -37,7 +37,7 @@ _edit_form = tc.renderable (model) ->
     
 form_template = tc.renderable (model) ->
   _edit_form model
-  tc.input '.btn.btn-default', type:'submit', value:"Submit"
+  tc.input '.btn.btn-primary', type:'submit', value:"Submit"
   tc.div '.spinner.fa.fa-spinner.fa-spin'
   
 

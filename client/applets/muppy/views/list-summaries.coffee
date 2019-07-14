@@ -49,7 +49,7 @@ modalTemplate = tc.renderable (model) ->
         tc.pre style:"font-size:.2rem;", model.output
       tc.div '.modal-footer', ->
         tc.ul '.list-inline', ->
-          btnclass = 'btn.btn-default.btn-sm'
+          btnclass = 'btn.btn-primary.btn-sm'
           tc.li "#confirm-delete-button", ->
             modal_close_button 'OK', 'check'
           tc.li "#cancel-delete-button", ->
@@ -97,8 +97,8 @@ class ListView extends BaseListView
     while markedModels.length
       markedModels.pop()
   template: tc.renderable () ->
-    tc.button '.add-summary-button.btn.btn-default', 'Add summary'
-    tc.button '.diff-summaries-button.btn.btn-default', 'Show diff'
+    tc.button '.add-summary-button.btn.btn-primary', 'Add summary'
+    tc.button '.diff-summaries-button.btn.btn-primary', 'Show diff'
     listTemplate()
   ui:
     addSummaryBtn: '.add-summary-button'

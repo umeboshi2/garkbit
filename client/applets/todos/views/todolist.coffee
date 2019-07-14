@@ -12,9 +12,9 @@ AppChannel = Backbone.Radio.channel 'todos'
 
 base_item_template = (name, route_name) ->
   tc.renderable (model) ->
-    item_btn = ".btn.btn-default.btn-xs"
+    item_btn = ".btn.btn-primary.btn-xs"
     tc.li ".list-group-item.#{name}-item", ->
-      tc.span '.edit-button.btn.btn-default.btn-xs', 'Edit'
+      tc.span '.edit-button.btn.btn-primary.btn-xs', 'Edit'
       tc.text " "
       tc.span ->
         tc.a href:"##{route_name}/#{name}s/view/#{model.id}", model.name

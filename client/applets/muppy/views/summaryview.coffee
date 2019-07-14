@@ -23,7 +23,7 @@ mksum_form = tc.renderable () ->
       name: 'name'
       placeholder: 'summary'
       value: "#{now.toDateString()}-#{now.toTimeString().split(' ')[0]}"
-  tc.input '.btn.btn-default', type:'submit', value:'Save'
+  tc.input '.btn.btn-primary', type:'submit', value:'Save'
   tc.div '.spinner.fa.fa-spinner.fa-spin'
 
 class MakeSummaryView extends BootstrapFormView

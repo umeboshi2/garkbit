@@ -31,7 +31,7 @@ client_view_template = tc.renderable (model) ->
   tc.div '.row', ->
     tc.div '.listview-header', ->
       tc.span 'Yards'
-      tc.button '#add-yard-btn.btn.btn-default.btn-xs.pull-right', 'Add Yard'
+      tc.button '#add-yard-btn.btn.btn-primary.btn-xs.pull-right', 'Add Yard'
   tc.div '.row', ->
     tc.div "#client-yards"
 

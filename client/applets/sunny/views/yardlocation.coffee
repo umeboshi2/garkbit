@@ -29,7 +29,7 @@ class BaseYardLocationView extends View
       ytext = yard_location_text model.location
     else
       ytext = 'Not Set'
-    tc.div '#yard-location-button.btn.btn-default.pull-right', ''
+    tc.div '#yard-location-button.btn.btn-primary.pull-right', ''
     tc.div "#yard-location", ytext
 
   ui: ->

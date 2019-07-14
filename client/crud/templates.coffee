@@ -37,7 +37,7 @@ formInputsFactory = (opts) ->
     tc.div '.listview-header', model[opts.entryField]
     for field in opts.fieldList
       make_field_input(field)(model)
-    tc.input '.btn.btn-default', type:'submit', value:'Submit'
+    tc.input '.btn.btn-primary', type:'submit', value:'Submit'
     tc.div '.spinner.fa.fa-spinner.fa-spin'
     
 
@@ -50,7 +50,7 @@ confirmDeleteTemplateFactory = (opts) ->
           tc.div '#selected-children'
         tc.div '.modal-footer', ->
           tc.ul '.list-inline', ->
-            btnclass = 'btn.btn-default.btn-sm'
+            btnclass = 'btn.btn-primary.btn-sm'
             tc.li "#confirm-delete-button", ->
               modal_close_button 'OK', 'check'
             tc.li "#cancel-delete-button", ->

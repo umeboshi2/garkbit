@@ -38,7 +38,7 @@ toolbar_template = tc.renderable (model) ->
   tc.div '.btn-group.btn-group-justified', ->
     for entry in model.entries
       icon = entry?.icon or 'info'
-      tc.div '.toolbar-button.btn.btn-default',
+      tc.div '.toolbar-button.btn.btn-primary',
       'button-url': entry.url, ->
         tc.span ".fa.fa-#{icon}", ' ' + entry.name
 
