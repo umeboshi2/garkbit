@@ -12,9 +12,19 @@ $background: darken($primary, 20%);
 $body-bg: $background;
 $body-color: $black;
 
-$list-group-bg: darken(desaturate($color-BlanchedAlmond, 80%), 20%);
-$card-bg: darken(desaturate($color-BlanchedAlmond, 80%), 20%);
+// BlanchedAlmond listgroups and cards
+// $list-group-bg: darken(desaturate($color-BlanchedAlmond, 80%), 20%);
+// $card-bg: darken(desaturate($color-BlanchedAlmond, 80%), 20%);
+
+
+//$list-group-bg: saturate(lighten($background, 5%), 15%);
+$list-group-bg: darken(saturate($background, 15%), 5%);
+$card-bg: darken(saturate($background, 15%), 5%);
+
+
+//$card-bg: darken(desaturate($color-BlanchedAlmond, 80%), 20%);
 
 $panel-bg: darken($background, 10%);
+$modal-content-bg: darken($background, 10%);
 
 $link-color: darken($color-DarkSlateBlue, 5%);
