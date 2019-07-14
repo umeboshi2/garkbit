@@ -13,5 +13,7 @@ class MainView extends Marionette.View
   template: viewTemplate
   templateContext:
     appName: 'company'
-
+  onRender: ->
+    console.log "onRender"
+     
 export default MainView
