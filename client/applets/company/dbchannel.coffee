@@ -11,10 +11,11 @@ apiRoot = "/api/dev/company"
 AuthModel = MainChannel.request 'main:app:AuthModel'
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
 
+dbcfg = {}
 defaultOptions =
   channelName: 'company'
 
-bossUrl = "#{apiRoot}/crud/boss"
+bossUrl = "#{apiRoot}/boss"
 class Boss extends AuthModel
   urlRoot: bossUrl
 class BossCollection extends AuthCollection
@@ -27,7 +28,7 @@ dbcfg.boss = new DbCollection _.extend defaultOptions,
   
 
   
-companyUrl = "#{apiRoot}/crud/company"
+companyUrl = "#{apiRoot}/company"
 class Company extends AuthModel
   urlRoot: companyUrl
 class CompanyCollection extends AuthCollection
@@ -38,19 +39,19 @@ dbcfg.company = new DbCollection _.extend defaultOptions,
   modelClass: Company
   collectionClass: CompanyCollection
 
-workerUrl = "#{apiRoot}/crud/worker"
+workerUrl = "#{apiRoot}/worker"
 class Worker extends AuthModel
-  urlRoot: workersUrl
+  urlRoot: workerUrl
 
 class WorkerCollection extends AuthCollection
   model: Worker
-  url: workersUrl
+  url: workerUrl
 dbcfg = new DbCollection _.extend defaultOptions,
   modelName: 'worker'
   modelClass: Worker
   collectionClass: WorkerCollection
 
-workSessionUrl = "#{apiRoot}/crud/worksession"
+workSessionUrl = "#{apiRoot}/worksession"
 class WorkSession extends AuthModel
   urlRoot: workSessionUrl
   

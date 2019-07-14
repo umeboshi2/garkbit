@@ -35,6 +35,13 @@ class Router extends AdminRouter
   navbarEntries: 'index'
   appRoutes:
     'company': 'viewIndex'
+    'company/boss/add': 'addBoss'
+    'company/boss/list': 'viewIndex'
+
+    'company/company/list': 'listCompanies'
+    'company/company/view/:id': 'viewCompany'
+    'company/company/add': 'addCompany'
+    
     
 class Applet extends TkApplet
   Controller: Controller

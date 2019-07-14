@@ -14,7 +14,8 @@ AppChannel = Backbone.Radio.channel 'company'
 
 viewTemplate = tc.renderable (model) ->
   tc.div '.row.listview-list-entry', ->
-    tc.raw marked "# #{model.appName} started."
+    tc.raw marked "# View Company #{model.name}."
+    
     
 class MainView extends Marionette.View
   template: viewTemplate
@@ -32,16 +33,20 @@ class MainView extends Marionette.View
         MainChannel.request 'main:app:show-modal', view
       else
         msg = error.responseJSON.message
-        MessageChannel.request 'xhr-error', error
+        MessageChannel.request 'danger', msg
     return
       response: response
       model: boss
       
   getCompanyObject: (user) ->
     collection = AppChannel.request 'db:company:collection'
-    response = collection.fetch()
+    response = collection.fetch
+      data:
+        where:
+          boss_id: user.uid
     response.fail (error) ->
-      MessageChannel.request 'xhr-error', error
+      msg = error.responseJSON.message
+      MessageChannel.request 'danger', msg
     return
       response: response
       collection: collection
