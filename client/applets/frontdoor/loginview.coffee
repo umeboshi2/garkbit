@@ -39,7 +39,7 @@ class BaseView extends BootstrapFormView
   onSuccess: ->
     # FIXME start reloading the child apps
     # that recognize users
-    navigate_to_url '/'
+    navigate_to_url '#'
     
 
 
