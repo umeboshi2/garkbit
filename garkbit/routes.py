@@ -49,6 +49,7 @@ def includeme(config):
         'ebcsv',
         'sunny',
         'hourly',
+        'company',
     ]
     if not use_pj and False:
         scan_views.append('notfound')

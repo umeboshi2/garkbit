@@ -19,10 +19,12 @@ from ..models import (
 from ..models import (  # noqa: F401
     usergroup,
     hourly,
+    company,
     wikipage,
     todo,
     site_document,
     geoposition,
+    sunny,
     )
 
 
