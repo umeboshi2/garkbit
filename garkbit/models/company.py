@@ -1,16 +1,8 @@
 from sqlalchemy import (
     Column,
-    Index,
-    Integer,
-    BigInteger,
-    Float,
-    Text,
     Unicode,
     UnicodeText,
-    Date,
     DateTime,
-    PickleType,
-    Boolean,
     Enum,
     func,
     ForeignKey,
@@ -54,6 +46,7 @@ class Worker(Base, BaseUUIDMixin):
 class WorkSession(Base, BaseUUIDMixin):
     __tablename__ = 'company_work_sessions'
     worker_id = Column(UUIDType, ForeignKey(Worker.id))
+    company_id = Column(UUIDType, ForeignKey(Company.id))
     start = Column(DateTime, default=func.now())
     end = Column(DateTime)
 
