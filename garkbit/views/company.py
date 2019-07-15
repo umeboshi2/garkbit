@@ -36,13 +36,16 @@ Model_Map = dict(boss=Boss, company=Company, worker=Worker,
 apiroot = '/api/dev/company'
 crudroot = os.path.join(apiroot, 'crud/{model}')
 
+@resource(collection_path=crudroot,
+          path=os.path.join(crudroot, '{id}'),
+          permission='admin')
 class CompanyCrudView(SimpleModelResource):
     def __permitted_methods__(self):
         return ['collection_get', 'get']
 
     def __acl__(self):
         acl = [
-            (Allow, 'group:admin', 'permission'),
+            (Allow, 'group:admin', 'admin'),
             ]
         return acl
 
