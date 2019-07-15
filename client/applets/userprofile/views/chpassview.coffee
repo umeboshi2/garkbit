@@ -18,12 +18,12 @@ MessageChannel = Backbone.Radio.channel 'messages'
 class PasswordHintView extends Marionette.View
   className: 'col'
   template: tc.renderable ->
-    tc.span '.chpass-recommend.mr-auto'
-    tc.span '.ml-auto.pull-right', ->
-      tc.button '.btn.btn-info.btn-sm', 'change'
+    tc.h5 'Password Hint'
+    tc.span '.mr-auto.fa.fa-refresh.text-light.bg-primary'
+    tc.span '.chpass-recommend.ml-2'
   ui: ->
     chpassRecommend: '.chpass-recommend'
-    button: '.btn'
+    button: '.fa-refresh'
   events:
     'click @ui.button': 'buttonClicked'
   onRender: ->
@@ -34,10 +34,9 @@ class PasswordHintView extends Marionette.View
     now = new Date
     newpass = codenamize
       seed: now.toString()
-      adjectiveCount: 2
-      maxItemChars: 5
-    msg = "Try: #{newpass}"
-    @ui.chpassRecommend.text msg
+      adjectiveCount: 3
+      maxItemChars: 6
+    @ui.chpassRecommend.text newpass
     
 
 chpass_form = tc.renderable () ->
