@@ -97,10 +97,10 @@ WebPackOptimization =
   splitChunks:
     chunks: 'all'
 
-uglifyPluginOptions =
+terserPluginOptions =
   sourceMap: true
   parallel: true
-  uglifyOptions:
+  terserOptions:
     warnings: true
 
 cleanWebpackOpts =
@@ -111,11 +111,13 @@ if BuildEnvironment is 'production'
   CompressionPlugin = require 'compression-webpack-plugin'
   UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
   OptimizeCssAssetsPlugin = require 'optimize-css-assets-webpack-plugin'
-
+  TerserPlugin = require 'terser-webpack-plugin'
+  
   extraPlugins.push new CleanWebpackPlugin(cleanWebpackOpts)
   WebPackOptimization.minimizer = [
    new OptimizeCssAssetsPlugin()
-   new UglifyJsPlugin uglifyPluginOptions
+   new TerserPlugin terserPluginOptions
+
   ]
   
 AllPlugins = common_plugins.concat extraPlugins
