@@ -11,7 +11,7 @@ appletEntries = [
   {
     id: 'dbadmin'
     label: 'Db Admin'
-    url: '#frontdoor/dbadmin'
+    url: '#junk/dbadmin'
     icon: '.fa.fa-database'
   }
 ]
@@ -20,7 +20,7 @@ if __DEV__
   appletEntries.push
     id: 'emojilist'
     label: 'List Emojis'
-    url: '#frontdoor/emojilist'
+    url: '#junk/emojilist'
     icon: '.fa.fa-smile-o.text-dark.bg-warning'
     
 class Router extends AppRouter
