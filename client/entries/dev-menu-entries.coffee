@@ -24,6 +24,7 @@ devMenu =
     },{
       label: 'Muppy'
       url: '#muppy'
+      needUser: true
     },{
       label: 'Admin Panel'
       url: '#admin'
