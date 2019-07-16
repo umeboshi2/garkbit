@@ -35,10 +35,10 @@ class Company(Base, BaseUUIDMixin):
     description = Column(UnicodeText)
 
 
-class Worker(Base, BaseUUIDMixin):
+class Worker(Base, TimeStampMixin):
     __tablename__ = 'company_workers'
-    user_id = Column(UUIDType, ForeignKey('users.id'),
-                     unique=True)
+    id = Column(UUIDType, ForeignKey('users.id'),
+                primary_key=True)
     company_id = Column(UUIDType, ForeignKey(Company.id))
     status = Column(WorkerStatusType)
 
@@ -57,5 +57,10 @@ class WorkSession(Base, BaseUUIDMixin):
 
 Boss.user = relationship('User', uselist=False)
 Boss.companies = relationship("Company")
+Company.boss = relationship("Boss", uselist=False)
+
 Worker.user = relationship('User', uselist=False)
 Worker.sessions = relationship('WorkSession')
+Worker.company = relationship('Company', uselist=False)
+
+#Worker.boss = relationship('Boss', secondary='Company.boss_id', uselist=False)
