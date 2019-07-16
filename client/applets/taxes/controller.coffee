@@ -9,7 +9,7 @@ import { ToolbarAppletLayout } from 'tbirds/views/layout'
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 import scroll_top_fast from 'tbirds/util/scroll-top-fast'
 
-{ FrontDoorMainView } = require '../frontdoor/views'
+{ FrontDoorMainView } = require '../frontdoor/views/docview'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
