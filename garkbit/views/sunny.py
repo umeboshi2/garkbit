@@ -67,7 +67,7 @@ class SunnyCrudModelView(SimpleModelResource):
             (Allow, 'group:admin', 'sunny_write'),
             (Allow, 'group:boss', 'sunny_write'),
             (Allow, 'group:admin', 'sunny_read'),
-            (Allow, 'group:admin', 'sunny_read'),
+            (Allow, 'group:boss', 'sunny_read'),
             (Allow, 'group:worker', 'sunny_read'),
         ]
 
