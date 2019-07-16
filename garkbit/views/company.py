@@ -28,6 +28,7 @@ from ..models.company import (
     )
 
 # from ..models.usergroup import User, Group, UserGroup
+from ..models.usergroup import User, Group
 
 apiroot = '/api/dev/company'
 
@@ -77,6 +78,40 @@ class CompanyResource(BaseModelResource):
         return query
 
 
+worker_root = os.path.join(apiroot, 'worker')
+
+
+@resource(collection_path=worker_root,
+          path=os.path.join(worker_root, '{id}'),
+          permission='boss')
+class WorkerResource(BaseModelResource):
+    model = Worker
+
+    def __permitted_methods__(self):
+        return ['collection_post', 'collection_get',
+                'get', 'put']
+
+    def __acl__(self):
+        acl = [
+            (Allow, 'group:boss', 'boss'),
+            ]
+        return acl
+
+    def collection_query(self):
+        query = self.db.query(self.model)
+        return query
+
+    def serialize_object(self, dbobj):
+        user = dbobj.user.serialize()
+        data = dbobj.serialize()
+        data['user'] = user
+        #data = dict(id=str(dbobj.id), user=user, status=dbobj.status)
+        return data
+
+
+##################################################
+# CRUD resource
+##################################################
 Model_Map = dict(boss=Boss, company=Company, worker=Worker,
                  worksession=WorkSession)
 crudroot = os.path.join(apiroot, 'crud/{model}')
@@ -109,6 +144,37 @@ class CompanyCrudView(SimpleModelResource):
             return data
         else:
             return super(CompanyCrudView, self).serialize_object(dbobj)
-        
 
-    
+
+##################################################
+# potential workers
+##################################################
+pwroot = os.path.join(apiroot, 'potential-workers')
+
+
+@resource(collection_path=pwroot, path=os.path.join(pwroot, '{id}'),
+          permission='boss')
+class PotentialWorkerView(BaseModelResource):
+    model = Worker
+
+    def __permitted_methods__(self):
+        return ['collection_get']
+
+    def __acl__(self):
+        acl = [
+            (Allow, 'group:boss', 'boss'),
+            ]
+        return acl
+
+    def collection_query(self):
+        if 'company_id' not in self.request.GET:
+            raise HTTPNotAcceptable
+        company_id = self.request.GET['company_id']
+        worker_group = self.db.query(Group).filter_by(name='worker').one()
+        worker_id_query = self.db.query(self.model.id)
+        boss_id_query = self.db.query(Boss.id)
+        query = self.db.query(User)
+        query = query.filter(~User.id.in_(worker_id_query))
+        query = query.filter(~User.id.in_(boss_id_query))
+        query = query.filter(User.username != 'admin')
+        return query
