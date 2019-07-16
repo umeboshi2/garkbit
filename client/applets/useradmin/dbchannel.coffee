@@ -22,6 +22,13 @@ dbcfg = {}
 usersUrl = "#{crudRoot}/users"
 class User extends AuthModel
   urlRoot: usersUrl
+  validation:
+    username:
+      required: true
+    fullname:
+      required: true
+    email:
+      required: true
   itemLabel: ->
     fullname = @get 'fullname'
     username = @get 'username'
