@@ -36,12 +36,8 @@ class Router extends AppRouter
     'logout': 'showLogout'
     #FIXME
     'pages/:name': 'viewPage'
-    'frontdoor/upload': 'uploadView'
-    'frontdoor/themes': 'themeSwitcher'
-    'frontdoor/stats': 'statsView'
 
-    'frontdoor/emojilist': 'viewEmojis'
-    'frontdoor/dbadmin': 'viewDbAdmin'
+
     
 class Applet extends TkApplet
   Controller: Controller

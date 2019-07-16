@@ -21,7 +21,7 @@ SiteNavChannel = Backbone.Radio.channel 'site-nav'
 tc = require 'teacup'
 
 import LoginView from './loginview'
-{ FrontDoorMainView } = require './views'
+import FrontDoorMainView from './views/docview'
 
 urlRoot = "/assets/documents"
 
@@ -70,18 +70,6 @@ class Controller extends MainController
   _viewLogin: ->
     view = new LoginView
     @layout.showChildView 'content', view
-    
-  _viewUpload: ->
-    require.ensure [], () =>
-      UploadView = require './uploadview'
-      view = new UploadView
-      @layout.showChildView 'content', view
-    # name the chunk
-    , 'frontdoor-upload-view'
-
-  uploadView: ->
-    @setupLayoutIfNeeded()
-    @_viewUpload()
     
   frontdoor_needuser: ->
     token = MainChannel.request 'main:app:decode-auth-token'
@@ -134,43 +122,5 @@ class Controller extends MainController
     else
       @defaultView()
       
-  themeSwitcher: ->
-    @setupLayoutIfNeeded()
-    { ThemeSwitchView } = require './views'
-    view = new ThemeSwitchView
-    @layout.showChildView 'content', view
-    console.log "themeSwitcher"
-
-  statsView: ->
-    @setupLayoutIfNeeded()
-    { StatsView } = require './views'
-    model = new Backbone.Model
-    model.url = '/stats.json'
-    response = model.fetch()
-    response.done =>
-      view = new StatsView
-        model: model
-      @layout.showChildView 'content', view
-      
-  viewEmojis: ->
-    @setupLayoutIfNeeded()
-    require.ensure [], () =>
-      View = require './emojilist'
-      view = new View
-      @layout.showChildView 'content', view
-    # name the chunk
-    , 'frontdoor-emojilist-view'
-
-  viewDbAdmin: ->
-    @setupLayoutIfNeeded()
-    require.ensure [], () =>
-      View = require './views/idbview'
-      view = new View
-      @layout.showChildView 'content', view
-    # name the chunk
-    , 'frontdoor-view-dbadmin'
-    
-    
-    
 export default Controller
 
