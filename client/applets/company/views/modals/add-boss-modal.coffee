@@ -15,6 +15,7 @@ MessageChannel = Backbone.Radio.channel 'messages'
 SiteNavChannel = Backbone.Radio.channel 'site-nav'
 
 bossTemplate = tc.renderable (model) ->
+  console.log "boss model". model
   tc.div '.modal-dialog.modal-md', ->
     tc.div '.modal-content', ->
       tc.h3 "Please Name Boss"
@@ -24,14 +25,14 @@ bossTemplate = tc.renderable (model) ->
           label: 'Name'
           input_attributes:
             name: 'name'
+            placeholder: "Enter a name (#{model.namePlaceholder})"
+            data:validation:'name'
+            # FIXME this is temporary
             value: model.namePlaceholder
         tc.div '.spinner.fa.fa-spinner.fa-spin'
       tc.div '.modal-footer', ->
         tc.button '.btn.btn-warning.fa.fa-close.mr-auto',
         data:dismiss:'modal', "Cancel"
-        
-        #tc.input '.btn.btn-primary.login-btn', type:'submit',
-        #data:dismiss:'modal', value:'login'
         tc.input '.btn.btn-primary.ml-auto.login-btn',
         type:'submit', value:'Submit'
         
@@ -70,8 +71,8 @@ class NewBossModal extends BaseView
     applet = MainChannel.request 'main:applet:get-applet', 'company'
     console.log 'applet', applet
     controller = applet.getController()
-    controller.addBoss()
-    
+    #controller.addBoss()
+    controller.viewIndex()
 
 
 export default NewBossModal

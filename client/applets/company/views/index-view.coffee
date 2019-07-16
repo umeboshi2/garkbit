@@ -70,7 +70,5 @@ class MainView extends Marionette.View
     else
       msg = "#{user.name} is not in the \"boss\" group."
       MessageChannel.request 'warning', msg
-    
-    console.log "onRender"
      
 export default MainView

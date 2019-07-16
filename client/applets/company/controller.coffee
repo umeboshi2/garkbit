@@ -78,6 +78,26 @@ class Controller extends MainController
     # name the chunk
     , 'company-view-list-companies'
 
+  viewPotentialWorkers: (id) ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      pworkers = @getChannel().request 'get-potential-workers'
+      View = require('./views/potential-workers').default
+      view = new View
+        collection: pworkers
+      response = pworkers.fetch
+        data:
+          company_id: id
+        
+      response.done ->
+        console.log "pworkers fetched", pworkers
+      response.fail ->
+        console.log "pworkers.fetch() failed", response
+        MessageChannel.request 'danger', response.responseJSON.message
+      @layout.showChildView 'content', view
+    # name the chunk
+    , 'company-view-potential-workers'
+
     
         
 

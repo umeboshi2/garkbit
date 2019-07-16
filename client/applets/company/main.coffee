@@ -15,14 +15,13 @@ AppChannel = Backbone.Radio.channel appName
 
 appletMenu = [
   {
-    label: 'List'
+    label: 'Main'
     url: '#company'
-    icon: '.fa.fa-list'
-  }
-  {
-    label: 'Calendar'
-    url: '#company/calendar'
-    icon: '.fa.fa-calendar'
+    icon: '.fa.fa-star'
+  },{
+    label: 'Add Workers'
+    url: '#company/potential-workers'
+    icon: '.fa.fa-plus'
   }
   ]
 
@@ -42,6 +41,7 @@ class Router extends AdminRouter
     'company/company/view/:id': 'viewCompany'
     'company/company/add': 'addCompany'
     
+    'company/potential-workers/:id': 'viewPotentialWorkers'
     
 class Applet extends TkApplet
   Controller: Controller

@@ -19,13 +19,6 @@ AppChannel = Backbone.Radio.channel 'company'
 
 SiteNavChannel = Backbone.Radio.channel 'site-nav'
 
-companyTemplate = tc.renderable (model) ->
-  tc.div '.listview-header', "New Company"
-  make_field_input('name')(model)
-  make_field_textarea('description')(model)
-  tc.input '.btn.btn-primary', type:'submit', value:"Submit"
-  tc.div '.spinner.fa.fa-spinner.fa-spin'
-
 class BaseEditor extends BootstrapFormView
   fieldList: ['name']
   templateContext: ->
@@ -33,7 +26,16 @@ class BaseEditor extends BootstrapFormView
     
   template: tc.renderable (model) ->
     tc.div '.listview-header', "New Company"
-    make_field_input('name')(model)
+    form_group_input_div
+      input_id: 'input_name'
+      label: 'Name'
+      input_attributes:
+        name: 'name'
+        type: 'input'
+        placeholder: 'Enter a name'
+        'data-validation': 'name'
+      invalidFeedback: "A name is needed."
+    #make_field_input('name')(model)
     make_field_textarea('description')(model)
     tc.input '.btn.btn-primary', type:'submit', value:"Submit"
     tc.div '.spinner.fa.fa-spinner.fa-spin'
@@ -54,7 +56,6 @@ class BaseEditor extends BootstrapFormView
   onSuccess: (model) ->
     name = model.get 'name'
     MessageChannel.request 'success', "#{name} saved successfully.", "grain"
-    navigate_to_url '#sunny'
     
   
 export default BaseEditor

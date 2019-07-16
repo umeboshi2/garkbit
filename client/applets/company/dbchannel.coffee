@@ -2,6 +2,7 @@ import _ from 'underscore'
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
 import DbCollection from 'tbirds/dbcollection'
+import Validation from 'backbone.validation'
 
 MainChannel = Backbone.Radio.channel 'global'
 AppChannel = Backbone.Radio.channel 'company'
@@ -18,6 +19,12 @@ defaultOptions =
 bossUrl = "#{apiRoot}/boss"
 class Boss extends AuthModel
   urlRoot: bossUrl
+  validation:
+    name:
+      minLength: 2
+      required: true
+
+      
 class BossCollection extends AuthCollection
   model: Boss
   url: bossUrl
@@ -31,6 +38,9 @@ dbcfg.boss = new DbCollection _.extend defaultOptions,
 companyUrl = "#{apiRoot}/company"
 class Company extends AuthModel
   urlRoot: companyUrl
+  validation:
+    name:
+      required: true
 class CompanyCollection extends AuthCollection
   model: Company
   url: companyUrl
@@ -64,10 +74,7 @@ dbcfg = new DbCollection _.extend defaultOptions,
   collectionClass: WorkSessionCollection
 
 class PotentialWorkers extends AuthCollection
-  url: "#{apiRoot}/potential-worker"
+  url: "#{apiRoot}/potential-workers"
 
 AppChannel.reply 'get-potential-workers', ->
   return new PotentialWorkers
-
-  
-
