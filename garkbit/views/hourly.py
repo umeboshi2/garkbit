@@ -106,7 +106,7 @@ pwroot = os.path.join(apiroot, 'potential-workers')
 
 @resource(collection_path=pwroot, path=os.path.join(pwroot, '{id}'),
           permission='boss')
-class PotentialWorkerView(BaseModelResource):
+class HourlyPotentialWorkerView(BaseModelResource):
     model = Worker
 
     def __permitted_methods__(self):
@@ -133,15 +133,17 @@ class PotentialWorkerView(BaseModelResource):
 clock_root = os.path.join(apiroot, 'time-clock')
 
 
-@resource(collection_path=clock_root, path=os.path.join(clock_root, '{id}'))
-class TimeClockView(BaseModelResource):
+@resource(collection_path=clock_root,
+          path=os.path.join(clock_root, '{id}'),
+          permission='punch')
+class HourlyTimeClockView(BaseModelResource):
     def __permitted_methods__(self):
         return ['collection_post', 'collection_get',
                 'put']
 
     def __acl__(self):
         acl = [
-            (Allow, 'group:worker', 'punch')
+            (Allow, 'group:worker', 'punch'),
             ]
         return acl
 
