@@ -6,8 +6,33 @@ authors = ["Joseph Rawson <joseph.rawson.works@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.5"
+hornstone = "^0.1.19"
+Akhet = "^2.0"
+alembic = "^1.0"
+pyramid_retry = "^2.0"
+pyramid_force_https = "^0.1.1"
+pyramid_jinja2 = "^2.8"
+WSGIProxy2 = "^0.4.6"
+pyramid_jwt = "^1.4"
+Pympler = "=0.7"
+gunicorn = "^19.9"
+trumpet = "^0.2.10"
+hattie = "^0.2.22"
+paginate_sqlalchemy = "^0.3.0"
 
 [tool.poetry.dev-dependencies]
+pyramid_debugtoolbar = "^4.5"
+pyramid_bpython = "^0.1.0"
+pytest-runner = "^5.1"
+PyYAML = "^5.1"
+pytest = "^5.0"
+flake8 = "^3.7"
+tox = "^3.13"
+bump2version = "^0.5.10"
+watchdog = "^0.9.0"
+cryptography = "^2.7"
+Sphinx = "^2.1"
+coverage = "^4.5"
 
 [build-system]
 requires = ["poetry>=0.12"]
