@@ -1,0 +1,10 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+@import "node_modules/tbirds/sass/bootstrap-components";
+
+@import "node_modules/tbirds/sass/X11colors";
+$background: $body-bg;
+
+@import "node_modules/tbirds/sass/common";
