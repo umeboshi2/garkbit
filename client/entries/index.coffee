@@ -41,8 +41,8 @@ MainChannel.request 'main:app:create-main-router'
 
 app.on 'before:start', ->
   theme = MainChannel.request 'main:app:get-theme'
-  theme = if theme then theme else 'vanilla'
-  MainChannel.request 'main:app:switch-theme', theme
+  theme = if theme then theme else 'plain'
+  # MainChannel.request 'main:app:switch-theme', theme
   
 app.on 'start', ->
   SiteNavChannel.request 'set-index-entries'

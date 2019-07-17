@@ -11,23 +11,6 @@ SiteNavChannel = Backbone.Radio.channel 'site-nav'
 NavbarChannel = Backbone.Radio.channel 'navbar'
 
 
-useCornsilkPurple = ->
-  # FIXME need better way to resolve tbirds sass
-  if not __useCssModules__
-    #require '../../node_modules/tbirds/sass/cornsilk-purple.scss'
-    require '../../sass/cornsilk-purple.scss'
-  else
-    require '../../node_modules/tbirds/sass/initial.scss'
-  
-#useDarkSeaGreen = ->
-#  if not __useCssModules__
-#    #require '../../node_modules/tbirds/sass/cornsilk-purple.scss'
-#    require '../../sass/DarkSeaGreen.scss'
-#  else
-#    require '../../node_modules/tbirds/sass/initial.scss'
-  
-  
-
 SiteNavChannel.reply 'set-index-entries', ->
   entries = [
     demoMenu

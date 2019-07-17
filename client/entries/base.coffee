@@ -14,16 +14,13 @@ import lf from 'lovefield'
 #brj = require 'backbone-relational-jsonapi'
 #brj.default Backbone, _
 
+require '../../sass/cornsilk-purple.scss'
+import './themes'
 
 import "bootstrap"
 import 'font-awesome/scss/font-awesome.scss'
-# FIXME need better way to resolve tbirds sass
-if not __useCssModules__
-  #require '../../node_modules/tbirds/sass/cornsilk-purple.scss'
-  require '../../sass/cornsilk-purple.scss'
-else
-  require '../../node_modules/tbirds/sass/initial.scss'
-  
+
+
 if __DEV__
   console.warn "__DEV__", __DEV__, "DEBUG", DEBUG
   Backbone.Radio.DEBUG = true
@@ -53,11 +50,6 @@ if __DEV__ and false
 require '../crud'
 require '../static-documents'
 
-
-MainChannel.reply 'main:app:switch-theme', (theme) ->
-  href = "/assets/stylesheets/bootstrap-#{theme}.css"
-  ss = $ 'head link[href^="/assets/stylesheets/bootstrap-"]'
-  ss.attr 'href', href
 
 MainChannel.reply 'main:app:set-theme', (theme) ->
   localStorage.setItem 'main-theme', theme
