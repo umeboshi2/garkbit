@@ -16,7 +16,6 @@ AppChannel = Backbone.Radio.channel 'company'
 
 class WorkerItemView extends Marionette.View
   template: tc.renderable (model) ->
-    console.log "WorkerItemView", model
     tc.div model.user.username
   tagName: 'li'
   className: ->
@@ -54,8 +53,9 @@ class MainView extends Marionette.View
     tc.div model.description
     tc.button '.potential-btn.btn.btn-primary.fa.fa-plus', ->
       tc.text 'Add potential workers'
-    tc.div '.workers'
-    tc.div '.potential-workers'
+    tc.div '.row', ->
+      tc.div '.workers.col-md-6'
+      tc.div '.potential-workers.col-md-6'
   templateContext:
     appName: 'company'
   ui:
@@ -68,8 +68,8 @@ class MainView extends Marionette.View
   events:
     'click @ui.potentialBtn': 'potentialBtnClicked'
   onRender: ->
-    collection = AppChannel.request 'db:worker:collection'
-    response = collection.fetch
+    @collection = AppChannel.request 'db:worker:collection'
+    response = @collection.fetch
       data:
         where:
           company_id: @model.get('id')
@@ -77,7 +77,7 @@ class MainView extends Marionette.View
       MessageChannel.request 'xhr-error', response
       
     view = new WorkerListView
-      collection: collection
+      collection: @collection
       model: @model
     @showChildView 'workers', view
     

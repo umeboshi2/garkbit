@@ -27,8 +27,7 @@ from ..models.company import (
     WorkSession,
     )
 
-# from ..models.usergroup import User, Group, UserGroup
-from ..models.usergroup import User, Group
+from ..models.usergroup import User, Group, UserGroup
 
 apiroot = '/api/dev/company'
 
@@ -169,11 +168,14 @@ class PotentialWorkerView(BaseModelResource):
     def collection_query(self):
         if 'company_id' not in self.request.GET:
             raise HTTPNotAcceptable
-        company_id = self.request.GET['company_id']
+        # company_id = self.request.GET['company_id']
         worker_group = self.db.query(Group).filter_by(name='worker').one()
         worker_id_query = self.db.query(self.model.id)
         boss_id_query = self.db.query(Boss.id)
+        q_worker_user = self.db.query(UserGroup.user_id)
+        q_worker_user = q_worker_user.filter_by(group_id=worker_group.id)
         query = self.db.query(User)
+        query = query.filter(User.id.in_(q_worker_user))
         query = query.filter(~User.id.in_(worker_id_query))
         query = query.filter(~User.id.in_(boss_id_query))
         query = query.filter(User.username != 'admin')
