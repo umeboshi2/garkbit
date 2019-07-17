@@ -12,14 +12,18 @@ MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'company'
 
 
-viewTemplate = tc.renderable (model) ->
-  tc.div '.row.listview-list-entry', ->
-    tc.raw marked "# #{model.appName} started."
-    
 class MainView extends Marionette.View
-  template: viewTemplate
+  template: tc.renderable (model) ->
+    tc.div '.row.listview-list-entry.top-view'
+    tc.div '.row.child-view'
   templateContext:
     appName: 'company'
+  ui:
+    topView: '.top-view'
+    childView: '.child-view'
+  regions:
+    childView: '@ui.childView'
+  
   getBossObject: (user) ->
     bossCollection = AppChannel.request 'db:boss:collection'
     boss = AppChannel.request 'db:boss:new', id: user.uid
@@ -47,6 +51,7 @@ class MainView extends Marionette.View
       collection: collection
       
   onRender: ->
+    @ui.topView.hide()
     user = MainChannel.request 'main:app:decode-auth-token'
     if 'boss' in user.groups
       bossResponse = @getBossObject user
@@ -66,9 +71,24 @@ class MainView extends Marionette.View
           else
             navigate_to_url '#company/company/list'
             
-          
+    else if 'worker' in user.groups
+      msg = "#{user.name} is in the \"worker\" group."
+      MessageChannel.request 'success', msg
+      heading = "Worker Page for #{user.name}"
+      @ui.topView.text heading
+      @ui.topView.show()
+      require.ensure [], () =>
+        token = MainChannel.request 'main:app:decode-auth-token'
+        worker = AppChannel.request 'db:worker:get', token.uid
+        View = require('./worker-view').default
+        view = new View
+          model: worker
+        @showChildView 'childView', view
+      # name the chunk
+      , 'company-worker-main-child-view'
     else
-      msg = "#{user.name} is not in the \"boss\" group."
+      msg = "You must be a boss or worker for access."
       MessageChannel.request 'warning', msg
+      
      
 export default MainView

@@ -30,6 +30,7 @@ class Router extends AdminRouter
   permittedGroups: [
     'admin'
     'boss'
+    'worker'
     ]
   navbarEntries: 'index'
   appRoutes:

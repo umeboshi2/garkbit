@@ -30,7 +30,7 @@ class ItemView extends Marionette.View
     Model = AppChannel.request 'db:worker:modelClass'
     model = new Model
       id: @model.get 'id'
-      company_id: company_id 
+      company_id: company_id
       status: 'off'
     response = model.save(null,
       type: 'POST'
@@ -45,17 +45,9 @@ class ItemView extends Marionette.View
         data:
           company_id: company_id
     response.fail ->
-      MessageChannel.request 'warning', "things are not correct"
-    
-  addItemOrig: ->
-    modelClass = AppChannel.request 'db:worker:modelClass'
-    # https://stackoverflow.com/a/24915961/1869821
-      
+      MessageChannel.request 'xhr-error', response
 
 listTemplate = tc.renderable ->
-  tc.div '.listview-header', ->
-    tc.text "Potential Workers"
-  tc.hr()
   tc.div '.pworkers-container.list-group'
 
 

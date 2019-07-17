@@ -93,6 +93,7 @@ class WorkerResource(BaseModelResource):
     def __acl__(self):
         acl = [
             (Allow, 'group:boss', 'boss'),
+            (Allow, 'group:worker', 'get_worker'),
             ]
         return acl
 
@@ -107,7 +108,10 @@ class WorkerResource(BaseModelResource):
         #data = dict(id=str(dbobj.id), user=user, status=dbobj.status)
         return data
 
-
+    @view(permission='get_worker')
+    def get(self):
+        return super(WorkerResource, self).get()
+    
 ##################################################
 # CRUD resource
 ##################################################
@@ -180,3 +184,77 @@ class PotentialWorkerView(BaseModelResource):
         query = query.filter(~User.id.in_(boss_id_query))
         query = query.filter(User.username != 'admin')
         return query
+
+
+##################################################
+# time clock view
+##################################################
+clock_root = os.path.join(apiroot, 'time-clock')
+
+
+@resource(collection_path=clock_root,
+          path=os.path.join(clock_root, '{id}'),
+          permission='punch')
+class TimeClockView(BaseModelResource):
+    def __permitted_methods__(self):
+        return ['collection_post', 'collection_get',
+                'put']
+
+    def __acl__(self):
+        acl = [
+            (Allow, 'group:worker', 'punch'),
+            ]
+        return acl
+
+    @view(permission='punch')
+    def collection_post(self):
+        """Worker clocks in."""
+        worker = self.db.query(Worker).get(self.request.user.id)
+        if worker.status == 'on':
+            raise HTTPNotAcceptable
+        print("POST: WORKER IS", worker)
+        with transaction.manager:
+            session = WorkSession()
+            session.worker_id = worker.id
+            self.db.add(session)
+            worker.status = 'on'
+            self.db.add(worker)
+
+    def _get_latest_session(self, worker_id):
+        q = self.db.query(WorkSession).filter_by(worker_id=worker_id)
+        q = q.order_by(desc('start')).limit(1)
+        return q.one()
+
+    @view(permission='punch')
+    def put(self):
+        """Worker clocks out."""
+        worker = self.db.query(Worker).get(self.request.user.id)
+        print("WORKER CLOCK OUT", worker.serialize())
+        if worker.status == 'off':
+            raise HTTPNotAcceptable
+        print("PUT: WORKER IS", worker)
+        # get latest work session
+        session = self._get_latest_session(worker.id)
+        with transaction.manager:
+            session.end = func.now()
+            worker.status = 'off'
+            self.db.add(session)
+            self.db.add(worker)
+
+    @view(permission='punch')
+    def collection_get(self):
+        worker = self.db.query(Worker).get(self.request.user.id)
+        try:
+            session = self._get_latest_session(worker.id)
+        except NoResultFound:
+            session = None
+            id = None
+        # include session id as the id so that we can PUT when
+        # clocking out
+        if session is not None:
+            id = str(session.id)
+            session = session.serialize()
+        data = dict(worker=self.serialize_object(worker),
+                    session=session,
+                    id=id)
+        return data

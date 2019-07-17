@@ -5,7 +5,8 @@ import marked from 'marked'
 
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 
-import PotentialWorkersView from './potential-workers'
+import WorkerListView from './current-workers'
+
 
 
 MainChannel = Backbone.Radio.channel 'global'
@@ -13,39 +14,6 @@ MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'company'
 
 
-
-class WorkerItemView extends Marionette.View
-  template: tc.renderable (model) ->
-    tc.div model.user.username
-  tagName: 'li'
-  className: ->
-    "list-group-item worker-item row"
-
-class WorkerListView extends Marionette.View
-  template: tc.renderable (model) ->
-    tc.div "#{model.name} workers"
-    tc.div '.workers-container.listgroup'
-  ui:
-    itemList: '.workers-container'
-  regions: ->
-    itemList: '@ui.itemList'
-  onRender: ->
-    response = @collection.fetch
-      data:
-        where:
-          company_id: @model.get('id')
-    response.fail ->
-      MessageChannel.request 'xhr-error', response
-      
-    view = new Marionette.CollectionView
-      tagName: 'ul'
-      className: 'list-group'
-      collection: @collection
-      childView: WorkerItemView
-    @showChildView 'itemList', view
-    
-viewTemplate = tc.renderable (model) ->
-  
 
 class MainView extends Marionette.View
   template: tc.renderable (model) ->
@@ -68,6 +36,8 @@ class MainView extends Marionette.View
   events:
     'click @ui.potentialBtn': 'potentialBtnClicked'
   onRender: ->
+    @ui.potentialBtn.hide()
+    @checkPotentialWorkers()
     @collection = AppChannel.request 'db:worker:collection'
     response = @collection.fetch
       data:
@@ -75,22 +45,30 @@ class MainView extends Marionette.View
           company_id: @model.get('id')
     response.fail ->
       MessageChannel.request 'xhr-error', response
-      
+    
     view = new WorkerListView
       collection: @collection
       model: @model
     @showChildView 'workers', view
-    
-    console.log 'hello'
-  potentialBtnClicked: ->
-    console.log "View poential workers"
-    collection = AppChannel.request 'get-potential-workers'
-    collection.fetch
+
+  checkPotentialWorkers: ->
+    pworkers = AppChannel.request 'get-potential-workers'
+    response = pworkers.fetch
       data:
         company_id: @model.get('id')
-    view = new PotentialWorkersView
-      model: @model
-      collection: collection
-    @showChildView 'potentialWorkers', view
+    response.done =>
+      console.log "pworkers fetched", pworkers, 
+      if pworkers.length
+        @ui.potentialBtn.show()
+    response.fail ->
+      MessageChannel.request 'xhr-error', response
+
     
+  potentialBtnClicked: ->
+    require.ensure [], () =>
+      PotentialWorkersModal = require('./modals/potential-workers').default
+      view = new PotentialWorkersModal
+        model: @model
+      MainChannel.request 'main:app:show-modal', view
+      
 export default MainView
