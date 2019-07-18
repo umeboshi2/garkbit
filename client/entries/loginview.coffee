@@ -7,6 +7,7 @@ import BootstrapFormView from 'tbirds/views/bsformview'
 
 import make_field_input_ui from 'tbirds/util/make-field-input-ui'
 import navigate_to_url from 'tbirds/util/navigate-to-url'
+import IsEscapeModal from 'tbirds/behaviors/is-escape-modal'
 
 { form_group_input_div } = require 'tbirds/templates/forms'
 
@@ -44,6 +45,7 @@ loginTemplate = tc.renderable (user) ->
         type:'submit', value:'login'
         
 class BaseView extends BootstrapFormView
+  behaviors: [IsEscapeModal]
   ui: ->
     uiobject = make_field_input_ui @getOption 'fieldList'
     return uiobject
@@ -54,10 +56,6 @@ class BaseView extends BootstrapFormView
     layout = app.getView()
     region = layout.getRegion 'modal'
     region.empty()
-  #onFailure: ->
-  #  MainChannel.request 'main:app:show-login'
-    
-    
     
 
 class LoginModal extends BaseView
