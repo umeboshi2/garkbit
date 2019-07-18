@@ -27,7 +27,6 @@ if __DEV__
 
   
 import 'tbirds/applet-router'
-import IsEscapeModal from 'tbirds/behaviors/is-escape-modal'
 import exportToFile from 'tbirds/util/export-to-file'
 import LoginModal from './loginview'
 
@@ -63,21 +62,11 @@ MainChannel.reply 'export-to-file', (options) ->
   exportToFile options
   
 
-class BaseModalView extends View
-  behaviors: [IsEscapeModal]
-  ui:
-    close_btn: '#close-modal div'
-    
-MainChannel.reply 'main:app:BaseModalView', ->
-  BaseModalView
-  
 MainChannel.reply 'main:app:show-login', ->
   view = new LoginModal
   MainChannel.request 'main:app:show-modal', view
   
-
-
-#module.exports = {}
-
-
-
+MainChannel.reply 'main:app:getCurrentPosition', (options) ->
+  timeout = options?.timeout or 5000
+  navigator.geolocation.getCurrentPosition options.success, options.error,
+  timeout: timeout
