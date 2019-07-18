@@ -69,7 +69,7 @@ class UserMainView extends Marionette.View
     @_childButtonClicked 'ChangePasswordView', 'showChpassView'
   showMapView: ->
     require.ensure [], () =>
-      ViewClass = require './mapview'
+      ViewClass = require('tbirds/views/mapview').default
       view = new ViewClass
       @showChildView 'childContainer', view
     # name the chunk

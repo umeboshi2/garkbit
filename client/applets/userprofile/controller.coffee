@@ -73,7 +73,7 @@ class Controller extends MainController
   view_map: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      ViewClass = require './views/mapview'
+      ViewClass = require('tbirds/views/mapview').default
       token = MainChannel.request 'main:app:decode-auth-token'
       view = new ViewClass
         model: new Backbone.Model token
