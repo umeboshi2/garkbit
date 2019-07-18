@@ -56,10 +56,6 @@ def includeme(config):
     for view in scan_views:
         config.scan('.views.%s' % view)
 
-    config.add_route('hourly_worksession_cal', '/api/dev/hourly/calendar')
-    config.add_view('.views.hourly.SessionCalendarView',
-                    route_name='hourly_worksession_cal', renderer='json')
-
     include_garkbit_hubby = True
     if include_garkbit_hubby:
         config.add_route('meeting_calendar', '/rest/v0/main/hubcal')
