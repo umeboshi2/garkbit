@@ -8,18 +8,38 @@ MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'places'
 
+coordinateFields = [
+  'latitude',
+  'longitude',
+  'altitude',
+  'accuracy',
+  'altitudeAccuracy',
+  'heading',
+  'speed',
+]
 
 class StatusView extends Marionette.View
   template: tc.renderable (model) ->
-    tc.div '.status'
+    coords = model.coords
+    tc.div '.status', ->
+      tc.dt 'Latitude'
+      tc.dd coords.latitude
+      tc.dt 'Longitude'
+      tc.dd coords.longitude
+    tc.button '.add-location-btn.btn.btn-primary', "Add location"
   ui:
     status: '.status'
-  onRender: ->
-    console.log "StatusView", @model
-    coords = @model.get 'coords'
-    @ui.status.text "Lat: #{coords.latitude}, Long: #{coords.longitude}"
-    
-
+    addLocationBtn: '.add-location-btn'
+  events:
+    'click @ui.addLocationBtn': 'addLocationBtnClicked'
+  addLocationBtnClicked: ->
+    console.log "addLocationBtnClicked"
+    require.ensure [], () =>
+      View = require("./add-location-modal").default
+      view = new View
+        model: @model
+      MainChannel.request 'main:app:show-modal', view
+      
     
 class MainView extends Marionette.View
   template: tc.renderable (model) ->
@@ -28,23 +48,24 @@ class MainView extends Marionette.View
     locationStatus: '.location-status'
   regions:
     locationStatus: '@ui.locationStatus'
-    
-
   onRender: ->
-    console.log "onRender"
     options =
       success: @locationSuccess
       error: @locationError
     MainChannel.request 'main:app:getCurrentPosition', options
-    
-  locationSuccess: (options) =>
-    console.log "locationSuccess", options
+  locationSuccess: (position) =>
+    console.log "locationSuccess", position
+    origCoords = position.coords
+    coords = {}
+    coordinateFields.forEach (field) ->
+      value = origCoords[field]
+      coords[field] = value
+    Model = AppChannel.request 'db:userlocation:modelClass'
+    model = new Model coords: coords
     view = new StatusView
-      model: new Backbone.Model options
+      model: model
     @showChildView 'locationStatus', view
     
-    
-
   locationError: (options) ->
     console.log "locationError", options
     MessageChannel.request 'warning', options.message

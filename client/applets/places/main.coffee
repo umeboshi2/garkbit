@@ -17,13 +17,19 @@ appletMenu = [
     label: 'Main'
     url: '#places'
     icon: '.fa.fa-star'
-  }
+  },{
+    label: 'Your Places'
+    url: '#places/list'
+    icon: '.fa.fa-list'
+  }  
   ]
 
 class Router extends AppRouter
   channelName: appName
   appRoutes:
     'places': 'viewIndex'
+    'places/list': 'listPlaces'
+    'places/view/:id': 'viewPlace'
     
 class Applet extends TkApplet
   Controller: Controller
