@@ -1,21 +1,15 @@
 import os
-from datetime import datetime
 
-from dateutil.parser import parse as dateparse
 from pyramid.security import Allow
-from pyramid.security import Authenticated
-# from pyramid.view import view_config
+from pyramid.httpexceptions import HTTPNotAcceptable
 from cornice.resource import resource
 from cornice.resource import view
-# from pyramid.httpexceptions import HTTPNotFound
-from pyramid.httpexceptions import HTTPNotAcceptable
 
 import transaction
 from sqlalchemy import desc
 from sqlalchemy import func
 from sqlalchemy.orm.exc import NoResultFound
 
-from trumpet.views.base import BaseViewCallable
 from trumpet.views.resourceviews import SimpleModelResource
 from trumpet.views.resourceviews import BaseModelResource
 from trumpet.views.util import get_start_end_from_request
@@ -102,16 +96,15 @@ class WorkerResource(BaseModelResource):
         return query
 
     def serialize_object(self, dbobj):
-        user = dbobj.user.serialize()
         data = dbobj.serialize()
-        data['user'] = user
-        #data = dict(id=str(dbobj.id), user=user, status=dbobj.status)
+        data['user'] = dbobj.user.serialize()
         return data
 
     @view(permission='get_worker')
     def get(self):
         return super(WorkerResource, self).get()
-    
+
+
 ##################################################
 # CRUD resource
 ##################################################
@@ -297,7 +290,7 @@ class SessionCalendarView(BaseModelResource):
         query = self.request.dbsession.query(WorkSession)
         query = self._range_filter(query, start, end)
         query = query.filter(WorkSession.worker_id.in_(worker_ids))
-        return [s.serialize() for s in query]
+        return query
 
-    def collection_get(self):
+    def collection_query(self):
         return self.get_ranged_worksessions()
