@@ -258,3 +258,46 @@ class TimeClockView(BaseModelResource):
                     session=session,
                     id=id)
         return data
+
+
+##################################################
+# calendar view
+##################################################
+calendar_root = os.path.join(apiroot, 'calendar')
+
+
+@resource(collection_path=calendar_root,
+          path=os.path.join(calendar_root, '{id}'),
+          permission='worker')
+class SessionCalendarView(BaseModelResource):
+    def __permitted_methods__(self):
+        return ['collection_get']
+
+    def __acl__(self):
+        acl = [
+            (Allow, 'group:worker', 'worker'),
+            (Allow, 'group:boss', 'worker'),
+            ]
+        return acl
+
+    def _range_filter(self, query, start, end):
+        query = query.filter(WorkSession.start >= start)
+        query = query.filter(WorkSession.end <= end)
+        return query
+
+    # json responses should not be lists
+    # this method is for the fullcalendar
+    # widget. Fullcalendar v2 uses yyyy-mm-dd
+    # for start and end parameters, rather than
+    # timestamps.
+    def get_ranged_worksessions(self, worker_ids=None):
+        start, end = get_start_end_from_request(self.request)
+        if worker_ids is None:
+            worker_ids = [self.request.user.id]
+        query = self.request.dbsession.query(WorkSession)
+        query = self._range_filter(query, start, end)
+        query = query.filter(WorkSession.worker_id.in_(worker_ids))
+        return [s.serialize() for s in query]
+
+    def collection_get(self):
+        return self.get_ranged_worksessions()
