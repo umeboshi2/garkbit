@@ -3,9 +3,15 @@
 
 A couple of apps:
 
-1. [Hourly](#hourly)
+1. [Company](#company)
 
-	A simple timeclock.
+	A simple timeclock.  You will need to be a boss or
+	worker to use this.
+  
+1. [Places](#places)
+
+	A simple app to mark locations. You will need to be 
+	authenticated to use this.
   
 1. [ELIZA](#eliza)
 
