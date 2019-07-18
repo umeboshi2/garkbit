@@ -81,7 +81,7 @@ class Controller extends MainController
   workerIndex: (id) ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      View = require('./views/worker-view').default
+      View = require('./views/worker').default
       token = MainChannel.request 'main:app:decode-auth-token'
       worker = AppChannel.request 'db:worker:get', token.uid
       view = new View

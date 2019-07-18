@@ -6,19 +6,14 @@ import moment from 'moment'
 
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 
-import CalendarView from './calendar'
+import ClockButton from './clock-button'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'company'
 
-AuthModel = MainChannel.request 'main:app:AuthModel'
-AuthCollection = MainChannel.request 'main:app:AuthCollection'
+TimeClock = AppChannel.request 'TimeClock'
 
-
-
-class TimeClock extends AuthModel
-  urlRoot: "/api/dev/company/time-clock"
 
 notAWorkerTemplate = tc.renderable (model) ->
   tc.div '.row.listview-list-entry', ->
@@ -36,7 +31,6 @@ sessionTemplate = tc.renderable (model) ->
         end = moment(session.end)
         tc.text "Your last session ended #{end.fromNow()}"
       else if status == 'on'
-        #start = new Date session.start
         start = moment(session.start)
         tc.text "You have been working since #{start.fromNow()}"
     else
@@ -58,13 +52,11 @@ statusTemplate = tc.renderable (model) ->
     clockOptions.action = 'out'
     clockOptions.btnClass = '.clock-btn.btn.btn-warning.fa.fa-clock-o'
   tc.div '.row', ->
-    tc.div '.col', ->
-      tc.text "#{model.user.fullname} is a worker."
-  tc.div '.row', ->
     tc.div '.col.work-session'
   tc.div '.btn-group', ->
-    tc.button clockOptions.btnClass, ->
-      tc.text "Clock #{clockOptions.action}"
+    #tc.button clockOptions.btnClass, ->
+    #  tc.text "Clock #{clockOptions.action}"
+    tc.div '.clock-btn-container'
     tc.button ".calendar-btn.btn.btn-success.fa.fa-calendar", "Calendar"
   tc.div '.row.calendar'
     
@@ -72,16 +64,20 @@ statusTemplate = tc.renderable (model) ->
 class StatusView extends Marionette.View
   template: statusTemplate
   ui: ->
-    clockBtn: '.clock-btn'
     calendarBtn: '.calendar-btn'
     workSessionRegion: '.work-session'
     calendarRegion: '.calendar'
+    clockBtnRegion: '.clock-btn-container'
+    
   regions:
     workSessionRegion: '@ui.workSessionRegion'
     calendarRegion: '@ui.calendarRegion'
+    clockBtnRegion: '@ui.clockBtnRegion'
   events: ->
-    'click @ui.clockBtn': 'punchClock'
     'click @ui.calendarBtn': 'showCalendar'
+  childViewEvents:
+    'worker:status:change': 'render'
+    
   onRender: ->
     worker = @model
     clock = new TimeClock
@@ -91,49 +87,14 @@ class StatusView extends Marionette.View
       view = new SessionView
         model: clock
       @showChildView 'workSessionRegion', view
-  punchClock: ->
-    worker = @model
-    status = @model.get 'status'
-    if status in ['off', null]
-      @punchIn()
-    else if status == 'on'
-      @punchOut()
-    else
-      MessageChannel.request 'warning', "Bad worker status #{status}"
-
-  punchIn: ->
-    worker_id = @model.get 'id'
-    clock = new TimeClock
-    # https://stackoverflow.com/a/24915961/1869821
-    response = clock.save(null,
-      type: 'POST'
-      url: clock.urlRoot)
-    response.done =>
-      @updateLocalStatus 'on'
-    response.fail ->
-      MessageChannel.request 'warning', response.responseJSON.code
-      
-
-  punchOut: ->
-    worker_id = @model.get 'id'
-    clock = new TimeClock
-      worker_id: worker_id
-    response = clock.fetch()
-    response.done =>
-      presponse = clock.save()
-      presponse.done =>
-        @updateLocalStatus 'off'
-      presponse.fail ->
-        MessageChannel.request 'warning', presponse.responseJSON.code
-
-  updateLocalStatus: (status) ->
-    @model.set 'status', status
-    @render()
+    view = new ClockButton
+      model: @model
+    @showChildView 'clockBtnRegion', view
 
   showCalendar: ->
     console.log "showCalendar"
     require.ensure [], () =>
-      View = require('./calendar').default
+      View = require('../calendar').default
       view = new View
       @showChildView 'calendarRegion', view
     # name the chunk

@@ -47,11 +47,10 @@ sampleWeek = [
     }
   ]
 
-calendarUrl = '/api/dev/hourly/calendar'
 class EventCollection extends AuthCollection
-  url: calendarUrl
+  url: '/api/dev/company/calendar'
   
-getEvents = (fetchInfo, successCallback, failureCallback, evenMore ) ->
+getEvents = (fetchInfo, successCallback, failureCallback) ->
   console.log "fetchInfo", fetchInfo
   events = new EventCollection
   response = events.fetch
@@ -61,14 +60,17 @@ getEvents = (fetchInfo, successCallback, failureCallback, evenMore ) ->
   response.done ->
     data = events.toJSON()
     console.log "returned these events", data
+    console.log "events", events
     calendarEvents = []
     events.forEach (event) ->
       model =
-        start: event.start
-        end: event.end
+        start: event.get 'start'
+        end: event.get 'end'
         id: event.id
+        url: "#company/session/view/#{event.id}"
       calendarEvents.push model
-      return successCallback calendarEvents
+    console.log 'calendarEvents', calendarEvents
+    return successCallback calendarEvents
   response.fail ->
     failureCallback response
     MessageChannel.request 'danger', 'an error'
@@ -135,11 +137,6 @@ class CalendarView extends Marionette.View
       #defaultView: 'dayGrid'
       #eventSources: sampleWeek
       events: getEvents
-      #eventSources:
-      #  [
-      #    url: '/api/dev/hourly/calendar'
-      #  ]
-      #events: sampleWeek
       #eventRender:
       #viewRender
       #loading: loadingCalendarEvents

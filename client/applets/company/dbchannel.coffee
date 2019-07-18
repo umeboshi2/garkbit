@@ -78,3 +78,10 @@ class PotentialWorkers extends AuthCollection
 
 AppChannel.reply 'get-potential-workers', ->
   return new PotentialWorkers
+
+class TimeClock extends AuthModel
+  urlRoot: "/api/dev/company/time-clock"
+
+AppChannel.reply 'TimeClock', ->
+  return TimeClock
+  
