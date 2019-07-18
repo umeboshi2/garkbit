@@ -18,23 +18,13 @@ from sqlalchemy import (
     func,
     ForeignKey,
 )
-from hornstone.alchemy import TimeStampMixin
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import UUIDType
 
-from hornstone.models.base import BaseIdMixin
 from hornstone.models.base import BaseUUIDMixin
 
 from .meta import Base
 from .geoposition import GeoPosition
-
-
-class MapLocation(Base, TimeStampMixin):
-    __tablename__ = 'sunny_maplocations'
-    id = Column(UUIDType,
-                ForeignKey('geopositions.id'), primary_key=True)
-    name = Column(Unicode(100), unique=True)
-    description = Column(Unicode)
 
 
 class SunnyClient(Base, BaseUUIDMixin):
@@ -96,14 +86,11 @@ class YardRoutineJob(Base, BaseUUIDMixin):
     status = Column(Unicode)
 
 
-MapLocation.location = relationship('GeoPosition', uselist=False)
 Yard.client = relationship('SunnyClient', uselist=False)
 Yard.location = relationship('MapLocation', uselist=False)
 
-    
+
 SUNNY_MODELS = dict(
     geoposition=GeoPosition,
-    maplocation=MapLocation,
     singleclientjob=SingleClientJob,
 )
-

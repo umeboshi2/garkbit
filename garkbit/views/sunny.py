@@ -9,7 +9,6 @@ from trumpet.views.resourceviews import SimpleModelResource
 
 from ..models.sunny import (
     GeoPosition,
-    MapLocation,
     SunnyClient,
     Yard,
     SingleClientJob,
@@ -20,7 +19,6 @@ from ..models.sunny import (
 apiroot = '/api/dev/sunny/crud/{model}'
 
 Model_Map = dict(geoposition=GeoPosition,
-                 maplocation=MapLocation,
                  client=SunnyClient,
                  yard=Yard,
                  singleclientjob=SingleClientJob,
@@ -28,10 +26,6 @@ Model_Map = dict(geoposition=GeoPosition,
                  )
 
 
-
-
-#@resource(collection_path=apiroot, path=os.path.join(apiroot, '{id}'),
-#          permission='dbadmin')
 @resource(collection_path=apiroot,
           path=os.path.join(apiroot, '{id}'),
           permission='sunny_write')
