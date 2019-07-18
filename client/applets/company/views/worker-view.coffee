@@ -6,6 +6,8 @@ import moment from 'moment'
 
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 
+import CalendarView from './calendar'
+
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'company'
@@ -25,24 +27,6 @@ notAWorkerTemplate = tc.renderable (model) ->
 class NotAWorkerView extends Marionette.View
   template: notAWorkerTemplate
   
-statusTemplate = tc.renderable (model) ->
-  tc.div '.row.listview-list-entry', ->
-    tc.text "#{model.user.fullname} is a worker."
-  tc.div '.row.listview-list-entry.work-session'
-  clockOptions =
-    action: 'in'
-    btnClass: '.clock-btn.btn.btn-info.fa.fa-clock-o'
-  clockLabel = 'in'
-  if model.status is null
-    tc.div '.row.listview-list-entry', ->
-      tc.text "#{model.user.fullname} has never clocked in."
-  if model.status is 'on'
-    clockOptions.action = 'out'
-    clockOptions.btnClass = '.clock-btn.btn.btn-warning.fa.fa-clock-o'
-  tc.div '.row', ->
-    tc.button clockOptions.btnClass, ->
-      tc.text "Clock #{clockOptions.action}"
-
 sessionTemplate = tc.renderable (model) ->
   tc.div ->
     session = model.session
@@ -64,16 +48,40 @@ class SessionView extends Marionette.View
     worker_id = @model.get 'id'
     clock = new TimeClock
       worker_id: worker_id
-  
+
+statusTemplate = tc.renderable (model) ->
+  clockOptions =
+    action: 'in'
+    btnClass: '.clock-btn.btn.btn-info.fa.fa-clock-o'
+  clockLabel = 'in'
+  if model.status is 'on'
+    clockOptions.action = 'out'
+    clockOptions.btnClass = '.clock-btn.btn.btn-warning.fa.fa-clock-o'
+  tc.div '.row', ->
+    tc.div '.col', ->
+      tc.text "#{model.user.fullname} is a worker."
+  tc.div '.row', ->
+    tc.div '.col.work-session'
+  tc.div '.btn-group', ->
+    tc.button clockOptions.btnClass, ->
+      tc.text "Clock #{clockOptions.action}"
+    tc.button ".calendar-btn.btn.btn-success.fa.fa-calendar", "Calendar"
+  tc.div '.row.calendar'
+    
+
 class StatusView extends Marionette.View
   template: statusTemplate
   ui: ->
     clockBtn: '.clock-btn'
+    calendarBtn: '.calendar-btn'
     workSessionRegion: '.work-session'
+    calendarRegion: '.calendar'
   regions:
     workSessionRegion: '@ui.workSessionRegion'
+    calendarRegion: '@ui.calendarRegion'
   events: ->
     'click @ui.clockBtn': 'punchClock'
+    'click @ui.calendarBtn': 'showCalendar'
   onRender: ->
     worker = @model
     clock = new TimeClock
@@ -121,6 +129,16 @@ class StatusView extends Marionette.View
   updateLocalStatus: (status) ->
     @model.set 'status', status
     @render()
+
+  showCalendar: ->
+    console.log "showCalendar"
+    require.ensure [], () =>
+      View = require('./calendar').default
+      view = new View
+      @showChildView 'calendarRegion', view
+    # name the chunk
+    , 'company-view-child-calendar'
+
     
 viewTemplate = tc.renderable (model) ->
   tc.div '.row.status'
@@ -131,8 +149,6 @@ class MainView extends Marionette.View
     status: '.status'
   regions:
     status: '@ui.status'
-  templateContext:
-    appName: 'hourly'
   onRender: ->
     if __DEV__
       console.log "MODEL IS", @model

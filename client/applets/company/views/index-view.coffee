@@ -9,6 +9,7 @@ import AddBossModal from './modals/add-boss-modal'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
+NavbarChannel = Backbone.Radio.channel 'navbar'
 AppChannel = Backbone.Radio.channel 'company'
 
 
@@ -72,20 +73,10 @@ class MainView extends Marionette.View
             navigate_to_url '#company/company/list'
             
     else if 'worker' in user.groups
-      msg = "#{user.name} is in the \"worker\" group."
-      MessageChannel.request 'success', msg
-      heading = "Worker Page for #{user.name}"
+      heading = "Worker Page for #{user.fullname}"
       @ui.topView.text heading
       @ui.topView.show()
-      require.ensure [], () =>
-        token = MainChannel.request 'main:app:decode-auth-token'
-        worker = AppChannel.request 'db:worker:get', token.uid
-        View = require('./worker-view').default
-        view = new View
-          model: worker
-        @showChildView 'childView', view
-      # name the chunk
-      , 'company-worker-main-child-view'
+      navigate_to_url '#company/worker'
     else
       msg = "You must be a boss or worker for access."
       MessageChannel.request 'warning', msg

@@ -76,30 +76,29 @@ class Controller extends MainController
       response.fail ->
         MessageChannel.request 'xhr-error', response
     # name the chunk
-    , 'company-view-list-companies'
+    , 'company-view-view-company'
 
-  viewPotentialWorkers: (id) ->
+  workerIndex: (id) ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      pworkers = @getChannel().request 'get-potential-workers'
-      View = require('./views/potential-workers').default
+      View = require('./views/worker-view').default
+      token = MainChannel.request 'main:app:decode-auth-token'
+      worker = AppChannel.request 'db:worker:get', token.uid
       view = new View
-        collection: pworkers
-      response = pworkers.fetch
-        data:
-          company_id: id
-        
-      response.done ->
-        console.log "pworkers fetched", pworkers
-      response.fail ->
-        console.log "pworkers.fetch() failed", response
-        MessageChannel.request 'danger', response.responseJSON.message
+        model: worker
       @layout.showChildView 'content', view
     # name the chunk
-    , 'company-view-potential-workers'
+    , 'company-view-worker-index'
 
-    
-        
+  viewCalendar: ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      View = require('./views/calendar').default
+      view = new View
+      @layout.showChildView 'content', view
+    # name the chunk
+    , 'company-view-calendar'
+
 
 export default Controller
 

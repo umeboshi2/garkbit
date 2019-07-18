@@ -41,8 +41,8 @@ class Router extends AdminRouter
     'company/company/list': 'listCompanies'
     'company/company/view/:id': 'viewCompany'
     'company/company/add': 'addCompany'
-    
-    'company/potential-workers/:id': 'viewPotentialWorkers'
+
+    'company/worker': 'workerIndex'
     
 class Applet extends TkApplet
   Controller: Controller
