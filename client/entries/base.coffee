@@ -14,7 +14,18 @@ import lf from 'lovefield'
 #brj = require 'backbone-relational-jsonapi'
 #brj.default Backbone, _
 
-require '../../sass/cornsilk-purple.scss'
+if false
+  require.ensure [], () ->
+    require '../../sass/plain.scss'
+  # name the chunk
+  , 'garkbit-css-plain'
+else
+  require.ensure [], () ->
+    require '../../sass/cornsilk-purple.scss'
+  # name the chunk
+  , 'garkbit-css-cornsilk'
+  
+
 import './themes'
 
 import "bootstrap"
