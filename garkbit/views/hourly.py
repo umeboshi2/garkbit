@@ -210,7 +210,7 @@ calendar_root = os.path.join(apiroot, 'calendar')
 @resource(collection_path=calendar_root,
           path=os.path.join(calendar_root, '{id}'),
           permission='worker')
-class SessionCalendarView(BaseModelResource):
+class HourlySessionCalendarView(BaseModelResource):
     def __permitted_methods__(self):
         return ['collection_get']
 
