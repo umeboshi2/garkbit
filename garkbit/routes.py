@@ -50,6 +50,7 @@ def includeme(config):
         'sunny',
         'hourly',
         'company',
+        'places',
     ]
     if not use_pj and False:
         scan_views.append('notfound')

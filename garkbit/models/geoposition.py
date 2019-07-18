@@ -13,6 +13,16 @@ from hornstone.alchemy import TimeStampMixin
 
 from .meta import Base
 
+coordinate_fields = [
+    'latitude',
+    'longitude',
+    'altitude',
+    'accuracy',
+    'altitudeAccuracy',
+    'heading',
+    'speed',
+]
+
 
 class GeoPosition(Base, BaseUUIDMixin):
     __tablename__ = 'geopositions'
@@ -37,4 +47,15 @@ class MapLocation(Base, TimeStampMixin):
     description = Column(Unicode)
 
 
+class UserLocation(Base, TimeStampMixin):
+    __tablename__ = 'user_maplocations'
+    id = Column(UUIDType,
+                ForeignKey(GeoPosition.id), primary_key=True)
+    user_id = Column(UUIDType,
+                     ForeignKey('users.id'))
+    name = Column(Unicode(100), unique=True)
+    description = Column(Unicode)
+
+
 MapLocation.location = relationship('GeoPosition', uselist=False)
+UserLocation.location = relationship('GeoPosition', uselist=False)

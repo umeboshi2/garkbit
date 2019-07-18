@@ -20,7 +20,11 @@ from trumpet.views.base import BaseUserViewCallable
 
 
 from ..models.usergroup import User, Group, UserGroup
-from ..models.geoposition import GeoPosition, MapLocation
+from ..models.geoposition import (
+    GeoPosition,
+    MapLocation,
+    UserLocation,
+    )
 from ..models.site_document import SiteDocument
 from ..models.wikipage import WikiPage
 from ..models.todo import Todo
@@ -48,6 +52,7 @@ USERGROUP_MODELS = [
 ALL_MODELS = [
     GeoPosition,
     MapLocation,
+    UserLocation,
     SiteDocument,
     WikiPage,
     Todo,
