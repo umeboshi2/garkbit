@@ -50,6 +50,11 @@ class UserLocationResource(BaseModelResource):
         data['location'] = dbobj.location.serialize()
         return data
 
+    def collection_query(self):
+        query = self.db.query(self.model)
+        query = query.filter_by(user_id=self.request.user.id)
+        return query
+    
     def collection_post(self):
         data = self.request.json
         coords = data['coords']
