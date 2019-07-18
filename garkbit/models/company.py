@@ -62,5 +62,3 @@ Company.boss = relationship("Boss", uselist=False)
 Worker.user = relationship('User', uselist=False)
 Worker.sessions = relationship('WorkSession')
 Worker.company = relationship('Company', uselist=False)
-
-#Worker.boss = relationship('Boss', secondary='Company.boss_id', uselist=False)
