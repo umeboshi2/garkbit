@@ -19,8 +19,10 @@ class AdminRouter extends AppRouter
         if gname in permittedGroups
           hasAccess = true
     if not hasAccess
-      MessageChannel.request 'warning', 'Restricted access only!'
-      navigate_to_url '/#frontdoor/login'
+      #MessageChannel.request 'warning', 'Restricted access only!'
+      #navigate_to_url '/#frontdoor/login'
+      navigate_to_url '#'
+      MainChannel.request 'main:app:show-login'
   onRoute: ->
     navbarEntries = @getOption('navbarEntries') or 'admin'
     SiteNavChannel.request "set-#{navbarEntries}-entries"
