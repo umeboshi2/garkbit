@@ -14,21 +14,23 @@ AppChannel = Backbone.Radio.channel appName
 
 appletMenu = [
   {
-    label: 'List'
+    label: 'Main'
     url: '#dbadmin'
+    icon: '.fa.fa-star'
+  },{
+    label: 'List Models'
+    url: '#dbadmin/models'
     icon: '.fa.fa-list'
   }
-  {
-    label: 'Calendar'
-    url: '#dbadmin/calendar'
-    icon: '.fa.fa-calendar'
-  }
+
   ]
 
 class Router extends AdminRouter
   channelName: appName
   appRoutes:
     'dbadmin': 'viewIndex'
+    'dbadmin/models': 'listModelTypes'
+    'dbadmin/models/:modelType': 'listModels'
     
 class Applet extends TkApplet
   Controller: Controller

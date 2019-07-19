@@ -12,20 +12,23 @@ AuthModel = MainChannel.request 'main:app:AuthModel'
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
 
 
-dbcfg = {}
 defaultOptions =
   channelName: 'dbadmin'
-  
-wikiUrl = '/api/dev/dbadmin/wikipage'
-class WikiPage extends AuthModel
-  urlRoot: wikiUrl
-  
-class WikiCollection extends AuthCollection
-  url: wikiUrl
-  model: WikiPage
 
-dbcfg.wikipage = new DbCollection _.extend, defaultOptions,
-  modelName: 'wikipage'
-  modelClass: WikiPage
-  collectionClass: WikiCollection
+modelsRoot = '/api/dev/dbadmin/models'
+
+createModelCollection = (modelType) ->
+  url = "#{modelsRoot}/#{modelType}"
+  class Model extends AuthModel
+    modelType: modelType
+    urlRoot: url
+  class Collection extends AuthCollection
+    model: Model
+    url: url
+  options =
+    modelType: modelType
+    modelClass: Model
+    collectionClass: Collection
+  return options
   
+export default createModelCollection

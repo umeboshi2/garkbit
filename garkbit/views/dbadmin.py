@@ -1,4 +1,3 @@
-import os
 import io
 import base64
 import hashlib
@@ -6,18 +5,13 @@ import lzma
 import json
 
 
-from pyramid.view import view_config
 from pyramid.security import Allow
 from pyramid.httpexceptions import HTTPNotFound
 from cornice.resource import resource
 import transaction
 
 from hornstone.alchemy import export_models
-# from trumpet.views.resourceviews import BaseResource
-from trumpet.views.resourceviews import apiroot
 from trumpet.views.resourceviews import BaseModelResource
-from trumpet.views.base import BaseUserViewCallable
-
 
 from ..models.usergroup import User, Group, UserGroup
 from ..models.geoposition import (
@@ -68,6 +62,7 @@ ALL_MODELS = [
     SingleYardJob,
     YardRoutineJob,
     ]
+ModelMap = dict([(M.__name__, M) for M in ALL_MODELS + USERGROUP_MODELS])
 
 
 def create_model(Model, obj):
@@ -117,7 +112,7 @@ def merge_users(session, data):
     print("Imported user/group")
     return data
 
-            
+
 @resource(collection_path="/api/dev/dbadmin",
           path="/api/dev/dbadmin/{view}",
           permission='dbadmin')
@@ -134,6 +129,8 @@ class DbAdminView(BaseModelResource):
             return self.export_database()
         elif view == 'delete-models':
             return self.delete_all()
+        elif view == 'list-models':
+            return self.get_model_list()
         else:
             raise HTTPNotFound
 
@@ -144,18 +141,25 @@ class DbAdminView(BaseModelResource):
         else:
             raise HTTPNotFound
 
+    def get_model_list(self):
+        models = [M.__name__ for M in ALL_MODELS + USERGROUP_MODELS]
+        items = [dict(name=m, id=m) for m in models]
+        return dict(items=items, total_count=len(models))
+
     def export_database(self):
-        session = self.request.dbsession
+        session = self.db
         models = USERGROUP_MODELS + ALL_MODELS
         content = export_models(session, models)
         s = hashlib.sha256()
         s.update(content)
-        return dict(content=base64.encodebytes(content),
+        encoded = base64.encodebytes(content)
+        encoded = encoded.replace(b'\n', b'')
+        return dict(content=encoded,
                     sha256sum=s.hexdigest())
 
     def import_data(self):
         data = self.import_zipfile()
-        session = self.request.dbsession
+        session = self.db
         self.delete_all()
         merge_users(session, data)
         with transaction.manager:
@@ -188,3 +192,22 @@ class DbAdminView(BaseModelResource):
         data = json.load(zfile)
         print("DATA", data.keys())
         return data
+
+
+@resource(collection_path="/api/dev/dbadmin/models/{model}",
+          path="/api/dev/dbadmin/models/{model}/{view}",
+          permission='dbadmin')
+class DbAdminModelResource(BaseModelResource):
+    def __acl__(self):
+        acl = [
+            (Allow, 'group:admin', 'dbadmin'),
+            ]
+        return acl
+
+    def __permitted_methods__(self):
+        return ['collection_get']
+
+    @property
+    def model(self):
+        name = self.request.matchdict['model']
+        return ModelMap[name]
