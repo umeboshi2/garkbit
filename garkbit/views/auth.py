@@ -1,8 +1,8 @@
-from pyramid.response import Response
-from pyramid.view import view_config
+# from pyramid.response import Response
+# from pyramid.view import view_config
 import pyramid.httpexceptions as exc
 
-from sqlalchemy.exc import DBAPIError
+# from sqlalchemy.exc import DBAPIError
 import transaction
 from trumpet.util import password_matches, encrypt_password
 

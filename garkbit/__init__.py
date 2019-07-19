@@ -11,6 +11,7 @@ from pympler import tracker
 
 from .util import groupfinder
 
+
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """

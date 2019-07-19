@@ -1,4 +1,3 @@
-import os
 import base64
 from urllib.parse import urlparse, urlunparse
 

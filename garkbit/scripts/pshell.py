@@ -3,6 +3,7 @@ from contextlib import suppress
 from transaction.interfaces import NoTransaction
 from webtest import TestApp
 
+
 def setup(env):
     request = env['request']
     request.host = 'www.example.com'
@@ -27,5 +28,3 @@ def setup(env):
 
 def mysetup(env):
     print("setup called---->{}".format(env))
-    
-          

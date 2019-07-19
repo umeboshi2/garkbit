@@ -25,5 +25,3 @@ def groupfinder(userid, request):
         groups = ['group:%s' % g.name for g in request.user.groups]
         return groups
     return []
-
-

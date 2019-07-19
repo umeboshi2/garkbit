@@ -1,5 +1,5 @@
 from pyramid.view import view_config, view_defaults
-from pyramid.response import Response
+# from pyramid.response import Response
 
 from pyramid.httpexceptions import HTTPNotFound
 # from pyramid.httpexceptions import HTTPFound
@@ -9,7 +9,6 @@ from pyramid.httpexceptions import HTTPNotFound
 
 from trumpet.views.client import BaseClientView
 
-# from .util import make_app_page
 
 class MyResource(object):
     def __init__(self, name, parent=None):
@@ -25,6 +24,8 @@ class ClientView(BaseClientView):
                                                  'index')
         return self.data
 
+
+class TheOldClientClass(object):
     def handle_get(self):
         request = self.request
         view = request.view_name
@@ -45,14 +46,14 @@ class ClientView(BaseClientView):
             self.get_main(appname=appname, basecolor=basecolor)
         else:
             raise HTTPNotFound('no way')
-        
+
     def get_main(self, appname=None, basecolor=None):
         raise RuntimeError("unused method get_main")
         settings = self.get_app_settings()
         if appname is None:
             appname = settings.get('default.js.mainapp', 'frontdoor')
-        content = make_app_page(appname, settings, basecolor=basecolor,
-                            request=self.request)
-        self.response = Response(body=content)
-        self.response.encode_content()
-        
+
+        # content = make_app_page(appname, settings, basecolor=basecolor,
+        #                        request=self.request)
+        # self.response = Response(body=content)
+        # self.response.encode_content()

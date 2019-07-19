@@ -1,21 +1,18 @@
 import os
 
 from pyramid.security import Allow, Authenticated
-from pyramid.httpexceptions import HTTPNotAcceptable
+# from pyramid.httpexceptions import HTTPNotAcceptable
 from cornice.resource import resource
-from cornice.resource import view
+# from cornice.resource import view
 
 import transaction
-from sqlalchemy import desc
-from sqlalchemy import func
-from sqlalchemy.orm.exc import NoResultFound
+# from sqlalchemy import desc
+# from sqlalchemy import func
+# from sqlalchemy.orm.exc import NoResultFound
 
-from trumpet.views.resourceviews import SimpleModelResource
 from trumpet.views.resourceviews import BaseModelResource
-from trumpet.views.util import get_start_end_from_request
 
-from ..models.usergroup import User, Group, UserGroup
-
+# from ..models.usergroup import User
 from ..models.geoposition import (
     GeoPosition,
     UserLocation,
@@ -23,10 +20,8 @@ from ..models.geoposition import (
 
 
 apiroot = '/api/dev/places'
-
 user_root = os.path.join(apiroot, 'user')
 
-boss_root = os.path.join(apiroot, 'boss')
 
 @resource(collection_path=user_root,
           path=os.path.join(user_root, '{id}'),
@@ -54,7 +49,7 @@ class UserLocationResource(BaseModelResource):
         query = self.db.query(self.model)
         query = query.filter_by(user_id=self.request.user.id)
         return query
-    
+
     def collection_post(self):
         data = self.request.json
         coords = data['coords']

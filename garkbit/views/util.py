@@ -1,6 +1,5 @@
 import os
 
-from pyramid.renderers import render
 
 def curly_brace_param(param):
     return '{{{}}}'.format(param)

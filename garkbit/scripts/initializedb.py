@@ -56,11 +56,8 @@ def main(argv=sys.argv):
     with transaction.manager:
         dbsession = get_tm_session(session_factory, transaction.manager)
 
-        #model = MyModel(name='one', value=1)
-        #dbsession.add(model)
-
         usergroup.populate(dbsession)
-        user_stuff = """
+        user_stuff = """  # noqa: F841
         #admins = Group(group_name="admins")
         #group_permission = GroupPermission(perm_name='root_administration')
         #dbsession.add(admins)
@@ -71,15 +68,15 @@ def main(argv=sys.argv):
         #dbsession.add(users)
         #dbsession.flush()
 
-    
-        
+
+
         #admin = User(user_name='admin', name='Admin User',
         #            email='admin@localhost')
         #admin = User()
         #admin.user_name = 'admin'
         #admin.email = 'admin@localhost'
         #admin.name = 'Admin User'
-        
+
         #dbsession.add(admin)
         #dbsession.flush()
         #admin.set_password('admin')
@@ -111,5 +108,3 @@ def main(argv=sys.argv):
             dbsession.add(ug)
             dbsession.flush()
         """
-        
-

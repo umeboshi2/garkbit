@@ -1,7 +1,7 @@
 import os
 import contextlib
 import io
-import types
+# import types
 
 import transaction
 from webob import Response
@@ -14,7 +14,7 @@ from pyramid.httpexceptions import HTTPNotFound
 
 from trumpet.views.base import BaseUserViewCallable
 from trumpet.views.resourceviews import SimpleModelResource
-from trumpet.views.resourceviews import BaseModelResource
+# from trumpet.views.resourceviews import BaseModelResource
 from trumpet.views.resourceviews import BaseResource
 
 from ..models.object_summary import ObjectSummary
@@ -38,7 +38,7 @@ class LeakView(SimpleModelResource):
     def __acl__(self):
         # FIXME use better group principal
         return [(Allow, 'group:1', 'dbadmin')]
-    
+
     def get_objects(self):
         return muppy.get_objects()
 
@@ -48,7 +48,7 @@ class LeakView(SimpleModelResource):
 
     def get_model_type(self):
         return self.request.matchdict['model']
-    
+
     def post_a_summary(self):
         name = self.request.json['name']
         content = self.make_summary()
@@ -59,7 +59,7 @@ class LeakView(SimpleModelResource):
             self.db.add(m)
             self.db.flush()
         return self.serialize_object(m)
-    
+
     def collection_post(self):
         mtype = self.get_model_type()
         if mtype == 'summary':
@@ -68,6 +68,7 @@ class LeakView(SimpleModelResource):
             return dict(foo='bar')
         else:
             raise HTTPNotFound
+
 
 @resource(collection_path='/api/dev/memdiff',
           path='/api/dev/memdiff/{id}',
@@ -79,7 +80,7 @@ class DiffView(BaseResource):
     def __acl__(self):
         # FIXME use better group principal
         return [(Allow, 'group:1', 'dbadmin')]
-    
+
     def collection_post(self):
         print("REQUEST {}".format(self.request.json))
         sums = []
@@ -95,10 +96,9 @@ class DiffView(BaseResource):
         output = io.StringIO()
         with contextlib.redirect_stdout(output):
             summary.print_(diff)
-        
-        #import pdb ; pdb.set_trace()
+
+        # import pdb ; pdb.set_trace()
         return dict(result='testing', output=output.getvalue())
-    
 
 
 class LeakViewOrig(BaseUserViewCallable):

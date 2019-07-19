@@ -50,11 +50,11 @@ class SunnyCrudModelView(SimpleModelResource):
             return data
         else:
             return super(SunnyCrudModelView, self).serialize_object(dbobj)
-            
+
     @view(permission='sunny_read')
     def collection_get(self):
         return super(SunnyCrudModelView, self).collection_get()
-    
+
     def __acl__(self):
         # FIXME use better group principal
         return [

@@ -1,10 +1,7 @@
 import os
-from datetime import datetime
 
-from dateutil.parser import parse as dateparse
 from pyramid.security import Allow
-from pyramid.security import Authenticated
-# from pyramid.view import view_config
+# from pyramid.security import Authenticated
 from cornice.resource import resource
 from cornice.resource import view
 # from pyramid.httpexceptions import HTTPNotFound
@@ -15,7 +12,6 @@ from sqlalchemy import desc
 from sqlalchemy import func
 from sqlalchemy.orm.exc import NoResultFound
 
-from trumpet.views.base import BaseViewCallable
 from trumpet.views.resourceviews import SimpleModelResource
 from trumpet.views.resourceviews import BaseModelResource
 from trumpet.views.util import get_start_end_from_request

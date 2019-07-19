@@ -45,7 +45,7 @@ class GenericView(SimpleModelResource):
     def __permitted_methods__(self):
         return ['collection_get', 'collection_post',
                 'get', 'post', 'put', 'delete']
-    
+
     def __acl__(self):
         return [(Allow, 'group:admin', 'useradmin')]
 
@@ -103,6 +103,7 @@ class GenericView(SimpleModelResource):
 
 
 usergroup_path = os.path.join(APIROOT, 'usergroup')
+
 
 @resource(collection_path=usergroup_path,
           path=os.path.join(usergroup_path, '{gid}', '{uid}'),

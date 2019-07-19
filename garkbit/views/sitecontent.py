@@ -7,12 +7,8 @@ from trumpet.views.resourceviews import BaseModelResource
 
 from ..models.site_document import SiteDocument
 
-from .util import make_resource
-
 
 site_documents_api_path = os.path.join(apiroot(), 'sitedocuments')
-
-
 doc_path = os.path.join(apiroot(), 'sitedocuments')
 
 

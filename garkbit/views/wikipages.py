@@ -106,7 +106,7 @@ class WikiPageView(BaseResource):
         if p is None:
             try:
                 data = self.wikicollector.get_wiki_page(name)
-            except HTTPError as e:
+            except HTTPError as e:  # noqa: F841
                 data = None
             print("data is", data)
             if data is not None:
