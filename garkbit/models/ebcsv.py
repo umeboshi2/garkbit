@@ -1,38 +1,33 @@
-from configparser import ConfigParser
-from io import StringIO
-
 from sqlalchemy import (
     Column,
-    Index,
     Integer,
     BigInteger,
     Float,
-    Text,
     Unicode,
     UnicodeText,
     Date,
-    DateTime,
     PickleType,
     Boolean,
-    Enum,
     func,
     ForeignKey,
 )
-from sqlalchemy.orm import relationship
+
 from hornstone.alchemy import SerialBase, TimeStampMixin
 
 from .meta import Base
 
-from .usergroup import User
-
 EBMODELS = {}
+
 
 class EbcsvConfig(Base, TimeStampMixin):
     __tablename__ = 'ebcsv_configs'
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(100), unique=True)
     content = Column(PickleType)
+
+
 EBMODELS['ebcsvcfg'] = EbcsvConfig
+
 
 class EbcsvDescription(Base, TimeStampMixin):
     __tablename__ = 'ebcsv_descriptions'
@@ -40,20 +35,29 @@ class EbcsvDescription(Base, TimeStampMixin):
     name = Column(Unicode(100), unique=True)
     title = Column(Unicode(500))
     content = Column(UnicodeText)
+
+
 EBMODELS['ebcsvdsc'] = EbcsvDescription
+
 
 class EbcsvClzComicPage(Base, SerialBase):
     __tablename__ = 'ebcsv_clz_comic_pages'
     id = Column(Integer, primary_key=True)
     url = Column(Unicode(500), unique=True)
     image_src = Column(Unicode(500))
+
+
 EBMODELS['ebclzpage'] = EbcsvClzComicPage
+
 
 class ClzCollectionStatus(Base, SerialBase):
     __tablename__ = 'clz_collection_status'
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(100), unique=True)
+
+
 EBMODELS['clzcollectionstatus'] = ClzCollectionStatus
+
 
 class EbcsvClzComic(Base, TimeStampMixin):
     __tablename__ = 'ebcsv_clz_comics'
@@ -77,7 +81,10 @@ class EbcsvClzComic(Base, TimeStampMixin):
     image_src = Column(Unicode(500), default='UNSET')
     # parsed xml object
     content = Column(UnicodeText)
+
+
 EBMODELS['ebclzcomic'] = EbcsvClzComic
+
 
 class EbComicWorkspace(Base, TimeStampMixin):
     __tablename__ = 'ebcomics_workspace'
@@ -86,7 +93,10 @@ class EbComicWorkspace(Base, TimeStampMixin):
                       ForeignKey('ebcsv_clz_comics.comic_id'),
                       unique=True)
     name = Column(UnicodeText)
+
+
 EBMODELS['ebcomicworkspace'] = EbComicWorkspace
+
 
 class GeneralUpload(Base, TimeStampMixin):
     __tablename__ = 'general_uploads'
@@ -99,6 +109,7 @@ class GeneralUpload(Base, TimeStampMixin):
     filename = Column(UnicodeText)
     path = Column(UnicodeText)
     size = Column(BigInteger)
+
 
 class ComicPhoto(Base, TimeStampMixin):
     __tablename__ = 'comic_photos'
@@ -116,7 +127,7 @@ class ComicPhotoName(Base, SerialBase):
     __tablename__ = 'comic_photo_names'
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(100), unique=True)
-    
+
 
 class ComicMainPhoto(Base, TimeStampMixin):
     __tablename__ = 'comic_main_photos'
@@ -129,6 +140,7 @@ class ComicMainPhoto(Base, TimeStampMixin):
     encoding = Column(UnicodeText)
     mimetype = Column(UnicodeText)
 
+
 class ComicExtraPhoto(Base, TimeStampMixin):
     __tablename__ = 'comic_extra_photos'
     id = Column(Integer, primary_key=True)
@@ -140,6 +152,7 @@ class ComicExtraPhoto(Base, TimeStampMixin):
     encoding = Column(UnicodeText)
     mimetype = Column(UnicodeText)
 
+
 class ListedComic(Base, TimeStampMixin):
     __tablename__ = 'listed_comics'
     id = Column(Integer, primary_key=True)
@@ -147,6 +160,3 @@ class ListedComic(Base, TimeStampMixin):
                       ForeignKey('ebcsv_clz_comics.comic_id'),
                       unique=True)
     workspace = Column(UnicodeText)
-    
-
-

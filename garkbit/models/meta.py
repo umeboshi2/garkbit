@@ -1,1 +1,1 @@
-from hornstone.alchemy import Base
+from hornstone.alchemy import Base  # noqa: F401

@@ -1,11 +1,3 @@
-from configparser import ConfigParser
-from io import StringIO
-
-# from sqlalchemy import Column
-# from sqlalchemy import Integer, Boolean
-# from sqlalchemy.orm import relationship
-# from sqlalchemy.orm import backref
-
 from hornstone.models.usergroup import UserMixin, GroupMixin, UserGroupMixin
 
 from .meta import Base

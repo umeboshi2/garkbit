@@ -1,7 +1,4 @@
-from datetime import datetime, date
-import time
-
-from sqlalchemy import Sequence, Column, ForeignKey
+from sqlalchemy import Column, ForeignKey
 
 # column types
 from sqlalchemy import Integer, String, Unicode
@@ -10,7 +7,6 @@ from sqlalchemy import PickleType
 from sqlalchemy import Enum
 from sqlalchemy import DateTime
 from sqlalchemy.orm import relationship, backref
-from sqlalchemy.ext.declarative import declarative_base
 
 from hornstone.alchemy import SerialBase
 from hattie.legistar import legistar_host
@@ -18,7 +14,7 @@ from hattie.legistar import legistar_host
 from .meta import Base
 
 ####################################
-## Data Types                     ##
+# Data Types                      ##
 ####################################
 
 
@@ -43,7 +39,7 @@ CacheType = Enum('action', 'departments', 'item', 'meeting',
 
 
 ####################################
-## Tables                         ##
+# Tables                          ##
 ####################################
 
 class MainCache(Base, SerialBase):
@@ -55,13 +51,12 @@ class MainCache(Base, SerialBase):
     content = Column(PickleType)
 
 
-
 class Department(Base, SerialBase):
     __tablename__ = 'lgr_departments'
     id = Column(Integer, primary_key=True)
     guid = Column(String)
     name = Column(String)
-    
+
     def __init__(self, id, guid):
         self.id = id
         self.guid = guid
@@ -93,8 +88,8 @@ class Person(Base, SerialBase):
 
     def __repr__(self):
         msg = '<Person: %d (%s %s)>'
-        return msg  % (self.id, self.firstname, self.lastname)
-    
+        return msg % (self.id, self.firstname, self.lastname)
+
 
 class Meeting(Base, SerialBase):
     __tablename__ = 'lgr_meetings'
@@ -110,7 +105,7 @@ class Meeting(Base, SerialBase):
     minutes_status = Column(String)
     rss = Column(PickleType)
     updated = Column(DateTime)
-    
+
     def __init__(self):
         self.id = None
         self.guid = None
@@ -125,10 +120,10 @@ class Meeting(Base, SerialBase):
         self.minutes_status = None
         self.rss = None
         self.updated = None
-        
+
     def __repr__(self):
         return "<Meeting(%d): '%s'>" % (self.id, self.title)
-    
+
 
 class Item(Base, SerialBase):
     __tablename__ = 'lgr_items'
@@ -144,7 +139,7 @@ class Item(Base, SerialBase):
     on_agenda = Column(Date)
     introduced = Column(Date)
     acted_on = Column(Boolean(name='item_acted_on'))
-    
+
     def __init__(self):
         self.id = None
         self.guid = None
@@ -164,11 +159,11 @@ class Item(Base, SerialBase):
     def link(self):
         tmpl = 'LegislationDetail.aspx?ID=%d&GUID=%s&Options=&Search='
         return tmpl % (self.id, self.guid)
-    
+
 
 class MeetingItem(Base, SerialBase):
     __tablename__ = 'lgr_meeting_item'
-    
+
     meeting_id = Column('meeting_id', Integer,
                         ForeignKey('lgr_meetings.id'),
                         primary_key=True)
@@ -188,7 +183,7 @@ class MeetingItem(Base, SerialBase):
     # versions, and it probably should go in the
     # items table, but for now it is here.
     version = Column('version', Integer)
-    
+
     def __init__(self, meeting_id, item_id):
         self.meeting_id = meeting_id
         self.item_id = item_id
@@ -196,11 +191,11 @@ class MeetingItem(Base, SerialBase):
         self.type = None
         self.order = None
         self.item_order = None
-        
+
     def __repr__(self):
         return "<MeetingItem %d:%d>" % (self.meeting_id, self.item_id)
-    
-    
+
+
 class Action(Base, SerialBase):
     __tablename__ = 'lgr_actions'
 
@@ -215,10 +210,8 @@ class Action(Base, SerialBase):
     minutes_note = Column(String)
     action = Column(String)
     action_text = Column(Unicode)
-    #item_id = Column(Integer, ForeignKey('items.id'))
-    
-    # related
-    
+    # item_id = Column(Integer, ForeignKey('items.id'))
+
     def __init__(self):
         self.id = None
         self.guid = None
@@ -231,10 +224,10 @@ class Action(Base, SerialBase):
         self.minutes_note = None
         self.action = None
         self.action_text = None
-        
+
     def __repr__(self):
         return "<Action: %s, id: %d>" % (self.file_id, self.id)
-    
+
 
 class ItemAction(Base, SerialBase):
     __tablename__ = 'lgr_item_action'
@@ -243,16 +236,16 @@ class ItemAction(Base, SerialBase):
                      ForeignKey('lgr_items.id'),
                      primary_key=True)
     action_id = Column('action_id', Integer,
-                        ForeignKey('lgr_actions.id'),
-                        primary_key=True)
+                       ForeignKey('lgr_actions.id'),
+                       primary_key=True)
 
     def __init__(self, item_id, action_id):
         self.item_id = item_id
         self.action_id = action_id
-        
+
     def __repr__(self):
         return "<ItemAction %d:%d>" % (self.item_id, self.action_id)
-    
+
 
 class ActionVote(Base, SerialBase):
     __tablename__ = 'lgr_action_vote'
@@ -278,7 +271,6 @@ class ActionVote(Base, SerialBase):
                              ForeignKey('lgr_people.id'))
 
 
-
 class File(Base, SerialBase):
     __tablename__ = 'lgr_files'
 
@@ -293,11 +285,11 @@ class File(Base, SerialBase):
         self.http_info = None
         self.content = None
         self.link = None
-        
+
     def __repr__(self):
         return "<File:  id: %d>" % self.id
-    
-    
+
+
 class Agenda(Base, SerialBase):
     __tablename__ = 'lgr_agendas'
 
@@ -307,18 +299,18 @@ class Agenda(Base, SerialBase):
     http_info = Column(PickleType)
     content = Column(LargeBinary)
     link = Column(String)
-    
+
     def __init__(self):
         self.id = None
         self.guid = None
         self.http_info = None
         self.content = None
         self.link = None
-        
+
     def __repr__(self):
         return "<Agenda:  id: %d>" % self.id
-    
-    
+
+
 class Minutes(Base, SerialBase):
     __tablename__ = 'lgr_minutes'
 
@@ -328,18 +320,18 @@ class Minutes(Base, SerialBase):
     http_info = Column(PickleType)
     content = Column(LargeBinary)
     link = Column(String)
-    
+
     def __init__(self):
         self.id = None
         self.guid = None
         self.http_info = None
         self.content = None
         self.link = None
-        
+
     def __repr__(self):
         return "<Minutes:  id: %d>" % self.id
-    
-    
+
+
 class Attachment(Base, SerialBase):
     __tablename__ = 'lgr_attachments'
 
@@ -350,7 +342,7 @@ class Attachment(Base, SerialBase):
     content = Column(LargeBinary)
     link = Column(String)
     item_id = Column(Integer, ForeignKey('lgr_items.id'))
-    
+
     def __init__(self):
         self.id = None
         self.guid = None
@@ -359,13 +351,13 @@ class Attachment(Base, SerialBase):
         self.content = None
         self.link = None
         self.item_id = None
-        
+
     def __repr__(self):
         return "<Attachment:  id: %d>" % self.id
 
     def get_link(self):
         return 'https://%s/%s' % (legistar_host, self.link)
-    
+
 
 class Tag(Base, SerialBase):
     __tablename__ = 'lgr_tagnames'
@@ -377,7 +369,7 @@ class Tag(Base, SerialBase):
 
     def __repr__(self):
         return "<Tag: %s>" % self.name
-    
+
 
 class ItemTag(Base, SerialBase):
     __tablename__ = 'lgr_item_tags'
@@ -393,18 +385,18 @@ class ItemTag(Base, SerialBase):
 
     def __repr__(self):
         return "<ItemTag: %s:%s>" % (self.id, self.tag)
-    
+
+
 # ItemTag relationships
 Tag.items = relationship(Item, backref='tags',
-                             order_by=Item.id,
-                             secondary='lgr_item_tags')
+                         order_by=Item.id,
+                         secondary='lgr_item_tags')
 
-    
 #######################################################
 #######################################################
 
 Department.meetings = relationship(Meeting, order_by=Meeting.date)
-    
+
 # Meeting relationships
 meeting_backref = backref('meeting', uselist=False)
 
@@ -429,9 +421,9 @@ MeetingItem.item = relationship(Item)
 
 
 # Item relationships
-Item.actions =  relationship(Action, backref='items',
-                             order_by=Action.id,
-                             secondary='lgr_item_action')
+Item.actions = relationship(Action, backref='items',
+                            order_by=Action.id,
+                            secondary='lgr_item_action')
 
 Item.attachments = relationship(Attachment, backref='item',
                                 order_by=Attachment.id)

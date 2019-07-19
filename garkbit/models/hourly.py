@@ -1,19 +1,6 @@
-#from configparser import ConfigParser
-#from io import StringIO
-
 from sqlalchemy import (
     Column,
-    Index,
-    Integer,
-    BigInteger,
-    Float,
-    Text,
-    Unicode,
-    UnicodeText,
-    Date,
     DateTime,
-    PickleType,
-    Boolean,
     Enum,
     func,
     ForeignKey,
