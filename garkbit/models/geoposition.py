@@ -59,3 +59,4 @@ class UserLocation(Base, TimeStampMixin):
 
 MapLocation.location = relationship('GeoPosition', uselist=False)
 UserLocation.location = relationship('GeoPosition', uselist=False)
+UserLocation.user = relationship('User', uselist=False)
