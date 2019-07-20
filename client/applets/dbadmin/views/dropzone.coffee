@@ -21,6 +21,7 @@ class ImportModels extends AuthModel
 class DropZoneView extends BaseDropzoneView
   parseMsg: 'Parse the file'
   headerMsg: 'drop a dump of the database to upload'
+  inputId: 'dbdump-input'
   successfulParse: =>
     @ui.statusMsg.text "Parse Successful"
     MessageChannel.request 'success', 'successfulParse'

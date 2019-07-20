@@ -1,10 +1,6 @@
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
 import tc from 'teacup'
-import JView from 'json-view'
-import 'json-view/devtools.css'
-
-import FileSaver from 'file-saver'
 
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 import BaseDropzoneView from 'tbirds/views/simple-file-input'
@@ -34,38 +30,6 @@ class DeleteAllModel extends AuthModel
 class ExportUserLocations extends AuthModel
   url: userLocationUrl
   
-class UserLocationView extends Marionette.View
-  template: tc.renderable (model) ->
-    tc.div '.row', ->
-      tc.div '.col', ->
-        tc.button '.export-btn.btn.btn-info', 'Export'
-    tc.div '.row', ->
-      tc.div '.col', ->
-        tc.div '.list-container'
-      tc.div '.col', ->
-        tc.div '.row.status-message'
-        tc.div '.row.dropfile-view'
-  ui:
-    exportBtn: '.export-btn'
-    statusMsg: '.status-message'
-    dropFile: '.dropfile-view'
-    listContainer: '.list-container'
-  regions:
-    dropFile: '@ui.dropFile'
-    listContainer: '@ui.listContainer'
-  events:
-    'click @ui.exportBtn': 'exportBtnClicked'
-  onRender: ->
-    view = new BaseDropzoneView
-    @showChildView 'dropFile', view
-  exportBtnClicked: ->
-    model = new ExportUserLocations
-    response = model.fetch()
-    response.fail ->
-      MessageChannel.request 'xhr-error', response
-    response.done ->
-      console.log "model", model
-    
 class MainView extends Marionette.View
   template: tc.renderable (model) ->
     tc.div '.row.listview-header', ->
@@ -99,10 +63,6 @@ class MainView extends Marionette.View
   onRender: ->
     view = new DropZoneView
     @showChildView 'dropFile', view
-
-    view = new UserLocationView
-    @showChildView 'listContainer', view
-    
   deleteBtnClicked: ->
     console.log "deleteBtnClicked"
     model = new DeleteAllModel

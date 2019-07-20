@@ -173,7 +173,31 @@ class DbAdminView(BaseModelResource):
                     sha256sum=s.hexdigest())
 
     def import_data(self):
-        data = self.import_zipfile()
+        text = self.request.json['content']
+        content = base64.decodestring(text.encode())
+        try:
+            data = self.import_zipfile()
+        except lzma.LZMAError:
+            data = json.loads(content.decode())
+        if 'id' in data:
+            return self.import_models(data)
+        else:
+            return self.import_database(data)
+
+    def import_models(self, data):
+        Model = ModelMap[data['name']]
+        with transaction.manager:
+            for item in data['items']:
+                model = self.db.query(Model).get(item['id'])
+                if not model:
+                    model = Model()
+                for key in item:
+                    setattr(model, key, item[key])
+                self.db.add(model)
+                self.db.flush()
+        return dict(result="success")
+
+    def import_database(self, data):
         session = self.db
         self.delete_all()
         merge_users(session, data)
@@ -226,3 +250,15 @@ class DbAdminModelResource(BaseModelResource):
     def model(self):
         name = self.request.matchdict['model']
         return ModelMap[name]
+
+    def get(self):
+        view = self.request.matchdict['view']
+        if view == 'export':
+            return self.export()
+
+    def export(self):
+        query = self.db.query(self.model)
+        models = [self.serialize_object(m) for m in query]
+        name = self.model.__name__
+        return dict(name=name, items=models,
+                    total_count=len(models))

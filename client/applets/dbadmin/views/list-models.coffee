@@ -1,10 +1,6 @@
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
 import tc from 'teacup'
-import JView from 'json-view'
-import 'json-view/devtools.css'
-
-
 
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 

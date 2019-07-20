@@ -1,12 +1,11 @@
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
 import tc from 'teacup'
-import JView from 'json-view'
-import 'json-view/devtools.css'
-
-
+import FileSaver from 'file-saver'
 
 import navigate_to_url from 'tbirds/util/navigate-to-url'
+
+import createModelCollection from '../dbchannel'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
@@ -34,7 +33,24 @@ class ItemView extends Marionette.View
     'click @ui.exportBtn': 'exportBtnClicked'
     'click @ui.listBtn': 'listBtnClicked'
   exportBtnClicked: ->
+    modelType = @model.get 'name'
+    cfg = createModelCollection modelType
     console.log 'exportBtnClicked'
+    model = new cfg.modelClass
+      id: 'export'
+    response = model.fetch()
+    response.fail ->
+      MessageChannel.request 'xhr-error', response
+    response.done ->
+      console.log "model fetched", model
+      data = model.toJSON()
+      env = 'production'
+      if __DEV__
+        env = 'development'
+      fileName = "exported-#{data.name}-#{env}.json"
+      blob = new Blob [JSON.stringify data], type:'application/json'
+      FileSaver.saveAs(blob, fileName)
+      
   listBtnClicked: ->
     modelType = @model.get 'name'
     navigate_to_url "#dbadmin/models/#{modelType}"
