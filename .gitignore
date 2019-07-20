@@ -118,3 +118,5 @@ stats-dev.json
 /*.sqlite-journal
 
 
+# local stuff to ignore
+*.pickle

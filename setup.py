@@ -49,6 +49,7 @@ test_requirements = [
 console_scripts = [
     'initialize_garkbit_db = garkbit.scripts.initializedb:main',
     'initialize_garkbit_localdb = garkbit.scripts.initializelocaldb:main',
+    'garkbit_refresh_tokens = garkbit.scripts.refresh_tokens:main',
     ]
 
 
