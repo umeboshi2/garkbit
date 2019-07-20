@@ -1,3 +1,6 @@
+import os
+import requests
+
 from .models.usergroup import User
 
 
@@ -25,3 +28,49 @@ def groupfinder(userid, request):
         groups = ['group:%s' % g.name for g in request.user.groups]
         return groups
     return []
+
+
+class AuthRequest(object):
+    def __init__(self, root_url, tokens):
+        self.root_url = root_url
+        self.tokens = tokens
+        self.user = 'admin'
+        self.apiroot = os.path.join(self.root_url, 'api/dev')
+
+    def set_user(self, name):
+        if name not in self.tokens:
+            raise RuntimeError("No token found for {}".format(name))
+        self.user = name
+
+    def _make_headers(self, token):
+        headers = {
+            "Accept": "application/json, text/javascript, */*",
+            "Authorization": "Bearer {}".format(token),
+        }
+        return headers
+
+    def make_headers(self):
+        token = self.tokens[self.user]
+        return self._make_headers(token)
+
+    def refresh_token(self):
+        headers = self.make_headers()
+        url = os.path.join(self.root_url, 'auth/refresh')
+        res = requests.get(url, headers=headers)
+        if not res.ok:
+            raise RuntimeError("Error refreshing token")
+        token = res.json()['token']
+        self.tokens[self.user] = token
+
+    def refresh_tokens(self):
+        for name in self.tokens:
+            self.set_user(name)
+            self.refresh_token()
+
+    def get(self, path, params=None):
+        url = os.path.join(self.apiroot, path)
+        headers = self.make_headers()
+        self.res = requests.get(url, headers=headers, params=params)
+        if not self.res.ok:
+            raise RuntimeError("Error {}".format(self.res.status_code))
+        return self.res.json()
