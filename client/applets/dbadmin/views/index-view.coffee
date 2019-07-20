@@ -1,6 +1,7 @@
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
 import tc from 'teacup'
+import FileSaver from 'file-saver'
 
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 import BaseDropzoneView from 'tbirds/views/simple-file-input'
