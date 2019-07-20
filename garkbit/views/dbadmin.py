@@ -131,6 +131,8 @@ class DbAdminView(BaseModelResource):
             return self.delete_all()
         elif view == 'list-models':
             return self.get_model_list()
+        elif view == 'export-userlocations':
+            return self.export_userlocations()
         else:
             raise HTTPNotFound
 
@@ -140,6 +142,19 @@ class DbAdminView(BaseModelResource):
             return self.import_data()
         else:
             raise HTTPNotFound
+
+    def export_userlocations(self):
+        q = self.db.query(UserLocation)
+        models = q.all()
+        objects = list()
+        for m in models:
+            data = m.serialize()
+            data['user'] = m.user.serialize()
+            data['location'] = m.location.serialize()
+            objects.append(data)
+        geopositions = [g.serialize() for g in self.db.query(GeoPosition)]
+        data = dict(geopositions=geopositions, userlocations=objects)
+        return data
 
     def get_model_list(self):
         models = [M.__name__ for M in ALL_MODELS + USERGROUP_MODELS]

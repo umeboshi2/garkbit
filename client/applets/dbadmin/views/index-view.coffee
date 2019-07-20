@@ -5,13 +5,13 @@ import JView from 'json-view'
 import 'json-view/devtools.css'
 
 import FileSaver from 'file-saver'
-import b64toBlob from 'b64-to-blob'
-import sjcl from 'sjcl'
 
 import navigate_to_url from 'tbirds/util/navigate-to-url'
+import BaseDropzoneView from 'tbirds/views/simple-file-input'
 
 import DropZoneView from './dropzone'
-import makeBlob from './../make-blob'
+
+import makeBlob from '../make-blob'
 
 
 MainChannel = Backbone.Radio.channel 'global'
@@ -23,7 +23,7 @@ AuthCollection = MainChannel.request 'main:app:AuthCollection'
 
 exportUrl = '/api/dev/dbadmin/export-models'
 deleteUrl = '/api/dev/dbadmin/delete-models'
-listUrl = '/api/dev/dbadmin/list-models'
+userLocationUrl = '/api/dev/dbadmin/export-userlocations'
 
 class ExportModels extends AuthModel
   url: exportUrl
@@ -31,10 +31,41 @@ class ExportModels extends AuthModel
 class DeleteAllModel extends AuthModel
   url: deleteUrl
 
-class ModelCollection extends AuthCollection
-  url: listUrl
+class ExportUserLocations extends AuthModel
+  url: userLocationUrl
   
-  
+class UserLocationView extends Marionette.View
+  template: tc.renderable (model) ->
+    tc.div '.row', ->
+      tc.div '.col', ->
+        tc.button '.export-btn.btn.btn-info', 'Export'
+    tc.div '.row', ->
+      tc.div '.col', ->
+        tc.div '.list-container'
+      tc.div '.col', ->
+        tc.div '.row.status-message'
+        tc.div '.row.dropfile-view'
+  ui:
+    exportBtn: '.export-btn'
+    statusMsg: '.status-message'
+    dropFile: '.dropfile-view'
+    listContainer: '.list-container'
+  regions:
+    dropFile: '@ui.dropFile'
+    listContainer: '@ui.listContainer'
+  events:
+    'click @ui.exportBtn': 'exportBtnClicked'
+  onRender: ->
+    view = new BaseDropzoneView
+    @showChildView 'dropFile', view
+  exportBtnClicked: ->
+    model = new ExportUserLocations
+    response = model.fetch()
+    response.fail ->
+      MessageChannel.request 'xhr-error', response
+    response.done ->
+      console.log "model", model
+    
 class MainView extends Marionette.View
   template: tc.renderable (model) ->
     tc.div '.row.listview-header', ->
@@ -42,18 +73,17 @@ class MainView extends Marionette.View
     tc.div '.row', ->
       tc.div '.col', ->
         tc.button '.delete-btn.btn.btn-danger', 'Delete'
-        tc.button '.export-btn.btn.btn-info', 'Export'
+        tc.button '.exportdb-btn.btn.btn-info', 'Export'
         tc.button '.list-btn.btn.btn-primary', 'List'
     tc.div '.row', ->
       tc.div '.col', ->
+        tc.div '.listview-header', 'User Locations'
         tc.div '.list-container'
       tc.div '.col', ->
         tc.div '.row.status-message'
         tc.div '.row.dropfile-view'
-  templateContext:
-    appName: 'dbadmin'
   ui:
-    exportBtn: '.export-btn'
+    exportBtn: '.exportdb-btn'
     deleteBtn: '.delete-btn'
     listBtn: '.list-btn'
     statusMsg: '.status-message'
@@ -69,6 +99,9 @@ class MainView extends Marionette.View
   onRender: ->
     view = new DropZoneView
     @showChildView 'dropFile', view
+
+    view = new UserLocationView
+    @showChildView 'listContainer', view
     
   deleteBtnClicked: ->
     console.log "deleteBtnClicked"
@@ -88,7 +121,8 @@ class MainView extends Marionette.View
       options = makeBlob model
       FileSaver.saveAs(options.blob, options.filename)
       MessageChannel.request 'success', "Exported database...."
-      @ui.statusMsg.text "sha256: #{cksum}"
+      @ui.statusMsg.text "sha256: #{model.get('sha256sum')}"
+      
   IgnoreonDomRefresh: ->
     @jsonView = new JView @model.toJSON()
     @ui.jsonView.prepend @jsonView.dom
