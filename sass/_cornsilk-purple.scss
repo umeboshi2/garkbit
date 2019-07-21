@@ -17,9 +17,8 @@ $body-color: $black;
 // $card-bg: darken(desaturate($color-BlanchedAlmond, 80%), 20%);
 
 
-//$list-group-bg: saturate(lighten($background, 5%), 15%);
-$list-group-bg: darken(saturate($background, 15%), 5%);
-$card-bg: darken(saturate($background, 15%), 5%);
+$list-group-bg: lighten(saturate($background, 5%), 5%);
+$card-bg: lighten(saturate($background, 5%), 5%);
 
 
 //$card-bg: darken(desaturate($color-BlanchedAlmond, 80%), 20%);
@@ -28,3 +27,4 @@ $panel-bg: darken($background, 10%);
 $modal-content-bg: darken($background, 10%);
 
 $link-color: darken($color-DarkSlateBlue, 5%);
+
