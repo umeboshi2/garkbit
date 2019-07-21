@@ -3,6 +3,10 @@ devMenu =
   label: 'Development Applets'
   menu: [
     {
+      label: 'Places'
+      url: '#places'
+      needUser: true
+    },{
       label: 'Sunny'
       url: '#sunny'
       needUser: true

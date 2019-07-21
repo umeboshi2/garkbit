@@ -10,12 +10,26 @@ MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'company'
 
+cardTemplate = tc.renderable (model) ->
+  #tc.div '#map-view.row', style:'height:20rem;'
+  tc.div '.card', style:'width: 18rem;', ->
+    tc.div '.card-body', ->
+      tc.h5 '.card-title', model.name
+      tc.div '#map-view.card-text', style:'height:20rem;'
+zbasicTemplate = tc.renderable (model) ->
+  tc.div '.row', ->
+    tc.div '#map-view.col', style:'height:20rem;'
 
+basicTemplate = tc.renderable (model) ->
+  tc.div '.row', ->
+    tc.h2 "Map View"
+  tc.div '.row', ->
+    tc.div '.col.status-message'
+  tc.div "#map-view.row", style:'height:20em;'
+  
+    
 class MainView extends Marionette.View
-  template: tc.renderable (model) ->
-    tc.div '.listview-header', model.name
-    tc.div model.description
-    tc.div '#map-view.row', style:'height:20rem;'
+  template: cardTemplate
   ui:
     map: '#map-view'
   regions:
@@ -38,7 +52,10 @@ class MainView extends Marionette.View
     console.log "LOCATION IS", location
     coords = [location.latitude, location.longitude]
     console.log "COORDS", coords
-    @Map.setView coords, 13
+    @Map.setView coords, 100
+    @Map.setZoom 13
+    circle = Leaflet.circle coords, location.accuracy
+    circle.addTo @Map
     
     
 export default MainView
