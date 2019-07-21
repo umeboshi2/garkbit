@@ -2,66 +2,59 @@ import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
 import tc from 'teacup'
 
-import navigate_to_url from 'tbirds/util/navigate-to-url'
+import objectifyCoordinates from 'tbirds/util/objectify-coordinates'
+import StatusView from './current-location'
+import ViewLocation from './view-location'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'places'
-
-coordinateFields = [
-  'latitude',
-  'longitude',
-  'altitude',
-  'accuracy',
-  'altitudeAccuracy',
-  'heading',
-  'speed',
-]
-
-class StatusView extends Marionette.View
-  template: tc.renderable (model) ->
-    coords = model.coords
-    tc.div '.status', ->
-      tc.dt 'Latitude'
-      tc.dd coords.latitude
-      tc.dt 'Longitude'
-      tc.dd coords.longitude
-    tc.button '.add-location-btn.btn.btn-primary', "Add location"
-  ui:
-    status: '.status'
-    addLocationBtn: '.add-location-btn'
-  events:
-    'click @ui.addLocationBtn': 'addLocationBtnClicked'
-  addLocationBtnClicked: ->
-    console.log "addLocationBtnClicked"
-    require.ensure [], () =>
-      View = require("./add-location-modal").default
-      view = new View
-        model: @model
-      MainChannel.request 'main:app:show-modal', view
-      
     
 class MainView extends Marionette.View
   template: tc.renderable (model) ->
-    tc.div '.row.location-status'
+    tc.div '.row.location-status', "Current Location: Unknown"
+    tc.div '.get-location-btn.btn.btn-primary', 'Get Location'
+    tc.div '.row.main-map-container'
   ui:
     locationStatus: '.location-status'
+    locationBtn: '.get-location-btn'
+    mainMapContainer: '.main-map-container'
+    
   regions:
     locationStatus: '@ui.locationStatus'
+    mainMapContainer: '@ui.mainMapContainer'
+  events:
+    'click @ui.locationBtn': 'locationBtnClicked'
+  childViewEvents:
+    'add:location:cancelled': 'onAddLocationCancelled'
+
   onRender: ->
+    if @collection.length < 1
+      MessageChannel.request 'warning', 'No locations found'
+    model = @collection.at 0
+    response = model.fetch()
+    response.fail ->
+      MessageChannel.request 'xhr-error', response
+    response.done =>
+      view = new ViewLocation
+        model: model
+      @showChildView 'mainMapContainer', view
+      
+    
+
+  locationBtnClicked: ->
     options =
       success: @locationSuccess
       error: @locationError
     MainChannel.request 'main:app:getCurrentPosition', options
   locationSuccess: (position) =>
-    console.log "locationSuccess", position
-    origCoords = position.coords
-    coords = {}
-    coordinateFields.forEach (field) ->
-      value = origCoords[field]
-      coords[field] = value
+    @ui.locationBtn.hide()
+    @ui.mainMapContainer.hide()
+    coords = objectifyCoordinates position.coords
     Model = AppChannel.request 'db:userlocation:modelClass'
-    model = new Model coords: coords
+    model = new Model
+      coords: coords
+      timestamp: position.timestamp
     view = new StatusView
       model: model
     @showChildView 'locationStatus', view
@@ -70,5 +63,9 @@ class MainView extends Marionette.View
     console.log "locationError", options
     MessageChannel.request 'warning', options.message
     
+  onAddLocationCancelled: ->
+    @getRegion('locationStatus').empty()
+    @ui.locationBtn.show()
+    @ui.mainMapContainer.show()
     
 export default MainView

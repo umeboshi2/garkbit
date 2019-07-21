@@ -22,9 +22,15 @@ class Controller extends MainController
   viewIndex: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      View = require('./views/index-view').default
-      view = new View
-      @layout.showChildView 'content', view
+      collection = AppChannel.request 'db:userlocation:collection'
+      response = collection.fetch()
+      response.fail ->
+        MessageChannel.request 'xhr-error', response
+      response.done =>
+        View = require('./views/index-view').default
+        view = new View
+          collection: collection
+        @layout.showChildView 'content', view
     # name the chunk
     , 'places-view-index'
 

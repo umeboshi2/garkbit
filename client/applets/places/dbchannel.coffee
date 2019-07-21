@@ -26,3 +26,5 @@ dbcfg.userlocation = new DbCollection _.extend defaultOptions,
   modelName: 'userlocation'
   modelClass: UserLocation
   collectionClass: UserLocationCollection
+
+export default dbcfg
