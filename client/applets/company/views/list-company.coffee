@@ -3,17 +3,10 @@ import Marionette from 'backbone.marionette'
 import tc from 'teacup'
 import marked from 'marked'
 
-{ navigate_to_url } = require 'tbirds/util/navigate-to-url'
+import BaseListView from 'tbirds/views/list-view'
 
 MainChannel = Backbone.Radio.channel 'global'
 AppChannel = Backbone.Radio.channel 'company'
-
-itemTemplate = tc.renderable (model) ->
-  itemButton = '.btn.btn-secondary.btn-sm'
-  tc.span '.mr-auto', ->
-    model.name
-  tc.span '.ml-auto.btn-group.pull-right', ->
-    tc.button ".add-item.#{itemButton}.btn-info.fa.fa-plus"
 
 itemTemplate = tc.renderable (model) ->
   itemButton = '.btn.btn-info.btn-sm'
@@ -45,20 +38,11 @@ listTemplate = tc.renderable ->
   tc.div '.workers-container.list-group'
 
 
-class ListView extends Marionette.View
+class ListView extends BaseListView
+  ItemView: ItemView
   template: listTemplate
   ui: ->
     itemList: '.workers-container'
-  regions: ->
-    itemList: '@ui.itemList'
-  onRender: ->
-    view = new Marionette.CollectionView
-      tagName: 'ul'
-      className: 'list-group'
-      collection: @collection
-      childView: ItemView
-    @showChildView 'itemList', view
-    
 
 export default ListView
 
