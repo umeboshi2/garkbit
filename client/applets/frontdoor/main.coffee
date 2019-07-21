@@ -9,10 +9,15 @@ AppRouter = MainChannel.request 'main:app:IndexRouter'
 
 appletEntries = [
   {
-    id: 'dbadmin'
-    label: 'Db Admin'
-    url: '#junk/dbadmin'
-    icon: '.fa.fa-database'
+    id: 'company'
+    label: 'Company'
+    url: '#company'
+    icon: '.fa.fa-users'
+  },{
+    id: 'places'
+    label: 'Places'
+    url: '#places'
+    icon: '.fa.fa-globe'
   }
 ]
 
