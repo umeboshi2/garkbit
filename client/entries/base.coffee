@@ -81,3 +81,8 @@ MainChannel.reply 'main:app:getCurrentPosition', (options) ->
   timeout = options?.timeout or 5000
   navigator.geolocation.getCurrentPosition options.success, options.error,
   timeout: timeout
+
+
+MainChannel.reply 'main:app:setLocationUrl', (url) ->
+  r = new Backbone.Router
+  r.navigate url, trigger:false
