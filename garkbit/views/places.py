@@ -47,7 +47,9 @@ class UserLocationResource(BaseModelResource):
 
     def collection_query(self):
         query = self.db.query(self.model)
-        query = query.filter_by(user_id=self.request.user.id)
+        groups = [g.name for g in self.request.user.groups]
+        if 'admin' not in groups:
+            query = query.filter_by(user_id=self.request.user.id)
         return query
 
     def collection_post(self):
