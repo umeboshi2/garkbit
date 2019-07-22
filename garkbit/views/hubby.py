@@ -1,24 +1,33 @@
 import os
 from datetime import datetime
 import base64
-import pickle as Pickle
 import io
 import contextlib
 
+# from webob import Response
 from cornice.resource import resource
 from pyramid.security import Allow
-from pyramid.security import Authenticated
+# from pyramid.security import Authenticated
 from pyramid.httpexceptions import HTTPNotFound
 
+from hornstone.alchemy import export_models
 from trumpet.views.base import BaseManagementResource
 from trumpet.views.base import BaseViewCallable
+from trumpet.views.resourceviews import BaseResource
 
 from hattie.managers.basic import DepartmentManager, PersonManager
 from hattie.managers.main import MeetingManager, ActionManager, ItemManager
 from hattie.dbmanager import DatabaseManager
 from hattie.collector.main import ZipCollector
-from trumpet.views.resourceviews import BaseResource
 
+from hattie.database import Department, Person
+from hattie.database import Meeting, Item, MeetingItem
+from hattie.database import ItemAction, Action, ActionVote
+from hattie.database import Attachment
+
+
+hattie_models = [Attachment, ActionVote, ItemAction, Action,
+                 MeetingItem, Item, Meeting, Department, Person]
 
 APIROOT = '/rest/v0'
 rscroot = os.path.join(APIROOT, 'main')
@@ -33,19 +42,22 @@ class DbManagerView(BaseResource):
     def __init__(self, request, context=None):
         super(DbManagerView, self).__init__(request, context=context)
         self.mgr = DatabaseManager(self.request.dbsession, 'ignore')
-        
+        self.output = io.BytesIO()
+
     def __acl__(self):
-        # FIXME use better group principal
-        return [(Allow, 'group:1', 'dbadmin')]
+        return [(Allow, 'group:admin', 'dbadmin')]
 
     def get(self):
         v = self.request.matchdict['view']
         if v == 'delete-all':
             return self.delete_all()
         if v == 'testme':
-            return dict(result='ok')
+            return self.export_database()
         return HTTPNotFound
-    
+
+    def export_database(self):
+        content = export_models(self.request.dbsession, hattie_models)
+        return dict(content=base64.encodebytes(content))
 
     def import_zipfile(self):
         text = self.request.json['content']
@@ -68,8 +80,12 @@ class DbManagerView(BaseResource):
         year = prefix[-4:]
         self.mgr.add_meetings_for_year(year)
         self.mgr.add_zipped_meetings()
+        del content
+        del zfile
+        del collector
+        del self.mgr
         return dict(result='ok', data=dict(year=year))
-        
+
     def post(self):
         v = self.request.matchdict['view']
         if v == 'testme':
@@ -79,19 +95,9 @@ class DbManagerView(BaseResource):
             data['output'] = output.getvalue()
             return data
 
-    def delete(self):
-        v = self.request.matchdict['view']
-        if v == 'testme':
-            text = self.request.json['content']
-            content = base64.decodestring(text.encode())
-            meetings = Pickle.loads(content)
-            return dict(result='ok', data=meetings)
-        
-        
     def delete_all(self):
         self.mgr.delete_all()
         return dict(result='ok')
-
 
 
 dept_path = os.path.join(rscroot, 'department')
@@ -112,7 +118,6 @@ class MainPersonResource(BaseManagementResource):
     mgrclass = PersonManager
 
 
-
 meeting_path = os.path.join(rscroot, 'meeting')
 
 
@@ -128,16 +133,19 @@ class MeetingResource(BaseManagementResource):
             if 'rss' in m:
                 del m['rss']
         return dict(data=meetings, total_count=len(meetings), result='success')
-    
+
     def get(self):
         id = int(self.request.matchdict['id'])
         m = self.mgr.get(id)
         if m is None:
             # FIXME
-            raise RuntimeError('404')
+            raise HTTPNotFound('{} unavailable.'.format(id))
         mdata = m.serialize()
         # remove rss object
-        del mdata['rss']
+        try:
+            del mdata['rss']
+        except KeyError:
+            pass
         mdata['meeting_items'] = []
         if len(m.meeting_items):
             meeting_items = []
@@ -176,6 +184,7 @@ itemaction_path = os.path.join(rscroot, 'itemaction')
           cors_origins=('*',))
 class ItemActionResource(BaseManagementResource):
     mgrclass = ItemManager
+
     def collection_get(self):
         return dict(data=[], result='notyet')
 
@@ -252,9 +261,12 @@ class MeetingCalendarViewer(BaseViewCallable):
         mlist = list()
         for m in meetings:
             mdata = m.serialize()
-            del mdata['rss']
+            # remove rss object
+            try:
+                del mdata['rss']
+            except KeyError:
+                pass
             mlist.append(mdata)
         headers = [('Access-Control-Allow-Origin', '*')]
-        self.request.response.headerlist.extend(headers) 
+        self.request.response.headerlist.extend(headers)
         self.response = mlist
-        
