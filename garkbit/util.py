@@ -1,4 +1,5 @@
 import os
+import pickle
 import requests
 
 from .models.usergroup import User
@@ -66,6 +67,12 @@ class AuthRequest(object):
         for name in self.tokens:
             self.set_user(name)
             self.refresh_token()
+
+    def save_tokens(self, filename=None):
+        if filename is None:
+            filename = '.tokens.pickle'
+        with open(filename, 'wb') as outfile:
+            pickle.dump(self.tokens, outfile)
 
     def http_method(self, method, path, **kwargs):
         url = os.path.join(self.apiroot, path)
