@@ -10,7 +10,7 @@ from pyramid.paster import (
     )
 
 
-def login(name):
+def login(name, passwords):
     login_data = dict(
         username=name,
         password=passwords.get(name)
@@ -45,7 +45,7 @@ def save_tokens(tokens, filename):
 def make_initial_tokens(filename):
     tokens = dict()
     for name in passwords:
-        data = login(name)
+        data = login(name, passwords)
         tokens[name] = data['token']
     return tokens
 
