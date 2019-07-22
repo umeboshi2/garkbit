@@ -3,6 +3,7 @@ import Marionette from 'backbone.marionette'
 import tc from 'teacup'
 
 import navigate_to_url from 'tbirds/util/navigate-to-url'
+import BaseListView from 'tbirds/views/list-view'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
@@ -34,22 +35,16 @@ class ItemView extends Marionette.View
   listBtnClicked: ->
     navigate_to_url "#dbadmin/models"
     
-class ListView extends Marionette.View
+class ListView extends BaseListView
+  ItemView: ItemView
   template: tc.renderable ->
     tc.div '.listview-header', ->
       tc.text 'Models'
+    tc.div '.paginate-bar'
     tc.div '.models-container'
   ui:
     itemList: '.models-container'
-  regions:
-    itemList: '@ui.itemList'
-  onRender: ->
-    view = new Marionette.CollectionView
-      tagName: 'ul'
-      className: 'list-group'
-      collection: @collection
-      childView: ItemView
-    @showChildView 'itemList', view
+    paginateBar: '.paginate-bar'
 
 export default ListView
 
