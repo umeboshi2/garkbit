@@ -67,10 +67,34 @@ class AuthRequest(object):
             self.set_user(name)
             self.refresh_token()
 
-    def get(self, path, params=None):
+    def http_method(self, method, path, **kwargs):
         url = os.path.join(self.apiroot, path)
         headers = self.make_headers()
-        self.res = requests.get(url, headers=headers, params=params)
+        self.res = getattr(requests, method)(url,
+                                             headers=headers,
+                                             **kwargs)
         if not self.res.ok:
-            raise RuntimeError("Error {}".format(self.res.status_code))
+            raise RuntimeError("{} Error {}".format(
+                method.upper(),
+                self.res.status_code))
+        return self.res.json()
+
+    def get(self, path, params=None):
+        return self.http_method('get', path, params=params)
+
+    def put(self, path, data=None):
+        return self.http_method('get', path, data=data)
+
+    def post(self, path, json=None, data=None):
+        url = os.path.join(self.apiroot, path)
+        headers = self.make_headers()
+        self.res = requests.post(url,
+                                 headers=headers,
+                                 json=json,
+                                 data=data)
+        if not self.res.ok:
+            method = 'post'
+            raise RuntimeError("{} Error {}".format(
+                method.upper(),
+                self.res.status_code))
         return self.res.json()
