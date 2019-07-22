@@ -205,7 +205,6 @@ class TimeClockView(BaseModelResource):
         worker = self.db.query(Worker).get(self.request.user.id)
         if worker.status == 'on':
             raise HTTPNotAcceptable
-        print("POST: WORKER IS", worker)
         with transaction.manager:
             session = WorkSession()
             session.worker_id = worker.id
@@ -222,10 +221,8 @@ class TimeClockView(BaseModelResource):
     def put(self):
         """Worker clocks out."""
         worker = self.db.query(Worker).get(self.request.user.id)
-        print("WORKER CLOCK OUT", worker.serialize())
         if worker.status == 'off':
             raise HTTPNotAcceptable
-        print("PUT: WORKER IS", worker)
         # get latest work session
         session = self._get_latest_session(worker.id)
         with transaction.manager:
