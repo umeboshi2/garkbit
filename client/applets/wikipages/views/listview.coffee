@@ -1,14 +1,14 @@
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
+import _ from 'underscore'
+import Backbone from 'backbone'
+import Marionette from 'backbone.marionette'
+import tc from 'teacup'
 
-Templates = require 'tbirds/templates/basecrud'
-Views = require 'tbirds/crud/basecrudviews'
-navigate_to_url = require('tbirds/util/navigate-to-url').default
-capitalize = require('tbirds/util/capitalize').default
-PaginateBar = require('tbirds/views/paginate-bar').default
-
-HasPageableCollection = require './pageable-view'
+import Templates from 'tbirds/templates/basecrud'
+import Views from 'tbirds/crud/basecrudviews'
+import PaginateBar from 'tbirds/views/paginate-bar'
+import BaseListView from 'tbirds/views/list-view'
+import navigate_to_url from 'tbirds/util/navigate-to-url'
+import capitalize from 'tbirds/util/capitalize'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
@@ -41,25 +41,16 @@ class ItemCollectionView extends Marionette.CollectionView
   
 
   
-class ListView extends Marionette.View
+class ListView extends BaseListView
+  ItemView: ItemView
   template: listTemplate
   ui:
     header: '.listview-header'
     itemList: '.list-group'
     paginateBar: '.paginate-bar'
-  regions:
-    itemList: '@ui.itemList'
-    paginateBar: '@ui.paginateBar'
-    navBox: '.navbox'
-  onRender: ->
-    view = new ItemCollectionView
-      collection: @collection
-    console.log "View", view
-    @showChildView 'itemList', view
-    view = new PaginateBar
-      collection: @collection
-      setKeyHandler: true
-    @showChildView 'paginateBar', view
-    
+  regions: ->
+    return _.extend super(),
+      navBox: '.navbox'
+
 export default ListView
 
