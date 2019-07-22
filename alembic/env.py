@@ -17,8 +17,22 @@ fileConfig(config.config_file_name)
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
+from garkbit.models import (  # noqa: F401
+    usergroup,
+    hourly,
+    company,
+    wikipage,
+    todo,
+    site_document,
+    geoposition,
+    sunny,
+    )
+
+from garkbit.models.meta import Base
+
 # target_metadata = mymodel.Base.metadata
-target_metadata = None
+target_metadata = Base.metadata
+
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
