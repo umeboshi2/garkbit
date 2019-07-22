@@ -4,6 +4,7 @@ import tc from 'teacup'
 import FileSaver from 'file-saver'
 
 import navigate_to_url from 'tbirds/util/navigate-to-url'
+import BaseListView from 'tbirds/views/list-view'
 
 import createModelCollection from '../dbchannel'
 
@@ -21,13 +22,11 @@ class ItemView extends Marionette.View
     tc.span '.ml-auto.btn-group.pull-right', ->
       tc.button '.list-btn.btn.btn-sm.btn-info', 'List'
       tc.button '.export-btn.btn.btn-sm.btn-info', 'Export'
-      tc.button '.import-btn.btn.btn-sm.btn-primary', 'Import'
   tagName: 'li'
   className: ->
     "list-group-item worker-item row"
   ui:
     exportBtn: '.export-btn'
-    importBtn: '.import-btn'
     listBtn: '.list-btn'
   events:
     'click @ui.exportBtn': 'exportBtnClicked'
@@ -54,23 +53,18 @@ class ItemView extends Marionette.View
   listBtnClicked: ->
     modelType = @model.get 'name'
     navigate_to_url "#dbadmin/models/#{modelType}"
-    
-class ListView extends Marionette.View
+
+# FIXME this collection isn't paginated
+class ListView extends BaseListView
+  ItemView: ItemView
   template: tc.renderable ->
     tc.div '.listview-header', ->
       tc.text 'Models'
+    tc.div '.paginate-bar'
     tc.div '.models-container'
   ui:
     itemList: '.models-container'
-  regions:
-    itemList: '@ui.itemList'
-  onRender: ->
-    view = new Marionette.CollectionView
-      tagName: 'ul'
-      className: 'list-group'
-      collection: @collection
-      childView: ItemView
-    @showChildView 'itemList', view
+    paginateBar: '.paginate-bar'
 
 export default ListView
 
