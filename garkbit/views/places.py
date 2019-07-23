@@ -1,6 +1,7 @@
 import os
 
 from pyramid.security import Allow, Authenticated
+from pyramid.httpexceptions import HTTPForbidden
 # from pyramid.httpexceptions import HTTPNotAcceptable
 from cornice.resource import resource
 # from cornice.resource import view
@@ -30,8 +31,7 @@ class UserLocationResource(BaseModelResource):
     model = UserLocation
 
     def __permitted_methods__(self):
-        return ['collection_post',
-                'collection_get',
+        return ['collection_get',
                 'get', 'put']
 
     def __acl__(self):
@@ -68,3 +68,24 @@ class UserLocationResource(BaseModelResource):
             self.db.add(userlocation)
             self.db.flush()
         return self.serialize_object(userlocation)
+
+    def delete(self):
+        id = self.request.matchdict['id']
+        with transaction.manager:
+            userlocation = self.db.query(self.model).get(id)
+            if userlocation is None:
+                raise HTTPForbidden
+            user_id = userlocation.user_id
+            if user_id != self.request.user.id:
+                raise HTTPForbidden
+            gp_query = self.db.query(Geoposition)
+            geoposition = gp_query.get(userlocation.location_id)
+            if geoposition is None:
+                raise RuntimeError("geoposition should exist.")
+            self.db.delete(userlocation)
+            self.db.delete(geoposition)
+            self.db.flush()
+        return dict(result='success')
+    
+            
+                
