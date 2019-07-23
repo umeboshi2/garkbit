@@ -20,7 +20,7 @@ data = require '../assets/myshows.json'
 
 shows = new Backbone.Collection data
 
-class ImportManager extends Marionette.Object
+class ImportManager extends Marionette.MnObject
   channelName: 'tvmaze'
   collection: shows
   initialize: (options) =>

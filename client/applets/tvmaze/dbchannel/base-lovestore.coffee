@@ -16,7 +16,7 @@ class BaseModel extends Backbone.Model
       data[field] = @get field
     return data
     
-class DbInterface extends Marionette.Object
+class DbInterface extends Marionette.MnObject
   channelName: 'tvmaze'
   # FIXME use _.once
   loveStore: ->

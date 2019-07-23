@@ -15,7 +15,7 @@ cssInfo = {}
 
 
 
-class ThemeRemover extends Marionette.Object
+class ThemeRemover extends Marionette.MnObject
   remove: (name) ->
     linkEl = $('head link')
     linkEl.each (index, element) ->
@@ -27,7 +27,7 @@ class ThemeRemover extends Marionette.Object
         cssInfo[name] = href
         el.remove()
 
-class ThemeSetter extends Marionette.Object
+class ThemeSetter extends Marionette.MnObject
   setTheme: (name) ->
     @[name]()
   setThemeOrig: (name) ->
@@ -61,7 +61,7 @@ class ThemeSetter extends Marionette.Object
     # name the chunk
     , 'garkbit-css-darkseagreen'
 
-class ThemeSwitcher extends Marionette.Object
+class ThemeSwitcher extends Marionette.MnObject
   switchTheme: (name) ->
     remover = new ThemeRemover
     Themes.forEach (name) ->
