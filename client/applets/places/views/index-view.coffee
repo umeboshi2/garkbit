@@ -6,11 +6,12 @@ import ms from 'ms'
 import objectifyCoordinates from 'tbirds/util/objectify-coordinates'
 import StatusView from './current-location'
 import ViewLocation from './view-location'
+import Timer from 'tiny-timer'
 
 import {
   ProgressView
   ProgressModel
-  } from 'tbirds/views/simple-progress'
+  } from 'tbirds/views/progress'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
@@ -18,12 +19,14 @@ AppChannel = Backbone.Radio.channel 'places'
     
 class MainView extends Marionette.View
   template: tc.renderable (model) ->
-    tc.div '.row.location-status', "Current Location: Unknown"
+    #tc.div '.row.location-status', "Current Location: Unknown"
     tc.div '.row', ->
       tc.span ->
         tc.button '.get-location-btn.btn.btn-primary', ->
           tc.text 'Get Location'
-        tc.span '.wait-progress'
+    tc.div '.row', ->
+      tc.div '.col.wait-progress'
+    #  tc.span '.wait-progress'
     tc.div '.row.main-map-container'
   ui:
     locationStatus: '.location-status'
@@ -83,39 +86,35 @@ class MainView extends Marionette.View
   showWaitProgress: ->
     @ui.locationBtn.hide()
     model = new ProgressModel
-    view = new ProgressView
-      model: model
-    @showChildView 'waitProgress', view
-    valuemax = 60
+    valuemax = 100
     model.set 'valuemax', valuemax
     model.set 'valuenow', valuemax
+    view = new ProgressView
+      className: 'progress row'
+      model: model
+      wrapperClasses: "col"
+      childViewOptions:
+        className: 'progress-bar progress-bar-striped bg-warning'
+    @showChildView 'waitProgress', view
     currentValue = valuemax
 
     waitIsOver = =>
       @getRegion('waitProgress').empty()
       @ui.locationBtn.show()
-    
-    decrement = ->
-      model.set 'valuenow', currentValue
-      currentValue -= 1
-      if currentValue
-        setTimeout decrement_2, ms '.1s'
-      else
-        console.log "finished on decrement", currentValue
-        model.set 'valuenow', currentValue
-        waitIsOver()
-        
-    decrement_2 = ->
-      model.set 'valuenow', currentValue
-      currentValue -= 1
-      if currentValue
-        setTimeout decrement, ms '.1s'
-      else
-        console.log "finished on decrement_2", currentValue
-        model.set 'valuenow', currentValue
-        waitIsOver()
-    
-    decrement()
+
+    duration = ms '11s'
+    model.set 'valuemax', duration
+    model.set 'valuenow', duration
+    timer = new Timer
+    timer.on 'tick', (ticks) ->
+      model.set 'valuenow', ticks % 100
+
+    timer.on 'done', ->
+      waitIsOver()
+      
+    timer.start duration,
+      interval: ms '.1s'
+      
     
     
     
