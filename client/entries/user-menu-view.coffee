@@ -1,6 +1,6 @@
 import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
-import Toolkit from 'marionette.toolkit'
+import { App } from 'marionette.toolkit'
 import tc from 'teacup'
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 
@@ -62,7 +62,7 @@ class UserMenuView extends Marionette.View
     MainChannel.request 'main:app:show-login'
     
     
-class UserMenuApp extends Toolkit.App
+class UserMenuApp extends App
   initialize: (options) ->
     token = MainChannel.request "main:app:decode-auth-token"
     model = MainChannel.request 'main:app:currentUser'
