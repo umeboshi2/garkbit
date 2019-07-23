@@ -17,14 +17,12 @@ AppChannel = Backbone.Radio.channel 'places'
 class ItemView extends Marionette.View
   template: tc.renderable (model) ->
     tc.span '.mr-auto', model.name
-    console.log "MODEL", model
   tagName: 'li'
   className: ->
     "list-group-item location-item row"
   triggers:
     'click': 'location:selected'
-  onLocationSelected: ->
-    console.log "onLocationSelected"
+  #onLocationSelected: ->
 
 class ListView extends BaseListView
   ItemView: ItemView
@@ -34,9 +32,6 @@ class ListView extends BaseListView
   ui: ->
     itemList: '.places-container'
     paginateBar: '.paginate-bar'
-  regions: ->
-    itemList: '@ui.itemList'
-    paginateBar: '@ui.paginateBar'
   childViewTriggers:
     'location:selected': 'location:selected'
 
@@ -45,15 +40,10 @@ class MapView extends Marionette.View
     tc.div '.card', style:'width: 18rem;', ->
       tc.div '.card-body', ->
         tc.h5 '.card-title', model.name
-        tc.div '#map-view.card-text', style:'height:20rem;'
+        tc.div '#map-view.card-text', style:'height:15rem;'
   ui:
     map: '#map-view'
     title: '.card-title'
-  regions:
-    workers: '@ui.workers'
-    potentialWorkers: '@ui.potentialWorkers'
-  events:
-    'click @ui.potentialBtn': 'potentialBtnClicked'
   modelEvents:
     'change': 'onModelChange'
   mapOpdtions: ->
