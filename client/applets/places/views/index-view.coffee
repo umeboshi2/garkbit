@@ -86,9 +86,6 @@ class MainView extends Marionette.View
   showWaitProgress: ->
     @ui.locationBtn.hide()
     model = new ProgressModel
-    valuemax = 100
-    model.set 'valuemax', valuemax
-    model.set 'valuenow', valuemax
     view = new ProgressView
       className: 'progress row'
       model: model
@@ -103,11 +100,12 @@ class MainView extends Marionette.View
       @ui.locationBtn.show()
 
     duration = ms '11s'
+    valuemax = 100
     model.set 'valuemax', duration
     model.set 'valuenow', duration
     timer = new Timer
     timer.on 'tick', (ticks) ->
-      model.set 'valuenow', ticks % 100
+      model.set 'valuenow', ticks
 
     timer.on 'done', ->
       waitIsOver()

@@ -7,6 +7,7 @@ import 'leaflet/dist/leaflet.css'
 
 import PaginateBar from 'tbirds/views/paginate-bar'
 import BaseListView from 'tbirds/views/list-view'
+import ConfirmDeleteModal from 'tbirds/views/confirm-delete-modal'
 
 
 MainChannel = Backbone.Radio.channel 'global'
@@ -17,13 +18,20 @@ AppChannel = Backbone.Radio.channel 'places'
 class ItemView extends Marionette.View
   template: tc.renderable (model) ->
     tc.span '.mr-auto', model.name
+    tc.span '.ml-auto', ->
+      tc.button '.delete-btn.btn.btn-sm.btn-danger', 'Delete'
   tagName: 'li'
   className: ->
-    "list-group-item location-item row"
+    "list-group-item location-item row d-flex"
+  ui:
+    label: '.mr-auto'
+    deleteBtn: '.delete-btn'
   triggers:
-    'click': 'location:selected'
+    'click @ui.label': 'location:selected'
+    'click @ui.deleteBtn': 'location:delete'
   #onLocationSelected: ->
-
+  #onLocationDelete: ->
+    
 class ListView extends BaseListView
   ItemView: ItemView
   template: tc.renderable ->
@@ -34,7 +42,7 @@ class ListView extends BaseListView
     paginateBar: '.paginate-bar'
   childViewTriggers:
     'location:selected': 'location:selected'
-
+    'location:delete': 'location:delete'
 class MapView extends Marionette.View
   template: tc.renderable (model) ->
     tc.div '.card', style:'width: 18rem;', ->
@@ -89,6 +97,7 @@ class MainView extends Marionette.View
     placesContainer: '@ui.placesContainer'
   childViewTriggers:
     'location:selected': 'location:selected'
+    'location:delete': 'location:delete'
   onRender: ->
     view = new MapView
       model: @model
@@ -109,7 +118,13 @@ class MainView extends Marionette.View
     response.done =>
       console.log "MODEL", model
       @model.set model.toJSON()
-      
+
+  onLocationDelete: (view) ->
+    console.log "View", view
+    mView = new ConfirmDeleteModal
+      model: view.model
+    MainChannel.request 'main:app:show-modal', mView
+    
     
     
 export default MainView
