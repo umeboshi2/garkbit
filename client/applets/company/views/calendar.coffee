@@ -73,7 +73,8 @@ calendarTemplate = tc.renderable () ->
 
     
 class CalendarView extends Marionette.View
-  template: calendarTemplate
+  template: tc.renderable (model) ->
+    tc.div '#maincalendar.col-sm-10.offset-sm-1'
   ui:
     calendar: '#maincalendar'
     loading: '#loading'
@@ -108,7 +109,7 @@ class CalendarView extends Marionette.View
       header:
         left: 'prevYear, nextYear'
         center: 'title'
-        right: 'prev, next, dayGridDay, dayGridWeek, dayGridMonth'
+        right: 'prev, next, dayGridMonth, timeGridWeek, timeGridDay'
       #theme: false
       #defaultView: 'dayGrid'
       #eventSources: sampleWeek

@@ -12,7 +12,7 @@ AuthCollection = MainChannel.request 'main:app:AuthCollection'
 class EventCollection extends AuthCollection
   url: '/api/dev/company/calendar'
 
-colors = ['green', 'red', 'blue', 'magenta']
+colors = ['green', 'chocolate', 'blue', 'magenta']
 
 userIDS = {}
 
