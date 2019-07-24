@@ -15,6 +15,7 @@ import '@fullcalendar/timegrid/main.css'
 import '@fullcalendar/list/main.css'
 
 MainChannel = Backbone.Radio.channel 'global'
+MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'hourly'
 
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
