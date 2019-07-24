@@ -80,7 +80,7 @@ class CalendarView extends Marionette.View
       header:
         left: 'prevYear, nextYear'
         center: 'title'
-        right: 'prev, next, dayGridDay, dayGridWeek, dayGridMonth'
+        right: 'prev, next, dayGridMonth, timeGridWeek, timeGridDay'
       #theme: false
       #defaultView: 'dayGrid'
       #eventSources: sampleWeek
