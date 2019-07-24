@@ -3,20 +3,25 @@ import Marionette from 'backbone.marionette'
 import tc from 'teacup'
 
 import objectifyCoordinates from 'tbirds/util/objectify-coordinates'
+import capitalize from 'tbirds/util/capitalize'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'places'
+
+detailListComponent = tc.renderable (model, field) ->
+  tc.dl '.row', ->
+    tc.dt '.col', capitalize field
+    tc.dd '.col', model[field]
+
 
 class StatusView extends Marionette.View
   template: tc.renderable (model) ->
     coords = model.coords
     tc.div '.card', ->
       tc.div '.card-body', ->
-        tc.dt 'Latitude'
-        tc.dd coords.latitude
-        tc.dt 'Longitude'
-        tc.dd coords.longitude
+        ['latitude', 'longitude', 'accuracy'].forEach (f) ->
+          detailListComponent coords, f
       tc.div '.card-footer', ->
         tc.button '.cancel-btn.btn.btn-warning', "Cancel"
         tc.button '.add-location-btn.btn.btn-primary', "Add location"

@@ -2,6 +2,7 @@ import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
 import tc from 'teacup'
 import ms from 'ms'
+import Leaflet from 'leaflet'
 
 import objectifyCoordinates from 'tbirds/util/objectify-coordinates'
 import StatusView from './current-location'
@@ -71,10 +72,14 @@ class MainView extends Marionette.View
     @showChildView 'mainMapContainer', view
     
     
-    zoomLevel = 13
-    coords = [coords.latitude, coords.longitude]
-    console.log "coords", coords
-    view.Map.setView coords, zoomLevel
+    zoomLevel = 16
+    latlong = [coords.latitude, coords.longitude]
+    accuracy = coords.accuracy
+    if accuracy > 100
+      zoomLevel = 13
+    view.Map.setView latlong, zoomLevel
+    circle = Leaflet.circle latlong, accuracy
+    circle.addTo view.Map
     
     view = new StatusView
       model: model
