@@ -19,22 +19,27 @@ class MainView extends Marionette.View
   template: tc.renderable (model) ->
     tc.div '.listview-header', model.name
     tc.div model.description
+    tc.div '.row', ->
+      tc.button '.calendar-btn.btn.btn-primary.fa.fa-calendar'
+      tc.div '.col.boss-calendar'
     tc.button '.potential-btn.btn.btn-primary.fa.fa-plus', ->
       tc.text 'Add potential workers'
     tc.div '.row', ->
       tc.div '.workers.col-md-6'
       tc.div '.potential-workers.col-md-6'
-  templateContext:
-    appName: 'company'
   ui:
     potentialBtn: '.potential-btn'
+    calendarBtn: '.calendar-btn'
     workers: '.workers'
     potentialWorkers: '.potential-workers'
+    bossCalendar: '.boss-calendar'
   regions:
     workers: '@ui.workers'
     potentialWorkers: '@ui.potentialWorkers'
+    bossCalendar: '@ui.bossCalendar'
   events:
     'click @ui.potentialBtn': 'potentialBtnClicked'
+    'click @ui.calendarBtn': 'calendarBtnClicked'
   onRender: ->
     @ui.potentialBtn.hide()
     @checkPotentialWorkers()
@@ -57,7 +62,8 @@ class MainView extends Marionette.View
       data:
         company_id: @model.get('id')
     response.done =>
-      console.log "pworkers fetched", pworkers, 
+      if __DEV__
+        console.log "pworkers fetched", pworkers
       if pworkers.length
         @ui.potentialBtn.show()
     response.fail ->
@@ -70,5 +76,21 @@ class MainView extends Marionette.View
       view = new PotentialWorkersModal
         model: @model
       MainChannel.request 'main:app:show-modal', view
-      
+    # name the chunk
+    , 'company-potential-workers-child-view'
+    
+  calendarBtnClicked: ->
+    console.log 'calendarBtnClicked'
+    require.ensure [], () =>
+      BossCalendar = require('./boss-calendar').default
+      region = @getRegion('bossCalendar')
+      if region.hasView()
+        region.empty()
+      else
+        view = new BossCalendar
+          model: @model
+        @showChildView 'bossCalendar', view
+    # name the chunk
+    , 'company-potential-workers-child-view'
+    
 export default MainView

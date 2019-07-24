@@ -48,7 +48,7 @@ class MapView extends Marionette.View
   template: tc.renderable (model) ->
     tc.div '.card', style:'width: 18rem;', ->
       tc.div '.card-body', ->
-        tc.h5 '.card-title', model.name
+        tc.h5 '.card-title', "#{model.name}(#{model.location.accuracy})"
         tc.div '#map-view.card-text', style:'height:15rem;'
   ui:
     map: '#map-view'
@@ -68,19 +68,22 @@ class MapView extends Marionette.View
   setLocation: ->
     console.log "setLocation", @model
     location = @model.get 'location'
-    zoomLevel = 14
     coords = [location.latitude, location.longitude]
-    @Map.setView coords, zoomLevel
     accuracy = location.accuracy
-    if accuracy > 10
-      accuracy = 10
+    zoomLevel = 18
+    if accuracy > 100
+      accuracy = 100
+      zoomLevel = 15
+    @Map.setView coords, zoomLevel
     circle = Leaflet.circle coords, accuracy
     circle.addTo @Map
 
   onModelChange: ->
     console.log "model changed"
     @setLocation()
-    @ui.title.text @model.get('name')
+    name = @model.get('name')
+    accuracy = @model.get('location').accuracy
+    @ui.title.text "#{name}(#{accuracy})"
     if false
       id = @model.get('id')
       url = "#places/view/#{id}"
@@ -121,6 +124,9 @@ class MainView extends Marionette.View
     response.done =>
       console.log "MODEL", model
       @model.set model.toJSON()
+      # FIXME find out why I sometimes need to force
+      # a change event
+      @model.trigger 'change'
 
   onLocationDelete: (view) ->
     console.log "View", view
