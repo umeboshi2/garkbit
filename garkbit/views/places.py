@@ -78,8 +78,8 @@ class UserLocationResource(BaseModelResource):
             user_id = userlocation.user_id
             if user_id != self.request.user.id:
                 raise HTTPForbidden
-            gp_query = self.db.query(Geoposition)
-            geoposition = gp_query.get(userlocation.location_id)
+            gp_query = self.db.query(GeoPosition)
+            geoposition = gp_query.get(userlocation.id)
             if geoposition is None:
                 raise RuntimeError("geoposition should exist.")
             self.db.delete(userlocation)
