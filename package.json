@@ -87,6 +87,7 @@
     "keycode": "^2.2.0",
     "leaflet": "^1.5.1",
     "lovefield": "^2.1.12",
+    "luxon": "^1.17.2",
     "mini-css-extract-plugin": "^0.8.0",
     "minimist": "^1.2.0",
     "mocha": "^6.2.0",
