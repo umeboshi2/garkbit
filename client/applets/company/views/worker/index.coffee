@@ -28,10 +28,10 @@ sessionTemplate = tc.renderable (model) ->
     status = model.worker.status
     if session
       if status == 'off' and session.end
-        end = moment(session.end)
+        end = moment.utc(session.end)
         tc.text "Your last session ended #{end.fromNow()}"
       else if status == 'on'
-        start = moment(session.start)
+        start = moment.utc(session.start)
         tc.text "You have been working since #{start.fromNow()}"
     else
       tc.text "You have never clocked in."
