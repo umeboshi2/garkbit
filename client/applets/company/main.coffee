@@ -43,6 +43,7 @@ class Router extends AdminRouter
     'company/company/add': 'addCompany'
 
     'company/worker': 'workerIndex'
+    'company/session/view/:id': 'viewWorkSession'
     
 class Applet extends TkApplet
   Controller: Controller

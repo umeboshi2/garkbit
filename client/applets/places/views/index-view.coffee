@@ -5,8 +5,8 @@ import ms from 'ms'
 
 import objectifyCoordinates from 'tbirds/util/objectify-coordinates'
 import StatusView from './current-location'
-import ViewLocation from './view-location'
 import Timer from 'tiny-timer'
+import BaseMapView from 'tbirds/views/base-map'
 
 import {
   ProgressView
@@ -20,14 +20,14 @@ AppChannel = Backbone.Radio.channel 'places'
 class MainView extends Marionette.View
   template: tc.renderable (model) ->
     #tc.div '.row.location-status', "Current Location: Unknown"
+    tc.div '.row.main-map-container'
     tc.div '.row', ->
       tc.span ->
         tc.button '.get-location-btn.btn.btn-primary', ->
           tc.text 'Get Location'
+    tc.div '.row.location-status'
     tc.div '.row', ->
       tc.div '.col.wait-progress'
-    #  tc.span '.wait-progress'
-    tc.div '.row.main-map-container'
   ui:
     locationStatus: '.location-status'
     locationBtn: '.get-location-btn'
@@ -45,16 +45,6 @@ class MainView extends Marionette.View
   onRender: ->
     if @collection.length < 1
       MessageChannel.request 'warning', 'No locations found'
-    model = @collection.at 0
-    response = model.fetch()
-    response.fail ->
-      MessageChannel.request 'xhr-error', response
-    response.done =>
-      view = new ViewLocation
-        model: model
-      @showChildView 'mainMapContainer', view
-      
-    
 
   locationBtnClicked: ->
     options =
@@ -66,16 +56,41 @@ class MainView extends Marionette.View
     
   locationSuccess: (position) =>
     @ui.locationBtn.hide()
-    @ui.mainMapContainer.hide()
+    @ui.locationBtn.removeClass 'btn-warning'
+    @ui.locationBtn.addClass 'btn-primary'
     coords = objectifyCoordinates position.coords
     Model = AppChannel.request 'db:userlocation:modelClass'
     model = new Model
       coords: coords
       timestamp: position.timestamp
+
+    view = new BaseMapView
+      model: model
+      mapWidth: '12rem'
+      mapHeight: '10rem'
+    @showChildView 'mainMapContainer', view
+    
+    
+    zoomLevel = 13
+    coords = [coords.latitude, coords.longitude]
+    console.log "coords", coords
+    view.Map.setView coords, zoomLevel
+    
     view = new StatusView
       model: model
     @showChildView 'locationStatus', view
-    
+
+  setLocation: (view) ->
+    console.log "setLocation", view
+    location = view.model.get 'location'
+    zoomLevel = 17
+    coords = [location.latitude, location.longitude]
+    accuracy = location.accuracy
+    if accuracy > 10
+      accuracy = 10
+    circle = Leaflet.circle coords, accuracy
+    circle.addTo @Map
+
   locationError: (options) =>
     console.log "locationError", options
     MessageChannel.request 'warning', options.message
@@ -93,7 +108,6 @@ class MainView extends Marionette.View
       childViewOptions:
         className: 'progress-bar progress-bar-striped bg-warning'
     @showChildView 'waitProgress', view
-    currentValue = valuemax
 
     waitIsOver = =>
       @getRegion('waitProgress').empty()

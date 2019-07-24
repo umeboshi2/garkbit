@@ -99,6 +99,22 @@ class Controller extends MainController
     # name the chunk
     , 'company-view-calendar'
 
+  viewWorkSession: (id) ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      View = require('./views/view-work-session').default
+      token = MainChannel.request 'main:app:decode-auth-token'
+      session = AppChannel.request 'db:worksession:get', id
+      response = session.fetch()
+      response.fail ->
+        MessageChannel.request 'xhr-error', response
+      response.done =>
+        view = new View
+          model: session
+        @layout.showChildView 'content', view
+    # name the chunk
+    , 'company-view-work-session'
 
+    
 export default Controller
 

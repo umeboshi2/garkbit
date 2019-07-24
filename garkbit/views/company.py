@@ -105,6 +105,35 @@ class WorkerResource(BaseModelResource):
         return super(WorkerResource, self).get()
 
 
+session_root = os.path.join(apiroot, 'worksession')
+
+
+@resource(collection_path=session_root,
+          path=os.path.join(session_root, '{id}'),
+          permission='boss')
+class WorkSessionResource(BaseModelResource):
+    model = WorkSession
+
+    def __permitted_methods__(self):
+        return ['get']
+
+    def __acl__(self):
+        acl = [
+            (Allow, 'group:boss', 'boss'),
+            (Allow, 'group:worker', 'get_worker'),
+            ]
+        return acl
+
+    def serialize_object(self, dbobj):
+        data = dbobj.serialize()
+        # data['user'] = dbobj.user.serialize()
+        return data
+
+    @view(permission='get_worker')
+    def get(self):
+        return super(WorkSessionResource, self).get()
+
+
 ##################################################
 # CRUD resource
 ##################################################
@@ -272,7 +301,7 @@ class SessionCalendarView(BaseModelResource):
 
     def _range_filter(self, query, start, end):
         query = query.filter(WorkSession.start >= start)
-        query = query.filter(WorkSession.end <= end)
+        query = query.filter(WorkSession.start <= end)
         return query
 
     # json responses should not be lists

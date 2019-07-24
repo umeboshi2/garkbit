@@ -22,7 +22,7 @@ class ItemView extends Marionette.View
       tc.button '.delete-btn.btn.btn-sm.btn-danger', 'Delete'
   tagName: 'li'
   className: ->
-    "list-group-item location-item row d-flex"
+    "list-group-item location-item d-flex"
   ui:
     label: '.mr-auto'
     deleteBtn: '.delete-btn'
@@ -43,6 +43,7 @@ class ListView extends BaseListView
   childViewTriggers:
     'location:selected': 'location:selected'
     'location:delete': 'location:delete'
+
 class MapView extends Marionette.View
   template: tc.renderable (model) ->
     tc.div '.card', style:'width: 18rem;', ->
@@ -63,10 +64,11 @@ class MapView extends Marionette.View
     @setLocation()
     if __DEV__
       window.mymap = @Map
-
+ 
   setLocation: ->
+    console.log "setLocation", @model
     location = @model.get 'location'
-    zoomLevel = 17
+    zoomLevel = 14
     coords = [location.latitude, location.longitude]
     @Map.setView coords, zoomLevel
     accuracy = location.accuracy
@@ -79,9 +81,10 @@ class MapView extends Marionette.View
     console.log "model changed"
     @setLocation()
     @ui.title.text @model.get('name')
-    id = @model.get('id')
-    url = "#places/view/#{id}"
-    MainChannel.request 'main:app:setLocationUrl', url
+    if false
+      id = @model.get('id')
+      url = "#places/view/#{id}"
+      MainChannel.request 'main:app:setLocationUrl', url
     
 class MainView extends Marionette.View
   template: tc.renderable (model) ->

@@ -6,6 +6,8 @@ import tc from 'teacup'
 import { Calendar } from '@fullcalendar/core'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
+import { DateTime } from 'luxon'
+
 
 import navigateToUrl from 'tbirds/util/navigate-to-url'
 
@@ -63,9 +65,12 @@ getEvents = (fetchInfo, successCallback, failureCallback) ->
     console.log "events", events
     calendarEvents = []
     events.forEach (event) ->
+      timeZone = 'UTC'
+      start = DateTime.fromISO event.get('start'), zone: 'UTC'
+      end = DateTime.fromISO event.get('end'), zone: 'UTC'
       model =
-        start: event.get 'start'
-        end: event.get 'end'
+        start: start.toLocal().toString()
+        end: end.toLocal().toString()
         id: event.id
         url: "#company/session/view/#{event.id}"
       calendarEvents.push model
@@ -90,7 +95,7 @@ loadingCalendarEvents = (isTrue) ->
 
 calendarTemplate = tc.renderable () ->
   tc.div '.listview-header', 'Punching the Clock'
-  tc.div '#loading', ->
+  tc.div '#loading', style:'display: none;', ->
     tc.h2 ->
       tc.i '.fa.fa-spinner.fa-spin'
       tc.text 'Loading Work Sessions'
