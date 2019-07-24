@@ -289,6 +289,7 @@ calendar_root = os.path.join(apiroot, 'calendar')
           path=os.path.join(calendar_root, '{id}'),
           permission='worker')
 class SessionCalendarView(BaseModelResource):
+    _use_pagination = False
     def __permitted_methods__(self):
         return ['collection_get']
 
@@ -304,6 +305,9 @@ class SessionCalendarView(BaseModelResource):
         query = query.filter(WorkSession.start <= end)
         return query
 
+    def _get_groups(self):
+        return [g.name for g in self.request.user.groups]
+
     # json responses should not be lists
     # this method is for the fullcalendar
     # widget. Fullcalendar v2 uses yyyy-mm-dd
@@ -313,6 +317,11 @@ class SessionCalendarView(BaseModelResource):
         start, end = get_start_end_from_request(self.request)
         if worker_ids is None:
             worker_ids = [self.request.user.id]
+        if 'boss' in self._get_groups():
+            if 'company_id' in self.request.GET:
+                company_id = self.request.GET['company_id']
+                qworker = self.db.query(Worker.id)
+                worker_ids = qworker.filter_by(company_id=company_id)
         query = self.request.dbsession.query(WorkSession)
         query = self._range_filter(query, start, end)
         query = query.filter(WorkSession.worker_id.in_(worker_ids))
