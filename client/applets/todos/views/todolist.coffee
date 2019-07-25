@@ -25,8 +25,9 @@ base_item_template = (name, route_name) ->
             type: 'checkbox'
           if model.completed
             opts.checked = ''
-          tc.input '.todo-checkbox', opts
-          tc.text 'done'
+          tc.div '.form-check', ->
+            tc.input "#todo-id-#{model.id}.todo-checkbox.form-check-input", opts
+            tc.label '.form-check-label', for:"todo-id-#{model.id}", 'done'
         
 class ItemView extends Views.BaseItemView
   route_name: 'todos'

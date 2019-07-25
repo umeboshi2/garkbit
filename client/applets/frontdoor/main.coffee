@@ -18,6 +18,11 @@ appletEntries = [
     label: 'Places'
     url: '#places'
     icon: '.fa.fa-globe'
+  },{
+    id: 'todos'
+    label: 'Todo List'
+    url: '#todos'
+    icon: '.fa.fa-list'
   }
 ]
 
