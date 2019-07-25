@@ -28,7 +28,6 @@ class ModelView(BaseModelResource):
 
     def __init__(self, request, context=None):
         super(ModelView, self).__init__(request, context=context)
-        # self.factory = SchemaFactory(NoForeignKeyWalker)
 
     @property
     def model_map(self):
