@@ -57,7 +57,8 @@ statusTemplate = tc.renderable (model) ->
     #tc.button clockOptions.btnClass, ->
     #  tc.text "Clock #{clockOptions.action}"
     tc.div '.clock-btn-container'
-    tc.button ".calendar-btn.btn.btn-success.fa.fa-calendar", "Calendar"
+    tc.button ".calendar-btn.btn.btn-success.fa.fa-calendar", "Month"
+    tc.button ".time-grid-week-btn.btn.btn-success.fa.fa-calendar", "Week"
   tc.div '.row.calendar'
     
 
@@ -65,6 +66,7 @@ class StatusView extends Marionette.View
   template: statusTemplate
   ui: ->
     calendarBtn: '.calendar-btn'
+    timeGridWeekBtn: '.time-grid-week-btn'
     workSessionRegion: '.work-session'
     calendarRegion: '.calendar'
     clockBtnRegion: '.clock-btn-container'
@@ -74,7 +76,8 @@ class StatusView extends Marionette.View
     calendarRegion: '@ui.calendarRegion'
     clockBtnRegion: '@ui.clockBtnRegion'
   events: ->
-    'click @ui.calendarBtn': 'showCalendar'
+    'click @ui.calendarBtn': 'calendarBtnClicked'
+    'click @ui.timeGridWeekBtn': 'timeGridWeekBtnClicked'
   childViewEvents:
     'worker:status:change': 'render'
     
@@ -91,6 +94,9 @@ class StatusView extends Marionette.View
       model: @model
     @showChildView 'clockBtnRegion', view
 
+  calendarBtnClicked: ->
+    @showCalendar()
+    
   showCalendar: ->
     console.log "showCalendar"
     require.ensure [], () =>
@@ -99,6 +105,21 @@ class StatusView extends Marionette.View
       @showChildView 'calendarRegion', view
     # name the chunk
     , 'company-view-child-calendar'
+
+  timeGridWeekBtnClicked: ->
+    console.log "timeGridWeekBtnClicked"
+    @showTimeGridWeek()
+  
+  showTimeGridWeek: ->
+    console.log "showTimeGridWeek"
+    require.ensure [], () =>
+      View = require('../time-grid-base').default
+      view = new View
+        defaultView: 'timeGridWeek'
+      @showChildView 'calendarRegion', view
+    # name the chunk
+    , 'company-view-child-calendar'
+
 
     
 viewTemplate = tc.renderable (model) ->
