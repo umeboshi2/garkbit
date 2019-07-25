@@ -1,6 +1,7 @@
 Akhet
 alembic
 gunicorn
+GeoAlchemy2
 hattie>=0.2.22
 hornstone>=0.1.19
 paginate_sqlalchemy

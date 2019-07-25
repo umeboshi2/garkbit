@@ -14,6 +14,7 @@ with open('HISTORY.rst') as history_file:
 requirements = [
     'Akhet',
     'alembic',
+    'GeoAlchemy2',
     'gunicorn',
     'hattie>=0.2.22',
     'hornstone>=0.1.19',

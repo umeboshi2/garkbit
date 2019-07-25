@@ -19,6 +19,7 @@ gunicorn = "^19.9"
 trumpet = "^0.2.10"
 hattie = "^0.2.22"
 paginate_sqlalchemy = "^0.3.0"
+GeoAlchemy2 = "^0.6.3"
 
 [tool.poetry.dev-dependencies]
 pyramid_debugtoolbar = "^4.5"
