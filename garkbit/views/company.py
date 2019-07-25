@@ -182,9 +182,6 @@ pwroot = os.path.join(apiroot, 'potential-workers')
 class PotentialWorkerView(BaseModelResource):
     model = Worker
 
-    def __permitted_methods__(self):
-        return ['collection_get']
-
     def __acl__(self):
         acl = [
             (Allow, 'group:boss', 'boss'),
@@ -218,10 +215,6 @@ clock_root = os.path.join(apiroot, 'time-clock')
           path=os.path.join(clock_root, '{id}'),
           permission='punch')
 class TimeClockView(BaseModelResource):
-    def __permitted_methods__(self):
-        return ['collection_post', 'collection_get',
-                'put']
-
     def __acl__(self):
         acl = [
             (Allow, 'group:worker', 'punch'),
@@ -254,6 +247,10 @@ class TimeClockView(BaseModelResource):
             raise HTTPNotAcceptable
         # get latest work session
         session = self._get_latest_session(worker.id)
+        # assert that latest session is same as
+        # requested session
+        if str(session.id) != self.request.matchdict['id']:
+            raise HTTPNotAcceptable
         with transaction.manager:
             session.end = func.now()
             worker.status = 'off'
@@ -290,6 +287,7 @@ calendar_root = os.path.join(apiroot, 'calendar')
           permission='worker')
 class SessionCalendarView(BaseModelResource):
     _use_pagination = False
+
     def __permitted_methods__(self):
         return ['collection_get']
 
