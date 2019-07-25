@@ -7,8 +7,8 @@ from cornice.resource import resource, view
 
 from trumpet.views.resourceviews import SimpleModelResource
 
+from ..models.geoposition import GeoPosition
 from ..models.sunny import (
-    GeoPosition,
     SunnyClient,
     Yard,
     SingleClientJob,
@@ -38,8 +38,6 @@ class SunnyCrudModelView(SimpleModelResource):
         return ['collection_get', 'collection_post',
                 'get', 'put']
 
-    def get_model_name(self):
-        return self.request.matchdict['model']
 
     def serialize_object(self, dbobj):
         model = self.get_model_name()
@@ -55,6 +53,10 @@ class SunnyCrudModelView(SimpleModelResource):
     def collection_get(self):
         return super(SunnyCrudModelView, self).collection_get()
 
+    @view(permission='sunny_read')
+    def get(self):
+        return super(SunnyCrudModelView, self).get()
+
     def __acl__(self):
         # FIXME use better group principal
         return [
@@ -69,5 +71,5 @@ class SunnyCrudModelView(SimpleModelResource):
     def model_map(self):
         return Model_Map
 
-    def get_model_type(self):
+    def get_model_name(self):
         return self.request.matchdict['model']
