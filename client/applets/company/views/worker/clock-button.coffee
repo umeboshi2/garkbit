@@ -41,7 +41,7 @@ class ClockButton extends Marionette.View
     else if status == 'on'
       @punchOut()
     else
-      MessageChannel.request 'warning', "Bad worker status #{status}"
+      MessageChannel.request 'danger', "Bad worker status #{status}"
 
   punchIn: ->
     worker_id = @model.get 'id'
@@ -53,7 +53,7 @@ class ClockButton extends Marionette.View
     response.done =>
       @updateLocalStatus 'on'
     response.fail ->
-      MessageChannel.request 'warning', response.responseJSON.code
+      MessageChannel.request 'xhr-error', response
   punchOut: ->
     worker_id = @model.get 'id'
     clock = new TimeClock
@@ -64,7 +64,7 @@ class ClockButton extends Marionette.View
       presponse.done =>
         @updateLocalStatus 'off'
       presponse.fail ->
-        MessageChannel.request 'warning', presponse.responseJSON.code
+        MessageChannel.request 'xhr-error', presponse
 
   updateLocalStatus: (status) ->
     @model.set 'status', status
