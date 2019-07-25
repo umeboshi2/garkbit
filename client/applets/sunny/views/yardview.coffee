@@ -3,12 +3,7 @@ import Backbone from 'backbone'
 import { View } from 'backbone.marionette'
 import tc from 'teacup'
 
-import BootstrapFormView from 'tbirds/views/bsformview'
-import navigate_to_url from 'tbirds/util/navigate-to-url'
-import make_field_input_ui from 'tbirds/util/make-field-input-ui'
-import {
-  make_field_input
-  make_field_textarea } from 'tbirds/templates/forms'
+import BaseMapView from 'tbirds/views/base-map'
 
 import { EditYardView, NewYardView } from './yardeditor'
 
@@ -31,16 +26,16 @@ class YardHeaderView extends View
 
 class YardViewer extends View
   template: tc.renderable (model) ->
-    tc.div '#yard-header.listview-header'
-    tc.div '#yard-routine.listview-list-entry'
-    tc.div '#location-container.listview-list-entry'
-    tc.div '#yard-editor.listview-list-entry'
+    tc.div '.yard-header.listview-header'
+    tc.div '.yard-routine'
+    tc.div '.location-container'
+    tc.div '.yard-editor'
     
   regions:
-    header: '#yard-header'
-    location: '#location-container'
-    editor: '#yard-editor'
-    routine: '#yard-routine'
+    header: '.yard-header'
+    location: '.location-container'
+    editor: '.yard-editor'
+    routine: '.yard-routine'
     
     
   _show_viewclass: (region, ViewClass) ->

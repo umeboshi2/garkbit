@@ -2,12 +2,11 @@ import _ from 'underscore'
 import Backbone from 'backbone'
 import { View } from 'backbone.marionette'
 import tc from 'teacup'
+import Leaflet from 'leaflet'
+
+import BaseMapView from 'tbirds/views/base-map'
 
 import navigate_to_url from 'tbirds/util/navigate-to-url'
-import make_field_input_ui from 'tbirds/util/make-field-input-ui'
-import {
-  make_field_input
-  make_field_textarea } from 'tbirds/templates/forms'
 
   
 MainChannel = Backbone.Radio.channel 'global'
@@ -18,7 +17,7 @@ GpsChannel = Backbone.Radio.channel 'gps'
 yard_location_text = (position) ->
   latitude = position.latitude.toPrecision 6
   longitude = position.longitude.toPrecision 6
-  return "#{latitude}, #{longitude}"
+  return "#{latitude}, #{longitude} (#{position.accuracy})"
 
 
 class BaseYardLocationView extends View
@@ -29,18 +28,21 @@ class BaseYardLocationView extends View
       ytext = yard_location_text model.location
     else
       ytext = 'Not Set'
-    tc.div '#yard-location-button.btn.btn-primary.pull-right', ''
-    tc.div "#yard-location", ytext
-
+    tc.div '.yard-location-btn.btn.btn-primary.pull-right', ''
+    tc.div ".yard-location", ytext
+    tc.div '.yard-map'
   ui: ->
-    yardLocation: '#yard-location'
-    yardButton: '#yard-location-button'
+    yardLocation: '.yard-location'
+    yardButton: '.yard-location-btn'
+    yardMap: '.yard-map'
+  regions:
+    yardMap: '@ui.yardMap'
   events: ->
-    'click @ui.yardButton': 'yard_button'
+    'click @ui.yardButton': 'yardButtonClicked'
 
   currentPosition: null
   
-  yard_button: (event) ->
+  yardButtonClicked: (event) ->
     if @currentPosition is null
       @get_location()
     else
@@ -50,7 +52,6 @@ class BaseYardLocationView extends View
     @ui.yardLocation.html tc.render ->
       tc.span "getting location from #{source}......"
       tc.i '.fa.fa-spinner.fa-spin'
-
 
   addNewYard: ->
     gp = GpsChannel.request 'new-position'
@@ -121,13 +122,12 @@ class BaseYardLocationView extends View
     @ui.yardLocation.text 'Unset'
     
     
-  get_location: =>
-    @ui.yardButton.hide()
-    console.log "getting location..."
-    @setGettingLocationHtml 'browser'
-    navigator.geolocation.getCurrentPosition @locationSuccess, @locationError,
-    timeout: 5000
-
+  getLocation: ->
+    options =
+      success: @locationSuccess
+      error: @locationError
+    MainChannel.request 'main:app:getCurrentPosition', options
+    
   onDomRefresh: ->
     console.log "onDomRefresh called"
     @setGettingLocationHtml 'database'
@@ -136,6 +136,20 @@ class BaseYardLocationView extends View
     if location
       @ui.yardLocation.text yard_location_text location
       @ui.yardButton.text 'Update Location'
+      view = new BaseMapView
+        model: @model
+
+      coords = location
+      @showChildView 'yardMap', view
+      zoomLevel = 16
+      latlong = [coords.latitude, coords.longitude]
+      accuracy = coords.accuracy
+      if accuracy > 100
+        zoomLevel = 13
+      view.Map.setView latlong, zoomLevel
+      circle = Leaflet.circle latlong, accuracy
+      circle.addTo view.Map
+      
       return
     else if not location?.latitude and @model.id
       msg = "There is no gps location for this yard!"
