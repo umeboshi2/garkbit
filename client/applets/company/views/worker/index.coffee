@@ -4,9 +4,12 @@ import tc from 'teacup'
 import marked from 'marked'
 import moment from 'moment'
 
+import BaseCalendarView from 'tbirds/views/base-calendar'
+
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 
 import ClockButton from './clock-button'
+import makeGetEvents from '../../fetch-events'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
@@ -57,16 +60,18 @@ statusTemplate = tc.renderable (model) ->
     #tc.button clockOptions.btnClass, ->
     #  tc.text "Clock #{clockOptions.action}"
     tc.div '.clock-btn-container'
-    tc.button ".calendar-btn.btn.btn-success.fa.fa-calendar", "Month"
-    tc.button ".time-grid-week-btn.btn.btn-success.fa.fa-calendar", "Week"
+    tc.button ".month-btn.btn.btn-success.fa.fa-calendar", "Month"
+    tc.button ".week-btn.btn.btn-success.fa.fa-calendar", "Week"
+    tc.button ".day-btn.btn.btn-success.fa.fa-calendar", "Day"
   tc.div '.row.calendar'
     
 
 class StatusView extends Marionette.View
   template: statusTemplate
   ui: ->
-    calendarBtn: '.calendar-btn'
-    timeGridWeekBtn: '.time-grid-week-btn'
+    monthBtn: '.month-btn'
+    weekBtn: '.week-btn'
+    dayBtn: '.day-btn'
     workSessionRegion: '.work-session'
     calendarRegion: '.calendar'
     clockBtnRegion: '.clock-btn-container'
@@ -76,8 +81,9 @@ class StatusView extends Marionette.View
     calendarRegion: '@ui.calendarRegion'
     clockBtnRegion: '@ui.clockBtnRegion'
   events: ->
-    'click @ui.calendarBtn': 'calendarBtnClicked'
-    'click @ui.timeGridWeekBtn': 'timeGridWeekBtnClicked'
+    'click @ui.monthBtn': 'monthBtnClicked'
+    'click @ui.weekBtn': 'weekBtnClicked'
+    'click @ui.dayBtn': 'dayBtnClicked'
   childViewEvents:
     'worker:status:change': 'render'
     
@@ -94,39 +100,48 @@ class StatusView extends Marionette.View
       model: @model
     @showChildView 'clockBtnRegion', view
 
-  calendarBtnClicked: ->
-    @showCalendar()
+  monthBtnClicked: ->
+    @showCalendar
+      className: 'col-md-8 offset-md-2'
+      calendarOptions:
+        defaultDate: new Date()
+        header:
+          left: 'prevYear, nextYear'
+          center: 'title'
+          right: 'prev, next'
+        events: makeGetEvents fetchData: @getOption('fetchData') or {}
     
-  showCalendar: ->
-    console.log "showCalendar"
-    require.ensure [], () =>
-      View = require('../calendar').default
-      view = new View
-      @showChildView 'calendarRegion', view
-    # name the chunk
-    , 'company-view-child-calendar'
-
-  timeGridWeekBtnClicked: ->
-    console.log "timeGridWeekBtnClicked"
-    @showTimeGridWeek()
-  
-  showTimeGridWeek: ->
-    console.log "showTimeGridWeek"
-    require.ensure [], () =>
-      View = require('../time-grid-base').default
-      view = new View
+  weekBtnClicked: ->
+    @showCalendar
+      className: 'col-md-8 offset-md-2'
+      calendarOptions:
+        defaultDate: new Date()
         defaultView: 'timeGridWeek'
-      @showChildView 'calendarRegion', view
-    # name the chunk
-    , 'company-view-child-calendar'
+        header:
+          left: 'prevYear, nextYear'
+          center: 'title'
+          right: 'prev, next'
+        events: makeGetEvents fetchData: @getOption('fetchData') or {}
 
+  dayBtnClicked: ->
+    @showCalendar
+      className: 'col-md-8 offset-md-2'
+      calendarOptions:
+        defaultDate: new Date()
+        defaultView: 'timeGridDay'
+        header:
+          left: 'prevYear, nextYear'
+          center: 'title'
+          right: 'prev, next'
+        events: makeGetEvents fetchData: @getOption('fetchData') or {}
 
+  showCalendar: (options) ->
+    view = new BaseCalendarView options
+    @showChildView 'calendarRegion', view
     
-viewTemplate = tc.renderable (model) ->
-  tc.div '.row.status'
-
 class MainView extends Marionette.View
-  template: viewTemplate
+  template: tc.renderable (model) ->
+    tc.div '.row.status'
   ui: ->
     status: '.status'
   regions:
