@@ -90,7 +90,7 @@ class AuthRequest(object):
         return self.http_method('get', path, params=params)
 
     def put(self, path, data=None):
-        return self.http_method('get', path, data=data)
+        return self.http_method('put', path, data=data)
 
     def post(self, path, json=None, data=None):
         url = os.path.join(self.apiroot, path)
