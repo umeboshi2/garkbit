@@ -15,7 +15,7 @@ from hornstone.models.base import BaseUUIDMixin
 
 
 from .meta import Base
-
+from .geoposition import GeoPosition
 
 WorkerStatusType = Enum('on', 'off',
                         name="company_worker_status_type_enum")
@@ -51,6 +51,14 @@ class WorkSession(Base, BaseUUIDMixin):
     end = Column(DateTime)
 
 
+class WorkSessionLocation(Base, TimeStampMixin):
+    __tablename__ = 'company_work_session_locations'
+    id = Column(UUIDType, ForeignKey(WorkSession.id),
+                primary_key=True)
+    in_location_id = Column(UUIDType, ForeignKey(GeoPosition.id))
+    out_location_id = Column(UUIDType, ForeignKey(GeoPosition.id))
+
+
 #######################################################
 # Relationships
 #######################################################
@@ -62,3 +70,16 @@ Company.boss = relationship("Boss", uselist=False)
 Worker.user = relationship('User', uselist=False)
 Worker.sessions = relationship('WorkSession')
 Worker.company = relationship('Company', uselist=False)
+
+WorkSession.worker = relationship('Worker', uselist=False)
+WorkSessionLocation.out = relationship(
+    "GeoPosition",
+    uselist=False,
+    foreign_keys=[WorkSessionLocation.out_location_id])
+
+# in is a python keyword
+setattr(WorkSessionLocation, 'in',
+        relationship(
+            'GeoPosition',
+            uselist=False,
+            foreign_keys=[WorkSessionLocation.in_location_id]))
