@@ -7,6 +7,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import UUIDType
+from geoalchemy2 import Geometry
 
 from hornstone.models.base import BaseUUIDMixin
 from hornstone.alchemy import TimeStampMixin
@@ -33,6 +34,7 @@ class GeoPosition(Base, BaseUUIDMixin):
     latitude = Column(Float)
     longitude = Column(Float)
     speed = Column(Float)
+    geo = Column(Geometry(geometry_type="POINT"))
 
     def __repr__(self):
         return "<GeoPosition {}: {}x{}>".format(
