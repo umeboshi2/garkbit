@@ -182,6 +182,9 @@ pwroot = os.path.join(apiroot, 'potential-workers')
 class PotentialWorkerView(BaseModelResource):
     model = Worker
 
+    def __permitted_methods__(self):
+        return ['collection_get']
+
     def __acl__(self):
         acl = [
             (Allow, 'group:boss', 'boss'),
@@ -299,7 +302,7 @@ class SessionCalendarView(BaseModelResource):
         return acl
 
     def _range_filter(self, query, start, end):
-        query = query.filter(WorkSession.start >= start)
+        query = query.filter(WorkSession.end >= start)
         query = query.filter(WorkSession.start <= end)
         return query
 
