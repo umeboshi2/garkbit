@@ -131,8 +131,6 @@ class DbAdminView(BaseModelResource):
             return self.delete_all()
         elif view == 'list-models':
             return self.get_model_list()
-        elif view == 'export-userlocations':
-            return self.export_userlocations()
         else:
             raise HTTPNotFound
 
@@ -186,6 +184,10 @@ class DbAdminView(BaseModelResource):
 
     def import_models(self, data):
         Model = ModelMap[data['name']]
+        isGeo = False
+        if Model is GeoPosition:
+            print("Model is GeoPosition")
+            isGeo = True
         with transaction.manager:
             for item in data['items']:
                 model = self.db.query(Model).get(item['id'])
@@ -193,6 +195,13 @@ class DbAdminView(BaseModelResource):
                     model = Model()
                 for key in item:
                     setattr(model, key, item[key])
+                if isGeo:
+                    if 'geo' in item:
+                        setattr(model, 'geo', item['geo'])
+                    else:
+                        point = 'Point({} {})'.format(item['longitude'],
+                                                      item['latitude'])
+                        model.geo = point
                 self.db.add(model)
                 self.db.flush()
         return dict(result="success")
