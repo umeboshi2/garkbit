@@ -20,7 +20,6 @@ AuthCollection = MainChannel.request 'main:app:AuthCollection'
 
 exportUrl = '/api/dev/dbadmin/export-models'
 deleteUrl = '/api/dev/dbadmin/delete-models'
-userLocationUrl = '/api/dev/dbadmin/export-userlocations'
 
 class ExportModels extends AuthModel
   url: exportUrl
@@ -28,9 +27,6 @@ class ExportModels extends AuthModel
 class DeleteAllModel extends AuthModel
   url: deleteUrl
 
-class ExportUserLocations extends AuthModel
-  url: userLocationUrl
-  
 class MainView extends Marionette.View
   template: tc.renderable (model) ->
     tc.div '.row.listview-header', ->
