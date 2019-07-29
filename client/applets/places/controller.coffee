@@ -65,6 +65,15 @@ class Controller extends MainController
     # name the chunk
     , 'places-view-view-place'
 
+  viewAllPlaces: ->
+    @setupLayoutIfNeeded()
+    require.ensure [], () =>
+      View = require('./views/all-locations').default
+      view = new View
+      @layout.showChildView 'content', view
+    # name the chunk
+    , 'places-view-list-places'
+
       
 export default Controller
 

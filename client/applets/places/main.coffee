@@ -21,6 +21,10 @@ appletMenu = [
     label: 'Your Places'
     url: '#places/list'
     icon: '.fa.fa-list'
+  },{
+    label: 'All Places'
+    url: '#places/all'
+    icon: '.fa.fa-globe'
   }  
   ]
 
@@ -30,6 +34,7 @@ class Router extends AppRouter
     'places': 'viewIndex'
     'places/list': 'listPlaces'
     'places/view/:id': 'viewPlace'
+    'places/all': 'viewAllPlaces'
     
 class Applet extends TkApplet
   Controller: Controller
