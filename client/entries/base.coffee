@@ -44,6 +44,13 @@ import LoginModal from './loginview'
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 
+$(document).ajaxError (event, xhr) ->
+  if __DEV__
+    console.warn "ajaxError event", event
+    console.warn "ajaxError xhr" , xhr
+  MessageChannel.request 'xhr-error', xhr
+  
+
 # set pagesize before requiring authmodels
 if localStorage.getItem('page-size') is null
   localStorage.setItem 'page-size', 10
