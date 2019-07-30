@@ -2,8 +2,8 @@ Akhet
 alembic
 gunicorn
 GeoAlchemy2
-hattie>=0.2.22
-hornstone>=0.1.19
+hattie>=0.2.23
+hornstone>=0.1.20
 paginate_sqlalchemy
 Pympler==0.7
 pyramid_jinja2
