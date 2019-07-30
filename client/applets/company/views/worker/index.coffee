@@ -3,6 +3,8 @@ import Marionette from 'backbone.marionette'
 import tc from 'teacup'
 import marked from 'marked'
 import moment from 'moment'
+import 'daterangepicker'
+import 'daterangepicker/daterangepicker.css'
 
 import BaseCalendarView from 'tbirds/views/base-calendar'
 
@@ -10,6 +12,7 @@ import navigate_to_url from 'tbirds/util/navigate-to-url'
 
 import ClockButton from './clock-button'
 import makeGetEvents from '../../fetch-events'
+
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
@@ -64,6 +67,7 @@ statusTemplate = tc.renderable (model) ->
     tc.button ".week-btn.btn.btn-success.fa.fa-calendar", "Week"
     tc.button ".day-btn.btn.btn-success.fa.fa-calendar", "Day"
   tc.div '.row.calendar'
+  tc.input '.datepick'
     
 
 class StatusView extends Marionette.View
@@ -75,7 +79,7 @@ class StatusView extends Marionette.View
     workSessionRegion: '.work-session'
     calendarRegion: '.calendar'
     clockBtnRegion: '.clock-btn-container'
-    
+    datePick: '.datepick'
   regions:
     workSessionRegion: '@ui.workSessionRegion'
     calendarRegion: '@ui.calendarRegion'
@@ -99,7 +103,12 @@ class StatusView extends Marionette.View
     view = new ClockButton
       model: @model
     @showChildView 'clockBtnRegion', view
-
+  onDomRefreshOrig: ->
+    @ui.datePick.daterangepicker
+      timePicker: true
+      locale:
+        format: 'M/DD hh:mm A'
+    
   monthBtnClicked: ->
     @showCalendar
       className: 'col-md-8 offset-md-2'
