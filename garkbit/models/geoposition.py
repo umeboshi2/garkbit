@@ -34,7 +34,7 @@ class GeoPosition(Base, BaseUUIDMixin):
     latitude = Column(Float)
     longitude = Column(Float)
     speed = Column(Float)
-    geo = Column(Geometry(geometry_type="POINT"))
+    # geo = Column(Geometry(geometry_type="POINT"))
 
     def __repr__(self):
         return "<GeoPosition {}: {}x{}>".format(
