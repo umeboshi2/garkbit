@@ -3,6 +3,14 @@ import Marionette from 'backbone.marionette'
 import tc from 'teacup'
 import ms from 'ms'
 import Leaflet from 'leaflet'
+import 'jquery-ui/ui/widgets/slider'
+import 'leaflet.icon.glyph'
+
+import 'jquery-ui/themes/base/base.css'
+import 'jquery-ui/themes/base/core.css'
+import 'jquery-ui/themes/base/slider.css'
+import 'jquery-ui/themes/base/theme.css'
+#import 'jquery-ui/themes/base/all.css'
 
 import objectifyCoordinates from 'tbirds/util/objectify-coordinates'
 import StatusView from './current-location'
@@ -19,22 +27,44 @@ MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'places'
     
-# FIXME - subclass Leaflet.Icon for font-awesome/glyphicons
-# using Leaflet.Icon.Glyph as example
-myIcon = Leaflet.icon
-  iconUrl: iconUrl
-
 class MainView extends Marionette.View
+  initialize: (options) ->
+    @currentMarkers = @getOption('currentMarkers') or []
+    @currentRadius = @getOption('currentRadius') or 0
   template: tc.renderable (model) ->
     tc.div '.listview-header', "All Locations"
-    tc.div '.map-container'
+    tc.div '.mb-2.radius-slider'
+    tc.div '.radius-label'
+    tc.div '.col.map-container'
   ui:
     mapContainer: '.map-container'
+    radiusSlider: '.radius-slider'
+    radiusLabel: '.radius-label'
   regions:
     mapContainer: '@ui.mapContainer'
   onDomRefresh: ->
     console.log "onDomRefresh"
     @getLocation()
+    sliderOptions =
+      #values: [1,5,19]
+      animate: 'fast'
+      classes:
+        'ui-slider': 'highlight'
+      disabled: false
+      max: 1500
+      min: 0
+      step: 10
+      change: (event, ui) =>
+        #console.log "event, ui", event, ui
+        console.log "ui.value", ui.value
+        @setRadius ui.value
+        @ui.radiusLabel.text "(#{ui.value} meters)"
+    @ui.radiusSlider.slider sliderOptions
+
+
+    console.log "@ui.radiusSlider", @ui.radiusSlider
+      
+    
     
   onRender: ->
     console.log "onRender"
@@ -47,6 +77,7 @@ class MainView extends Marionette.View
     
   showMap: ->
     view = new BaseMapView
+      mapWidth: '30rem'
     @showChildView 'mapContainer', view
     console.log "view", view
     coords = @currentPosition
@@ -58,8 +89,10 @@ class MainView extends Marionette.View
     view.Map.setView latlong, zoomLevel
     #circle = Leaflet.circle latlong, accuracy
     #circle.addTo view.Map
-    @addMarkers view.Map
-    
+    @addMarkers
+      map:view.Map
+      radius: @currentRadius
+      
     
   # need double arrow to use as callback
   locationSuccess: (position) =>
@@ -75,33 +108,65 @@ class MainView extends Marionette.View
     MessageChannel.request 'warning', 'Unable to get current location.'
 
 
-  addMarkers: (map) ->
+  setMarkersOrig: (markers) ->
+    for marker in markers
+      do (marker) ->
+        null
+
+  addMarkers: (options) ->
     locations = AppChannel.request 'db:userlocation:collection'
     console.log "addMarkers", @currentPosition
     response = locations.fetch
       data:
-        # FIXME
-        #limit: 9999
         all: true
         peer:
           latitude: @currentPosition.latitude
           longitude: @currentPosition.longitude
-          radius: 500
-          
-    response.fail ->
-      MessageChannel.request 'xhr-error', response
-    response.done ->
-      for model in locations.models
-        do (model) ->
-          location = model.get 'location'
-          coords = [location.latitude, location.longitude]
-          marker = Leaflet.marker coords,
-            icon: myIcon
-            title: model.get 'name'
-          marker.on 'click', ->
-            console.log "marker clicked", marker, marker.title
-          marker.addTo map
-          
+          radius: @currentRadius
+    response.done =>
+      map = @getRegion('mapContainer').currentView.Map
+      console.log "map is", map
+      options =
+        models: locations.models
+        map: map
+      @setMarkers options
+      
+  setMarkers: (options) ->
+    console.log "setMarkers options", options
+    for model in options.models
+      do (model) =>
+        location = model.get 'location'
+        coords = [location.latitude, location.longitude]
+        marker = Leaflet.marker coords,
+          icon: Leaflet.icon.glyph
+            prefix: 'fa'
+            glyph: "circle"
+          title: model.get 'name'
+        marker.on 'click', ->
+          console.log "marker clicked", marker, marker.title
+        marker.addTo options.map
+        @currentMarkers.push marker
+        
+
+  setRadius: (radius) ->
+    @currentRadius = radius
+    @currentMarkers.forEach (marker) =>
+      map = @getRegion('mapContainer').currentView.Map
+      map.removeLayer(marker)
+    locations = AppChannel.request 'db:userlocation:collection'
+    console.log "addMarkers", @currentPosition
+    response = locations.fetch
+      data:
+        all: true
+        peer:
+          latitude: @currentPosition.latitude
+          longitude: @currentPosition.longitude
+          radius: @currentRadius
+    response.done =>
+      map = @getRegion('mapContainer').currentView.Map
+      @setMarkers
+        models: locations.models
+        map: map
 
 
 export default MainView
