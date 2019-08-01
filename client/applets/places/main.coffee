@@ -25,7 +25,7 @@ appletMenu = [
     label: 'All Places'
     url: '#places/all'
     icon: '.fa.fa-globe'
-  }  
+  }
   ]
 
 class Router extends AppRouter

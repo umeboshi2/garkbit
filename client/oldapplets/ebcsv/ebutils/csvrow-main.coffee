@@ -54,7 +54,7 @@ create_csv_row_object = (options) ->
   if row.quantity != comic.quantity
     row.quantity = comic.quantity
 
-  # set startprice  
+  # set startprice
   set_startprice row, options
 
   # set scheduletime

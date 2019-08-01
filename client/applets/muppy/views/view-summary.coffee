@@ -13,7 +13,7 @@ class ItemView extends Marionette.View
   template: tc.renderable (model) ->
     tc.div "MODEL"
     tc.div model.name
-    tc.div model.content.length    
+    tc.div model.content.length
     
 module.exports = ItemView
 

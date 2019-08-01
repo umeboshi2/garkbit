@@ -81,5 +81,5 @@ class EditView extends BaseEditor
 export {
   NewView
   EditView
-  }  
+  }
 

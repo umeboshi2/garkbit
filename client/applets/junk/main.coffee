@@ -23,7 +23,7 @@ appletMenu = [
     label: 'List Emojis'
     url: '#junk/emojilist'
     icon: '.fa.fa-smile-o.text-dark.bg-warning'
-  }    
+  }
 ]
 
 class Router extends AppRouter

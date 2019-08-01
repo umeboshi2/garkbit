@@ -62,7 +62,7 @@ class NewPageView extends BaseFormView
   saveModel: ->
     docs = ResourceChannel.request 'document-collection'
     docs.add @model
-    super
+    super arguments
 
 class EditPageView extends BaseFormView
   # the model should be assigned in the controller

@@ -44,7 +44,7 @@ class ModelFactory
     if @registeredModels[type]
       model = @registeredModels[type].findOrCreate attributes, options
       if model
-        _.each relations.meta, (meta, key) =>
+        _.each relations.meta, (meta, key) ->
           if model.get(key) && model.get(key).handleMeta
             model.get(key).handleMeta(meta)
         return model
@@ -63,7 +63,7 @@ Backbone.Relational.Collection.prototype.parse = (response, options) ->
   if not response
     return
   if response.included
-    Backbone.Relational.modelFactory.createFromArray response.included, options, type
+    Backbone.Relational.modelFactory.createFromArray response.included, options, type # noqa
 
   if response.meta && @handleMeta
     @handleMeta response.meta
@@ -83,9 +83,9 @@ Backbone.Relational.Model.prototype.parse = (response, options) ->
     response = response.data
   if response.meta && @handleMeta
     @handleMeta response.meta
-  data = if not response.attributes and not response.type then response else response.attributes or {}
+  data = if not response.attributes and not response.type then response else response.attributes or {} # noqa
   data.id = response.id
-  rels = Backbone.Relational.modelFactory.getSimplifiedRelations response.relationships
+  rels = Backbone.Relational.modelFactory.getSimplifiedRelations response.relationships # noqa
   _.extend data, rels.models
   return data
   

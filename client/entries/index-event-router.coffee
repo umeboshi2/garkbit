@@ -57,7 +57,7 @@ class MainRouter extends TkRouter
     suffix = options.suffix
     tail = options.tail
     config = MainChannel.request 'main:app:config'
-    handler = `import(\`applets/${appname}/main\`)`
+    handler = `import(\`applets/${appname}/main\`)` # noqa
     handler.then (Applet) ->
       # FIXME fix applet structure to provide appropriate export
       applet = new Applet.default

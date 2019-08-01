@@ -10,7 +10,7 @@ current_font_size = 100
 
 
 view_template = tc.renderable (model) ->
-  tc.div '.row.listview-list-entry.text-center', ->  
+  tc.div '.row.listview-list-entry.text-center', ->
     tc.strong model.name
   tc.div '.zoom-out.btn.btn-primary.fa.fa-minus'
   tc.div '.zoom-in.btn.btn-primary.fa.fa-plus'
