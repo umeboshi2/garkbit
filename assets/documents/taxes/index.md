@@ -1,5 +1,10 @@
 # [Taxes](#taxes)
 
+## Tourism Promotion Tax
+
+[details](./taxes/tourism-tax)
+
+
 ## One Percent Hotel and Restaurant Tax
 
 ### March 2, 2018
