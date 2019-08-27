@@ -1,3 +1,4 @@
+
 import Backbone from 'backbone'
 import { View } from 'backbone.marionette'
 import tc from 'teacup'
@@ -158,7 +159,6 @@ class Controller extends MainController
     # name the chunk
     , 'sunny-map-view'
 
-    
-module.exports = Controller
+export default Controller
 
   
