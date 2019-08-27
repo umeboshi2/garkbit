@@ -38,3 +38,11 @@ HB 1764 (2017 session)
 
 http://billstatus.ls.state.ms.us/2017/pdf/history/HB/HB1764.xml
 
+[house votes](http://billstatus.ls.state.ms.us/2017/pdf/votes/house/0720007.pdf)
+
+
+# Legislative Intent
+
+House Bill 1642, 2014 session, intended for the people of the county to decide 
+on whether the City of Hattiesburg could continue the special two percent 
+tourism tax.
