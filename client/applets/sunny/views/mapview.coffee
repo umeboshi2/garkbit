@@ -3,6 +3,7 @@ import { View } from 'backbone.marionette'
 import tc from 'teacup'
 import ms from 'ms'
 import Leaflet from 'leaflet'
+import 'leaflet.icon.glyph'
 
 
 require 'leaflet/dist/leaflet.css'
@@ -24,17 +25,6 @@ AuthCollection = MainChannel.request 'main:app:AuthCollection'
 default_mapview_style = 'height:20em;'
 fs_mapview_style = 'position: absolute; top: 0; right: 0; bottom: 0; left: 0;'
 
-map_view_template = tc.renderable (model) ->
-  tc.div ->
-    tc.h2 "Map View"
-    tc.div '.checkbox', ->
-      tc.label ->
-        tc.input '#watch-map', type:'checkbox'
-        tc.text 'watch'
-    tc.div "#map-view", style: default_mapview_style
-    
-
-
 mapViewTemplate = tc.renderable (model) ->
   tc.div '.row', ->
     tc.h2 'Map View'
@@ -45,12 +35,6 @@ mapViewTemplate = tc.renderable (model) ->
   tc.div '.row', ->
     tc.div "#map-view.col-md-4", style: default_mapview_style
     
-# FIXME - subclass Leaflet.Icon for font-awesome/glyphicons
-# using Leaflet.Icon.Glyph as example
-myicon = Leaflet.icon
-  iconUrl: iconUrl
-  
-  
 class MapView extends View
   template: mapViewTemplate
   ui:
@@ -88,7 +72,9 @@ class MapView extends View
           if atts.latitude
             loc = [atts.latitude, atts.longitude]
             marker = Leaflet.marker loc,
-              icon: myicon
+              icon: Leaflet.icon.glyph
+                prefix: 'fa'
+                glyph: 'circle'
               url: "#sunny/yards/view/#{atts.id}"
               title: model.attributes.name
             marker.on 'click', ->
@@ -104,7 +90,9 @@ class MapView extends View
         if atts.latitude
           loc = [atts.latitude, atts.longitude]
           marker = Leaflet.marker loc,
-            icon: myicon
+            icon: Leaflet.icon.glyph
+              prefix: 'fa'
+              glyph: 'circle'
             url: "#sunny/yards/view/#{atts.id}"
           console.log "marker location", loc, atts.id
           marker.addTo @Map
