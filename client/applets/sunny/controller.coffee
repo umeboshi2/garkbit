@@ -55,7 +55,7 @@ class Controller extends MainController
   addYard: (client_id) ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      YardView = require('./views/yardview').default
+      YardView = require('./views/yard').default
       console.log "YardView", YardView
       # { NewYardView } = require './views/yardeditor'
       # view = new NewYardView
@@ -70,7 +70,7 @@ class Controller extends MainController
   viewYard: (yard_id) ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      YardView = require('./views/yardview').default
+      YardView = require('./views/yard').default
       model = AppChannel.request 'db:yard:get', yard_id
       if model.has 'sunnyclient'
         @_show_edit_client YardView, model
