@@ -5,10 +5,10 @@ import tc from 'teacup'
 
 import BaseMapView from 'tbirds/views/base-map'
 
-import { EditYardView, NewYardView } from './yardeditor'
+import { EditYardView, NewYardView } from './editor'
 
-YardLocationView = require './yardlocation'
-import YardRoutineView from './yardroutine'
+YardLocationView = require './location'
+import YardRoutineView from './routine'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
