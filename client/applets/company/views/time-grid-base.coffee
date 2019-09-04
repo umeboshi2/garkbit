@@ -21,7 +21,7 @@ getEvents = makeGetEvents {}
 
 
 MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'hourly'
+AppChannel = Backbone.Radio.channel 'company'
 
 loadingCalendarEvents = (isTrue) ->
   console.log "loadingCalendarEvents", isTrue

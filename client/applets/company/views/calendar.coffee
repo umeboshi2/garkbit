@@ -20,7 +20,7 @@ import makeGetEvents from '../fetch-events'
 getEvents = makeGetEvents {}
 
 MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'hourly'
+AppChannel = Backbone.Radio.channel 'company'
 
 sampleWeek = [
     {
@@ -90,7 +90,7 @@ class CalendarView extends Marionette.View
   onDomRefresh: ->
     calEventClick = (event) =>
       if not @getOption 'minicalendar'
-        url = "#hourly/viewevent/#{event.id}"
+        url = "#company/viewevent/#{event.id}"
         navigateToUrl url
       else
         options =

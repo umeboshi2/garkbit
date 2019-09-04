@@ -16,7 +16,6 @@ import objectifyCoordinates from 'tbirds/util/objectify-coordinates'
 import StatusView from './current-location'
 import Timer from 'tiny-timer'
 import BaseMapView from 'tbirds/views/base-map'
-import iconUrl from 'tbirds/util/glyph-marker-icon'
 
 import {
   ProgressView

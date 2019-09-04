@@ -51,7 +51,7 @@ class ItemView extends Marionette.View
     
 
 class ListView extends Marionette.View
-  channelName: 'hourly'
+  channelName: 'useradmin'
   template: listTemplate
   ui: ->
     container: '.item-container'
