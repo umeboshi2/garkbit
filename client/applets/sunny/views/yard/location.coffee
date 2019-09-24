@@ -156,7 +156,5 @@ class BaseYardLocationView extends View
       MessageChannel.request 'warning', msg
     @ui.yardLocation.text 'Unset'
     @ui.yardButton.text 'Get Location'
-    
-module.exports = BaseYardLocationView
-  
 
+export default BaseYardLocationView

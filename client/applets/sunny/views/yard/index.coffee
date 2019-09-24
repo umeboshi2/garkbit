@@ -7,7 +7,7 @@ import BaseMapView from 'tbirds/views/base-map'
 
 import { EditYardView, NewYardView } from './editor'
 
-YardLocationView = require './location'
+import YardLocationView from './location'
 import YardRoutineView from './routine'
 
 MainChannel = Backbone.Radio.channel 'global'
