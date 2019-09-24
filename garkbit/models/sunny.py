@@ -2,9 +2,12 @@ from sqlalchemy import (
     Column,
     Integer,
     Unicode,
+    UnicodeText,
     Date,
     DateTime,
+    Enum,
     ForeignKey,
+    func,
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import UUIDType
@@ -13,6 +16,11 @@ from hornstone.models.base import BaseUUIDMixin
 
 from .meta import Base
 from .geoposition import GeoPosition
+from .company import Worker
+
+
+YardSessionStatusType = Enum('on', 'off',
+                             name="sunny_yard_session_status_type_enum")
 
 
 class SunnyClient(Base, BaseUUIDMixin):
@@ -45,6 +53,16 @@ class SingleClientJob(Base, BaseUUIDMixin):
     # rate measured in dollars
     rate = Column(Integer)
     status = Column(Unicode)
+
+
+class YardSession(Base, BaseUUIDMixin):
+    __tablename__ = 'sunny_yard_sessions'
+    worker_id = Column(UUIDType, ForeignKey(Worker.id))
+    yard_id = Column(UUIDType, ForeignKey(Yard.id))
+    status = Column(YardSessionStatusType)
+    start = Column(DateTime, default=func.now())
+    end = Column(DateTime)
+    notes = Column(UnicodeText)
 
 
 class SingleYardJob(Base, BaseUUIDMixin):
