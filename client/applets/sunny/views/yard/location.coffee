@@ -15,21 +15,23 @@ AppChannel = Backbone.Radio.channel 'sunny'
 GpsChannel = Backbone.Radio.channel 'gps'
 
 yard_location_text = (position) ->
-  latitude = position.latitude.toPrecision 6
-  longitude = position.longitude.toPrecision 6
+  latitude = position.latitude.toPrecision 4
+  longitude = position.longitude.toPrecision 4
   return "#{latitude}, #{longitude} (#{position.accuracy})"
 
 
 class BaseYardLocationView extends View
   template:  tc.renderable (model) ->
     console.log "yardlocation view", model
-    tc.span "Location:"
     if model?.location
       ytext = yard_location_text model.location
     else
       ytext = 'Not Set'
-    tc.div '.yard-location-btn.btn.btn-primary.pull-right', ''
-    tc.div ".yard-location", ytext
+    tc.div '.yard-location-btn.badge.badge-primary', ''
+    tc.div ->
+      tc.small ->
+        tc.span "Location:"
+        tc.small ".yard-location", ytext
     tc.div '.yard-map'
   ui: ->
     yardLocation: '.yard-location'
