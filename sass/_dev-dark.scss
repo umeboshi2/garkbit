@@ -1,0 +1,38 @@
+@import "node_modules/tbirds/sass/X11colors";
+
+//$primary: lighten(desaturate($color-cornsilk2, 40%), 10%);
+
+//$primary: $color-DarkSlateBlue;
+
+$primary: $color-cornsilk4;
+
+//$secondary-color: darken($color-RosyBrown, 20%);
+$secondary: $color-DarkSlateBlue;
+
+$background: darken($primary, 30%);
+$body-bg: $background;
+$body-color: #abc;
+$link-color: #ace;
+$navbar-light-color: $link-color;
+$navbar-light-hover-color: $link-color;
+$navbar-light-active-color: $link-color;
+
+//$nav-tabs-link-active-color: #bcd;
+//$dropdown-link-color: #bcd;
+//$dropdown-color: #bcd;
+// BlanchedAlmond listgroups and cards
+// $list-group-bg: darken(desaturate($color-BlanchedAlmond, 80%), 20%);
+// $card-bg: darken(desaturate($color-BlanchedAlmond, 80%), 20%);
+
+
+$list-group-bg: lighten(saturate($background, 5%), 5%);
+$card-bg: lighten(saturate($background, 5%), 5%);
+
+
+//$card-bg: darken(desaturate($color-BlanchedAlmond, 80%), 20%);
+
+$panel-bg: darken($background, 10%);
+$modal-content-bg: darken($background, 10%);
+
+//$link-color: darken($color-DarkSlateBlue, 5%);
+

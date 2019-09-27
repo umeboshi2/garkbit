@@ -1,0 +1,105 @@
+@import "node_modules/tbirds/sass/hubby";
+
+// .col-sm-10.col-sm-offset-1
+#messages {
+    @include make-col-ready();
+    @include make-col(10);
+    @include make-col-offset(1);
+
+}
+
+
+#applet-content {
+    @extend .row
+}
+
+#footer {
+    @extend .row
+}
+
+
+#navbar-brand {
+    //@extend .navbar-header;
+}
+
+#navbar-view {
+    @extend .navbar;
+    @extend .navbar-expand-md;
+    @extend .navbar-light;
+    background-color: darken($body-bg, 10);
+
+    .dropdown-menu {
+	background-color: darken($body-bg, 10);
+    }
+
+    .dropdown-item:hover {
+	background-color: darken($body-bg, 20);
+    }	
+}
+
+
+.listview-list {
+    background: $background;
+    padding: 0.3em;
+}
+
+.listview-list-entry {
+    background: darken($background, 5);
+    margin: 0.5em;
+    border-style: solid;
+    border-width: 0.1em;
+    border-color: $primary;
+    padding: 0.3em;
+    a {
+	color: $link-color;
+	}
+}
+
+
+.listview-header {
+    @include border-radius(0.5em);
+    background: darken($background, 10);
+    color: $link-color;
+    text-align: center;
+    font-size: 1.5em;
+    border-style: solid;
+    border-width: 0.2em;
+    border-color: lighten($primary, 10);
+}
+
+.bg-body-d5 {
+    background: darken($background, 5);
+}
+
+.bg-body-d10 {
+    background: darken($background, 10);
+}
+
+.text-local-primary {
+    color: $primary;
+}
+
+.text-local-secondary {
+    color: $secondary;
+}
+
+.applet-container {
+    @include make-col-ready();
+    @include make-col(12);
+}
+
+#main-toolbar {
+    @include make-col-ready();
+    @include make-col(8);
+    @include make-col-offset(2);
+}
+
+#main-content {
+    @include make-col-ready();
+}    
+
+.btn {
+    @extend .btn;
+    // FIXME figure out why border-radius is being lost...
+    border-radius: 0.25rem;
+}
