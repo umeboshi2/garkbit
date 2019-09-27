@@ -35,20 +35,13 @@ class BaseClientEditor extends BootstrapFormView
   updateModel: ->
     for field in @fieldList.concat ['description']
       value = @ui[field].val()
-      console.log 'field', field, value
       if field is 'fullname' and not value
-        console.log 'no fullname here.....'
+        console.warn 'no fullname here.....'
         value = capitalize @model.get 'name'
       @model.set field, value
     # update other fields
     
-  onSuccess: (model) ->
-    name = model.get 'name'
-    MessageChannel.request 'success', "#{name} saved successfully.", "grain"
-    navigate_to_url '#sunny'
-    
-
-class NewClientView extends BaseClientEditor
+export class NewClientView extends BaseClientEditor
   createModel: ->
     AppChannel.request 'db:client:new'
 
@@ -57,13 +50,7 @@ class NewClientView extends BaseClientEditor
     clients.add @model
     super arguments
     
-class EditClientView extends BaseClientEditor
+export class EditClientView extends BaseClientEditor
   # the model should be assigned in the controller
   createModel: ->
     @model
-    
-module.exports =
-  NewClientView: NewClientView
-  EditClientView: EditClientView
-  
-
