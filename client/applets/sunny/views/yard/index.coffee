@@ -10,6 +10,9 @@ import { EditYardView, NewYardView } from './editor'
 import BaseToggleView from '../base-toggle'
 import YardLocationView from './location'
 import YardRoutineView from './routine'
+import YardInfoView from './info'
+
+import BaseInfoEditView from '../base-infoedit'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
@@ -25,38 +28,46 @@ class YardHeaderView extends View
     tc.a href:"#sunny/clients/view/#{model.sunnyclient_id}", ->
       tc.text "#{model.client.fullname}" || 'client'
 
-
+class YardInfoEditView extends BaseInfoEditView
+  infoView: YardInfoView
+  editView: EditYardView
+  
 regionViews =
   location: YardLocationView
-  editor: EditYardView
+  info: YardInfoEditView
   routine: YardRoutineView
+    
+regionToggleName = (reg) ->
+  return "#{reg}Toggle"
+regionContainerName = (reg) ->
+  return "#{reg}Container"
+toggleClassName = (reg) ->
+  return ".yard-#{reg}-toggle"
+containerClassName = (reg) ->
+  return ".yard-#{reg}-container"
   
 class YardViewer extends View
   template: tc.renderable (model) ->
     tc.div '.yard-header.listview-header'
     for reg of regionViews
-      tc.div ".yard-#{reg}-toggle"
-      tc.div ".yard-#{reg}-container"
+      tc.div toggleClassName(reg)
+      tc.div containerClassName(reg)
     tc.div '.yard-editor'
-  regionToggleName: (reg) ->
-    return "#{reg}Toggle"
-  regionContainerName: (reg) ->
-    return "#{reg}Container"
   ui: ->
     ui =
       header: '.yard-header'
       editor: '.yard-editor'
     for reg of regionViews
-      ui[@regionToggleName(reg)] = ".yard-#{reg}-toggle"
-      ui[@regionContainerName(reg)] = ".yard-#{reg}-container"
+      ui[regionToggleName(reg)] = toggleClassName(reg)
+      ui[regionContainerName(reg)] = containerClassName(reg)
     return ui
   regions: ->
     regions =
       header: '@ui.header'
       editor: '@ui.editor'
     for reg of regionViews
-      regions[@regionToggleName(reg)] = "@ui.#{@regionToggleName(reg)}"
-      regions[@regionContainerName(reg)] = "@ui.#{@regionContainerName(reg)}"
+      regions[regionToggleName(reg)] = "@ui.#{regionToggleName(reg)}"
+      regions[regionContainerName(reg)] = "@ui.#{regionContainerName(reg)}"
     return regions
     
   _show_viewclass: (region, ViewClass) ->
