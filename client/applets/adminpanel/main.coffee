@@ -14,11 +14,11 @@ SiteNavChannel = Backbone.Radio.channel 'site-nav'
 userAdminEntries = [
   {
     label: 'List Users'
-    url: '#admin/user/list'
+    url: '#useradmin/user/list'
     icon: '.fa.fa-list'
   },{
     label: 'Add New User'
-    url: '#admin/user/add'
+    url: '#useradmin/user/add'
     icon: '.fa.fa-plus'
   },{
     label: 'Hubby Dbadmin'
