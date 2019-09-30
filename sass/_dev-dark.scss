@@ -36,3 +36,8 @@ $modal-content-bg: darken($background, 10%);
 
 //$link-color: darken($color-DarkSlateBlue, 5%);
 
+$input-bg: $card-bg;
+$input-color: $body-color;
+
+$input-focus-bg: lighten($card-bg, 5%);
+$input-focus-color: $body-color;
