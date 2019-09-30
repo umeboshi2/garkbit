@@ -15,7 +15,6 @@ AppChannel = Backbone.Radio.channel 'sunny'
 
 YardForm = tc.renderable (model) ->
   make_field_input('name')(model)
-  #make_field_input('sunnyclient_id')(model)
   for field in ['description', 'jobdetails']
     make_field_textarea(field)(model)
   tc.input '.btn.btn-primary', type:'submit', value:"Submit"
@@ -55,11 +54,6 @@ class BaseYardEditor extends BootstrapFormView
 
 class NewYardView extends BaseYardEditor
   template: YardForm
-  createModelOrig: ->
-    model = AppChannel.request 'new-yard'
-    model.set 'sunnyclient_id', @sunnyclient_id
-    model
-    
   # the model should be assigned in the controller
   createModel: ->
     @model
@@ -72,9 +66,6 @@ class NewYardView extends BaseYardEditor
     yards.add @model
     super arguments
     
-  afterSuccess: ->
-    navigate_to_url "#sunny/yards/view/#{@model.id}"
-      
     
 class EditYardView extends BaseYardEditor
   template: YardForm
@@ -83,8 +74,5 @@ class EditYardView extends BaseYardEditor
   createModel: ->
     @model
     
-module.exports =
-  NewYardView: NewYardView
-  EditYardView: EditYardView
-  
+export { NewYardView, EditYardView }
 
