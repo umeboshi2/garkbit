@@ -11,33 +11,26 @@ $secondary: $color-DarkSlateBlue;
 
 $background: darken($primary, 30%);
 $body-bg: $background;
-$body-color: #abc;
-$link-color: #ace;
+$body-color: $color-cornsilk;;
+$link-color: lighten(#ace, 10%);
+
 $navbar-light-color: $link-color;
 $navbar-light-hover-color: $link-color;
 $navbar-light-active-color: $link-color;
-
-//$nav-tabs-link-active-color: #bcd;
-//$dropdown-link-color: #bcd;
-//$dropdown-color: #bcd;
-// BlanchedAlmond listgroups and cards
-// $list-group-bg: darken(desaturate($color-BlanchedAlmond, 80%), 20%);
-// $card-bg: darken(desaturate($color-BlanchedAlmond, 80%), 20%);
 
 
 $list-group-bg: lighten(saturate($background, 5%), 5%);
 $card-bg: lighten(saturate($background, 5%), 5%);
 
+$panel-bg: lighten($background, 10%);
+$modal-content-bg: lighten($background, 10%);
 
-//$card-bg: darken(desaturate($color-BlanchedAlmond, 80%), 20%);
-
-$panel-bg: darken($background, 10%);
-$modal-content-bg: darken($background, 10%);
-
-//$link-color: darken($color-DarkSlateBlue, 5%);
 
 $input-bg: $card-bg;
 $input-color: $body-color;
 
 $input-focus-bg: lighten($card-bg, 5%);
 $input-focus-color: $body-color;
+
+$table-color: lighten($body-color, 10%);
+
