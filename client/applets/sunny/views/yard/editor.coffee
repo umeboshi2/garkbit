@@ -38,19 +38,6 @@ class BaseYardEditor extends BootstrapFormView
     # update other fields
     #console.log "model sunnyclient_id", @model.get 'sunnyclient_id'
 
-  afterSuccess: ->
-    controller = AppChannel.request 'main-controller'
-    controller.view_yard @model.id
-      
-  onSuccess: (model) ->
-    name = model.get 'name'
-    MessageChannel.request 'success', "#{name} saved successfully."
-    @afterSuccess model
-    
-  goViewClient: ->
-    client_id = @model.get 'sunnyclient_id'
-    navigate_to_url "#sunny/clients/view/#{client_id}"
-    
 
 class NewYardView extends BaseYardEditor
   template: YardForm
