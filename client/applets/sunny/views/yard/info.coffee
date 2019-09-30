@@ -6,7 +6,7 @@ import navigate_to_url from 'tbirds/util/navigate-to-url'
 
 infoTable = tc.renderable (model) ->
   tc.table '.table', ->
-    tc.thead '.table-info', ->
+    tc.thead '.table-dark', ->
       tc.tr ->
         tc.th scope:'col', "Option"
         tc.th scope:'col', "Value"
