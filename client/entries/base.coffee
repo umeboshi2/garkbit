@@ -20,11 +20,17 @@ if false
   # name the chunk
   , 'garkbit-css-plain'
 else
-  require.ensure [], () ->
-    require '../../sass/cornsilk-purple.scss'
-  # name the chunk
-  , 'garkbit-css-cornsilk'
-  
+  if __DEV__
+    require.ensure [], () ->
+      require '../../sass/dev-dark.scss'
+    # name the chunk
+    , 'garkbit-css-dev-dark'
+  else
+    require.ensure [], () ->
+      require '../../sass/cornsilk-purple.scss'
+    # name the chunk
+    , 'garkbit-css-cornsilk'
+    
 
 import './themes'
 
