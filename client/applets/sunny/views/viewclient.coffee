@@ -7,6 +7,7 @@ import navigate_to_url from 'tbirds/util/navigate-to-url'
 import { NewClientView, EditClientView } from './clienteditor'
 import ClientInfoView from './client-info'
 import BaseInfoEditView from './base-infoedit'
+import BaseToggleView from './base-toggle'
 
 getFAtoggleState = (el) ->
   if el.hasClass 'fa-toggle-off'
@@ -36,77 +37,92 @@ class ClientYardView extends View
 
 class YardListView extends CollectionView
   childView: ClientYardView
-  childViewContainer: '#client-yards'
+  childViewContainer: '.client-yards'
   template: tc.renderable ->
     tc.div '.listview-header', ->
       tc.span 'Yards'
-      tc.button '#add-yard-btn.btn.btn-primary.btn-xs.pull-right', 'Add Yard'
+      tc.button '.add-yard-btn.btn.btn-primary.btn-sm.pull-right', 'Add Yard'
     tc.div '.row', ->
-      tc.div "#client-yards"
-      
+      tc.div ".client-yards"
+  ui:
+    addyard: '.add-yard-btn'
+  events: ->
+    'click @ui.addyard': 'addYard'
+
+  addYard: ->
+    console.log 'addYard clicked'
+    
+class ClientInfoEditView extends BaseInfoEditView
+  infoView: ClientInfoView
+  editView: EditClientView
+
+    
+regionViews =
+  info: ClientInfoEditView
+  yards: YardListView
+
+
+regionToggleName = (reg) ->
+  return "#{reg}Toggle"
+regionContainerName = (reg) ->
+  return "#{reg}Container"
+toggleClassName = (reg) ->
+  return ".#{reg}-toggle"
+containerClassName = (reg) ->
+  return ".#{reg}-container"
+  
+
+
   
 class ClientMainView extends View
-  template: client_view_template
+  template: tc.renderable (model) ->
+    tc.div '.listview-header'
+    for reg of regionViews
+      tc.div toggleClassName(reg)
+      tc.div containerClassName(reg)
   templateContext: ->
     collection: @collection
-  ui:
-    addyard: '#add-yard-btn'
-    yards: '#client-yards'
-    infoToggle: '.info-toggle'
-    yardsToggle: '.yards-toggle'
-    infoContainer: '.client-info-container'
-    yardsContainer: '.yards-container'
-  regions:
-    infoContainer: '@ui.infoContainer'
-    yardsContainer: '@ui.yardsContainer'
-  events: ->
-    'click @ui.addyard': 'add_yard'
-    'click @ui.infoToggle': 'infoToggleClicked'
-    'click @ui.yardsToggle': 'yardsToggleClicked'
-    
-  infoToggleClicked: (event) ->
-    el = @ui.infoToggle.children('i')
-    state = getFAtoggleState el
-    @toggleInfo state
-    
-  toggleInfo: (state) ->
-    el = @ui.infoToggle.children('i')
-    if not state
-      el.removeClass 'fa-toggle-off'
-      el.addClass 'fa-toggle-on'
-      view = new BaseInfoEditView
-        model: @model
-        infoView: ClientInfoView
-        editView: EditClientView
-      @showChildView 'infoContainer', view
+  ui: ->
+    ui =
+      header: '.listview-header'
+    for reg of regionViews
+      ui[regionToggleName(reg)] = toggleClassName(reg)
+      ui[regionContainerName(reg)] = containerClassName(reg)
+    return ui
+  regions: ->
+    regions =
+      header: '@ui.header'
+    for reg of regionViews
+      regions[regionToggleName(reg)] = "@ui.#{regionToggleName(reg)}"
+      regions[regionContainerName(reg)] = "@ui.#{regionContainerName(reg)}"
+    return regions
+  onRender: ->
+    for reg of regionViews
+      model = new Backbone.Model
+        label: reg
+      view = new BaseToggleView
+        className: 'btn btn-primary btn-sm'
+        model: model
+        name: reg
+      region = regionToggleName(reg)
+      @showChildView region, view
+  childViewEvents:
+    'toggle': 'childToggled'
+ 
+  childToggled: (view) ->
+    name = view.getOption 'name'
+    container = "#{name}Container"
+    # state has already changed before event triggered
+    # so we flip it with "not"
+    state = not view.getOption 'state'
+    #console.log "view state was", state
+    if state
+      region = @getRegion container
+      region.empty()
     else
-      el.removeClass 'fa-toggle-on'
-      el.addClass 'fa-toggle-off'
-      @getRegion('infoContainer').empty()
-      
-      
-  yardsToggleClicked: (event) ->
-    el = @ui.yardsToggle.children('i')
-    state = getFAtoggleState el
-    @toggleYards state
-    
-  toggleYards: (state) ->
-    el = @ui.yardsToggle.children('i')
-    if not state
-      el.removeClass 'fa-toggle-off'
-      el.addClass 'fa-toggle-on'
-      view = new YardListView
+      view = new regionViews[name]
         model: @model
         collection: @collection
-      @showChildView 'yardsContainer', view
-    else
-      el.removeClass 'fa-toggle-on'
-      el.addClass 'fa-toggle-off'
-      @getRegion('yardsContainer').empty()
-      
-      
-  add_yard: ->
-    navigate_to_url "#sunny/yards/add/#{@model.id}"
+      @showChildView container, view
     
-module.exports = ClientMainView
-
+export default ClientMainView

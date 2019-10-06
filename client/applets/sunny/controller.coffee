@@ -130,7 +130,7 @@ class Controller extends MainController
   viewClient: (id) ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      ClientMainView = require './views/viewclient'
+      ClientMainView = require('./views/viewclient').default
       model = AppChannel.request 'db:client:get', id
       if model.has 'name'
         @_fetch_yards_and_view_client model, ClientMainView
