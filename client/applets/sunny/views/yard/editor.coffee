@@ -33,7 +33,6 @@ class BaseYardEditor extends BootstrapFormView
     
   updateModel: ->
     for field in @fieldList.concat ['description', 'jobdetails']
-      console.log 'field', field, @ui[field].val()
       @model.set field, @ui[field].val()
     # update other fields
     #console.log "model sunnyclient_id", @model.get 'sunnyclient_id'
