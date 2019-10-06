@@ -9,14 +9,6 @@ import ClientInfoView from './client-info'
 import BaseInfoEditView from './base-infoedit'
 import BaseToggleView from './base-toggle'
 
-getFAtoggleState = (el) ->
-  if el.hasClass 'fa-toggle-off'
-    return false
-  else if el.hasClass 'fa-toggle-on'
-    return true
-  else
-    throw Error("bad el", el)
-    
 client_yard_teplate = tc.renderable (model) ->
   tc.div '.row.listview-list-entry', ->
     tc.a href:"#sunny/yards/view/#{model.id}", model.name
