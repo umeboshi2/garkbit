@@ -88,7 +88,8 @@ class YardViewer extends View
       model = new Backbone.Model
         label: reg
       view = new BaseToggleView
-        className: 'badge'
+        #className: 'badge'
+        className: 'btn btn-sm btn-primary'
         model: model
         name: reg
       region = "#{reg}Toggle"
