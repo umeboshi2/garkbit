@@ -5,14 +5,15 @@ import tc from 'teacup'
 
 import BaseMapView from 'tbirds/views/base-map'
 
-import { EditYardView, NewYardView } from './editor'
-
 import BaseToggleView from '../base-toggle'
+import BaseInfoEditView from '../base-infoedit'
+
+import { EditYardView, NewYardView } from './editor'
 import YardLocationView from './location'
 import YardRoutineView from './routine'
 import YardInfoView from './info'
+import YardSessionView from './sessions'
 
-import BaseInfoEditView from '../base-infoedit'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
@@ -35,6 +36,7 @@ class YardInfoEditView extends BaseInfoEditView
 regionViews =
   location: YardLocationView
   info: YardInfoEditView
+  sessions: YardSessionView
   routine: YardRoutineView
     
 regionToggleName = (reg) ->
@@ -49,8 +51,10 @@ containerClassName = (reg) ->
 class YardViewer extends View
   template: tc.renderable (model) ->
     tc.div '.yard-header.listview-header'
+    tc.div '.btn-group', ->
+      for reg of regionViews
+        tc.div toggleClassName(reg)
     for reg of regionViews
-      tc.div toggleClassName(reg)
       tc.div containerClassName(reg)
     tc.div '.yard-editor'
   ui: ->
