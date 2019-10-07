@@ -85,4 +85,28 @@ dbcfg.location = new DbCollection _.extend defaultOptions,
   modelClass: GeoLocation
   collectionClass: GeoLocationCollection
 
+
+
+url = '/api/dev/sunny/yardsession'
+class YardSession extends AuthModel
+  urlRoot: url
+
+class YardSessionCollection extends AuthCollection
+  model: YardSession
+  url: url
+dbcfg.yardsession = new DbCollection _.extend defaultOptions,
+  modelName: 'yardsession'
+  modelClass: YardSession
+  collectionClass: YardSessionCollection
+  
+
+class YardSessionClock extends AuthModel
+  urlRoot: "/api/dev/sunny/yard-clock"
+
+AppChannel.reply 'YardSessionClock', ->
+  return YardSessionClock
+  
+  
+
+
 export default dbcfg
