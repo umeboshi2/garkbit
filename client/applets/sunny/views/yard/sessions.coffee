@@ -3,9 +3,6 @@ import Backbone from 'backbone'
 import { View } from 'backbone.marionette'
 import tc from 'teacup'
 
-import BaseListView from 'tbirds/views/list-view'
-
-
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 AppChannel = Backbone.Radio.channel 'sunny'
