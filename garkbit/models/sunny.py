@@ -1,5 +1,6 @@
 from sqlalchemy import (
     Column,
+    Boolean,
     Integer,
     Unicode,
     UnicodeText,
@@ -69,10 +70,8 @@ class SingleYardJob(Base, BaseUUIDMixin):
     __tablename__ = 'sunny_single_yard_jobs'
     yard_id = Column(UUIDType, ForeignKey('sunny_yards.id'))
     due_date = Column(Date)
-    start = Column(DateTime)
-    end = Column(DateTime)
+    session_id = Column(UUIDType, ForeignKey('sunny_yard_sessions.id'))
     description = Column(Unicode)
-    notes = Column(Unicode)
     # rate measured in dollars
     rate = Column(Integer)
     status = Column(Unicode)
@@ -82,14 +81,27 @@ class YardRoutineJob(Base, BaseUUIDMixin):
     __tablename__ = 'sunny_yard_routine_jobs'
     yard_id = Column(UUIDType, ForeignKey('sunny_yards.id'))
     due_date = Column(Date)
-    start = Column(DateTime)
-    end = Column(DateTime)
-    # description = Column(Unicode)
-    notes = Column(Unicode)
-    extra = Column(Unicode)
+    session_id = Column(UUIDType, ForeignKey('sunny_yard_sessions.id'))
+    description = Column(Unicode)
     extra_rate = Column(Unicode)
     # rate = Column(Integer)
     status = Column(Unicode)
+
+
+
+class YardRoutine(Base, BaseUUIDMixin):
+    __tablename__ = 'sunny_yard_routines'
+    yard_id = Column(UUIDType, ForeignKey('sunny_yards.id'))
+    description = Column(UnicodeText)
+    # days
+    frequency = Column(Integer)
+    # days
+    leeway = Column(Integer)
+    # dollars
+    rate = Column(Integer)
+    routine_date = Column(Date)
+    active = Column(Boolean(name='sunny_yard_routine_active'),
+                    default=func.false())
 
 
 Yard.client = relationship('SunnyClient', uselist=False)

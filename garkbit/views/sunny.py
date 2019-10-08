@@ -25,6 +25,7 @@ Model_Map = dict(geoposition=GeoPosition,
                  yard=Yard,
                  singleclientjob=SingleClientJob,
                  singleyardjob=SingleYardJob,
+                 yardsession=YardSession,
                  )
 
 
