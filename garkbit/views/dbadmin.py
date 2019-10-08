@@ -185,10 +185,17 @@ class DbAdminView(BaseModelResource):
     def import_models(self, data):
         Model = ModelMap[data['name']]
         isGeo = False
+        isUser = False
         if Model is GeoPosition:
             print("Model is GeoPosition")
             isGeo = True
+        if Model is User:
+            isUser = True
         with transaction.manager:
+            if isUser:
+                admin = self.db.query(Model).filter_by(username='admin').one()
+                self.db.delete(admin)
+
             for item in data['items']:
                 model = self.db.query(Model).get(item['id'])
                 if not model:
@@ -259,6 +266,9 @@ class DbAdminModelResource(BaseModelResource):
     def model(self):
         name = self.request.matchdict['model']
         return ModelMap[name]
+
+    def serialize_object(self, dbobj):
+        return super(DbAdminModelResource, self).serialize_object(dbobj)
 
     def get(self):
         view = self.request.matchdict['view']
