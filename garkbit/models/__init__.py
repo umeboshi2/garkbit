@@ -18,7 +18,8 @@ configure_mappers()
 
 def make_local_settings(settings):
     local_settings = dict()
-    local_settings['sqlalchemy.url'] = settings['hattie_dburl']
+    hattie_dburl = settings.get('hattie_dburl', settings['sqlalchemy.url'])
+    local_settings['sqlalchemy.url'] = hattie_dburl
     if 'tm.manager_hook' in settings:
         local_settings['tm.manager_hook'] = settings['tm.manager_hook']
     return local_settings
@@ -69,7 +70,8 @@ def includeme(config):
 
     """
     settings = config.get_settings()
-    if settings['environment'] == 'production':
+    environment = settings.get('environment', 'development')
+    if environment == 'production':
         url = os.environ['DATABASE_URL']
         settings['sqlalchemy.url'] = url
     settings['tm.manager_hook'] = 'pyramid_tm.explicit_manager'
