@@ -11,13 +11,50 @@ FaviconPlugin = require 'favicons-webpack-plugin'
 BuildEnvironment = require 'tbirds/webpack-config/buildenv'
 DefinePluginOpts = require 'tbirds/webpack-config/define-opts'
 coffeeLoaderRule = require 'tbirds/webpack-config/coffee-loader-rule'
-buildCssLoader = require 'tbirds/webpack-config/sass-loader-chain'
+# buildCssLoader = require 'tbirds/webpack-config/sass-loader-chain'
 woffRule = require 'tbirds/webpack-config/woff-rule'
 imgVersionedRule = require 'tbirds/webpack-config/img-file-loader-versioned'
 
 makeEntrypointsPlugin = require 'tbirds/webpack-config/entrypoints-plugin'
 makeIgnoreMomentLocales = require 'tbirds/webpack-config/ignore-moment-locales-plugin' #noqa
 makeFaviconPlugin = require 'tbirds/webpack-config/favicon-plugin'
+
+########################################################
+
+
+sassOptions =
+  includePaths: [
+    'node_modules/compass-mixins/lib'
+    'node_modules/bootstrap/scss'
+  ]
+
+buildCssLoader =
+  development: [
+    {
+      loader: 'style-loader'
+    },{
+      loader: 'css-loader'
+    },{
+      loader: 'sass-loader'
+      options:
+        sassOptions: sassOptions
+    }
+  ]
+  production:
+    [
+      MiniCssExtractPlugin.loader
+      {
+        loader: 'css-loader'
+      },{
+        loader: "sass-loader"
+        options:
+          sassOptions: sassOptions
+      }
+    ]
+
+########################################################
+
+
 
 # handles output filename for js and css
 outputFilename = (ext) ->
