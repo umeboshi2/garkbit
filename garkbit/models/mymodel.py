@@ -42,57 +42,8 @@ NO_PERMISSION_REQUIRED
 """
 
 
-class WikiPage(Base, TimeStampMixin):
-    __tablename__ = 'wikipages'
-    id = Column(Integer, primary_key=True)
-    name = Column(Unicode, unique=True)
-    headers = Column(PickleType)
-    updated_upstream = Column(DateTime)
-    content = Column(UnicodeText)
-    original = Column(UnicodeText)
-
-
-class Todo(Base, TimeStampMixin):
-    __tablename__ = 'todos'
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    name = Column(Text, unique=True)
-    description = Column(Text)
-    completed = Column(Boolean(name='todo_complete'), default=func.false())
-
-
-Todo.user = relationship(User, uselist=False, lazy='subquery')
-
-
-class ObjectSummary(Base, TimeStampMixin):
-    __tablename__ = 'object_summaries'
-    id = Column(Integer, primary_key=True)
-    name = Column(Text, unique=True)
-    content = Column(PickleType)
-
-
-class SiteDocument(Base, SiteDocumentMixin):
-    pass
-
-
 class MyModel(Base, SerialBase):
     __tablename__ = 'models'
     id = Column(Integer, primary_key=True)
     name = Column(Text)
     value = Column(Integer)
-
-
-class BlogPerson(Base, PersonMixin):
-    pass
-
-
-class Blog(Base, BlogMixin):
-    pass
-
-
-class Post(Base, PostMixin):
-    pass
-
-
-class Comment(Base, CommentMixin):
-    pass
