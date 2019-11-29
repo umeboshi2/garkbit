@@ -2,16 +2,10 @@ import Backbone from 'backbone'
 import Marionette from 'backbone.marionette'
 import tc from 'teacup'
 import marked from 'marked'
-#import { hterm, lib } from 'hterm-umdjs'
 import ToolbarView from 'tbirds/views/button-toolbar'
 import ElizaToolbar from './toolbar'
 
 import TerminalView from './terminal'
-import { Terminal } from 'xterm'
-import * as fit from 'xterm/lib/addons/fit/fit'
-#import "xterm/dist/xterm.css"
-import './xterm.scss'
-Terminal.applyAddon fit
 
 import Worker from 'worker-loader!../worker'
 
