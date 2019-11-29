@@ -14,7 +14,7 @@ import 'jquery-ui/themes/base/theme.css'
 
 import objectifyCoordinates from 'tbirds/util/objectify-coordinates'
 import StatusView from './current-location'
-import Timer from 'tiny-timer'
+import Timer from 'tiny-timer/dist/tiny-timer.js'
 import BaseMapView from 'tbirds/views/base-map'
 
 import {
