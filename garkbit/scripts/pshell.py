@@ -1,7 +1,7 @@
 
 from contextlib import suppress
 from transaction.interfaces import NoTransaction
-from webtest import TestApp
+from webtest import TestApp as ShellApp
 
 
 def setup(env):
@@ -9,7 +9,7 @@ def setup(env):
     request.host = 'www.example.com'
     request.scheme = 'https'
 
-    env['testapp'] = TestApp(env['app'])
+    env['testapp'] = ShellApp(env['app'])
 
     # start a transaction which can be used in the shell
     request.tm.begin()
