@@ -88,7 +88,6 @@ class YardRoutineJob(Base, BaseUUIDMixin):
     status = Column(Unicode)
 
 
-
 class YardRoutine(Base, BaseUUIDMixin):
     __tablename__ = 'sunny_yard_routines'
     yard_id = Column(UUIDType, ForeignKey('sunny_yards.id'))

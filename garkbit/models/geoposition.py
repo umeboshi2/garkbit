@@ -7,7 +7,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import UUIDType
-from geoalchemy2 import Geometry
+# from geoalchemy2 import Geometry
 
 from hornstone.models.base import BaseUUIDMixin
 from hornstone.alchemy import TimeStampMixin
