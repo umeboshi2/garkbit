@@ -1,13 +1,11 @@
-import Backbone from 'backbone'
+import { Radio } from 'backbone'
 import tc from 'teacup'
-import marked from 'marked'
+import { capitalize } from 'lodash'
 
-import { form_group_input_div, make_field_input } from 'tbirds/templates/forms'
+import { make_field_input } from 'tbirds/templates/forms'
 import { modal_close_button } from 'tbirds/templates/buttons'
 
-import capitalize from 'tbirds/util/capitalize'
-
-MainChannel = Backbone.Radio.channel 'global'
+MainChannel = Radio.channel 'global'
 
 ########################################
 # Templates
@@ -50,7 +48,6 @@ confirmDeleteTemplateFactory = (opts) ->
           tc.div '#selected-children'
         tc.div '.modal-footer', ->
           tc.ul '.list-inline', ->
-            btnclass = 'btn.btn-primary.btn-sm'
             tc.li "#confirm-delete-button", ->
               modal_close_button 'OK', 'check'
             tc.li "#cancel-delete-button", ->

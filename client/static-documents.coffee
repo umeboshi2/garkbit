@@ -1,17 +1,14 @@
-$ = require 'jquery'
-_ = require 'underscore'
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
+import { Model, Radio } from 'backbone'
+import { extend } from 'lodash'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
+MainChannel = Radio.channel 'global'
 
-class StaticDocument extends Backbone.Model
+export class StaticDocument extends Model
   url: ->
     "/assets/documents/#{@id}.md"
   
   fetch: (options) ->
-    options = _.extend options || {},
+    options = extend options || {},
       dataType: 'text'
     super options
 
@@ -22,9 +19,4 @@ class StaticDocument extends Backbone.Model
 MainChannel.reply 'main:app:get-document', (name) ->
   model = new StaticDocument
     id: name
-
-
-  
-module.exports =
-  StaticDocument: StaticDocument
-  
+  return model
