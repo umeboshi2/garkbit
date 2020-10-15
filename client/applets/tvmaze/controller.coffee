@@ -13,7 +13,7 @@ class Controller extends MainController
     require.ensure [], () =>
       lcollection = AppChannel.request 'get-local-tvshows'
       SCollection = AppChannel.request 'tv-show-search-collection'
-      View = require './views/index-view'
+      View = require('./views/index-view').default
       lcollection.fetch().then =>
         view = new View
           collection: new SCollection
@@ -28,7 +28,7 @@ class Controller extends MainController
     @setupLayoutIfNeeded()
     collection = AppChannel.request 'get-local-tvshows'
     require.ensure [], () =>
-      View = require './views/card-show-list'
+      View = require('./views/card-show-list').default
       @_loadView View, collection, 'tvshow'
     # name the chunk
     , 'tvmaze-view-show-list-cards'
@@ -38,7 +38,7 @@ class Controller extends MainController
     collection = AppChannel.request 'get-local-tvshows'
     window.tvshows = collection
     require.ensure [], () =>
-      View = require './views/flat-show-list'
+      View = require('./views/flat-show-list').default
       response = collection.fetch()
       response.done =>
         view = new View
@@ -50,7 +50,7 @@ class Controller extends MainController
   viewSearchShow: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      View = require './views/single-search-show-view'
+      View = require('./views/single-search-show-view').default
       view = new View
       @layout.showChildView 'content', view
     # name the chunk
@@ -81,7 +81,7 @@ class Controller extends MainController
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       lcollection = AppChannel.request 'get-local-tvshows'
-      View = require './views/calendar-view'
+      View = require('./views/calendar-view').default
       lcollection.fetch().then =>
         view = new View
         @layout.showChildView 'content', view
