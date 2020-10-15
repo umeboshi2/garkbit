@@ -1,19 +1,14 @@
-$ = require 'jquery'
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-marked = require 'marked'
+import { Radio, history } from 'backbone'
+import { View as MnView, CollectionView } from 'backbone.marionette'
+import tc from 'teacup'
 
-noImage = require('tbirds/templates/no-image-span').default
-PaginateBar = require('tbirds/views/paginate-bar').default
+import PaginateBar from 'tbirds/views/paginate-bar'
 
-navigate_to_url = require('tbirds/util/navigate-to-url').default
 
-ConfirmDeleteModal = require('./confirm-delete-modal').default
-itemTemplate = require './templates/tvshow-item'
+import ConfirmDeleteModal from './confirm-delete-modal'
+import itemTemplate from './templates/tvshow-item'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
+MainChannel = Radio.channel 'global'
 
 listContainer = '.show-list'
 
@@ -25,10 +20,7 @@ listTemplate = tc.renderable ->
   tc.div listContainer
 
 
-divStyle = 'width:20%;border-style:solid;border-width:3px'
-cardClasses = 'col-md-3.bg-body-d5'
-
-class ItemView extends Marionette.View
+class ItemView extends MnView
   template: itemTemplate
   templateContext:
     divStyle: 'border-style:solid;border-width:3px'
@@ -43,7 +35,7 @@ class ItemView extends Marionette.View
     'click @ui.deleteItem': 'deleteItem'
   showRole: (event) ->
     event.preventDefault()
-    navigate_to_url "#tvmaze/shows/view/#{@model.id}"
+    history.navigate "#tvmaze/shows/view/#{@model.id}", trigger:true
   _show_modal: (view, backdrop) ->
     app = MainChannel.request 'main:app:object'
     layout = app.getView()
@@ -55,11 +47,11 @@ class ItemView extends Marionette.View
       model: @model
     @_show_modal view, true
     
-class ItemCollectionView extends Marionette.CollectionView
+class ItemCollectionView extends CollectionView
   childView: ItemView
   className: 'row'
 
-class ListView extends Marionette.View
+class ListView extends MnView
   template: listTemplate
   options:
     listContainer: listContainer
@@ -83,7 +75,7 @@ class ListView extends Marionette.View
   onBeforeDestroy: ->
     @collection.off 'pageable:state:change'
   showFlatList: ->
-    navigate_to_url '#tvmaze/shows/flat'
+    history.navigate '#tvmaze/shows/flat', trigger:true
     
-module.exports = ListView
+export default ListView
 

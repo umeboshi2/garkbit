@@ -1,17 +1,13 @@
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-JView = require 'json-view'
-require 'json-view/devtools.css'
+import { Radio, history } from 'backbone'
+import { View as MnView, CollectionView } from 'backbone.marionette'
+import tc from 'teacup'
 
-navigate_to_url = require('tbirds/util/navigate-to-url').default
-
-noImage = require('tbirds/templates/no-image-span').default
+import noImage from 'tbirds/templates/no-image-span'
 #PointerOnHover = require('tbirds/behaviors/pointer-on-hover').default
-HasHeader = require('tbirds/behaviors/has-header').default
+import HasHeader from 'tbirds/behaviors/has-header'
 
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'tvmaze'
+MessageChannel = Radio.channel 'messages'
+AppChannel = Radio.channel 'tvmaze'
 
 showTemplate = tc.renderable (model) ->
   show = model.show
@@ -30,7 +26,7 @@ showTemplate = tc.renderable (model) ->
         tc.button '.select-show.btn.btn-primary',
         style:'display:none', "Select this show"
 
-class ShowResultView extends Marionette.View
+class ShowResultView extends MnView
   template: showTemplate
   ui:
     selectShow: '.select-show'
@@ -52,23 +48,22 @@ class ShowResultView extends Marionette.View
         cursor: 'pointer'
   viewShow: ->
     id = @model.toJSON().show.id
-    navigate_to_url "#tvmaze/shows/view/#{id}"
-    
+    history.navigate "#tvmaze/shows/view/#{id}", trigger:true
   selectShow: ->
     id = @model.toJSON().show.id
     show = AppChannel.request 'get-remote-show', id
     response = show.fetch()
     response.done ->
       p = AppChannel.request 'save-local-show', show.toJSON()
-      p.then (result) ->
-        navigate_to_url "#tvmaze/shows/view/#{id}"
+      p.then ->
+        history.navigate "#tvmaze/shows/view/#{id}", trigger:true
     response.fail ->
       MessageChannel.request 'danger', "Bad move"
       
   
 
-class SearchResultsView extends Marionette.View
-  template: tc.renderable (model) ->
+class SearchResultsView extends MnView
+  template: tc.renderable ->
     tc.div '.listview-header', ->
       tc.text "Matched TV Shows"
     tc.div '.show-list'
@@ -82,7 +77,7 @@ class SearchResultsView extends Marionette.View
       behaviorClass: HasHeader
   onRender: ->
     @ui.header.hide()
-    view = new Marionette.CollectionView
+    view = new CollectionView
       collection: @collection
       childView: ShowResultView
       childViewOptions:
@@ -91,6 +86,6 @@ class SearchResultsView extends Marionette.View
   
         
 
-module.exports = SearchResultsView
+export default SearchResultsView
 
 

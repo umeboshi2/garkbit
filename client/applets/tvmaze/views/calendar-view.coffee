@@ -1,24 +1,19 @@
-$ = require 'jquery'
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-lf = require 'lovefield'
-moment = require 'moment'
+import $ from 'jquery'
+import { Collection, Radio, history } from 'backbone'
+import { View as MnView } from 'backbone.marionette'
+import tc from 'teacup'
+import lf from 'lovefield'
+import moment from 'moment'
 
-FullCalendar = require 'fullcalendar'
-require 'fullcalendar/dist/fullcalendar.css'
+import 'fullcalendar'
+import 'fullcalendar/dist/fullcalendar.css'
 
-apiroot = '/foo/bar'
-
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'tvmaze'
-
-HubChannel = Backbone.Radio.channel 'hubby'
+MainChannel = Radio.channel 'global'
+AppChannel = Radio.channel 'tvmaze'
 
 #################################
 # templates
 #################################
-
-tc = require 'teacup'
 
 episodeCalendar = tc.renderable () ->
   tc.div '.listview-header', 'Episodes'
@@ -48,12 +43,9 @@ loading_calendar_events = (bool) ->
     loading.hide()
     header.show()
 
-loading_test = (bool) ->
-  console.log "loading_test", bool
-
 getEpisodes = (start, end, timezone, cb) ->
-  Model = AppChannel.request 'get-local-episode-model'
-  Collection = AppChannel.request 'get-local-episode-collection'
+  #Model = AppChannel.request 'get-local-episode-model'
+  #Collection = AppChannel.request 'get-local-episode-collection'
   conn = MainChannel.request 'main:app:dbConn', 'tvmaze'
   table = conn.getSchema().table('TVMazeEpisode')
   filters = []
@@ -92,7 +84,7 @@ getEpisodes = (start, end, timezone, cb) ->
     cb events
     
   
-class EpisodeCalendarView extends Marionette.View
+class EpisodeCalendarView extends MnView
   template: episodeCalendar
   ui:
     calendar: '.maincalendar'
@@ -105,10 +97,13 @@ class EpisodeCalendarView extends Marionette.View
     layout: false
 
   onBeforeDestroy: ->
-    cal = @ui.calendar.fullCalendar 'destroy'
-    console.log "calendar destroyed"
+    @ui.calendar.fullCalendar 'destroy'
+    if __DEV__ and DEBUG
+      console.log "calendar destroyed"
 
   calendarViewRender: (view, element) =>
+    if __DEV__ and DEBUG
+      console.log "calendarViewRender", view, element
     AppChannel.request 'maincalendar:set-date', @ui.calendar
     
   onDomRefresh: () ->
@@ -116,7 +111,7 @@ class EpisodeCalendarView extends Marionette.View
       if not @options.minicalendar
         url = event.url
         console.log "EVENT URL", event, url
-        Backbone.history.navigate url, trigger: true
+        history.navigate url, trigger: true
       else
         options =
           layout: @options.layout
@@ -146,5 +141,4 @@ class EpisodeCalendarView extends Marionette.View
     console.log "we should either be fetching events, or refetching"
 
     
-module.exports = EpisodeCalendarView
-  
+export default EpisodeCalendarView

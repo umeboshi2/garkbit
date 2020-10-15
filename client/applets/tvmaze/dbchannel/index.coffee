@@ -1,18 +1,14 @@
 import $ from 'jquery'
-#import { Model, Collection } from 'backbone'
-import Backbone from 'backbone'
-import { LoveStore } from 'backbone.lovefield'
-import PageableCollection from 'backbone.paginator'
+import { Radio, Model, Collection } from 'backbone'
 
 import './local-tvshow'
 import './local-tvshow-episode'
 
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'tvmaze'
+AppChannel = Radio.channel 'tvmaze'
 
 baseURL = "//api.tvmaze.com"
 
-class SingleShow extends Backbone.Model
+class SingleShow extends Model
   url: ->
     name = @searchName
     "#{baseURL}/singlesearch/shows?q=#{name}"
@@ -22,7 +18,7 @@ AppChannel.reply 'single-show-search', (name) ->
   model.searchName = name
   return model
 
-class ShowSearch extends Backbone.Collection
+class ShowSearch extends Collection
   url: -> "#{baseURL}/search/shows"
 
 AppChannel.reply 'new-tv-show-search', (options) ->
@@ -32,23 +28,23 @@ AppChannel.reply 'new-tv-show-search', (options) ->
 AppChannel.reply 'tv-show-search-collection', ->
   return ShowSearch
   
-AppChannel.reply 'search-tv-shows', (query) ->
+AppChannel.reply 'search-tv-shows', ->
   collection = new ShowSearch
   return collection
 
   
-class RemoteShow extends Backbone.Model
+class RemoteShow extends Model
   urlRoot: ->
     "#{baseURL}/shows"
 
 AppChannel.reply 'get-remote-show', (id) ->
   return new RemoteShow id: id
 
-class RemoteEpisode extends Backbone.Model
+class RemoteEpisode extends Model
   url: ->
     return @get('_links').self.href
 
-class RemoteEpisodes extends Backbone.Collection
+class RemoteEpisodes extends Collection
   model: RemoteEpisode
   url: ->
     "#{baseURL}/shows/#{@showId}/episodes"

@@ -1,8 +1,8 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View as MnView } from 'backbone.marionette'
 import tc from 'teacup'
 
-MessageChannel = Backbone.Radio.channel 'messages'
+MessageChannel = Radio.channel 'messages'
 
 ConfirmDeleteTemplate = tc.renderable (model) ->
   tc.div '.modal-content', ->
@@ -25,7 +25,7 @@ ConfirmDeleteTemplate = tc.renderable (model) ->
         tc.i '.fa.fa-close'
         tc.text "Cancel"
 
-export default class ConfirmDeleteModal extends Marionette.View
+class ConfirmDeleteModal extends MnView
   template: ConfirmDeleteTemplate
   className: 'modal-dialog'
   ui:
@@ -42,4 +42,6 @@ export default class ConfirmDeleteModal extends Marionette.View
       MessageChannel.request 'success', "#{name} deleted.",
     response.fail ->
       MessageChannel.request 'danger', "#{name} NOT deleted."
-      
+
+export default ConfirmDeleteModal
+

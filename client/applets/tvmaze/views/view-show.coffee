@@ -1,23 +1,19 @@
-$ = require 'jquery'
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-marked = require 'marked'
-JView = require 'json-view'
-require 'json-view/devtools.css'
+import $ from 'jquery'
+import { Radio } from 'backbone'
+import { View as MnView } from 'backbone.marionette'
+import tc from 'teacup'
+import JView from 'json-view'
+import 'json-view/devtools.css'
 
-BootstrapFormView = require('tbirds/views/bsformview').default
-{ navigate_to_url } = require 'tbirds/util/navigate-to-url'
-{ form_group_input_div } = require 'tbirds/templates/forms'
+import noImage from 'tbirds/templates/no-image-span'
 
-noImage = require('tbirds/templates/no-image-span').default
 
-EpisodeListView = require './show-episodes'
+import EpisodeListView from './show-episodes'
 
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'tvmaze'
+MessageChannel = Radio.channel 'messages'
+AppChannel = Radio.channel 'tvmaze'
 
-class ShowView extends Marionette.View
+class ShowView extends MnView
   template: tc.renderable (model) ->
     D = model.content
     #tc.div '.card.bg-secondary.text-white', ->
@@ -77,9 +73,9 @@ class ShowView extends Marionette.View
         content: model.toJSON()
       p = AppChannel.request 'save-local-episode', data
       promises.push p
-    Promise.all(promises).then (data) =>
+    Promise.all(promises).then =>
       if promises.length
         @showLocalEpisodes()
       MessageChannel.request 'success', "Retrieved #{promises.length} episodes."
-module.exports = ShowView
+export default ShowView
 

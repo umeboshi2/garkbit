@@ -1,32 +1,29 @@
-import { map } from 'underscore'
-import $ from 'jquery'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio, Collection, history } from 'backbone'
+import { View as MnView, CollectionView, MnObject } from 'backbone.marionette'
 import tc from 'teacup'
-import marked from 'marked'
 
-navigate_to_url = require('tbirds/util/navigate-to-url').default
-{ ProgressModel
-  ProgressView } = require 'tbirds/views/simple-progress'
+import myShows from '../assets/myshows.json'
+
+import { ProgressModel, ProgressView } from 'tbirds/views/simple-progress'
 
 console.log "ProgressModel", ProgressModel
 console.log "ProgressView", ProgressView
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'tvmaze'
+MessageChannel = Radio.channel 'messages'
+AppChannel = Radio.channel 'tvmaze'
 
-data = require '../assets/myshows.json'
+shows = new Collection myShows
 
-shows = new Backbone.Collection data
-
-class ImportManager extends Marionette.MnObject
+class ImportManager extends MnObject
   channelName: 'tvmaze'
   collection: shows
   initialize: (options) =>
     @progressModel = options.progressModel
-    
-saveRemoteShow = (id) ->
+
+if __DEV__ and DEBUG
+  console.log "ImportManager", ImportManager
+  
+export saveRemoteShow = (id) ->
   show = AppChannel.request 'get-remote-show', id
   response = show.fetch()
   response.done ->
@@ -43,14 +40,13 @@ saveEpisodes = (collection, showID, navigate) ->
       content: model.toJSON()
     p = AppChannel.request 'save-local-episode', data
     promises.push p
-  Promise.all(promises).then (data) ->
+  Promise.all(promises).then ->
     if promises.length and navigate
-      navigate_to_url "#tvmaze/shows/view/#{showID}"
+      history.navigate "#tvmaze/shows/view/#{showID}", trigger:true
     MessageChannel.request 'success', "Retrieved #{promises.length} episodes."
   
 
 itemTemplate = tc.renderable (model) ->
-  itemBtn = '.btn.btn-sm'
   tc.li '.list-group-item', ->
     tc.span ->
       tc.a '.import-single-show', href:"#", model.name
@@ -58,7 +54,7 @@ itemTemplate = tc.renderable (model) ->
       tc.button '.delete-item.btn.btn-sm.btn-danger.fa.fa-close', 'delete'
     
 
-mainTemplate = tc.renderable (post) ->
+mainTemplate = tc.renderable ->
   tc.div '.body.col-md-6', ->
     tc.h1 'TV Maze Sample Data'
     tc.div '.form-inline', ->
@@ -70,7 +66,7 @@ mainTemplate = tc.renderable (post) ->
     tc.div '.import-progress'
     tc.ul '.show-list.list-group'
 
-class ShowView extends Marionette.View
+class ShowView extends MnView
   channelName: 'tvmaze'
   template: itemTemplate
   ui:
@@ -89,7 +85,7 @@ class ShowView extends Marionette.View
   importShow: (event) ->
     event.preventDefault()
     
-class MainView extends Marionette.View
+class MainView extends MnView
   channelName: 'tvmaze'
   template: mainTemplate
   ui:
@@ -105,8 +101,6 @@ class MainView extends Marionette.View
     'click @ui.importButton': 'importShows'
   onRender: ->
     local_shows = AppChannel.request 'get-all-local-tvshows'
-    models = shows.models
-    console.log "SHOWS", shows, shows.models[0]
     counter = 0
     removals = []
     while counter < shows.length
@@ -121,7 +115,7 @@ class MainView extends Marionette.View
     @importProgressModel = new ProgressModel
     @importProgressModel.set 'valuemax', shows.length
     @importProgressModel.set 'valuenow', 0
-    view = new Marionette.CollectionView
+    view = new CollectionView
       channelName: 'tvmaze'
       collection: shows
       childView: ShowView
@@ -138,7 +132,7 @@ class MainView extends Marionette.View
         response = show.fetch()
         response.done ->
           p = AppChannel.request 'save-local-show', show.toJSON()
-          p.then (result) ->
+          p.then ->
             if includeEpisodes
               console.log "get episodes too"
               console.log show
@@ -166,7 +160,7 @@ class MainView extends Marionette.View
     response = rshow.fetch()
     response.done =>
       p = AppChannel.request 'save-local-show', rshow.toJSON()
-      p.then (result) =>
+      p.then =>
         includeEpisodes = @ui.includeEpisodes.prop 'checked'
         if includeEpisodes
           console.log "get episodes too"

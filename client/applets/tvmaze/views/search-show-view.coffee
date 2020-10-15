@@ -1,17 +1,10 @@
-$ = require 'jquery'
-_ = require 'underscore'
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-marked = require 'marked'
+import { Radio, Model } from 'backbone'
+import tc from 'teacup'
 
-BootstrapFormView = require('tbirds/views/bsformview').default
-navigate_to_url = require('tbirds/util/navigate-to-url').default
+import BootstrapFormView from 'tbirds/views/bsformview'
+import  { form_group_input_div } from 'tbirds/templates/forms'
 
-{ form_group_input_div } = require 'tbirds/templates/forms'
-
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'tvmaze'
+MessageChannel = Radio.channel 'messages'
 
 searchForm = tc.renderable ->
   form_group_input_div
@@ -29,7 +22,7 @@ class SearchFormView extends BootstrapFormView
   ui:
     tvShow: '[name="tv_show"]'
   createModel: ->
-    return new Backbone.Model
+    return new Model
   updateModel: ->
     @tvshow = @ui.tvShow.val()
     @model.set 'tvshow', @tvshow
@@ -44,5 +37,5 @@ class SearchFormView extends BootstrapFormView
       @trigger 'save:form:failure', @model
           
     
-module.exports = SearchFormView
+export default SearchFormView
 

@@ -1,46 +1,23 @@
-$ = require 'jquery'
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-marked = require 'marked'
+import { View as MnView } from 'backbone.marionette'
+import tc from  'teacup'
+import marked from 'marked'
 
-navigate_to_url = require('tbirds/util/navigate-to-url').default
+import ConfirmDeleteModal from './confirm-delete-modal'
+import SearchFormView from './search-show-view'
+import SearchResultsView from './show-search-results'
 
-ConfirmDeleteModal = require('./confirm-delete-modal').default
-SearchFormView = require './search-show-view'
-SearchResultsView = require './show-search-results'
-
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'tvmaze'
-
-mainText = require('raw-loader!../index-doc.md').default
+import mainText from 'raw-loader!../index-doc.md'
 
 
-itemTemplate = tc.renderable (model) ->
-  itemBtn = '.btn.btn-sm'
-  tc.li '.list-group-item', ->
-    tc.span ->
-      tc.a href:"#tvmaze/view/show/#{model.id}", model.content.name
-    tc.span '.btn-group.pull-right', ->
-      tc.button '.delete-item.btn.btn-sm.btn-danger.fa.fa-close', 'delete'
-    
-listTemplate = tc.renderable ->
-  tc.div '.listview-header', ->
-    tc.text "TV Shows"
-  tc.ul ".list-group"
-
-
-DefaultStaticDocumentTemplate = tc.renderable (post) ->
+DefaultStaticDocumentTemplate = tc.renderable ->
   tc.article '.document-view.content', ->
     tc.div '.body', ->
-      #
       tc.h1 'TV Maze API Demo'
       tc.div '.search-form.listview-list-entry'
       tc.div '.search-results'
       tc.raw marked mainText
       
-class MainView extends Marionette.View
+class MainView extends MnView
   template: DefaultStaticDocumentTemplate
   templateContext:
     appName: 'tvmaze'
@@ -66,5 +43,6 @@ class MainView extends Marionette.View
       collection: @collection
     @showChildView 'searchResults', rview
 
-module.exports = MainView
+export default MainView
+export { ConfirmDeleteModal }
 

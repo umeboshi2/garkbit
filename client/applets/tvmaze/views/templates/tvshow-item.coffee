@@ -1,7 +1,6 @@
-tc = require 'teacup'
-marked = require 'marked'
+import tc from 'teacup'
+import noImage from 'tbirds/templates/no-image-span'
 
-noImage = require('tbirds/templates/no-image-span').default
 
 divStyle = 'width:20%;border-style:solid;border-width:3px'
 cardClasses = 'col-md-3.bg-body-d5'
@@ -10,7 +9,6 @@ itemTemplate = tc.renderable (model) ->
   divStyle = model.divStyle or divStyle
   cardClasses = model.cardClasses or cardClasses
   viewLink = "#tvmaze/view/show/#{model.id}"
-  itemBtn = '.btn.btn-sm'
   tc.div ".show-item.card.#{cardClasses}", style:divStyle, ->
     tc.div '.card-header', ->
       tc.strong '.card-title', model?.content?.name
@@ -24,6 +22,6 @@ itemTemplate = tc.renderable (model) ->
         else
           noImage '4x'
 
-module.exports = itemTemplate
+export default itemTemplate
 
 

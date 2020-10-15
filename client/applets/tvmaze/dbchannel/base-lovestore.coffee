@@ -1,14 +1,13 @@
-import { result } from 'underscore'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio, Model, Collection } from 'backbone'
+import { MnObject } from 'backbone.marionette'
 import { LoveStore } from 'backbone.lovefield'
 
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'tvmaze'
+MainChannel = Radio.channel 'global'
+AppChannel = Radio.channel 'tvmaze'
 
 dbConn = MainChannel.request 'main:app:dbConn', 'tvmaze'
 
-class BaseModel extends Backbone.Model
+class BaseModel extends Model
   toJSON: ->
     data = {}
     fields = @getOption 'fields'
@@ -16,7 +15,7 @@ class BaseModel extends Backbone.Model
       data[field] = @get field
     return data
     
-class DbInterface extends Marionette.MnObject
+class DbInterface extends MnObject
   channelName: 'tvmaze'
   # FIXME use _.once
   loveStore: ->
@@ -28,12 +27,16 @@ class DbInterface extends Marionette.MnObject
         throw new Error "need a table name"
       return new LoveStore dbConn, tableName
     return
-  initialize: (options) ->
+  initialize: ->
     
   newModel: (options) ->
     options = options or {}
     options.loveStore = options.loveStore or @loveStore
-    model = new BaseModel options
+    return new BaseModel options
+
+if __DEV__ and DEBUG
+  console.log "DbInterface", DbInterface
+  
 
 TvShowStore = new LoveStore dbConn, 'TVMazeShow'
 
@@ -41,7 +44,7 @@ showFields = [ 'id', 'name', 'url', 'self', 'premiered',
   'runtime', 'network_name', 'imdb', 'status', 'summary',
   'img_med', 'img_orig', 'content'
   ]
-class LocalTvShow extends Backbone.Model
+class LocalTvShow extends Model
   loveStore: TvShowStore
   toJSON: ->
     data = {}
@@ -49,7 +52,7 @@ class LocalTvShow extends Backbone.Model
       data[field] = @get field
     return data
     
-class LocalTvShowCollection extends Backbone.Collection
+class LocalTvShowCollection extends Collection
   loveStore: TvShowStore
   model: LocalTvShow
 

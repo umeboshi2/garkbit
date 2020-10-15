@@ -1,17 +1,7 @@
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-JView = require 'json-view'
-require 'json-view/devtools.css'
-
-{ navigate_to_url } = require 'tbirds/util/navigate-to-url'
-{ form_group_input_div } = require 'tbirds/templates/forms'
-
-noImage = require('tbirds/templates/no-image-span').default
-#PointerOnHover = require('tbirds/behaviors/pointer-on-hover').default
-
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'tvmaze'
+import { View as MnView, CollectionView } from 'backbone.marionette'
+import tc from 'teacup'
+import JView from 'json-view'
+import 'json-view/devtools.css'
 
 episodeTemplate = tc.renderable (model) ->
   tc.div '.card.bg-body-d10', ->
@@ -38,7 +28,7 @@ episodeTemplate = tc.renderable (model) ->
       tc.div '.jsonview'
           
 
-class EpisodeView extends Marionette.View
+class EpisodeView extends MnView
   #behaviors:
   #  PointerOnHover:
   #    behaviorClass: PointerOnHover
@@ -70,8 +60,8 @@ class EpisodeView extends Marionette.View
       @$el.css
         cursor: 'pointer'
         
-class EpisodeListView extends Marionette.View
-  template: tc.renderable (model) ->
+class EpisodeListView extends MnView
+  template: tc.renderable ->
     tc.div '.listview-header', ->
       tc.text "Episodes"
     tc.div '.episode-list'
@@ -81,11 +71,11 @@ class EpisodeListView extends Marionette.View
   regions:
     itemList: '@ui.itemList'
   onRender: ->
-    view = new Marionette.CollectionView
+    view = new CollectionView
       collection: @collection
       childView: EpisodeView
     @showChildView 'itemList', view
 
-module.exports = EpisodeListView
+export default EpisodeListView
 
 
