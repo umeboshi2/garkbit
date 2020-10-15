@@ -1,20 +1,13 @@
-$ = require 'jquery'
-_ = require 'underscore'
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
+import $ from 'jquery'
+import { Radio } from 'backbone'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'userprofile'
-
+MainChannel = Radio.channel 'global'
+AppChannel = Radio.channel 'userprofile'
 
 AppChannel.reply 'update-user-config', ->
   console.log 'update-user-config called'
   
-
-
 AuthModel = MainChannel.request 'main:app:AuthModel'
-AuthCollection = MainChannel.request 'main:app:AuthCollection'
 
 class PasswordModel extends AuthModel
   url: '/auth/chpass'
@@ -34,6 +27,3 @@ class PasswordModel extends AuthModel
       
 AppChannel.reply 'new-password-model', ->
   new PasswordModel
-  
-    
-module.exports = {}

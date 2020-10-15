@@ -1,13 +1,12 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio, Collection } from 'backbone'
+import { View as MnView, CollectionView } from 'backbone.marionette'
 import tc from 'teacup'
 
 import AvailableGroupView from './available-groups'
 import CurrentGroupView from './current-groups'
 
 
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'useradmin'
+AppChannel = Radio.channel 'useradmin'
 
 simpleTemplate = tc.renderable (model) ->
   tc.div '.row', ->
@@ -28,7 +27,7 @@ simpleTemplate = tc.renderable (model) ->
     tc.a href:'#useradmin/user/list', ->
       tc.button '.btn.btn-sm.btn-info', 'Users'
 
-class MainView extends Marionette.View
+class MainView extends MnView
   channelName: 'useradmin'
   template: simpleTemplate
   ui:
@@ -48,8 +47,8 @@ class MainView extends Marionette.View
      
   showCurrentGroups: ->
     user = @model
-    collection = new Backbone.Collection user.get 'groups'
-    currentGroupsView = new Marionette.CollectionView
+    collection = new Collection user.get 'groups'
+    currentGroupsView = new CollectionView
       tagname: 'ul'
       className: 'list-group'
       collection: collection
@@ -65,11 +64,11 @@ class MainView extends Marionette.View
     user = @model
     currentGroups = user.get 'groups'
     currentGids = (g.id for g in currentGroups)
-    available = new Backbone.Collection
+    available = new Collection
     groups.forEach (g) ->
       if g.id not in currentGids
         available.add g
-    view = new Marionette.CollectionView
+    view = new CollectionView
       channelName: 'useradmin'
       tagName: 'ul'
       className: 'list-group'
@@ -82,7 +81,6 @@ class MainView extends Marionette.View
     @showChildView 'available', view
     
   onRender: ->
-    user = @model
     @showCurrentGroups()
     groups = AppChannel.request 'db:group:collection'
     response = groups.fetch()

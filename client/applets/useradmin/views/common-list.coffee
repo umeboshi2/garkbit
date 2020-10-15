@@ -1,4 +1,4 @@
-import Marionette from 'backbone.marionette'
+import { View as MnView, CollectionView } from 'backbone.marionette'
 import tc from 'teacup'
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 
@@ -16,14 +16,7 @@ listTemplate = tc.renderable ->
   #tc.div '.item-container.list-group'
   tc.div '.item-container.col'
 
-itemTemplateTest = tc.renderable (model) ->
-  itemButton = '.btn.btn-sm'
-  tc.span '.mr-auto', ->
-    JSON.stringify model
-  tc.span '.ml-auto.btn-group.pull-right', ->
-    tc.button ".add-item.#{itemButton}.btn-info.fa.fa-plus"
-    
-class ItemView extends Marionette.View
+class ItemView extends MnView
   channelName: 'useradmin'
   tagName: 'li'
   className: ->
@@ -50,7 +43,7 @@ class ItemView extends Marionette.View
     console.log "called deleteItem"
     
 
-class ListView extends Marionette.View
+class ListView extends MnView
   channelName: 'useradmin'
   template: listTemplate
   ui: ->
@@ -58,7 +51,7 @@ class ListView extends Marionette.View
   regions: ->
     container: '@ui.container'
   onRender: ->
-    view = new Marionette.CollectionView
+    view = new CollectionView
       channelName: 'useradmin'
       tagName: 'ul'
       className: 'list-group'

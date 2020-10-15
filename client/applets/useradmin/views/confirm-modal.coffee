@@ -1,4 +1,4 @@
-import Marionette from 'backbone.marionette'
+import { View as MnView } from 'backbone.marionette'
 import tc from 'teacup'
 import { modal_close_button } from 'tbirds/templates/buttons'
 
@@ -10,14 +10,13 @@ confirmDeleteTemplate = tc.renderable (model) ->
         tc.div '.selected-children'
       tc.div '.modal-footer', ->
         tc.ul '.list-inline', ->
-          btnClass = '.btn.btn-sm'
           tc.li ".confirm-delete-button", ->
             modal_close_button "OK", "check"
           tc.li ".cancel-delete-button", ->
             modal_close_button "Cancel"
             
 
-class ConfirmDeleteModal extends Marionette.View
+class ConfirmDeleteModal extends MnView
   template: confirmDeleteTemplate
   ui:
     confirmBtn: '.confirm-delete-button'

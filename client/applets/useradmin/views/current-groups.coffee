@@ -1,9 +1,9 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View as MnView } from 'backbone.marionette'
 import tc from 'teacup'
 
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'useradmin'
+MessageChannel = Radio.channel 'messages'
+AppChannel = Radio.channel 'useradmin'
 
 currentItemTemplate = tc.renderable (model) ->
   tc.span '.mr-auto', ->
@@ -11,7 +11,7 @@ currentItemTemplate = tc.renderable (model) ->
   tc.span '.ml-auto.btn-group.pull-right', ->
     tc.button '.remove-item.btn.btn-sm.btn-info.fa.fa-minus', 'remove'
 
-class CurrentGroupView extends Marionette.View
+class CurrentGroupView extends MnView
   tagname: 'li'
   className: -> 'list-group-item row'
   template: currentItemTemplate
@@ -23,7 +23,6 @@ class CurrentGroupView extends Marionette.View
   removeItem: ->
     user = @getOption 'user'
     group = @model
-    usergroups = AppChannel.request 'db:usergroup:collection'
     Model = AppChannel.request 'db:usergroup:modelClass'
     usergroup = new Model
       group_id: group.id

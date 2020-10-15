@@ -1,18 +1,17 @@
-import Backbone from 'backbone'
+import { Radio } from 'backbone'
 import tc from 'teacup'
+import ConfirmDeleteModal from 'tbirds/views/confirm-delete-modal'
 
 import * as Templates from 'tbirds/templates/basecrud'
 import * as Views from 'tbirds/crud/basecrudviews'
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'todos'
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
 
 base_item_template = (name, route_name) ->
   tc.renderable (model) ->
-    item_btn = ".btn.btn-primary.btn-xs"
     tc.li ".list-group-item.#{name}-item", ->
       tc.span '.edit-button.btn.btn-primary.btn-xs', 'Edit'
       tc.text " "

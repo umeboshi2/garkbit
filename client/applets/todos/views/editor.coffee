@@ -1,20 +1,14 @@
-import _ from 'underscore'
-import Backbone from 'backbone'
-
-#beautify = require('js-beautify').html
+import { capitalize, extend } from 'lodash'
+import { Radio } from 'backbone'
+import tc from 'teacup'
 
 import BootstrapFormView from 'tbirds/views/bsformview'
-
 import make_field_input_ui from 'tbirds/util/make-field-input-ui'
 import navigate_to_url from 'tbirds/util/navigate-to-url'
-import capitalize from 'tbirds/util/capitalize'
-
-import tc from 'teacup'
 import { form_group_input_div } from 'tbirds/templates/forms'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'todos'
+MessageChannel = Radio.channel 'messages'
+AppChannel = Radio.channel 'todos'
 
 _edit_form = tc.renderable (model) ->
   for field in ['name']
@@ -47,7 +41,7 @@ class BaseEditor extends BootstrapFormView
   fieldList: ['name']
   ui: ->
     uiobject = make_field_input_ui @fieldList
-    _.extend uiobject, {'description': 'textarea[name="description"]'}
+    extend uiobject, {'description': 'textarea[name="description"]'}
     return uiobject
   
   updateModel: ->

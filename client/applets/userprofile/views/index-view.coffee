@@ -1,24 +1,10 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View as MnView } from 'backbone.marionette'
 import tc from 'teacup'
 
-userIcon = require 'node-noto-emoji/dist/man'
+import userIcon from 'node-noto-emoji/dist/man'
 
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'userprofile'
-
-user_profile_template = tc.renderable (model) ->
-  tc.div ->
-    tc.h2 "User Name: #{model.name}"
-    tc.br()
-    tc.h2 "Config:"
-    tc.table ->
-      for prop of model.config
-        tc.tr ->
-          tc.td ->
-            tc.h3 prop
-          tc.td ->
-            tc.span model.config[prop]
+AppChannel = Radio.channel 'userprofile'
 
 userProfileTemplate = tc.renderable (model) ->
   tc.div '.card', style:'width: 18rem;', ->
@@ -34,9 +20,7 @@ userProfileTemplate = tc.renderable (model) ->
         tc.button '.map-btn.btn.btn-info', 'Map'
       tc.div '.card-text.child-container'
       
-      
-
-class UserMainView extends Marionette.View
+class UserMainView extends MnView
   template: userProfileTemplate
   ui:
     childContainer: '.child-container'
@@ -61,8 +45,6 @@ class UserMainView extends Marionette.View
       showView = true
     if showView
       @[showMethod]()
-
-    
   mapBtnClicked: =>
     @_childButtonClicked 'MapView', 'showMapView'
   chpassBtnClicked: ->
@@ -82,8 +64,7 @@ class UserMainView extends Marionette.View
       @showChildView 'childContainer', view
     # name the chunk
     , 'userprofile-view-chpass-childview'
-    
 
-module.exports = UserMainView
+export default UserMainView
 
 

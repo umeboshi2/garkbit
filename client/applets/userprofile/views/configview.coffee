@@ -1,14 +1,11 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
 import tc from 'teacup'
 
 import BootstrapFormView from 'tbirds/views/bsformview'
-import capitalize from 'tbirds/util/capitalize'
-import make_field_input_ui from 'tbirds/util/make-field-input-ui'
 import navigate_to_url from  'tbirds/util/navigate-to-url'
 import { form_group_input_div } from 'tbirds/templates/forms'
 
-MainChannel = Backbone.Radio.channel 'global'
+MainChannel = Radio.channel 'global'
 
 # FIXME, make a css manifest
 themes = [
@@ -19,7 +16,7 @@ themes = [
   'LavenderBlush'
   ]
 
-config_template = tc.renderable (model) ->
+config_template = tc.renderable ->
   current_theme = MainChannel.request 'main:app:get-theme'
   tc.div '.form-group', ->
     tc.label '.control-label',
@@ -49,8 +46,6 @@ class UserConfigView extends BootstrapFormView
     @model
     
   updateModel: ->
-    config = @model.get 'config'
-    changed_config = false
     selected_theme = @ui.theme.val()
     MainChannel.request 'main:app:set-theme', selected_theme
     oldsize = MainChannel.request 'main:app:get-pagesize'
@@ -65,7 +60,7 @@ class UserConfigView extends BootstrapFormView
     @trigger 'save:form:success', @model
     
     
-  onSuccess: (model) ->
+  onSuccess: ->
     navigate_to_url '#profile'
     
 

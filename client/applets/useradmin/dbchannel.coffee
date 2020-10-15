@@ -1,12 +1,9 @@
-import _ from 'underscore'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import _ from 'lodash'
+import { Radio } from 'backbone'
 
 import DbCollection from 'tbirds/dbcollection'
 
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'useradmin'
-
+MainChannel = Radio.channel 'global'
 
 AuthModel = MainChannel.request 'main:app:AuthModel'
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
@@ -80,7 +77,7 @@ class UserGroup extends AuthModel
   itemLabel: ->
     userId = @get 'user_id'
     groupId = @get 'group_id'
-    return "#{groupId}, #{user_id}"
+    return "#{groupId}, #{userId}"
 class UserGroupCollection extends AuthCollection
   url: userGroupUrl
   model: UserGroup

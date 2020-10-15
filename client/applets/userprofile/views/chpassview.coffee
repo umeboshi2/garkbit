@@ -1,11 +1,10 @@
 import $ from 'jquery'
 import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { View as MnView } from 'backbone.marionette'
 import tc from 'teacup'
 import codenamize from '@codenamize/codenamize'
 
 import BootstrapFormView from 'tbirds/views/bsformview'
-import capitalize from 'tbirds/util/capitalize'
 import make_field_input_ui from 'tbirds/util/make-field-input-ui'
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 
@@ -15,7 +14,7 @@ MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 
 
-class PasswordHintView extends Marionette.View
+class PasswordHintView extends MnView
   className: 'col'
   template: tc.renderable ->
     tc.h5 'Password Hint'
@@ -87,14 +86,14 @@ class ChangePasswordView extends BootstrapFormView
       console.log "MISMATCH"
       @trigger 'save:form:failure', @model
       
-  onSuccess: (model) ->
+  onSuccess: ->
     navigate_to_url '#profile'
-  onFailure: (model) ->
+  onFailure: ->
     @ui.submit.hide()
   saveModel: ->
     password = @model.get 'password'
     confirm = @model.get 'confirm'
-    xhr = $.ajax
+    $.ajax
       url: '/auth/chpass'
       type: 'POST'
       data:

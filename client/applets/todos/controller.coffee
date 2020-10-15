@@ -1,44 +1,16 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
-import tc from 'teacup'
-import ms from 'ms'
+import { Radio, Collection } from 'backbone'
 
 import ToolbarView from 'tbirds/views/button-toolbar'
 import { MainController } from 'tbirds/controllers'
 import { ToolbarAppletLayout } from 'tbirds/views/layout'
-import navigate_to_url from 'tbirds/util/navigate-to-url'
-import scroll_top_fast from 'tbirds/util/scroll-top-fast'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-ResourceChannel = Backbone.Radio.channel 'resources'
-AppChannel = Backbone.Radio.channel 'todos'
+MessageChannel = Radio.channel 'messages'
+AppChannel = Radio.channel 'todos'
 
 
 toolbarEntries = []
-toolbarEntriesOrig = [
-  {
-    button: '#list-todos-button'
-    label: 'List'
-    url: '#todos'
-    icon: '.fa.fa-list'
-  }
-  {
-    button: '#calendar-button'
-    label: 'Calendar'
-    url: '#todos/calendar'
-    icon: '.fa.fa-calendar'
-  }
-  {
-    button: '#list-todos-completed-button'
-    label: 'Completed'
-    url: '#todos/completed'
-    icon: '.fa.fa-list'
-  }
-  ]
 
-
-toolbarEntryCollection = new Backbone.Collection toolbarEntries
+toolbarEntryCollection = new Collection toolbarEntries
 AppChannel.reply 'get-toolbar-entries', ->
   toolbarEntryCollection
 
@@ -66,6 +38,8 @@ class Controller extends MainController
       #  data:
       #    where:
       #      completed: completed
+      if __DEV__ and DEBUG
+        console.log "completed", completed
       response = @collection.fetch()
       response.done =>
         console.log @collection

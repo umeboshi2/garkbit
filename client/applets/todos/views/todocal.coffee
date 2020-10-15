@@ -1,15 +1,13 @@
-$ = require 'jquery'
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
+import $ from 'jquery'
+import { Radio, history } from 'backbone'
+import { View as MnView } from 'backbone.marionette'
+import tc from 'teacup'
 
-FullCalendar = require 'fullcalendar'
+import 'fullcalendar'
+import 'fullcalendar/dist/fullcalendar.css'
 
-require 'fullcalendar/dist/fullcalendar.css'
-
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'todos'
+MainChannel = Radio.channel 'global'
+AppChannel = Radio.channel 'todos'
 
 apiroot = "/api/dev/bapi"
 url = "#{apiroot}/fhtodos"
@@ -36,11 +34,11 @@ render_calendar_event = (calEvent, element) ->
   element.css
     'font-size' : '0.9em'
 
-calendar_view_render = (view, element) ->
+calendar_view_render = ->
   AppChannel.request 'maincalendar:set-date'
         
   
-class TodoCalendarView extends Marionette.View
+class TodoCalendarView extends MnView
   template: todo_calendar
   ui:
     calendar: '#maincalendar'
@@ -66,12 +64,12 @@ class TodoCalendarView extends Marionette.View
       loading: loading_calendar_events
       eventClick: (event) ->
         url = event.url
-        Backbone.history.navigate url, trigger: true
+        history.navigate url, trigger: true
     # if the current calendar date that has been set,
     # go to that date
     if date != undefined
       cal.fullCalendar('gotoDate', date)
         
       
-module.exports = TodoCalendarView
+export default TodoCalendarView
 

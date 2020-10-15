@@ -1,35 +1,19 @@
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-Leaflet = require 'leaflet'
+import { View as MnView } from 'backbone.marionette'
+import tc from 'teacup'
+import Leaflet from 'leaflet'
 
-require 'leaflet/dist/leaflet.css'
+import 'leaflet/dist/leaflet.css'
 
-navigate_to_url = require 'tbirds/util/navigate-to-url'
-
-MainChannel = Backbone.Radio.channel 'global'
-
-old_map_view_template = tc.renderable (model) ->
-  tc.div '.row', ->
-    tc.h2 "Map View"
-  tc.div '.row', ->
-    tc.div '.col.status-message'
-  tc.div "#map-view.row", style:'height:20em;'
-
-
-mapViewTemplate = tc.renderable (model) ->
-  tc.div '.row', ->
-    tc.div '.col.status-message'
-  tc.div "#map-view.row", style:'height:20em;'
-  
-class MapView extends Marionette.View
-  template: mapViewTemplate
+class MapView extends MnView
+  template: tc.renderable ->
+    tc.div '.row', ->
+      tc.div '.col.status-message'
+    tc.div "#map-view.row", style:'height:20em;'
   ui:
     map: '#map-view'
     statusMsg: '.status-message'
   onDomRefresh: ->
     @Map = Leaflet.map 'map-view'
-    zoom_level = 13
     location = [31.33, -89.28]
     layer = Leaflet.tileLayer 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
     layer.addTo @Map
@@ -45,10 +29,10 @@ class MapView extends Marionette.View
     circle = Leaflet.circle location, 200
     circle.addTo @Map
       
-  getCenter: (event) =>
+  getCenter: =>
     console.log @Map.getCenter()
 
-  onLocationError: (event) =>
+  onLocationError: =>
     @ui.statusMsg.text 'unable to get location'
     if __DEV__
       console.log "unable to get location"
@@ -59,6 +43,5 @@ class MapView extends Marionette.View
     @ui.statusMsg.text 'location found'
     if __DEV__
       console.log "location found", event
-    
-module.exports = MapView
 
+export default MapView

@@ -1,13 +1,10 @@
-import _ from 'underscore'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import $ from 'jquery'
+import { extend } from 'lodash'
+import { Radio } from 'backbone'
 import DbCollection from 'tbirds/dbcollection'
 
-$ = require 'jquery'
-
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'todos'
-TodoChannel = AppChannel
+MainChannel = Radio.channel 'global'
+AppChannel = Radio.channel 'todos'
 
 AuthModel = MainChannel.request 'main:app:AuthModel'
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
@@ -29,7 +26,7 @@ class TodoCollection extends AuthCollection
   url: url
   model: Todo
 
-dbcfg = new DbCollection _.extend defaultOptions,
+export dbcfg = new DbCollection extend defaultOptions,
   modelName: 'todo'
   modelClass: Todo
   collectionClass: TodoCollection

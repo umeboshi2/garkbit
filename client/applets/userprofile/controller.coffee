@@ -1,38 +1,15 @@
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
+import { Radio, Model } from 'backbone'
+import { View as MnView } from 'backbone.marionette'
+import tc from 'teacup'
 
 # FIXME
-navigate_to_url = require('tbirds/util/navigate-to-url').default
-{ MainController } = require 'tbirds/controllers'
-{ ToolbarAppletLayout } = require 'tbirds/views/layout'
+import navigateToUrl from 'tbirds/util/navigate-to-url'
+import { MainController } from 'tbirds/controllers'
+import { ToolbarAppletLayout } from 'tbirds/views/layout'
 
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'userprofile'
-
-
-toolbarData = new Backbone.Model
-  entries: [
-    {
-      name: 'Profile'
-      url: '#profile'
-    }
-    {
-      name: 'Map'
-      url: '#profile/mapview'
-    }
-    {
-      name: 'Settings'
-      url: '#profile/editconfig'
-    }
-    {
-      name: 'Change Password'
-      url: '#profile/chpassword'
-    }
-    ]
-
+MainChannel = Radio.channel 'global'
+AppChannel = Radio.channel 'userprofile'
 
 toolbar_template = tc.renderable (model) ->
   tc.div '.btn-group.btn-group-justified', ->
@@ -42,7 +19,7 @@ toolbar_template = tc.renderable (model) ->
       'button-url': entry.url, ->
         tc.span ".fa.fa-#{icon}", ' ' + entry.name
 
-class ToolbarView extends Marionette.View
+class ToolbarView extends MnView
   template: toolbar_template
   ui:
     toolbarButton: '.toolbar-button'
@@ -51,18 +28,21 @@ class ToolbarView extends Marionette.View
   toolbarButtonPressed: (event) ->
     console.log "toolbarButtonPressed", event
     url = event.currentTarget.getAttribute 'button-url'
-    navigate_to_url url
-    
+    navigateToUrl url
+
+if __DEV__
+  console.log "ToolbarView", ToolbarView
+  
 class Controller extends MainController
   layoutClass: ToolbarAppletLayout
   show_profile: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      ViewClass = require './views/index-view'
+      ViewClass = require('./views/index-view').default
       token = MainChannel.request 'main:app:decode-auth-token'
       console.log "TOKEN", token
       view = new ViewClass
-        model: new Backbone.Model token
+        model: new Model token
         templateContext:
           title: token.fullname
           text: "#{token.fullname} (#{token.name})"
@@ -76,7 +56,7 @@ class Controller extends MainController
       ViewClass = require('tbirds/views/mapview').default
       token = MainChannel.request 'main:app:decode-auth-token'
       view = new ViewClass
-        model: new Backbone.Model token
+        model: new Model token
       @layout.showChildView 'content', view
     # name the chunk
     , 'userprofile-view-map-view'
@@ -87,7 +67,7 @@ class Controller extends MainController
       ViewClass = require('./views/configview').default
       token = MainChannel.request 'main:app:decode-auth-token'
       view = new ViewClass
-        model: new Backbone.Model token
+        model: new Model token
       @layout.showChildView 'content', view
     # name the chunk
     , 'userprofile-view-edit-config'
@@ -102,6 +82,5 @@ class Controller extends MainController
     # name the chunk
     , 'userprofile-view-chpasswd'
       
-      
-module.exports = Controller
+export default Controller
 
