@@ -117,7 +117,7 @@
     "sjcl": "^1.0.8",
     "stats-webpack-plugin": "^0.7.0",
     "style-loader": "^1.0.1",
-    "tbirds": "^0.4.54",
+    "tbirds": "^0.4.73",
     "terser": "^4.4.0",
     "terser-webpack-plugin": "^2.2.1",
     "themoviedb-javascript-library": "^3.0.3",
