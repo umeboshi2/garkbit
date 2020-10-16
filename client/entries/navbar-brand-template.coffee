@@ -9,7 +9,7 @@ navbarBrandTemplate = tc.renderable (model) ->
   tc.a ".navbar-brand.bg-body-d5#{padding}", href:model.url, ->
     tc.img '.mb-2', src:src, style:'width:1.5rem;height:1.5rem'
     tm = emoji.get 'tm'
-    tc.span '.mt-2', "#{model.label}#{tm}"
+    tc.span '.mt-2.text-primary', "#{model.label}#{tm}"
   tc.span '.toggle-container'
 
 export default navbarBrandTemplate

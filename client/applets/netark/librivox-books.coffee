@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     id: 'plague_ship_librivox'
     name: 'Plague Ship'

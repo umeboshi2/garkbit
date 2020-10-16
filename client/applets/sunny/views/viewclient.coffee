@@ -1,10 +1,8 @@
-import Backbone from 'backbone'
+import { Model } from 'backbone'
 import { View, CollectionView } from 'backbone.marionette'
 import tc from 'teacup'
 
-import navigate_to_url from 'tbirds/util/navigate-to-url'
-
-import { NewClientView, EditClientView } from './clienteditor'
+import { EditClientView } from './clienteditor'
 import ClientInfoView from './client-info'
 import BaseInfoEditView from './base-infoedit'
 import BaseToggleView from './base-toggle'
@@ -13,17 +11,6 @@ client_yard_teplate = tc.renderable (model) ->
   tc.div '.row.listview-list-entry', ->
     tc.a href:"#sunny/yards/view/#{model.id}", model.name
     
-client_view_template = tc.renderable (model) ->
-  tc.div '.badge.info-toggle', ->
-    tc.span '.mr-1', 'info'
-    tc.i '.ml-1.pl-1.fa.fa-toggle-off'
-  tc.div '.client-info-container'
-
-  tc.div '.badge.yards-toggle', ->
-    tc.span '.mr-1', "(#{model.collection.length}) yards"
-    tc.i '.ml-1.pl-1.fa.fa-toggle-off'
-  tc.div '.yards-container', ->
-
 class ClientYardView extends View
   template: client_yard_teplate
 
@@ -67,7 +54,7 @@ containerClassName = (reg) ->
 
   
 class ClientMainView extends View
-  template: tc.renderable (model) ->
+  template: tc.renderable ->
     tc.div '.listview-header'
     for reg of regionViews
       tc.div toggleClassName(reg)
@@ -90,7 +77,7 @@ class ClientMainView extends View
     return regions
   onRender: ->
     for reg of regionViews
-      model = new Backbone.Model
+      model = new Model
         label: reg
       view = new BaseToggleView
         className: 'btn btn-primary btn-sm'

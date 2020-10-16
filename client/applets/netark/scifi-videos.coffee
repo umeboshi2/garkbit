@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     id: 'Plan_9_from_Outer_Space_1959'
     name: 'Plan 9 from Outer Space'

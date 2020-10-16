@@ -1,14 +1,11 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
 import TkApplet from 'tbirds/tkapplet'
-import capitalize from 'tbirds/util/capitalize'
+import { capitalize } from 'lodash'
 
 import './dbchannel'
 import Controller from './controller'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'sunny'
+MainChannel = Radio.channel 'global'
 AppRouter = MainChannel.request 'main:app:IndexRouter'
 
 # Have a set of default routines
@@ -109,7 +106,6 @@ class Router extends AppRouter
 
     'sunny/yards/routines/:yard_id': 'yardRoutines'
     'sunny/mapview': 'mapView'
-    
 
 class Applet extends TkApplet
   Controller: Controller

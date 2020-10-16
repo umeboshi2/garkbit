@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     id: 'OTRR_BCRC_Singles'
     name: 'The Bing Crosby - Rosemary Clooney Show'

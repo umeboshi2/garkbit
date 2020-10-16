@@ -1,33 +1,14 @@
-import Backbone from 'backbone'
+import { Radio } from 'backbone'
 import { View, CollectionView } from 'backbone.marionette'
-import tc from 'teacup'
 
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 
-#{ show_modal } = require 'agate/src/regions'
-{ ConfirmDeleteTemplate } = require '../templates'
+MainChannel = Radio.channel 'global'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
+# FIXME
+show_modal = ->
 
-class ConfirmDeleteModal extends View
-  template: ConfirmDeleteTemplate
-  ui:
-    confirm_delete: '#confirm-delete-button'
-    cancel_button: '#cancel-delete-button'
-    
-  events: ->
-    'click @ui.confirm_delete': 'confirm_delete'
-
-  confirm_delete: ->
-    name = @model.get 'name'
-    response = @model.destroy()
-    response.done ->
-      MessageChannel.request 'success', "#{name} deleted.",
-    response.fail ->
-      MessageChannel.request 'danger', "#{name} NOT deleted."
-      
-class BaseItemView extends View
+export class BaseItemView extends View
   ui:
     edit_item: '.edit-item'
     delete_item: '.delete-item'
@@ -43,14 +24,16 @@ class BaseItemView extends View
   delete_item: ->
     if __DEV__
       console.log "delete_#{@item_type}", @model
-    view = new ConfirmDeleteModal
-      model: @model
+      class ConfirmDeleteModal extends View
+      view = new ConfirmDeleteModal
+        model: @model
     if __DEV__
       console.log 'modal view', view
     show_modal view, true
+    if __DEV__ and DEBUG
+      console.log "show_modal", show_modal
 
-
-class BaseListView extends CollectionView
+export class BaseListView extends CollectionView
   childViewContainer: "##{@item_type}-container"
   ui: ->
     make_new_item: "#new-#{@item_type}"
@@ -66,12 +49,4 @@ class BaseListView extends CollectionView
   
   make_new_item: ->
     # FIXME - fix url dont't add 's'
-    navigate_to_url "#sunny/#{@item_type}s/new"
-    
-  
-
-module.exports =
-  BaseItemView: BaseItemView
-  BaseListView: BaseListView
-  
-
+    history.navigate "#sunny/#{@item_type}s/new", trigger:true

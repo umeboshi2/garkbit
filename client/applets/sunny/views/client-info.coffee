@@ -1,8 +1,5 @@
-import Backbone from 'backbone'
-import { View, CollectionView } from 'backbone.marionette'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
-
-import navigate_to_url from 'tbirds/util/navigate-to-url'
 
 clientInfoTable = tc.renderable (model) ->
   tc.table '.table', ->
@@ -23,7 +20,6 @@ clientInfoTable = tc.renderable (model) ->
       tc.td "Description"
       tc.td model.description
   
-
 class ClientInfoView extends View
   template: clientInfoTable
 

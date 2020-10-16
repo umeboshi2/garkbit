@@ -1,24 +1,20 @@
-import _ from 'underscore'
-import Backbone from 'backbone'
+import _ from 'lodash'
+import { Radio } from 'backbone'
 import { View } from 'backbone.marionette'
 import tc from 'teacup'
-import FullCalendar from 'fullcalendar'
+import 'fullcalendar'
 import 'fullcalendar/dist/fullcalendar.css'
 
 import BootstrapFormView from 'tbirds/views/bsformview'
-import navigate_to_url from 'tbirds/util/navigate-to-url'
 import make_field_input_ui from 'tbirds/util/make-field-input-ui'
 import {
   make_field_input
   make_field_textarea } from 'tbirds/templates/forms'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'sunny'
-GpsChannel = Backbone.Radio.channel 'gps'
+MessageChannel = Radio.channel 'messages'
+AppChannel = Radio.channel 'sunny'
 
-
-class BaseYardRoutineEditor extends BootstrapFormView
+export class BaseYardRoutineEditor extends BootstrapFormView
   fieldList: ['frequency', 'leeway', 'rate']
   templateContext: ->
     fieldList: @fieldList
@@ -46,7 +42,7 @@ class BaseYardRoutineEditor extends BootstrapFormView
       console.log 'field', field, value
       if field is 'fullname' and not value
         console.log 'no fullname here.....'
-        value = capitalize @model.get 'name'
+        value = _.capitalize @model.get 'name'
       @model.set field, value
     # update other fields
   
@@ -55,7 +51,7 @@ class BaseYardRoutineEditor extends BootstrapFormView
     collection.add @model
     super arguments
     
-class YardRoutineInfo extends View
+export class YardRoutineInfo extends View
   template:  tc.renderable (model) ->
     tc.span "Routine:"
     if model?.yardroutines
@@ -66,7 +62,7 @@ class YardRoutineInfo extends View
     
 
 class BaseYardRoutineView extends View
-  template:  tc.renderable (model) ->
+  template:  tc.renderable ->
     #tc.span "Routine:"
     #if model?.yardroutines
     #  ytext = "We have a routine"
@@ -85,7 +81,7 @@ class BaseYardRoutineView extends View
 
   currentRoutine: null
   
-  yard_button: (event) ->
+  yard_button: ->
     routines = @model.get 'yardroutines'
     if routines
       console.log "we need to edit the routine", routines

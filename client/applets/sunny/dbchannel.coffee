@@ -1,11 +1,9 @@
-import _ from 'underscore'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
-
+import { extend } from 'lodash'
+import { Radio } from 'backbone'
 import DbCollection from 'tbirds/dbcollection'
 
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'sunny'
+MainChannel = Radio.channel 'global'
+AppChannel = Radio.channel 'sunny'
 
 apiRoot = "/api/dev/sunny/crud"
 
@@ -23,7 +21,7 @@ class Client extends AuthModel
 class Clients extends AuthCollection
   model: Client
   url: url
-dbcfg.client = new DbCollection _.extend defaultOptions,
+dbcfg.client = new DbCollection extend defaultOptions,
   modelName: 'client'
   modelClass: Client
   collectionClass: Clients
@@ -36,7 +34,7 @@ class Yard extends AuthModel
 class Yards extends AuthCollection
   model: Yard
   url: url
-dbcfg.yard = new DbCollection _.extend defaultOptions,
+dbcfg.yard = new DbCollection extend defaultOptions,
   modelName: 'yard'
   modelClass: Yard
   collectionClass: Yards
@@ -55,7 +53,7 @@ class YardRoutine extends AuthModel
 class YardRoutines extends AuthCollection
   model: YardRoutine
   url: url
-dbcfg.yardroutine = new DbCollection _.extend defaultOptions,
+dbcfg.yardroutine = new DbCollection extend defaultOptions,
   modelName: 'yardroutine'
   modelClass: YardRoutine
   collectionClass: YardRoutines
@@ -67,7 +65,7 @@ class YardRoutineJob extends AuthModel
 class YardRoutineJobs extends AuthCollection
   model: YardRoutineJob
   url: url
-dbcfg.yardroutinejob = new DbCollection _.extend defaultOptions,
+dbcfg.yardroutinejob = new DbCollection extend defaultOptions,
   modelName: 'yardroutinejob'
   modelClass: YardRoutineJob
   collectionClass: YardRoutineJobs
@@ -80,7 +78,7 @@ class GeoLocation extends AuthModel
 class GeoLocationCollection extends AuthCollection
   model: GeoLocation
   url: url
-dbcfg.location = new DbCollection _.extend defaultOptions,
+dbcfg.location = new DbCollection extend defaultOptions,
   modelName: 'location'
   modelClass: GeoLocation
   collectionClass: GeoLocationCollection
@@ -94,7 +92,7 @@ class YardSession extends AuthModel
 class YardSessionCollection extends AuthCollection
   model: YardSession
   url: url
-dbcfg.yardsession = new DbCollection _.extend defaultOptions,
+dbcfg.yardsession = new DbCollection extend defaultOptions,
   modelName: 'yardsession'
   modelClass: YardSession
   collectionClass: YardSessionCollection
@@ -105,8 +103,5 @@ class YardSessionClock extends AuthModel
 
 AppChannel.reply 'YardSessionClock', ->
   return YardSessionClock
-  
-  
-
 
 export default dbcfg

@@ -1,16 +1,8 @@
-import _ from 'underscore'
-import Backbone from 'backbone'
 import { View } from 'backbone.marionette'
 import tc from 'teacup'
-
 import BaseListView from 'tbirds/views/list-view'
 
-
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'sunny'
-
-class ItemView extends View
+export class ItemView extends View
   template: tc.renderable (model) ->
     tc.div model.status
   tagName: 'li'
@@ -23,6 +15,4 @@ class ListView extends BaseListView
   ui: ->
     itemList: '.yardsession-container'
     
-
-
 export default ListView

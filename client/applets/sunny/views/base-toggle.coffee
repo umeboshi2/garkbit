@@ -1,15 +1,11 @@
-import Backbone from 'backbone'
 import { View } from 'backbone.marionette'
 import tc from 'teacup'
-
-
 
 onOffText = (state) ->
   if state
     return 'on'
   else
     return 'off'
-    
 
 class BaseToggleView extends View
   state: false

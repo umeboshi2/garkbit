@@ -10,6 +10,11 @@ import navigate_to_url from 'tbirds/util/navigate-to-url'
 MainChannel = Radio.channel 'global'
 MessageChannel = Radio.channel 'messages'
 
+# FIXME
+show_modal = ->
+
+
+
 base_item_template = (name, route_name) ->
   tc.renderable (model) ->
     tc.li ".list-group-item.#{name}-item", ->

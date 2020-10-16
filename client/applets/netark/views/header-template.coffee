@@ -1,6 +1,6 @@
-tc = require 'teacup'
+import tc from 'teacup'
 
-module.exports = tc.renderable (options) ->
+export default tc.renderable (options) ->
   tc.div '.listview-header', ->
     tc.img '.mr-3.mb-1', src:options.leftIcon, style:"height:2rem;width:2rem"
     tc.text options.text

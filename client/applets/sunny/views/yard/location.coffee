@@ -1,18 +1,13 @@
-import _ from 'underscore'
-import Backbone from 'backbone'
+import { Radio, history } from 'backbone'
 import { View } from 'backbone.marionette'
 import tc from 'teacup'
 import Leaflet from 'leaflet'
 
 import BaseMapView from 'tbirds/views/base-map'
 
-import navigate_to_url from 'tbirds/util/navigate-to-url'
-
-  
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'sunny'
-GpsChannel = Backbone.Radio.channel 'gps'
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
+GpsChannel = Radio.channel 'gps'
 
 yard_location_text = (position) ->
   latitude = position.latitude.toPrecision 4
@@ -44,7 +39,7 @@ class BaseYardLocationView extends View
 
   currentPosition: null
   
-  yardButtonClicked: (event) ->
+  yardButtonClicked: ->
     if @currentPosition is null
       @get_location()
     else
@@ -59,22 +54,21 @@ class BaseYardLocationView extends View
     gp = GpsChannel.request 'new-position'
     gp.set @currentPosition
     response = gp.save()
-    response.done (data, status, xhr) =>
+    #response.done (data, status, xhr) =>
+    response.done (data) =>
       console.log "new position added"
       console.log 'data', data
       @model.set 'location_id', data.id
       name = yard_location_text data
       @model.set 'name', name
       mresponse = @model.save()
-      mresponse.done (data, status, xhr) ->
+      mresponse.done (data) ->
         msg = "Yard #{data.name} added successfully!"
         MessageChannel.request 'success', msg
-        navigate_to_url "#sunny/yards/view/#{data.id}"
+        history.navigate "#sunny/yards/view/#{data.id}", trigger:true
         
 
   addNewPositionToYard: ->
-    null
-    
   updateYardLocation: ->
     location_id = @model.get('location_id')
     new_position = false
@@ -87,7 +81,7 @@ class BaseYardLocationView extends View
     gp.set @currentPosition
     MessageChannel.request 'info', 'Adding new position to yard', false, 2000
     response = gp.save()
-    response.done (data, status, xhr) =>
+    response.done (data) =>
       if new_position
         @model.set 'location_id', data.id
         mresponse = @model.save()
@@ -116,7 +110,7 @@ class BaseYardLocationView extends View
       @ui.yardButton.text 'Set Position'
     @ui.yardButton.show()
 
-  locationError: () =>
+  locationError: =>
     MessageChannel.request 'warning', 'Unable to get current location.'
     console.log "@ui", @ui
     @ui.yardButton.show()

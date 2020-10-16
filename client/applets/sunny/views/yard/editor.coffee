@@ -1,17 +1,14 @@
-import _ from 'underscore'
-import Backbone from 'backbone'
+import { extend } from 'lodash'
+import { Radio } from 'backbone'
 import tc from 'teacup'
 
 import BootstrapFormView from 'tbirds/views/bsformview'
-import navigate_to_url from 'tbirds/util/navigate-to-url'
 import make_field_input_ui from 'tbirds/util/make-field-input-ui'
 import {
   make_field_input
   make_field_textarea } from 'tbirds/templates/forms'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'sunny'
+AppChannel = Radio.channel 'sunny'
 
 YardForm = tc.renderable (model) ->
   make_field_input('name')(model)
@@ -28,7 +25,7 @@ class BaseYardEditor extends BootstrapFormView
     textareas =
       description: 'textarea[name="description"]'
       jobdetails: 'textarea[name="jobdetails"]'
-    _.extend uiobject, textareas
+    extend uiobject, textareas
     return uiobject
     
   updateModel: ->
@@ -45,9 +42,9 @@ class NewYardView extends BaseYardEditor
     @model
     
   saveModel: ->
-    callbacks =
-      success: => @trigger 'save:form:success', @model
-      error: => @trigger 'save:form:failure', @model
+    #callbacks =
+    #  success: => @trigger 'save:form:success', @model
+    #  error: => @trigger 'save:form:failure', @model
     yards = AppChannel.request 'yard-collection'
     yards.add @model
     super arguments

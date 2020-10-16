@@ -1,26 +1,19 @@
-import _ from 'underscore'
-import Backbone from 'backbone'
+import { Model } from 'backbone'
 import { View } from 'backbone.marionette'
 import tc from 'teacup'
-
-import BaseMapView from 'tbirds/views/base-map'
 
 import BaseToggleView from '../base-toggle'
 import BaseInfoEditView from '../base-infoedit'
 
-import { EditYardView, NewYardView } from './editor'
+import { EditYardView } from './editor'
 import YardLocationView from './location'
 import YardRoutineView from './routine'
 import YardInfoView from './info'
 import YardSessionView from './sessions'
 
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-SunnyChannel = Backbone.Radio.channel 'sunny'
-
 class NewHeaderView extends View
-  template: tc.renderable (model) ->
+  template: tc.renderable ->
     tc.text "New Yard"
 
 class YardHeaderView extends View
@@ -49,7 +42,7 @@ containerClassName = (reg) ->
   return ".yard-#{reg}-container"
   
 class YardViewer extends View
-  template: tc.renderable (model) ->
+  template: tc.renderable ->
     tc.div '.yard-header.listview-header'
     tc.div '.btn-group', ->
       for reg of regionViews
@@ -89,7 +82,7 @@ class YardViewer extends View
   onRender: ->
     @showHeader()
     for reg of regionViews
-      model = new Backbone.Model
+      model = new Model
         label: reg
       view = new BaseToggleView
         #className: 'badge'

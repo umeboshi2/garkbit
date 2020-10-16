@@ -1,10 +1,8 @@
 import _ from 'underscore'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
 import DbCollection from 'tbirds/dbcollection'
 
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'wikipages'
+MainChannel = Radio.channel 'global'
 
 AuthModel = MainChannel.request 'main:app:AuthModel'
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
@@ -22,7 +20,7 @@ class WikiPage extends AuthModel
 class WikiPageCollection extends AuthCollection
   url: url
   model: WikiPage
-dbcfg = new DbCollection _.extend defaultOptions,
+export dbcfg = new DbCollection _.extend defaultOptions,
   modelName: 'wikipage'
   modelClass: WikiPage
   collectionClass: WikiPageCollection

@@ -1,15 +1,16 @@
 import _ from 'underscore'
-import Backbone from 'backbone'
-import { View } from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View as MnView } from 'backbone.marionette'
 import tc from 'teacup'
+import moment from 'moment'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'sunny'
+AppChannel = Radio.channel 'sunny'
 
 TimeClock = AppChannel.request 'YardSessionClock'
-
-sessionTemplate = tc.renderable (model) ->
+if __DEV__ and DEBUG
+  console.log "TimeClock", TimeClock
+  
+export sessionTemplate = tc.renderable (model) ->
   tc.div ->
     session = model.session
     status = model.worker.status
@@ -23,11 +24,10 @@ sessionTemplate = tc.renderable (model) ->
     else
       tc.text "This job has never been done."
 
-statusTemplate = tc.renderable (model) ->
+export statusTemplate = tc.renderable (model) ->
   clockOptions =
     action: 'in'
     btnClass: '.clock-btn.btn.btn-info.fa.fa-clock-o'
-  clockLabel = 'in'
   if model.status is 'on'
     clockOptions.action = 'out'
     clockOptions.btnClass = '.clock-btn.btn.btn-warning.fa.fa-clock-o'
@@ -41,9 +41,7 @@ statusTemplate = tc.renderable (model) ->
   tc.div '.row.calendar'
   tc.input '.datepick'
 
-
-
-class MainView extends View
+class MainView extends MnView
   template: tc.renderable ->
     tc.div 'Main Session View'
 

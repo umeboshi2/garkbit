@@ -1,20 +1,15 @@
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-marked = require 'marked'
+import { Collection } from 'backbone'
+import { View as MnView, CollectionView } from 'backbone.marionette'
+import tc from 'teacup'
 
-#radioIcon = require 'node-noto-emoji/dist/radio'
-scrollIcon = require 'node-noto-emoji/dist/scroll'
-clockIcon = require 'node-noto-emoji/dist/mantelpiece_clock'
-dangerIcon = require 'node-noto-emoji/dist/radioactive_sign'
+import scrollIcon from 'node-noto-emoji/dist/scroll'
+import clockIcon from 'node-noto-emoji/dist/mantelpiece_clock'
+import dangerIcon from 'node-noto-emoji/dist/radioactive_sign'
 
-{ navigate_to_url } = require 'tbirds/util/navigate-to-url'
-HasJsonView = require '../../../has-jsonview'
+import headerTemplate from './header-template'
 
-showModels = require '../librivox-books'
-headerTemplate = require './header-template'
 
-searchURl = "https://archive.org/services/search/v1/scrape?q=more_animation&count=100" # noqa
+# searchURl = "https://archive.org/services/search/v1/scrape?q=more_animation&count=100" # noqa
 
 pages = [
   {
@@ -32,7 +27,7 @@ pages = [
   }
 ]
 
-class Entry extends Marionette.View
+class Entry extends MnView
   className: 'col-md-4'
   template: tc.renderable (model) ->
     tc.div '.listview-list-entry', ->
@@ -41,33 +36,24 @@ class Entry extends Marionette.View
     link: 'a'
   events:
     'click @ui.link': 'linkClicked'
-  linkClicked: (event) ->
+  linkClicked: ->
     #event.preventDefault()
     console.log "show", @model.id
 
-class EntryCollectionView extends Marionette.CollectionView
+class EntryCollectionView extends CollectionView
   className: 'row'
   childView: Entry
-
-
-
-class JsonView extends Marionette.View
-  template: tc.renderable (model) ->
-    tc.div '.jsonview.listview-list-entry', style:'overflow:auto'
-  behaviors:
-    HasJsonView:
-      behaviorClass: HasJsonView
 
 warning = "This is an experimental app. Many parts will not \
 work properly."
     
-class MainView extends Marionette.View
+class MainView extends MnView
   template: tc.renderable ->
     headerTemplate
       text: "Internet Archive"
       leftIcon: scrollIcon
       rightIcon: clockIcon
-    tc.div '.alert.alert-warning', ->
+    tc.div '.row.col-sm-4.offset-sm-4', ->
       tc.img src:dangerIcon
       tc.span warning
     tc.div '.items'
@@ -76,13 +62,13 @@ class MainView extends Marionette.View
   regions:
     itemList: '@ui.itemList'
   onRender: ->
-    collection = new Backbone.Collection pages
+    collection = new Collection pages
     console.log "Collection", collection
     view = new EntryCollectionView
       collection: collection
     @showChildView 'itemList', view
   templateContext:
     appName: 'netark'
-    
-module.exports = MainView
+
+export default MainView
 

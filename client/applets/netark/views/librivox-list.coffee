@@ -1,20 +1,14 @@
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-marked = require 'marked'
+import { Collection } from 'backbone'
+import { View as MnView, CollectionView } from 'backbone.marionette'
+import tc from 'teacup'
 
-#radioIcon = require 'node-noto-emoji/dist/radio'
-radioIcon = require 'node-noto-emoji/dist/radio'
-micIcon = require 'node-noto-emoji/dist/microphone'
-booksIcon = require 'node-noto-emoji/dist/books'
+import micIcon from 'node-noto-emoji/dist/microphone'
+import booksIcon from 'node-noto-emoji/dist/books'
 
-{ navigate_to_url } = require 'tbirds/util/navigate-to-url'
-HasJsonView = require '../../../has-jsonview'
+import showModels from '../librivox-books'
+import headerTemplate from './header-template'
 
-showModels = require '../librivox-books'
-headerTemplate = require './header-template'
-    
-class Entry extends Marionette.View
+class Entry extends MnView
   className: 'col-md-4'
   template: tc.renderable (model) ->
     tc.div '.listview-list-entry', ->
@@ -23,24 +17,15 @@ class Entry extends Marionette.View
     link: 'a'
   events:
     'click @ui.link': 'linkClicked'
-  linkClicked: (event) ->
+  linkClicked: ->
     #event.preventDefault()
     console.log "show", @model.id
 
-class EntryCollectionView extends Marionette.CollectionView
+class EntryCollectionView extends CollectionView
   className: 'row'
   childView: Entry
 
-
-
-class JsonView extends Marionette.View
-  template: tc.renderable (model) ->
-    tc.div '.jsonview.listview-list-entry', style:'overflow:auto'
-  behaviors:
-    HasJsonView:
-      behaviorClass: HasJsonView
-    
-class MainView extends Marionette.View
+class MainView extends MnView
   template: tc.renderable ->
     headerTemplate
       text: 'Librivox Audiobooks'
@@ -52,12 +37,11 @@ class MainView extends Marionette.View
   regions:
     itemList: '@ui.itemList'
   onRender: ->
-    collection = new Backbone.Collection showModels
+    collection = new Collection showModels
     view = new EntryCollectionView
       collection: collection
     @showChildView 'itemList', view
   templateContext:
     appName: 'netark'
     
-module.exports = MainView
-
+export default MainView

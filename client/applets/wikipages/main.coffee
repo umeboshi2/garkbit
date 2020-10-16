@@ -1,22 +1,13 @@
-# webpackChunkName: "main-chunk-wikipages";
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+`/* webpackChunkName: "main-chunk-wikipages" */` # noqa
+import { Radio } from 'backbone'
 import TkApplet from 'tbirds/tkapplet'
 
 import './dbchannel'
 
 import Controller from './controller'
 
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'wikipages'
+MainChannel = Radio.channel 'global'
 AppRouter = MainChannel.request 'main:app:IndexRouter'
-
-class Router extends AppRouter
-  channelName: 'wikipages'
-  appRoutes:
-    'wikipages': 'list_wikipages'
-    'wikipages/view/:name': 'view_wikipage'
-
 
 appletMenu = [
   {
@@ -26,6 +17,13 @@ appletMenu = [
     icon: '.fa.fa-list'
   }
 ]
+
+class Router extends AppRouter
+  channelName: 'wikipages'
+  appRoutes:
+    'wikipages': 'list_wikipages'
+    'wikipages/view/:name': 'view_wikipage'
+
   
 class Applet extends TkApplet
   Controller: Controller
@@ -36,7 +34,5 @@ class Applet extends TkApplet
       menu: appletMenu
     }
   ]
-  
-
 
 export default Applet

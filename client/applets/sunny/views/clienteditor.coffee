@@ -1,18 +1,15 @@
-import _ from 'underscore'
-import Backbone from 'backbone'
+import { extend } from 'lodash'
+import { Radio } from 'backbone'
 import tc from 'teacup'
 
 import BootstrapFormView from 'tbirds/views/bsformview'
-import navigate_to_url from 'tbirds/util/navigate-to-url'
 import make_field_input_ui from 'tbirds/util/make-field-input-ui'
 import capitalize from 'tbirds/util/capitalize'
 import {
   make_field_input
   make_field_textarea } from 'tbirds/templates/forms'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'sunny'
+AppChannel = Radio.channel 'sunny'
 
 class BaseClientEditor extends BootstrapFormView
   fieldList: ['name', 'fullname', 'email']
@@ -29,7 +26,7 @@ class BaseClientEditor extends BootstrapFormView
     
   ui: ->
     uiobject = make_field_input_ui @fieldList
-    _.extend uiobject, {'description': 'textarea[name="description"]'}
+    extend uiobject, {'description': 'textarea[name="description"]'}
     return uiobject
   
   updateModel: ->

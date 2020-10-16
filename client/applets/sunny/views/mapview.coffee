@@ -1,31 +1,23 @@
-import Backbone from 'backbone'
+import { Radio, history } from 'backbone'
 import { View } from 'backbone.marionette'
 import tc from 'teacup'
-import ms from 'ms'
 import Leaflet from 'leaflet'
 import 'leaflet.icon.glyph'
 
 
-require 'leaflet/dist/leaflet.css'
+import 'leaflet/dist/leaflet.css'
+import './glyph-marker-icon'
 
-import navigate_to_url from 'tbirds/util/navigate-to-url'
-import iconUrl from './glyph-marker-icon'
+AppChannel = Radio.channel 'sunny'
+GpsChannel = Radio.channel 'gps'
 
-
-#{ GhostModel
-#  GhostCollection } = require '../../ghost/base'
-
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'sunny'
-GpsChannel = Backbone.Radio.channel 'gps'
-
-AuthModel = MainChannel.request 'main:app:AuthModel'
-AuthCollection = MainChannel.request 'main:app:AuthCollection'
+#AuthModel = MainChannel.request 'main:app:AuthModel'
+#AuthCollection = MainChannel.request 'main:app:AuthCollection'
 
 default_mapview_style = 'height:20em;'
 fs_mapview_style = 'position: absolute; top: 0; right: 0; bottom: 0; left: 0;'
 
-mapViewTemplate = tc.renderable (model) ->
+mapViewTemplate = tc.renderable ->
   tc.div '.row', ->
     tc.h2 'Map View'
     tc.div '.checkbox', ->
@@ -48,7 +40,6 @@ class MapView extends View
 
   
   watch_button: (event) ->
-    console.log 'somwthing happened', event
     if event.target.checked
       console.log "Watch me!!!!", @ui.map
       @Map.locate
@@ -78,7 +69,7 @@ class MapView extends View
               url: "#sunny/yards/view/#{atts.id}"
               title: model.attributes.name
             marker.on 'click', ->
-              navigate_to_url "#sunny/yards/view/#{model.id}"
+              history.navigate "#sunny/yards/view/#{model.id}", trigger: true
             marker.addTo @Map
     
   addPositionMarkers: ->
@@ -99,9 +90,6 @@ class MapView extends View
     
   onDomRefresh: ->
     @Map = Leaflet.map 'map-view'
-    zoom_level = 13
-    location = [31.33, -89.28]
-    #@Map.setView location, zoom_level
     @Map.on 'moveend', @getCenter
     @Map.on 'locationerror', @onLocationError
     @Map.locate
@@ -115,7 +103,7 @@ class MapView extends View
     @addYardMarkers()
     
       
-  getCenter: (event) =>
+  getCenter: =>
     console.log @Map.getCenter()
 
   onLocationError: (event) =>
@@ -126,5 +114,5 @@ class MapView extends View
       @Map.setView location, 13
       @first_location_error = true
       
-module.exports = MapView
+export default MapView
 

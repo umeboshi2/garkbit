@@ -1,9 +1,8 @@
-$ = require 'jquery'
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-keycode = require 'keycode'
+import $ from 'jquery'
+import { Behavior } from 'backbone.marionette'
+import keycode from 'keycode'
 
-class HasPageableCollection extends Marionette.Behavior
+class HasPageableCollection extends Behavior
   ui:
     prev_li: '.previous'
     next_li: '.next'
@@ -60,7 +59,7 @@ class HasPageableCollection extends Marionette.Behavior
     else if direction is 'next' and not onLastPage
       response = collection.getNextPage()
     if response
-      response.done =>
+      response.done ->
         # remove the where clause when done
         delete collection.queryParams.where
     
@@ -71,4 +70,4 @@ class HasPageableCollection extends Marionette.Behavior
       
     
   
-module.exports = HasPageableCollection
+export default HasPageableCollection

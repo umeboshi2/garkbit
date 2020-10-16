@@ -1,18 +1,10 @@
-import _ from 'underscore'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { extend } from 'lodash'
+import { View as MnView, CollectionView } from 'backbone.marionette'
 import tc from 'teacup'
 
-import Templates from 'tbirds/templates/basecrud'
-import Views from 'tbirds/crud/basecrudviews'
-import PaginateBar from 'tbirds/views/paginate-bar'
 import BaseListView from 'tbirds/views/list-view'
 import navigate_to_url from 'tbirds/util/navigate-to-url'
-import capitalize from 'tbirds/util/capitalize'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'wikipages'
 
 itemTemplate = tc.renderable (model) ->
   tc.li '.list-group-item.bg-body-d5', ->
@@ -25,7 +17,7 @@ listTemplate = tc.renderable ->
   tc.div '.paginate-bar'
   tc.ul '.list-group'
 
-class ItemView extends Marionette.View
+class ItemView extends MnView
   template: itemTemplate
   ui:
     item: '.list-group-item'
@@ -36,7 +28,7 @@ class ItemView extends Marionette.View
     event.preventDefault()
     navigate_to_url "#wikipages/view/#{@model.get 'name'}"
     
-class ItemCollectionView extends Marionette.CollectionView
+export class ItemCollectionView extends CollectionView
   childView: ItemView
   
 
@@ -49,7 +41,7 @@ class ListView extends BaseListView
     itemList: '.list-group'
     paginateBar: '.paginate-bar'
   regions: ->
-    return _.extend super(),
+    return extend super(),
       navBox: '.navbox'
 
 export default ListView
