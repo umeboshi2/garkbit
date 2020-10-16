@@ -11,7 +11,7 @@ devMenu =
       label: 'Sunny'
       url: '#sunny'
       needUser: true
-      icon: '.fa.fa-cloud'
+      icon: '.fa.fa-sun-o'
     },{
       label: 'Company'
       url: '#company'
@@ -37,6 +37,11 @@ devMenu =
       label: 'Muppy'
       url: '#muppy'
       needUser: true
+    },{
+      label: 'Wikipages'
+      url: '#wikipages'
+      needUser: true
+      icon: '.fa.fa-wikipedia'
     },{
       label: 'Admin Panel'
       url: '#admin'
