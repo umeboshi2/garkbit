@@ -189,6 +189,7 @@ WebPackConfig =
       tbirds: 'tbirds/src'
       # https://github.com/wycats/handlebars.js/issues/953
       handlebars: 'handlebars/dist/handlebars'
+      common: path.join __dirname, 'client/common'
   stats:
     colors: true
     modules: false

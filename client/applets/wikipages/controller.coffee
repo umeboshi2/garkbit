@@ -64,7 +64,7 @@ class Controller extends MainController
   view_wikipage: (name) ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      MainView = require './views/pageview'
+      MainView = require('./views/pageview').default
       model = AppChannel.request 'db:wikipage:get', name
       console.log "MODEL", model
       @_load_view MainView, model, 'wikipage'

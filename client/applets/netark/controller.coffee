@@ -70,7 +70,7 @@ class Controller extends MainController
     @setupLayoutIfNeeded()
     MetaModel = AppChannel.request 'get-metadata-model'
     require.ensure [], () =>
-      View = require './views/view-metadata'
+      View = require('./views/view-metadata').default
       mdata = new MetaModel
         id: id
       console.log "model---", mdata

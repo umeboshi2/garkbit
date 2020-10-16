@@ -13,7 +13,7 @@ class Controller extends MainController
   listClients: () ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      ListView = require './views/clientlist'
+      ListView = require('./views/clientlist').default
       view = new ListView
         collection: @clients
       response = @clients.fetch()
@@ -27,7 +27,7 @@ class Controller extends MainController
   newClient: () ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      { NewClientView } = require './views/clienteditor'
+      { NewClientView } = require('./views/clienteditor')
       @layout.showChildView 'content', new NewClientView
     # name the chunk
     , 'sunny-view-new-client'
@@ -77,7 +77,7 @@ class Controller extends MainController
   editClient: (id) ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      { EditClientView } = require './views/clienteditor'
+      { EditClientView } = require('./views/clienteditor')
       model = AppChannel.request 'db:client:get', id
       if model.has 'name'
         @_show_edit_client EditClientView, model
@@ -127,7 +127,7 @@ class Controller extends MainController
     @setupLayoutIfNeeded()
     console.log 'layout should be ready'
     require.ensure [], () =>
-      ViewClass = require './views/mapview'
+      ViewClass = require('./views/mapview').default
       view = new ViewClass
       @layout.showChildView 'content', view
       #content = @layout.getRegion 'content'
