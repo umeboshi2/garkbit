@@ -1,18 +1,15 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
 import ms from 'ms'
 
-import TopApp from 'tbirds/top-app'
-import TkAppState from 'tbirds/top-app'
+#import TopApp from 'tbirds/top-app'
+#import TkAppState from 'tbirds/top-app'
 import createMainApp from 'tbirds/start-main-app'
 
 import setupAuthModels from 'tbirds/authmodels'
 import TH from 'tbirds/token-handler'
 
-import objectEmpty from '../object-empty'
-
 import './base'
-import IndexRouter from '../indexrouter'
+import '../indexrouter'
 import './site-nav'
 
 import bumblrSchema from '../applets/bumblr/dbschema'
@@ -25,9 +22,8 @@ import MainAppConfig from './base-config'
 
 setupAuthModels MainAppConfig
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-SiteNavChannel = Backbone.Radio.channel 'site-nav'
+MainChannel = Radio.channel 'global'
+SiteNavChannel = Radio.channel 'site-nav'
 
 
 app = createMainApp MainAppConfig

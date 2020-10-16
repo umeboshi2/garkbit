@@ -1,10 +1,9 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View as MnView } from 'backbone.marionette'
 import { App } from 'marionette.toolkit'
 import tc from 'teacup'
-import navigate_to_url from 'tbirds/util/navigate-to-url'
 
-MainChannel = Backbone.Radio.channel 'global'
+MainChannel = Radio.channel 'global'
 
 linkItem = '.nav-link.dropdown-item'
 entryLinkItem = ".navbar-entry#{linkItem}"
@@ -43,7 +42,7 @@ user_menu = tc.renderable (user) ->
             tc.a entryLinkItem, href:'#frontdoor/login', 'login'
         
 
-class UserMenuView extends Marionette.View
+class UserMenuView extends MnView
   tagName: 'ul'
   className: "navbar-nav ml-auto"
   template: user_menu

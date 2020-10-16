@@ -5,8 +5,6 @@ import demoMenu from './demo-menu-entries'
 import miscMenu from './misc-menu-entries'
 import adminEntries from './admin-menu-entries'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
 SiteNavChannel = Backbone.Radio.channel 'site-nav'
 NavbarChannel = Backbone.Radio.channel 'navbar'
 

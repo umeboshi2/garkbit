@@ -1,16 +1,16 @@
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
 import AppRouter from 'marionette.approuter'
-import navigate_to_url from 'tbirds/util/navigate-to-url'
+import navigateToUrl from 'tbirds/util/navigate-to-url'
 import isObjectEmpty from 'tbirds/util/object-empty'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-SiteNavChannel = Backbone.Radio.channel 'site-nav'
+MainChannel = Radio.channel 'global'
+SiteNavChannel = Radio.channel 'site-nav'
 
 class AdminRouter extends AppRouter
   # Backbone.Router prototype overridden by
   # backbone.routefilter which provides "before" method
-  before: (route, params) ->
+  # before: (route, params) -> # noqa
+  before: ->
     user = MainChannel.request 'main:app:decode-auth-token'
     hasAccess = false
     permittedGroups = @getOption('permittedGroups') or ['admin']
@@ -21,7 +21,7 @@ class AdminRouter extends AppRouter
     if not hasAccess
       #MessageChannel.request 'warning', 'Restricted access only!'
       #navigate_to_url '/#frontdoor/login'
-      navigate_to_url '#'
+      navigateToUrl '#'
       MainChannel.request 'main:app:show-login'
   onRoute: ->
     navbarEntries = @getOption('navbarEntries') or 'admin'

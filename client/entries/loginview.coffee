@@ -1,19 +1,17 @@
 import $ from 'jquery'
-import Marionette from 'backbone.marionette'
+import { Radio, Model } from 'backbone'
 import tc from 'teacup'
-import { modal_close_button } from 'tbirds/templates/buttons'
 import BootstrapFormView from 'tbirds/views/bsformview'
 
 
 import make_field_input_ui from 'tbirds/util/make-field-input-ui'
-import navigate_to_url from 'tbirds/util/navigate-to-url'
 import IsEscapeModal from 'tbirds/behaviors/is-escape-modal'
 
 { form_group_input_div } = require 'tbirds/templates/forms'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-SiteNavChannel = Backbone.Radio.channel 'site-nav'
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
+SiteNavChannel = Radio.channel 'site-nav'
 
 loginTemplate = tc.renderable (user) ->
   tc.div '.modal-dialog.modal-md', ->
@@ -50,7 +48,7 @@ class BaseView extends BootstrapFormView
     uiobject = make_field_input_ui @getOption 'fieldList'
     return uiobject
   createModel: ->
-    new Backbone.Model
+    new Model
   emptyModal: ->
     app = MainChannel.request 'main:app:object'
     layout = app.getView()

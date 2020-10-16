@@ -1,54 +1,25 @@
 import $ from 'jquery'
-import _ from 'underscore'
-import Backbone from 'backbone'
-#Backbone.Relational = require 'backbone-relational'
-
-require 'backbone.routefilter'
-import { View } from 'backbone.marionette'
-import lf from 'lovefield'
-
-# setup backbone relational and jsonapi
-#brjs = require 'backbone-relational-sync-jsonapi'
-#brjs.default Backbone, _
-
-#brj = require 'backbone-relational-jsonapi'
-#brj.default Backbone, _
-
-if false
-  require.ensure [], () ->
-    require '../../sass/plain.scss'
-  # name the chunk
-  , 'garkbit-css-plain'
-else
-  if __DEV__
-    require.ensure [], () ->
-      require '../../sass/dev-dark.scss'
-    # name the chunk
-    , 'garkbit-css-dev-dark'
-  else
-    require.ensure [], () ->
-      require '../../sass/cornsilk-purple.scss'
-    # name the chunk
-    , 'garkbit-css-cornsilk'
-    
-
-import './themes'
-
+import { Radio, Router } from 'backbone'
+import 'backbone.routefilter'
 import "bootstrap"
 import 'font-awesome/scss/font-awesome.scss'
 
 
-if __DEV__
-  console.warn "__DEV__", __DEV__, "DEBUG", DEBUG
-  Backbone.Radio.DEBUG = true
 
-  
 import 'tbirds/applet-router'
 import exportToFile from 'tbirds/util/export-to-file'
 import LoginModal from './loginview'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
+import '../../sass/dev-dark.scss'
+
+if __DEV__
+  console.warn "__DEV__", __DEV__, "DEBUG", DEBUG
+  Radio.DEBUG = true
+
+  
+
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
 
 $(document).ajaxError (event, xhr) ->
   if __DEV__
@@ -60,27 +31,13 @@ $(document).ajaxError (event, xhr) ->
 # set pagesize before requiring authmodels
 if localStorage.getItem('page-size') is null
   localStorage.setItem 'page-size', 10
-
 MainChannel.reply 'main:app:set-pagesize', (pagesize) ->
   localStorage.setItem 'page-size', pagesize
-
 MainChannel.reply 'main:app:get-pagesize', ->
   localStorage.getItem 'page-size'
 
-if __DEV__ and false
-  require '../inspector'
-#require '../authmodels'
-require '../crud'
-require '../static-documents'
-
-
-MainChannel.reply 'main:app:set-theme', (theme) ->
-  localStorage.setItem 'main-theme', theme
-
-MainChannel.reply 'main:app:get-theme', ->
-  localStorage.getItem 'main-theme'
-
-
+import '../crud'
+import '../static-documents'
 
 MainChannel.reply 'export-to-file', (options) ->
   exportToFile options
@@ -97,5 +54,5 @@ MainChannel.reply 'main:app:getCurrentPosition', (options) ->
 
 
 MainChannel.reply 'main:app:setLocationUrl', (url) ->
-  r = new Backbone.Router
+  r = new Router
   r.navigate url, trigger:false
