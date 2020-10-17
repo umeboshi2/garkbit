@@ -1,14 +1,11 @@
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-emoji = require 'node-emoji'
-window.emoji = emoji
+import { View } from 'backbone.marionette'
+import tc from 'teacup'
+import emoji from 'node-emoji'
 
+if __DEV__
+  window.emoji = emoji
 
-navigate_to_url = require('tbirds/util/navigate-to-url').default
-
-
-view_template = tc.renderable (model) ->
+view_template = tc.renderable ->
   tc.div '.row.listview-list-entry', ->
     tc.h1 "List of Emojis#{emoji.get('tm')}#{emoji.get('atom_symbol')}"
   tc.div '.listview-list-entry', ->
@@ -22,10 +19,10 @@ view_template = tc.renderable (model) ->
         tc.span key
         tc.span '.fa.fa-2x.ml-3', emoji.get(key)
       
-class MainView extends Marionette.View
+class MainView extends View
   template: view_template
   templateContext:
     appName: 'msleg'
     
-module.exports = MainView
+export default MainView
 

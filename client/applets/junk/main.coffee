@@ -1,17 +1,10 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { capitalize } from 'lodash'
 import AppRouter from 'marionette.approuter'
 import TkApplet from 'tbirds/tkapplet'
-import capitalize from 'tbirds/util/capitalize'
 
 import Controller from './controller'
 
 appName = 'junk'
-
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel appName
-
-
 appletMenu = [
   {
     id: 'dbadmin'

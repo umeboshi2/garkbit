@@ -1,17 +1,6 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
-import tc from 'teacup'
-import ms from 'ms'
-
-import ToolbarView from 'tbirds/views/button-toolbar'
+import { Model } from 'backbone'
 import { MainController } from 'tbirds/controllers'
 import { ToolbarAppletLayout } from 'tbirds/views/layout'
-import navigate_to_url from 'tbirds/util/navigate-to-url'
-import scroll_top_fast from 'tbirds/util/scroll-top-fast'
-
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'junk'
 
 class Controller extends MainController
   channelName: 'junk'
@@ -28,7 +17,7 @@ class Controller extends MainController
   viewEmojis: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      View = require './views/emojilist'
+      View = require('./views/emojilist').default
       view = new View
       @layout.showChildView 'content', view
     # name the chunk
@@ -37,7 +26,7 @@ class Controller extends MainController
   viewDbAdmin: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      View = require './views/idbview'
+      View = require('./views/idbview').default
       view = new View
       @layout.showChildView 'content', view
     # name the chunk
@@ -49,7 +38,7 @@ class Controller extends MainController
     
   _viewUpload: ->
     require.ensure [], () =>
-      UploadView = require './views/uploadview'
+      UploadView = require('./views/uploadview').default
       view = new UploadView
       @layout.showChildView 'content', view
     # name the chunk
@@ -65,7 +54,7 @@ class Controller extends MainController
   statsView: ->
     @setupLayoutIfNeeded()
     { StatsView } = require './views'
-    model = new Backbone.Model
+    model = new Model
     model.url = '/stats.json'
     response = model.fetch()
     response.done =>

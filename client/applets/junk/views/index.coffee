@@ -1,14 +1,14 @@
 import path from 'path'
 import $ from 'jquery'
-import Backbone from 'backbone'
+import { Radio } from 'backbone'
 import Marionette from 'backbone.marionette'
 import tc from 'teacup'
 import marked from 'marked'
 
-import HasJsonView from '../../../has-jsonview'
+import HasJsonView from 'common/has-jsonview'
 
 
-MainChannel = Backbone.Radio.channel 'global'
+MainChannel = Radio.channel 'global'
 
 class Renderer extends marked.Renderer
   link: (href, title, text) ->
@@ -38,7 +38,7 @@ class ThemeSwitchView extends Marionette.View
     'click @ui.theme': 'switch_theme'
   templateContext: ->
     ui: @ui
-  template: tc.renderable (model) ->
+  template: tc.renderable ->
     tc.div ->
       THEMES.forEach (theme) ->
         tc.div ".theme.btn.btn-primary", theme
@@ -55,7 +55,7 @@ class FrontDoorMainView extends Marionette.View
   template: DefaultStaticDocumentTemplate
 
 class StatsView extends Marionette.View
-  template: tc.renderable (model) ->
+  template: tc.renderable ->
     tc.div '.jsonview.listview-list-entry', style:'overflow:auto'
   behaviors:
     HasJsonView:

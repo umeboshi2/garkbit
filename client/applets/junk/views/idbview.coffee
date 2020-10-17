@@ -1,19 +1,16 @@
-$ = require 'jquery'
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-JView = require 'json-view'
-require 'json-view/devtools.css'
-FileSaver = require 'file-saver'
+import $ from 'jquery'
+import { Model, Collection, Radio } from 'backbone'
+import { View, CollectionView } from 'backbone.marionette'
+import tc from 'teacup'
+import FileSaver from 'file-saver'
+import HasJsonView from 'common/has-jsonview'
+#import exportToFile from 'tbirds/util/export-to-file'
 
-exportToFile = require('tbirds/util/export-to-file').default
+#FileSaver = require 'file-saver'
+#exportToFile = require('tbirds/util/export-to-file').default
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'ebcsv'
-
-#class ComicListView extends Marionette.CollectionView
-#  childView: ComicEntryView
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
 
 importExportTemplate = tc.renderable (model) ->
   tc.div '.listview-list-entry', ->
@@ -42,19 +39,12 @@ importExportTemplate = tc.renderable (model) ->
       tc.div '.dbview'
       
 
-class DatabaseView extends Marionette.View
-  template: tc.renderable (model) ->
-    tc.div ->
-      tc.div '.body'
-  ui:
-    body: '.body'
-  onDomRefresh: ->
-    data = @model.toJSON()
-    @jsonView = new JView data
-    @ui.body.prepend @jsonView.dom
-    #@jsonView.expand true
+class DatabaseView extends View
+  behaviors: [HasJsonView]
+  template: tc.renderable ->
+    tc.div '.jsonview'
     
-class ImportExportView extends Marionette.View
+class ImportExportView extends View
   template: importExportTemplate
   ui:
     viewButton: '.view'
@@ -80,14 +70,14 @@ class ImportExportView extends Marionette.View
     'change @ui.fileInput': 'fileInputChanged'
 
   # https://stackoverflow.com/a/12102992
-  fileInputClicked: (event) ->
+  fileInputClicked: ->
     @ui.fileInput.val null
     @ui.importChosenButton.hide()
 
-  fileInputChanged: (event) ->
+  fileInputChanged: ->
     @ui.importChosenButton.show()
 
-  handleDrop: (event) ->
+  handleDrop: ->
     event.preventDefault()
     @$el.css 'border', '0px'
     dt = event.originalEvent.dataTransfer
@@ -118,7 +108,7 @@ class ImportExportView extends Marionette.View
   viewDatabase: ->
     @_exportDatabase().then (data) =>
       view = new DatabaseView
-        model: new Backbone.Model data: data
+        model: new Model data
       @showChildView 'dbView', view
       @ui.viewButton.hide()
       
@@ -152,19 +142,19 @@ class ImportExportView extends Marionette.View
     @ui.importButton.hide()
     
 
-class MainView extends Marionette.View
+class MainView extends View
   regions:
     body: '.body'
-  template: tc.renderable (model) ->
-    tc.div '.listview-header', ->
+  template: tc.renderable ->
+    tc.div '.listview-header.text-center', ->
       tc.text "Indexed Database Admin"
     tc.div '.body'
   onRender: ->
     app = MainChannel.request 'main:app:object'
-    dbConn = app.dbConn
+    dbConn = app.getState('dbConn')
     
-    @collection = new Backbone.Collection
-    view = new Marionette.CollectionView
+    @collection = new Collection
+    view = new CollectionView
       collection: @collection
       childView: ImportExportView
     @showChildView 'body', view
@@ -174,7 +164,6 @@ class MainView extends Marionette.View
         name: key
         conn: dbConn[key]
     
-      
-module.exports = MainView
+export default MainView
 
 
