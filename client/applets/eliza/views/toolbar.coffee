@@ -1,17 +1,13 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { history as bbhistory, Collection } from 'backbone'
+import { View, CollectionView } from 'backbone.marionette'
 import tc from 'teacup'
-import marked from 'marked'
 
 import Worker from 'worker-loader!../worker'
 
 worker = new Worker()
-
-{ navigate_to_url } = require 'tbirds/util/navigate-to-url'
-
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'eliza'
-
+if __DEV__ and DEBUG
+  console.log "worker", worker
+  
 toolbarEntries = [
   {
     id: 'destroy'
@@ -25,7 +21,6 @@ toolbarEntries = [
   }
 ]
 
-
 defaultButtonTemplate = tc.renderable (model) ->
   tc.i model.icon
   tc.text " "
@@ -33,7 +28,7 @@ defaultButtonTemplate = tc.renderable (model) ->
 
 defaultButtonClassName = "btn btn-outline-primary"
 
-class ToolbarButton extends Marionette.View
+class ToolbarButton extends View
   tagName: 'button'
   #className: 'btn btn-outline-primary'
   className: ->
@@ -46,7 +41,7 @@ class ToolbarButton extends Marionette.View
   modelEvents:
     change: 'render'
 
-class ToolbarButtonGroup extends Marionette.CollectionView
+class ToolbarButtonGroup extends CollectionView
   childView: ToolbarButton
   childViewOptions: ->
     template: @getOption 'entryTemplate'
@@ -55,7 +50,7 @@ class ToolbarButtonGroup extends Marionette.CollectionView
   childViewTriggers:
     'button:clicked': 'toolbar:entry:clicked'
 
-class ToolbarView extends Marionette.View
+class ToolbarView extends View
   template: tc.renderable () ->
     tc.div '.toolbar-entries'
   regions:
@@ -70,11 +65,10 @@ class ToolbarView extends Marionette.View
       buttonClassName: buttonClassName
     @showChildView 'entries', view
   onChildviewToolbarEntryClicked: (child) ->
-    navigate_to_url child.model.get 'url'
-    
+    bbhistory.navigate child.model.get('url'), trigger:true
   
 class ElizaToolbar extends ToolbarView
-  collection: new Backbone.Collection toolbarEntries
+  collection: new Collection toolbarEntries
   # bubble up to main view
   childViewTriggers:
     'toolbar:entry:clicked': 'toolbar:entry:clicked'

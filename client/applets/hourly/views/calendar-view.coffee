@@ -1,6 +1,6 @@
 import $ from 'jquery'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
 
 import { Calendar } from '@fullcalendar/core'
@@ -14,49 +14,22 @@ import '@fullcalendar/daygrid/main.css'
 import '@fullcalendar/timegrid/main.css'
 import '@fullcalendar/list/main.css'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'hourly'
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
+AppChannel = Radio.channel 'hourly'
 
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
-
-sampleWeek = [
-    {
-      id: 'day one'
-      start: '2019-06-24 18:30'
-      end: '2019-06-24 21:30'
-    },{
-      id: 'day two'
-      start: '2019-06-25 08:00'
-      end: '2019-06-25 18:00'
-    },{
-      id: 'day three'
-      start: '2019-06-26 08:00'
-      end: '2019-06-26 14:30'
-    },{
-      id: 'day three (after lunch)'
-      start: '2019-06-26 18:00'
-      end: '2019-06-26 21:00'
-    },{
-      id: 'day four'
-      start: '2019-06-27 10:30'
-      end: '2019-06-27 12:30'
-    },{
-      id: 'day five'
-      start: '2019-06-28 08:00'
-      end: '2019-06-28 14:00'
-    }
-  ]
 
 calendarUrl = '/api/dev/hourly/calendar'
 class EventCollection extends AuthCollection
   url: calendarUrl
   
 getEvents = (fetchInfo, successCallback, failureCallback, evenMore ) ->
-  console.log "fetchInfo", fetchInfo
-  #console.log "successCallback", successCallback
-  #console.log "failureCallback", failureCallback
-  #console.log 'evenMore', evenMore
+  if __DEV__ and DEBUG
+    console.log "fetchInfo", fetchInfo
+    console.log "successCallback", successCallback
+    console.log "failureCallback", failureCallback
+    console.log 'evenMore', evenMore
   events = new EventCollection
   response = events.fetch
     data:
@@ -79,7 +52,7 @@ getEvents = (fetchInfo, successCallback, failureCallback, evenMore ) ->
     
   return response
 
-loadingCalendarEvents = (isTrue) ->
+export loadingCalendarEvents = (isTrue) ->
   loading = $('loading')
   header = $('.fc-toolbar')
   if isTrue
@@ -89,18 +62,14 @@ loadingCalendarEvents = (isTrue) ->
     loading.hide()
     header.show()
 
-
-calendarTemplate = tc.renderable () ->
-  tc.div '.listview-header', 'Punching the Clock'
-  tc.div '#loading', ->
-    tc.h2 ->
-      tc.i '.fa.fa-spinner.fa-spin'
-      tc.text 'Loading Work Sessions'
-  tc.div '#maincalendar'
-
-    
-class CalendarView extends Marionette.View
-  template: calendarTemplate
+class CalendarView extends View
+  template: tc.renderable ->
+    tc.div '.listview-header', 'Punching the Clock'
+    tc.div '#loading', ->
+      tc.h2 ->
+        tc.i '.fa.fa-spinner.fa-spin'
+        tc.text 'Loading Work Sessions'
+    tc.div '#maincalendar'
   ui:
     calendar: '#maincalendar'
     loading: '#loading'
@@ -110,7 +79,7 @@ class CalendarView extends Marionette.View
     minicalendar: false
     layout: false
   onBeforeDestroy: ->
-    cal = @fullCalendar.destroy()
+    @fullCalendar.destroy()
     if __DEV__
       console.log 'calendar destroyed'
   onDomRefresh: ->
@@ -139,15 +108,8 @@ class CalendarView extends Marionette.View
       #defaultView: 'dayGrid'
       #eventSources: sampleWeek
       events: getEvents
-      #eventSources:
-      #  [
-      #    url: '/api/dev/hourly/calendar'
-      #  ]
-      #events: sampleWeek
-      #eventRender:
-      #viewRender
-      #loading: loadingCalendarEvents
-      #eventClick: calEventClick
+      loading: loadingCalendarEvents
+      eventClick: calEventClick
     @fullCalendar.render()
     
 export default CalendarView

@@ -1,38 +1,25 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
 import marked from 'marked'
-import ToolbarView from 'tbirds/views/button-toolbar'
 import ElizaToolbar from './toolbar'
 
 import TerminalView from './terminal'
-
-import Worker from 'worker-loader!../worker'
-
+#import Worker from 'worker-loader!../worker'
 import Intro from "raw-loader!../intro.md"
 
-worker = new Worker()
+#worker = new Worker()
 
-{ navigate_to_url } = require 'tbirds/util/navigate-to-url'
 
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'eliza'
+MessageChannel = Radio.channel 'messages'
 
-class IntroView extends Marionette.View
-  template: tc.renderable (model) ->
-    tc.article ->
-      tc.raw marked Intro
-      
-mainViewTemplate = tc.renderable (model) ->
-  tc.div '.row.listview-header.justify-content-center', 'ELIZA Terminal'
-  tc.div '.row.intro'
-  tc.div '.row.justify-content-center', ->
-    tc.div '.terminal-container.col-md-10'
-  tc.div '.row.toolbar'
-  
-
-class MainView extends Marionette.View
-  template: mainViewTemplate
+class MainView extends View
+  template: tc.renderable ->
+    tc.div '.row.listview-header.justify-content-center', 'ELIZA Terminal'
+    tc.div '.row.intro'
+    tc.div '.row.justify-content-center', ->
+      tc.div '.terminal-container.col-md-10'
+    tc.div '.row.toolbar'
   templateContext:
     appName: 'eliza'
   ui:
@@ -46,8 +33,8 @@ class MainView extends Marionette.View
   onRender: ->
     view = new ElizaToolbar
     @showChildView 'toolbar', view
-    iview = new Marionette.View
-      template: tc.renderable (model) ->
+    iview = new View
+      template: tc.renderable ->
         tc.raw marked Intro
     @showChildView 'intro', iview
   childViewEvents:
@@ -65,7 +52,6 @@ class MainView extends Marionette.View
     @showChildView 'terminal', tview
     view = @getChildView 'terminal'
     view.startTerminal()
-    
   destroyTerminal: ->
     view = @getChildView 'terminal'
     if view

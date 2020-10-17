@@ -1,15 +1,7 @@
 import path from 'path'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
-import ms from 'ms'
 import marked from 'marked'
-
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'fromtdoor'
-
-
 
 class Renderer extends marked.Renderer
   link: (href, title, text) ->
@@ -23,14 +15,13 @@ class Renderer extends marked.Renderer
     return super href, title, text
 
 renderer = new Renderer
-DefaultStaticDocumentTemplate = tc.renderable (doc) ->
-  tc.article '.document-view.content', ->
-    tc.div '.body', ->
-      tc.raw marked doc.content, renderer:renderer
 
-class FrontDoorMainView extends Marionette.View
-  template: DefaultStaticDocumentTemplate
+class MainView extends View
+  template: tc.renderable (model) ->
+    tc.article '.document-view.content', ->
+      tc.div '.body', ->
+        tc.raw marked model.content, renderer:renderer
 
-export default FrontDoorMainView
+export default MainView
 
 

@@ -1,16 +1,10 @@
-import Backbone from 'backbone'
+import { Radio } from 'backbone'
 
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'hourly'
-
-apiRoot = "/api/dev/hourly"
-
+MainChannel = Radio.channel 'global'
 AuthModel = MainChannel.request 'main:app:AuthModel'
-AuthCollection = MainChannel.request 'main:app:AuthCollection'
-
-
+apiRoot = "/api/dev/hourly"
 
 class TimeClock extends AuthModel
   urlRoot: "#{apiRoot}/time-clock"
-  
+
 export default TimeClock

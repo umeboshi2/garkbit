@@ -1,16 +1,14 @@
-import _ from 'underscore'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import $ from 'jquery'
+import { Radio } from 'backbone'
+import { extend } from 'lodash'
 import DbCollection from 'tbirds/dbcollection'
 
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'hourly'
+MainChannel = Radio.channel 'global'
+AppChannel = Radio.channel 'hourly'
 
 apiRoot = "/api/dev/hourly"
-
 AuthModel = MainChannel.request 'main:app:AuthModel'
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
-
 defaultOptions =
   channelName: 'hourly'
 
@@ -22,7 +20,7 @@ class Worker extends AuthModel
 class Workers extends AuthCollection
   model: Worker
   url: workersUrl
-dbcfg = new DbCollection _.extend defaultOptions,
+export workers = new DbCollection extend defaultOptions,
   modelName: 'worker'
   modelClass: Worker
   collectionClass: Workers
@@ -34,12 +32,11 @@ class WorkSession extends AuthModel
 class WorkSessions extends AuthCollection
   model: WorkSession
   url: workSessionUrl
-dbcfg = new DbCollection _.extend defaultOptions,
+export workSessions = new DbCollection extend defaultOptions,
   modelName: 'worksession'
   modelClass: WorkSession
   collectionClass: WorkSessions
   
-
 class PotentialWorkers extends AuthCollection
   url: "#{apiRoot}/potential-workers"
 

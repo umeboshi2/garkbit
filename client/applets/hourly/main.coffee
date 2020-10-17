@@ -1,14 +1,11 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { capitalize } from 'lodash'
 import TkApplet from 'tbirds/tkapplet'
-import capitalize from 'tbirds/util/capitalize'
 
 import Controller from './controller'
 
 appName = 'hourly'
-
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel appName
+MainChannel = Radio.channel 'global'
 AppRouter = MainChannel.request 'main:app:IndexRouter'
 
 appletMenu = [

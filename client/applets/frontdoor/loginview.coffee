@@ -1,51 +1,45 @@
 import $ from 'jquery'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio, Model } from 'backbone'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
 
 import make_field_input_ui from 'tbirds/util/make-field-input-ui'
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 
-{ form_group_input_div } = require 'tbirds/templates/forms'
+import { form_group_input_div } from 'tbirds/templates/forms'
 import BootstrapFormView from 'tbirds/views/bsformview'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-
-login_form =  tc.renderable (user) ->
-  form_group_input_div
-    input_id: 'input_username'
-    label: 'User Name'
-    input_attributes:
-      name: 'username'
-      placeholder: 'User Name'
-  form_group_input_div
-    input_id: 'input_password'
-    label: 'Password'
-    input_attributes:
-      name: 'password'
-      type: 'password'
-      placeholder: 'Type your password here....'
-  tc.input '.btn.btn-primary', type:'submit', value:'login'
-  tc.div '.spinner.fa.fa-spinner.fa-spin'
-
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
 
 class BaseView extends BootstrapFormView
   ui: ->
     uiobject = make_field_input_ui @fieldList
     return uiobject
   createModel: ->
-    new Backbone.Model
+    new Model
   onSuccess: ->
     # FIXME start reloading the child apps
     # that recognize users
     navigate_to_url '#'
     
-
-
-  
 class LoginView extends BaseView
-  template: login_form
+  template: tc.renderable ->
+    form_group_input_div
+      input_id: 'input_username'
+      label: 'User Name'
+      input_attributes:
+        name: 'username'
+        placeholder: 'User Name'
+    form_group_input_div
+      input_id: 'input_password'
+      label: 'Password'
+      input_attributes:
+        name: 'password'
+        type: 'password'
+      placeholder: 'Type your password here....'
+    tc.input '.btn.btn-primary', type:'submit', value:'login'
+    tc.div '.spinner.fa.fa-spinner.fa-spin'
   fieldList: ['username', 'password']
   updateModel: ->
     console.log 'updateModel called'
@@ -65,7 +59,6 @@ class LoginView extends BaseView
         token = response.token
         MainChannel.request 'main:app:set-auth-token', token
         @trigger 'save:form:success', @model
-        
       error: (response) =>
         if __DEV__
           console.log "error", response.responseJSON
@@ -73,20 +66,17 @@ class LoginView extends BaseView
         MessageChannel.request 'danger', msg.message
         @trigger 'save:form:failure', @model
     console.log "returning xhr", xhr
-    
-
-token_form =  tc.renderable (user) ->
-  form_group_input_div
-    input_id: 'input_token'
-    label: 'Auth Token'
-    input_attributes:
-      name: 'token'
-      placeholder: 'xxxxxxxxxxxxxxx'
-  tc.input '.btn.btn-primary', type:'submit', value:'login'
-  tc.div '.spinner.fa.fa-spinner.fa-spin'
 
 class TokenView extends BaseView
-  template: token_form
+  template: tc.renderable ->
+    form_group_input_div
+      input_id: 'input_token'
+      label: 'Auth Token'
+      input_attributes:
+        name: 'token'
+        placeholder: 'xxxxxxxxxxxxxxx'
+    tc.input '.btn.btn-primary', type:'submit', value:'login'
+    tc.div '.spinner.fa.fa-spinner.fa-spin'
   fieldList: ['token']
   updateModel: ->
     console.log 'updateModel called'
@@ -104,8 +94,8 @@ class TokenView extends BaseView
     response.done =>
       @trigger 'save:form:success', @model
 
-class MainView extends Marionette.View
-  template: tc.renderable (model) ->
+class MainView extends View
+  template: tc.renderable ->
     tc.div '#login-form'
     tc.div '#token-form'
   regions:
@@ -115,8 +105,4 @@ class MainView extends Marionette.View
     @showChildView 'login', new LoginView
     @showChildView 'token', new TokenView
 
-
-
-    
-    
 export default MainView

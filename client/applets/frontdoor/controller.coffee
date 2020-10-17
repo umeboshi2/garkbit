@@ -1,31 +1,24 @@
-import path from 'path'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio, Model, Collection, history as bbhistory } from 'backbone'
+import tc from 'teacup'
 
-{ MainController } = require 'tbirds/controllers'
-{ login_form } = require 'tbirds/templates/forms'
+import { MainController } from 'tbirds/controllers'
 import SlideDownRegion from 'tbirds/regions/slidedown'
-import navigate_to_url from 'tbirds/util/navigate-to-url'
 import { BaseAppletLayout } from 'tbirds/views/layout'
-
-
-# require this for ResourceChannel
-require '../dbdocs/dbchannel'
-
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-DocChannel = Backbone.Radio.channel 'static-documents'
-ResourceChannel = Backbone.Radio.channel 'resources'
-SiteNavChannel = Backbone.Radio.channel 'site-nav'
-
-tc = require 'teacup'
 
 import LoginView from './loginview'
 import FrontDoorMainView from './views/docview'
 
+# require this for ResourceChannel
+# import '../dbdocs/dbchannel'
+
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
+SiteNavChannel = Radio.channel 'site-nav'
+
+
 urlRoot = "/assets/documents"
 
-class AssetDocument extends Backbone.Model
+class AssetDocument extends Model
   fetch: (options) ->
     options = options or {}
     options.dataType = 'text'
@@ -33,22 +26,20 @@ class AssetDocument extends Backbone.Model
   parse: (response) ->
     content: response
 
-class AssetCollection extends Backbone.Collection
+export class AssetCollection extends Collection
   urlRoot: urlRoot
 
 intro = 'intro'
 if __DEV__
   intro = 'intro-dev'
+
 class ReadMeModel extends AssetDocument
   url: "/assets/documents/#{intro}.md"
 
-frontdoor_template = tc.renderable () ->
-  #tc.div '#main-content.col-sm-10.col-sm-offset-1'
-  tc.div '.row', ->
-    tc.div '#main-content'
-
 class FrontdoorLayout extends BaseAppletLayout
-  template: frontdoor_template
+  template: tc.renderable ->
+    tc.div '.row', ->
+      tc.div '#main-content'
   regions: ->
     content: new SlideDownRegion
       el: '#main-content'
@@ -85,9 +76,9 @@ class Controller extends MainController
   showLogout: ->
     MainChannel.request 'main:app:destroy-auth-token'
     SiteNavChannel.request 'set-index-entries'
-    navigate_to_url '#'
+    bbhistory.navigate '#', trigger:true
     
-  frontdoor_hasuser: (user) ->
+  frontdoor_hasuser: ->
     @defaultView()
 
   view_readme: ->

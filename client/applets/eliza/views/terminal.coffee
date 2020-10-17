@@ -1,9 +1,4 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
-import tc from 'teacup'
-import marked from 'marked'
-import ToolbarView from 'tbirds/views/button-toolbar'
-import ElizaToolbar from './toolbar'
+import { View } from 'backbone.marionette'
 
 import { Terminal } from 'xterm'
 import { FitAddon } from 'xterm-addon-fit'
@@ -12,11 +7,6 @@ import './xterm.scss'
 import Worker from 'worker-loader!../worker'
 
 worker = new Worker()
-
-{ navigate_to_url } = require 'tbirds/util/navigate-to-url'
-
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'eliza'
 
 class MyTerminal extends Terminal
   prompt: ->
@@ -45,7 +35,7 @@ makeTerm = ->
       currentInput += key
   return term
 
-class TerminalView extends Marionette.View
+class TerminalView extends View
   template: false
   className: 'my-xterm'
   ui:

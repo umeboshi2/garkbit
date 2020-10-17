@@ -1,62 +1,52 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
-import marked from 'marked'
 import moment from 'moment'
 
-import navigate_to_url from 'tbirds/util/navigate-to-url'
 import TimeClock from '../timeclock-model'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'hourly'
+MessageChannel = Radio.channel 'messages'
 
-notAWorkerTemplate = tc.renderable (model) ->
-  tc.div '.row.listview-list-entry', ->
-    tc.text "You are not a worker."
-
-class NotAWorkerView extends Marionette.View
-  template: notAWorkerTemplate
-  
-statusTemplate = tc.renderable (model) ->
-  tc.div '.row.listview-list-entry', ->
-    tc.text "#{model.user.fullname} is a worker."
-  tc.div '.row.listview-list-entry.work-session'
-  clockOptions =
-    action: 'in'
-    btnClass: '.clock-btn.btn.btn-info.fa.fa-clock-o'
-  clockLabel = 'in'
-  if model.status is null
+class NotAWorkerView extends View
+  template: tc.renderable ->
     tc.div '.row.listview-list-entry', ->
-      tc.text "#{model.user.fullname} has never clocked in."
-  if model.status is 'on'
-    clockOptions.action = 'out'
-    clockOptions.btnClass = '.clock-btn.btn.btn-warning.fa.fa-clock-o'
-  tc.div '.row', ->
-    tc.button clockOptions.btnClass, ->
-      tc.text "Clock #{clockOptions.action}"
+      tc.text "You are not a worker."
 
-sessionTemplate = tc.renderable (model) ->
-  tc.div ->
-    session = model.session
-    status = model.worker.status
-    if status == 'off' and session.end
-      end = moment(session.end)
-      tc.text "Your last session ended #{end.fromNow()}"
-    else if status == 'on'
-      #start = new Date session.start
-      start = moment(session.start)
-      tc.text "You have been working since #{start.fromNow()}"
-
-class SessionView extends Marionette.View
-  template: sessionTemplate
+class SessionView extends View
+  template: tc.renderable (model) ->
+    tc.div ->
+      session = model.session
+      status = model.worker.status
+      if status == 'off' and session.end
+        end = moment(session.end)
+        tc.text "Your last session ended #{end.fromNow()}"
+      else if status == 'on'
+        start = moment(session.start)
+        tc.text "You have been working since #{start.fromNow()}"
   onSomething: ->
     worker_id = @model.get 'id'
     clock = new TimeClock
       worker_id: worker_id
-  
-class StatusView extends Marionette.View
-  template: statusTemplate
+    if __DEV__ and DEBUG
+      console.log "clock", clock
+
+class StatusView extends View
+  template: tc.renderable (model) ->
+    tc.div '.row.listview-list-entry', ->
+      tc.text "#{model.user.fullname} is a worker."
+    tc.div '.row.listview-list-entry.work-session'
+    clockOptions =
+      action: 'in'
+      btnClass: '.clock-btn.btn.btn-info.fa.fa-clock-o'
+    if model.status is null
+      tc.div '.row.listview-list-entry', ->
+        tc.text "#{model.user.fullname} has never clocked in."
+    if model.status is 'on'
+      clockOptions.action = 'out'
+      clockOptions.btnClass = '.clock-btn.btn.btn-warning.fa.fa-clock-o'
+    tc.div '.row', ->
+      tc.button clockOptions.btnClass, ->
+        tc.text "Clock #{clockOptions.action}"
   ui: ->
     clockBtn: '.clock-btn'
     workSessionRegion: '.work-session'
@@ -65,7 +55,6 @@ class StatusView extends Marionette.View
   events: ->
     'click @ui.clockBtn': 'punchClock'
   onRender: ->
-    worker = @model
     clock = new TimeClock
     response = clock.fetch()
     response.done =>
@@ -73,7 +62,6 @@ class StatusView extends Marionette.View
         model: clock
       @showChildView 'workSessionRegion', view
   punchClock: ->
-    worker = @model
     status = @model.get 'status'
     if status in ['off', null]
       @punchIn()
@@ -81,9 +69,7 @@ class StatusView extends Marionette.View
       @punchOut()
     else
       MessageChannel.request 'warning', "Bad worker status #{status}"
-
   punchIn: ->
-    worker_id = @model.get 'id'
     clock = new TimeClock
     # https://stackoverflow.com/a/24915961/1869821
     response = clock.save(null,
@@ -93,8 +79,6 @@ class StatusView extends Marionette.View
       @updateLocalStatus 'on'
     response.fail ->
       MessageChannel.request 'warning', response.responseJSON.code
-      
-
   punchOut: ->
     worker_id = @model.get 'id'
     clock = new TimeClock
@@ -106,16 +90,13 @@ class StatusView extends Marionette.View
         @updateLocalStatus 'off'
       presponse.fail ->
         MessageChannel.request 'warning', presponse.responseJSON.code
-
   updateLocalStatus: (status) ->
     @model.set 'status', status
     @render()
     
-viewTemplate = tc.renderable (model) ->
-  tc.div '.row.status'
-
-class MainView extends Marionette.View
-  template: viewTemplate
+class MainView extends View
+  template: tc.renderable ->
+    tc.div '.row.status'
   ui: ->
     status: '.status'
   regions:
@@ -135,5 +116,5 @@ class MainView extends Marionette.View
         model: @model
       @showChildView 'status', view
     
-module.exports = MainView
+export default MainView
 

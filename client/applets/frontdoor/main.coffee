@@ -1,10 +1,9 @@
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
 import TkApplet from 'tbirds/tkapplet'
 
 import Controller from './controller'
 
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'frontdoor'
+MainChannel = Radio.channel 'global'
 AppRouter = MainChannel.request 'main:app:IndexRouter'
 
 appletEntries = [
@@ -52,8 +51,6 @@ class Router extends AppRouter
     #FIXME
     'pages/:name': 'viewPage'
 
-
-    
 class Applet extends TkApplet
   Controller: Controller
   Router: Router
