@@ -8,14 +8,13 @@ import emoji from 'node-emoji'
 import navbarBrandTemplate from './navbar-brand-template'
 import UserMenuApp from './user-menu-view'
 
-
 class Layout extends MainPageLayout
   template: tc.renderable () ->
     tc.div '#modal'
     tc.div ".container-fluid", ->
       tc.div '#navbar-view-container'
       tc.div '.row.fixed-bottom', ->
-        tc.div '.col-md-5.offset-md-7', ->
+        tc.div '.col', ->
           tc.div '#messages'
       tc.div '#applet-content'
       tc.div '#footer'
