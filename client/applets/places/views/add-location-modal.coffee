@@ -1,18 +1,12 @@
 import $ from 'jquery'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
 import tc from 'teacup'
-import { modal_close_button } from 'tbirds/templates/buttons'
+
 import BootstrapFormView from 'tbirds/views/bsformview'
-
-
 import make_field_input_ui from 'tbirds/util/make-field-input-ui'
-import navigate_to_url from 'tbirds/util/navigate-to-url'
-
 { form_group_input_div } = require 'tbirds/templates/forms'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-SiteNavChannel = Backbone.Radio.channel 'site-nav'
+MainChannel = Radio.channel 'global'
 
 mapTemplate = tc.renderable (model) ->
   console.log "map model". model

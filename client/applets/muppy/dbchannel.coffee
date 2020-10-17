@@ -1,10 +1,8 @@
-_ = require 'underscore'
-Backbone = require 'backbone'
-moment = require 'moment'
-DbCollection = require('tbirds/dbcollection').default
+import { extend } from 'lodash'
+import { Radio } from 'backbone'
+import DbCollection from 'tbirds/dbcollection'
 
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'muppy'
+MainChannel = Radio.channel 'global'
 
 AuthModel = MainChannel.request 'main:app:AuthModel'
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
@@ -22,7 +20,7 @@ class ObjectSummaryCollection extends AuthCollection
   url: summaryRoot
   model: ObjectSummary
 
-dbsummary = new DbCollection _.extend defaultOptions,
+export dbsummary = new DbCollection extend defaultOptions,
   modelName: 'summary'
   modelClass: ObjectSummary
   collectionClass: ObjectSummaryCollection
@@ -36,7 +34,7 @@ class SummaryCollection extends AuthCollection
   url: diffRoot
 
 
-summdiff = new DbCollection _.extend defaultOptions,
+export sumdiff = new DbCollection extend defaultOptions,
   modelName: 'sumdiff'
   modelClass: SummaryDiff
   collectionClass: SummaryCollection

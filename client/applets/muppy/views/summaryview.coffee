@@ -1,21 +1,17 @@
 import $ from 'jquery'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
 import tc from 'teacup'
 
 import BootstrapFormView from 'tbirds/views/bsformview'
-import capitalize from 'tbirds/util/capitalize'
 import make_field_input_ui from 'tbirds/util/make-field-input-ui'
-import navigate_to_url from 'tbirds/util/navigate-to-url'
 
 import { form_group_input_div } from 'tbirds/templates/forms'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
+MessageChannel = Radio.channel 'messages'
 
 
-mksum_form = tc.renderable () ->
-  now = new(Date)
+mksum_form = tc.renderable ->
+  now = new Date
   form_group_input_div
     input_id: 'input_name'
     label: 'Summary Name'
@@ -43,10 +39,10 @@ class MakeSummaryView extends BootstrapFormView
     @model.set 'name', name
     
       
-  onSuccess: (model) ->
+  onSuccess: ->
     MessageChannel.request 'success', "saved summary"
     
-  onFailure: (model) ->
+  onFailure: ->
     @ui.submit.hide()
 
 export default MakeSummaryView

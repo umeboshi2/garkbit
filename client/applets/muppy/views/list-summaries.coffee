@@ -1,18 +1,15 @@
-$ = require 'jquery'
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
+import $ from 'jquery'
+import { Radio, history } from 'backbone'
+import { View } from 'backbone.marionette'
+import tc from 'teacup'
 
-navigate_to_url = require('tbirds/util/navigate-to-url').default
-require 'tbirds/regions/bsmodal'
+import 'tbirds/regions/bsmodal'
 { modal_close_button } = require 'tbirds/templates/buttons'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'muppy'
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
 
 AuthModel = MainChannel.request 'main:app:AuthModel'
-AuthCollection = MainChannel.request 'main:app:AuthCollection'
 
 ########################################
 BaseItemView = MainChannel.request 'crud:view:item'
@@ -49,13 +46,12 @@ modalTemplate = tc.renderable (model) ->
         tc.pre style:"font-size:.2rem;", model.output
       tc.div '.modal-footer', ->
         tc.ul '.list-inline', ->
-          btnclass = 'btn.btn-primary.btn-sm'
           tc.li "#confirm-delete-button", ->
             modal_close_button 'OK', 'check'
           tc.li "#cancel-delete-button", ->
             modal_close_button 'Cancel'
     
-class ShowDiffModal extends Marionette.View
+class ShowDiffModal extends View
   template: modalTemplate
   onDomRefresh: ->
     #$('#modal').modal('handleUpdate')
@@ -112,7 +108,7 @@ class ListView extends BaseListView
   childViewContainer: '#summary-container'
   item_type: 'summary'
   addSummaryClicked: ->
-    navigate_to_url '#muppy'
+    history.navigate '#muppy', trigger:true
   showDiffClicked: ->
     console.log "MARKEDMODELS", markedModels
     m1 = markedModels[0]
@@ -138,6 +134,4 @@ class ListView extends BaseListView
     modal_region.backdrop = backdrop
     modal_region.show view
   
-module.exports = ListView
-
-
+export default ListView

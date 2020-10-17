@@ -1,25 +1,20 @@
 import $ from 'jquery'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
-import marked from 'marked'
-
 
 import MakeSummaryView from './summaryview'
 
-import navigate_to_url from 'tbirds/util/navigate-to-url'
-
-AppChannel = Backbone.Radio.channel 'muppy'
-console.log "AppChannel", AppChannel
+AppChannel = Radio.channel 'muppy'
 
 
 view_template = tc.renderable (model) ->
   tc.div '.row.listview-list-entry', ->
-    tc.raw marked "# #{model.appName} started."
+    tc.h1 "#{model.appName} started."
   tc.div '.row', ->
     tc.div '.summary-container'
     
-class MainView extends Marionette.View
+class MainView extends View
   template: view_template
   templateContext:
     appName: 'muppy'

@@ -1,13 +1,10 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
+import { capitalize } from 'lodash'
 
-import objectifyCoordinates from 'tbirds/util/objectify-coordinates'
-import capitalize from 'tbirds/util/capitalize'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'places'
+MainChannel = Radio.channel 'global'
 
 detailListComponent = tc.renderable (model, field) ->
   tc.dl '.row', ->
@@ -15,7 +12,7 @@ detailListComponent = tc.renderable (model, field) ->
     tc.dd '.col', model[field]
 
 
-class StatusView extends Marionette.View
+class StatusView extends View
   template: tc.renderable (model) ->
     coords = model.coords
     tc.div '.card', ->
@@ -36,8 +33,8 @@ class StatusView extends Marionette.View
   addLocationBtnClicked: ->
     console.log "addLocationBtnClicked"
     require.ensure [], () =>
-      View = require("./add-location-modal").default
-      view = new View
+      ViewClass = require("./add-location-modal").default
+      view = new ViewClass
         model: @model
       MainChannel.request 'main:app:show-modal', view
 

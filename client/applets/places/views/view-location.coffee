@@ -1,21 +1,20 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
 import Leaflet from 'leaflet'
 
 import 'leaflet/dist/leaflet.css'
 
-import PaginateBar from 'tbirds/views/paginate-bar'
 import BaseListView from 'tbirds/views/list-view'
 import ConfirmDeleteModal from 'tbirds/views/confirm-delete-modal'
 
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'places'
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
+AppChannel = Radio.channel 'places'
 
 
-class ItemView extends Marionette.View
+class ItemView extends View
   template: tc.renderable (model) ->
     tc.span '.mr-auto', model.name
     tc.span '.ml-auto', ->
@@ -44,7 +43,7 @@ class ListView extends BaseListView
     'location:selected': 'location:selected'
     'location:delete': 'location:delete'
 
-class MapView extends Marionette.View
+class MapView extends View
   template: tc.renderable (model) ->
     tc.div '.card', style:'width: 18rem;', ->
       tc.div '.card-body', ->
@@ -84,13 +83,14 @@ class MapView extends Marionette.View
     name = @model.get('name')
     accuracy = @model.get('location').accuracy
     @ui.title.text "#{name}(#{accuracy})"
-    if false
+    condition = false
+    if condition
       id = @model.get('id')
       url = "#places/view/#{id}"
       MainChannel.request 'main:app:setLocationUrl', url
     
-class MainView extends Marionette.View
-  template: tc.renderable (model) ->
+class MainView extends View
+  template: tc.renderable ->
     #tc.div '.row', ->
     tc.div '.map-container.col'
     tc.div '.places-container.col'

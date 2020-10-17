@@ -1,15 +1,9 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
-import marked from 'marked'
 
 import BaseListView from 'tbirds/views/list-view'
-import PaginateBar from 'tbirds/views/paginate-bar'
 
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'places'
-
-class ItemView extends Marionette.View
+class ItemView extends View
   template: tc.renderable (model) ->
     tc.span '.mr-auto', ->
       tc.a href:"#places/view/#{model.id}", model.name
@@ -30,4 +24,3 @@ class ListView extends BaseListView
     paginateBar: '.paginate-bar'
 
 export default ListView
-

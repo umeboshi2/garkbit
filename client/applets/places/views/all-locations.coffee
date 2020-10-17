@@ -1,7 +1,6 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
-import ms from 'ms'
 import Leaflet from 'leaflet'
 import 'leaflet.icon.glyph'
 
@@ -10,27 +9,18 @@ import 'jquery-ui/themes/base/base.css'
 import 'jquery-ui/themes/base/core.css'
 import 'jquery-ui/themes/base/slider.css'
 import 'jquery-ui/themes/base/theme.css'
-#import 'jquery-ui/themes/base/all.css'
 
-import objectifyCoordinates from 'tbirds/util/objectify-coordinates'
-import StatusView from './current-location'
-import Timer from 'tiny-timer/dist/tiny-timer.js'
 import BaseMapView from 'tbirds/views/base-map'
 
-import {
-  ProgressView
-  ProgressModel
-  } from 'tbirds/views/progress'
-
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'places'
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
+AppChannel = Radio.channel 'places'
     
-class MainView extends Marionette.View
-  initialize: (options) ->
+class MainView extends View
+  initialize: ->
     @currentMarkers = @getOption('currentMarkers') or []
     @currentRadius = @getOption('currentRadius') or 0
-  template: tc.renderable (model) ->
+  template: tc.renderable ->
     tc.div '.listview-header', "All Locations"
     tc.div '.mb-2.radius-slider'
     tc.div '.radius-label'
@@ -59,12 +49,8 @@ class MainView extends Marionette.View
         @setRadius ui.value
         @ui.radiusLabel.text "(#{ui.value} meters)"
     @ui.radiusSlider.slider sliderOptions
-
-
     console.log "@ui.radiusSlider", @ui.radiusSlider
       
-    
-    
   onRender: ->
     console.log "onRender"
 
@@ -91,7 +77,6 @@ class MainView extends Marionette.View
     @addMarkers
       map:view.Map
       radius: @currentRadius
-      
     
   # need double arrow to use as callback
   locationSuccess: (position) =>
@@ -101,16 +86,9 @@ class MainView extends Marionette.View
     console.log "finish rendering map"
     @showMap()
     
-    
   # need double arrow to use as callback
   locationError: () ->
     MessageChannel.request 'warning', 'Unable to get current location.'
-
-
-  setMarkersOrig: (markers) ->
-    for marker in markers
-      do (marker) ->
-        null
 
   addMarkers: (options) ->
     locations = AppChannel.request 'db:userlocation:collection'
@@ -166,6 +144,5 @@ class MainView extends Marionette.View
       @setMarkers
         models: locations.models
         map: map
-
 
 export default MainView

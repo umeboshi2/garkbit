@@ -1,5 +1,5 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
 import ms from 'ms'
 import Leaflet from 'leaflet'
@@ -14,13 +14,12 @@ import {
   ProgressModel
   } from 'tbirds/views/progress'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'places'
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
+AppChannel = Radio.channel 'places'
     
-class MainView extends Marionette.View
-  template: tc.renderable (model) ->
-    #tc.div '.row.location-status', "Current Location: Unknown"
+class MainView extends View
+  template: tc.renderable ->
     tc.div '.row.main-map-container'
     tc.div '.row', ->
       tc.span ->
@@ -88,7 +87,6 @@ class MainView extends Marionette.View
   setLocation: (view) ->
     console.log "setLocation", view
     location = view.model.get 'location'
-    zoomLevel = 17
     coords = [location.latitude, location.longitude]
     accuracy = location.accuracy
     if accuracy > 10
@@ -119,7 +117,6 @@ class MainView extends Marionette.View
       @ui.locationBtn.show()
 
     duration = ms '11s'
-    valuemax = 100
     model.set 'valuemax', duration
     model.set 'valuenow', duration
     timer = new Timer
@@ -132,11 +129,6 @@ class MainView extends Marionette.View
     timer.start duration,
       interval: ms '.1s'
       
-    
-    
-    
-      
-    
   onAddLocationCancelled: ->
     @getRegion('locationStatus').empty()
     @ui.locationBtn.show()
