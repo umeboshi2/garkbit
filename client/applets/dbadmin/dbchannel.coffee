@@ -1,19 +1,9 @@
 import _ from 'underscore'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
 
-import DbCollection from 'tbirds/dbcollection'
-
-
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'dbadmin'
-
+MainChannel = Radio.channel 'global'
 AuthModel = MainChannel.request 'main:app:AuthModel'
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
-
-
-defaultOptions =
-  channelName: 'dbadmin'
 
 modelsRoot = '/api/dev/dbadmin/models'
 

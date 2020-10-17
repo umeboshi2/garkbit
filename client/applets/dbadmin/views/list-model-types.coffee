@@ -1,21 +1,14 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio, history as bbhistory } from 'backbone'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
 import FileSaver from 'file-saver'
 
-import navigate_to_url from 'tbirds/util/navigate-to-url'
 import BaseListView from 'tbirds/views/list-view'
-
 import createModelCollection from '../dbchannel'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'dbadmin'
+MessageChannel = Radio.channel 'messages'
 
-AuthModel = MainChannel.request 'main:app:AuthModel'
-AuthCollection = MainChannel.request 'main:app:AuthCollection'
-
-class ItemView extends Marionette.View
+class ItemView extends View
   template: tc.renderable (model) ->
     tc.span '.mr-auto', ->
       model.name
@@ -52,7 +45,7 @@ class ItemView extends Marionette.View
       
   listBtnClicked: ->
     modelType = @model.get 'name'
-    navigate_to_url "#dbadmin/models/#{modelType}"
+    bbhistory.navigate "#dbadmin/models/#{modelType}", trigger:true
 
 # FIXME this collection isn't paginated
 class ListView extends BaseListView

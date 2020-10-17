@@ -1,22 +1,16 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio, history as bbhistory } from 'backbone'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
 import FileSaver from 'file-saver'
 
-import navigate_to_url from 'tbirds/util/navigate-to-url'
-import BaseDropzoneView from 'tbirds/views/simple-file-input'
-
 import DropZoneView from './dropzone'
-
 import makeBlob from '../make-blob'
 
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'dbadmin'
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
 
 AuthModel = MainChannel.request 'main:app:AuthModel'
-AuthCollection = MainChannel.request 'main:app:AuthCollection'
 
 exportUrl = '/api/dev/dbadmin/export-models'
 deleteUrl = '/api/dev/dbadmin/delete-models'
@@ -27,8 +21,8 @@ class ExportModels extends AuthModel
 class DeleteAllModel extends AuthModel
   url: deleteUrl
 
-class MainView extends Marionette.View
-  template: tc.renderable (model) ->
+class MainView extends View
+  template: tc.renderable ->
     tc.div '.row.listview-header', ->
       tc.text 'Garkbit Dbadmin'
     tc.div '.row', ->
@@ -66,10 +60,8 @@ class MainView extends Marionette.View
     response = model.fetch()
     response.done ->
       MessageChannel.request 'success', model.get 'result'
-
   listBtnClicked: ->
-    navigate_to_url '#dbadmin/models'
-    
+    bbhistory.navigate '#dbadmin/models', trigger: true
   exportDatabase: ->
     @ui.statusMsg.text "Exporting database..."
     model = new ExportModels
@@ -80,9 +72,4 @@ class MainView extends Marionette.View
       MessageChannel.request 'success', "Exported database...."
       @ui.statusMsg.text "sha256: #{model.get('sha256sum')}"
       
-  IgnoreonDomRefresh: ->
-    @jsonView = new JView @model.toJSON()
-    @ui.jsonView.prepend @jsonView.dom
-
 export default MainView
-

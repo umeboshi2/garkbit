@@ -1,13 +1,8 @@
-import Marionette from 'backbone.marionette'
 import TkApplet from 'tbirds/tkapplet'
 import AdminRouter from '../../entries/adminrouter'
 
-
 import './dbchannel'
 import Controller from './controller'
-
-MainChannel = Backbone.Radio.channel 'global'
-ResourceChannel = Backbone.Radio.channel 'resources'
 
 toolbarEntries = [
   {
@@ -20,7 +15,7 @@ toolbarEntries = [
     url: '#dbdocs/documents/new'
     icon: '.fa.fa-plus'
   }
-  ]
+]
 
 
 class Router extends AdminRouter
@@ -38,5 +33,5 @@ class Applet extends TkApplet
     label: 'Site Doc Menu'
     menu: toolbarEntries
     ]
-    
+
 export default Applet

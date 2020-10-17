@@ -1,16 +1,16 @@
+import { Radio, Collection } from 'backbone'
 import { MainController } from 'tbirds/controllers'
 import ToolbarView from 'tbirds/views/button-toolbar'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-ResourceChannel = Backbone.Radio.channel 'resources'
-AppChannel = Backbone.Radio.channel 'dbdocs'
+MessageChannel = Radio.channel 'messages'
+ResourceChannel = Radio.channel 'resources'
+AppChannel = Radio.channel 'dbdocs'
 
 import { ToolbarAppletLayout } from 'tbirds/views/layout'
 
 toolbarEntries = []
 
-toolbarEntryCollection = new Backbone.Collection toolbarEntries
+toolbarEntryCollection = new Collection toolbarEntries
 AppChannel.reply 'get-toolbar-entries', ->
   toolbarEntryCollection
 
@@ -29,7 +29,7 @@ class Controller extends MainController
     @setupLayoutIfNeeded()
     console.log "List Pages"
     require.ensure [], () =>
-      ListView = require './views/pagelist'
+      ListView = require('./views/pagelist').default
       view = new ListView
         collection: @collection
       response = @collection.fetch()
@@ -48,16 +48,14 @@ class Controller extends MainController
       @_loadView EditPageView, model
     # name the chunk
     , 'dbdocs-view-edit-page'
-      
   view_page: (id) ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
-      PageView = require './views/pageview'
+      PageView = require('./views/pageview').default
       model = ResourceChannel.request 'db:document:get', id
       @_loadView PageView, model
     # name the chunk
     , 'dbdocs-view-doc-page'
-      
   new_page: () ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
@@ -66,7 +64,6 @@ class Controller extends MainController
       @layout.showChildView 'content', view
     # name the chunk
     , 'dbdocs-view-new-page'
-      
-      
+
 export default Controller
 

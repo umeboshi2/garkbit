@@ -1,15 +1,12 @@
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-marked = require 'marked'
 
-DefaultStaticDocumentTemplate = tc.renderable (doc) ->
-  tc.article '.document-view.content', ->
-    tc.div '.body', ->
-      tc.raw marked doc.content
+import { View } from 'backbone.marionette'
+import tc from 'teacup'
+import marked from 'marked'
 
+class MainView extends View
+  template: tc.renderable (model) ->
+    tc.article '.document-view.content', ->
+      tc.div '.body', ->
+        tc.raw marked model.content
 
-class FrontDoorMainView extends Marionette.View
-  template: DefaultStaticDocumentTemplate
-
-module.exports = FrontDoorMainView
+export default MainView

@@ -1,13 +1,10 @@
-import _ from 'underscore'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { extend } from 'lodash'
+import { Radio } from 'backbone'
 import DbCollection from 'tbirds/dbcollection'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
+MainChannel = Radio.channel 'global'
 
 apiRoot = "/api/dev/sitedocuments"
-
 AuthModel = MainChannel.request 'main:app:AuthModel'
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
 
@@ -20,7 +17,8 @@ class Document extends AuthModel
 class DocumentCollection extends AuthCollection
   url: apiRoot
   model: Document
-dbcfg = new DbCollection _.extend defaultOptions,
+
+export documents = new DbCollection extend defaultOptions,
   modelName: 'document'
   modelClass: Document
   collectionClass: DocumentCollection

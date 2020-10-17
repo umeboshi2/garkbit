@@ -1,18 +1,10 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { history as bbhistory } from 'backbone'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
 
-import navigate_to_url from 'tbirds/util/navigate-to-url'
 import BaseListView from 'tbirds/views/list-view'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'dbadmin'
-
-AuthModel = MainChannel.request 'main:app:AuthModel'
-AuthCollection = MainChannel.request 'main:app:AuthCollection'
-
-class ItemView extends Marionette.View
+class ItemView extends View
   template: tc.renderable (model) ->
     tc.span '.mr-auto', ->
       model.name
@@ -33,7 +25,7 @@ class ItemView extends Marionette.View
   exportBtnClicked: ->
     console.log 'exportBtnClicked'
   listBtnClicked: ->
-    navigate_to_url "#dbadmin/models"
+    bbhistory.navigate "#dbadmin/models", trigger:true
     
 class ListView extends BaseListView
   ItemView: ItemView

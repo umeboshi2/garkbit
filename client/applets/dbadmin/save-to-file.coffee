@@ -1,3 +1,6 @@
+import b64toBlob from 'b64-to-blob'
+import { hash, codec } from 'sjcl'
+
 export default (model) ->
   cksum = model.get 'sha256sum'
   content = model.get 'content'
@@ -14,8 +17,8 @@ export default (model) ->
   byteChars = atob content
   console.log "BLOB", blob
   console.log "size", blob.size, byteChars.length, content.length
-  hasher = sjcl.hash.sha256.hash
-  digester = sjcl.codec.hex.fromBits
+  hasher = hash.sha256.hash
+  digester = codec.hex.fromBits
   result = digester hasher byteChars
   console.log 'Result', result
   console.log "cksum", cksum
