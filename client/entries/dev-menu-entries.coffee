@@ -43,6 +43,10 @@ devMenu =
       needUser: true
       icon: '.fa.fa-wikipedia'
     },{
+      label: 'Eliza'
+      url: '#eliza'
+      icon: '.fa.fa-terminal.text-light.bg-dark'
+    },{
       label: 'Admin Panel'
       url: '#admin'
       needUser: true
