@@ -1,5 +1,5 @@
 import { Radio } from 'backbone'
-import { View as MnView, CollectionView } from 'backbone.marionette'
+import { View, CollectionView } from 'backbone.marionette'
 
 import BootstrapFormView from 'tbirds/views/bsformview'
 import navigate_to_url from 'tbirds/util/navigate-to-url'
@@ -12,7 +12,7 @@ MainChannel = Radio.channel 'global'
 MessageChannel = Radio.channel 'messages'
 
 
-class ConfirmDeleteModal extends MnView
+class ConfirmDeleteModal extends View
   #template: confirmDeleteTemplate
   ui:
     confirm_delete: '#confirm-delete-button'
@@ -29,7 +29,7 @@ class ConfirmDeleteModal extends MnView
     response.fail ->
       MessageChannel.request 'danger', "#{name} NOT deleted."
       
-class BaseItemView extends MnView
+class BaseItemView extends View
   tagName: 'li'
   className: ->
     "list-group-item #{@item_type}-item row"
@@ -63,7 +63,7 @@ class BaseItemView extends MnView
     @_show_modal view, true
     
 
-class BaseListView extends MnView
+class BaseListView extends View
   regions: ->
     itemList: "##{@item_type}-container"
   ui: ->
