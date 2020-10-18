@@ -1,30 +1,24 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View, CollectionView } from 'backbone.marionette'
 import tc from 'teacup'
-import marked from 'marked'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'company'
+MessageChannel = Radio.channel 'messages'
+AppChannel = Radio.channel 'company'
 
-itemTemplate = tc.renderable (model) ->
-  itemButton = '.btn.btn-secondary.btn-sm'
-  tc.span '.mr-auto', ->
-    model.username
-  tc.span '.ml-auto.btn-group.pull-right', ->
-    tc.button ".add-item.#{itemButton}.btn-info.fa.fa-plus"
-    
-class ItemView extends Marionette.View
-  template: itemTemplate
+class ItemView extends View
+  template: tc.renderable (model) ->
+    itemButton = '.btn.btn-secondary.btn-sm'
+    tc.span '.mr-auto', ->
+      model.username
+    tc.span '.ml-auto.btn-group.pull-right', ->
+      tc.button ".add-item.#{itemButton}.btn-info.fa.fa-plus"
   tagName: 'li'
   className: ->
     "list-group-item #{@item_type}-item row"
   ui: ->
     addItem: '.add-item'
-    
   events: ->
     'click @ui.addItem': 'addItem'
-
   addItem: ->
     company_id = @getOption 'company_id'
     Model = AppChannel.request 'db:worker:modelClass'
@@ -39,7 +33,6 @@ class ItemView extends Marionette.View
       collection = @model.collection
       console.log "collection is ", collection
       console.log 'model is ', @model
-      
       console.log "this is", @
       collection.fetch
         data:
@@ -47,18 +40,15 @@ class ItemView extends Marionette.View
     response.fail ->
       MessageChannel.request 'xhr-error', response
 
-listTemplate = tc.renderable ->
-  tc.div '.pworkers-container.list-group'
-
-
-class ListView extends Marionette.View
-  template: listTemplate
+class ListView extends View
+  template: tc.renderable ->
+    tc.div '.pworkers-container.list-group'
   ui: ->
     itemList: '.pworkers-container'
   regions: ->
     itemList: '@ui.itemList'
   onRender: ->
-    view = new Marionette.CollectionView
+    view = new CollectionView
       tagName: 'ul'
       className: 'list-group'
       collection: @collection

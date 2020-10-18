@@ -1,11 +1,11 @@
-import _ from 'underscore'
-import Backbone from 'backbone'
+import { Radio } from 'backbone'
+import  { extend } from 'lodash'
 import { DateTime } from 'luxon'
 import randomChoice from 'tbirds/util/random-choice'
 
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
 
 AuthCollection = MainChannel.request 'main:app:AuthCollection'
 
@@ -29,15 +29,15 @@ assignColor = (uid) ->
     
 
 export default (options) ->
-  fetchInfo = options.fetchInfo
-  successCallback = options.successCallback
-  failureCallback = options.failureCallback
+  #fetchInfo = options.fetchInfo
+  #successCallback = options.successCallback
+  #failureCallback = options.failureCallback
   fetchData = options.fetchData or {}
   console.log "fetchData", fetchData
   return (fetchInfo, successCallback, failureCallback) ->
     console.log "fetchInfo", fetchInfo
     events = new EventCollection
-    data = _.extend fetchData,
+    data = extend fetchData,
       start: fetchInfo.startStr
       end: fetchInfo.endStr
       limit: 9999
@@ -51,7 +51,7 @@ export default (options) ->
       console.log "events", events
       calendarEvents = []
       events.forEach (event) ->
-        timeZone = 'UTC'
+        #timeZone = 'UTC'
         start = DateTime.fromISO event.get('start'), zone: 'UTC'
         end = DateTime.fromISO event.get('end'), zone: 'UTC'
         model =
@@ -66,4 +66,3 @@ export default (options) ->
     response.fail ->
       failureCallback response
       MessageChannel.request 'xhr-error', response
-  return response

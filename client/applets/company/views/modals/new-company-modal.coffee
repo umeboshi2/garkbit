@@ -1,46 +1,12 @@
-import $ from 'jquery'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
 import tc from 'teacup'
-import { modal_close_button } from 'tbirds/templates/buttons'
 import BootstrapFormView from 'tbirds/views/bsformview'
-
-
 import make_field_input_ui from 'tbirds/util/make-field-input-ui'
-import navigate_to_url from 'tbirds/util/navigate-to-url'
 
 { form_group_input_div } = require 'tbirds/templates/forms'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-SiteNavChannel = Backbone.Radio.channel 'site-nav'
+MainChannel = Radio.channel 'global'
 
-companyTemplate = tc.renderable (model) ->
-  tc.div '.modal-dialog.modal-md', ->
-    tc.div '.modal-content', ->
-      tc.h3 "Please create a Company"
-      tc.div '.modal-body', ->
-        form_group_input_div
-          input_id: 'input_name'
-          label: 'Name'
-          input_attributes:
-            name: 'name'
-            value: 'Please insert a name'
-        form_group_input_div
-          input_id: 'input_description'
-          label: 'Description'
-          input_attributes:
-            name: 'description'
-            value: 'Please provide a brief description.'
-        tc.div '.spinner.fa.fa-spinner.fa-spin'
-      tc.div '.modal-footer', ->
-        tc.button '.btn.btn-warning.fa.fa-close.mr-auto',
-        data:dismiss:'modal', "Cancel"
-        
-        #tc.input '.btn.btn-primary.login-btn', type:'submit',
-        #data:dismiss:'modal', value:'login'
-        tc.input '.btn.btn-primary.ml-auto.login-btn',
-        type:'submit', value:'Submit'
-        
 class BaseView extends BootstrapFormView
   ui: ->
     uiobject = make_field_input_ui @getOption 'fieldList'
@@ -53,9 +19,33 @@ class BaseView extends BootstrapFormView
     region = layout.getRegion 'modal'
     region.empty()
     
-
 class MainModal extends BaseView
-  template: bossTemplate
+  template: tc.renderable ->
+    tc.div '.modal-dialog.modal-md', ->
+      tc.div '.modal-content', ->
+        tc.h3 "Please create a Company"
+        tc.div '.modal-body', ->
+          form_group_input_div
+            input_id: 'input_name'
+            label: 'Name'
+            input_attributes:
+              name: 'name'
+              value: 'Please insert a name'
+          form_group_input_div
+            input_id: 'input_description'
+            label: 'Description'
+            input_attributes:
+              name: 'description'
+              value: 'Please provide a brief description.'
+          tc.div '.spinner.fa.fa-spinner.fa-spin'
+        tc.div '.modal-footer', ->
+          tc.button '.btn.btn-warning.fa.fa-close.mr-auto',
+          data:dismiss:'modal', "Cancel"
+        
+          #tc.input '.btn.btn-primary.login-btn', type:'submit',
+          #data:dismiss:'modal', value:'login'
+          tc.input '.btn.btn-primary.ml-auto.login-btn',
+          type:'submit', value:'Submit'
   templateContext: ->
     namePlaceholder: MainChannel.request('main:app:decode-auth-token').name
   fieldList: ['name']
@@ -77,7 +67,5 @@ class MainModal extends BaseView
     console.log 'applet', applet
     controller = applet.getController()
     controller.addBoss()
-    
-
 
 export default MainModal

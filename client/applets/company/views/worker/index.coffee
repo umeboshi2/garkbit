@@ -1,77 +1,63 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
-import marked from 'marked'
 import moment from 'moment'
 import 'daterangepicker'
 import 'daterangepicker/daterangepicker.css'
 
 import BaseCalendarView from 'tbirds/views/base-calendar'
-
-import navigate_to_url from 'tbirds/util/navigate-to-url'
-
 import ClockButton from './clock-button'
 import makeGetEvents from '../../fetch-events'
 
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'company'
-
+AppChannel = Radio.channel 'company'
 TimeClock = AppChannel.request 'TimeClock'
 
+class NotAWorkerView extends View
+  template: tc.renderable ->
+    tc.div '.row.listview-list-entry', ->
+      tc.text "You are not a worker."
 
-notAWorkerTemplate = tc.renderable (model) ->
-  tc.div '.row.listview-list-entry', ->
-    tc.text "You are not a worker."
-
-class NotAWorkerView extends Marionette.View
-  template: notAWorkerTemplate
-  
-sessionTemplate = tc.renderable (model) ->
-  tc.div ->
-    session = model.session
-    status = model.worker.status
-    if session
-      if status == 'off' and session.end
-        end = moment.utc(session.end)
-        tc.text "Your last session ended #{end.fromNow()}"
-      else if status == 'on'
-        start = moment.utc(session.start)
-        tc.text "You have been working since #{start.fromNow()}"
-    else
-      tc.text "You have never clocked in."
-      
-class SessionView extends Marionette.View
-  template: sessionTemplate
+class SessionView extends View
+  template: tc.renderable (model) ->
+    tc.div ->
+      session = model.session
+      status = model.worker.status
+      if session
+        if status == 'off' and session.end
+          end = moment.utc(session.end)
+          tc.text "Your last session ended #{end.fromNow()}"
+        else if status == 'on'
+          start = moment.utc(session.start)
+          tc.text "You have been working since #{start.fromNow()}"
+      else
+        tc.text "You have never clocked in."
   onSomething: ->
     worker_id = @model.get 'id'
     clock = new TimeClock
       worker_id: worker_id
-
-statusTemplate = tc.renderable (model) ->
-  clockOptions =
-    action: 'in'
-    btnClass: '.clock-btn.btn.btn-info.fa.fa-clock-o'
-  clockLabel = 'in'
-  if model.status is 'on'
-    clockOptions.action = 'out'
-    clockOptions.btnClass = '.clock-btn.btn.btn-warning.fa.fa-clock-o'
-  tc.div '.row', ->
-    tc.div '.col.work-session'
-  tc.div '.btn-group', ->
-    #tc.button clockOptions.btnClass, ->
-    #  tc.text "Clock #{clockOptions.action}"
-    tc.div '.clock-btn-container'
-    tc.button ".month-btn.btn.btn-success.fa.fa-calendar", "Month"
-    tc.button ".week-btn.btn.btn-success.fa.fa-calendar", "Week"
-    tc.button ".day-btn.btn.btn-success.fa.fa-calendar", "Day"
-  tc.div '.row.calendar'
-  tc.input '.datepick'
-    
-
-class StatusView extends Marionette.View
-  template: statusTemplate
+    if __DEV__ and DEBUG
+      console.log "clock", clock
+      
+class StatusView extends View
+  template: tc.renderable (model) ->
+    clockOptions =
+      action: 'in'
+      btnClass: '.clock-btn.btn.btn-info.fa.fa-clock-o'
+    if model.status is 'on'
+      clockOptions.action = 'out'
+      clockOptions.btnClass = '.clock-btn.btn.btn-warning.fa.fa-clock-o'
+    tc.div '.row', ->
+      tc.div '.col.work-session'
+    tc.div '.btn-group', ->
+      #tc.button clockOptions.btnClass, ->
+      #  tc.text "Clock #{clockOptions.action}"
+      tc.div '.clock-btn-container'
+      tc.button ".month-btn.btn.btn-success.fa.fa-calendar", "Month"
+      tc.button ".week-btn.btn.btn-success.fa.fa-calendar", "Week"
+      tc.button ".day-btn.btn.btn-success.fa.fa-calendar", "Day"
+    tc.div '.row.calendar'
+    tc.input '.datepick'
   ui: ->
     monthBtn: '.month-btn'
     weekBtn: '.week-btn'
@@ -90,9 +76,7 @@ class StatusView extends Marionette.View
     'click @ui.dayBtn': 'dayBtnClicked'
   childViewEvents:
     'worker:status:change': 'render'
-    
   onRender: ->
-    worker = @model
     clock = new TimeClock
     response = clock.fetch()
     response.done =>
@@ -148,8 +132,8 @@ class StatusView extends Marionette.View
     view = new BaseCalendarView options
     @showChildView 'calendarRegion', view
     
-class MainView extends Marionette.View
-  template: tc.renderable (model) ->
+class MainView extends View
+  template: tc.renderable ->
     tc.div '.row.status'
   ui: ->
     status: '.status'

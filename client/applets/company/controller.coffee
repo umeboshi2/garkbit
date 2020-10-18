@@ -1,20 +1,13 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
-import tc from 'teacup'
-import ms from 'ms'
-
-import ToolbarView from 'tbirds/views/button-toolbar'
+import { Radio } from 'backbone'
 import { MainController } from 'tbirds/controllers'
 import { ToolbarAppletLayout } from 'tbirds/views/layout'
-import navigate_to_url from 'tbirds/util/navigate-to-url'
-import scroll_top_fast from 'tbirds/util/scroll-top-fast'
 
 import './dbchannel'
 
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'company'
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
+AppChannel = Radio.channel 'company'
 
 class Controller extends MainController
   channelName: 'company'
@@ -78,7 +71,7 @@ class Controller extends MainController
     # name the chunk
     , 'company-view-view-company'
 
-  workerIndex: (id) ->
+  workerIndex: ->
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       View = require('./views/worker').default
@@ -103,7 +96,7 @@ class Controller extends MainController
     @setupLayoutIfNeeded()
     require.ensure [], () =>
       View = require('./views/view-work-session').default
-      token = MainChannel.request 'main:app:decode-auth-token'
+      # token = MainChannel.request 'main:app:decode-auth-token'
       session = AppChannel.request 'db:worksession:get', id
       response = session.fetch()
       response.fail ->

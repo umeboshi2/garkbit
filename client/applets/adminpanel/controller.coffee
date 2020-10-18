@@ -1,22 +1,20 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio, Model } from 'backbone'
+import { View } from 'backbone.marionette'
 
 import { MainController } from 'tbirds/controllers'
-import { login_form } from 'tbirds/templates/forms'
 import SlideDownRegion from 'tbirds/regions/slidedown'
 import navigate_to_url from 'tbirds/util/navigate-to-url'
 
 # require this for ResourceChannel
 import '../dbdocs/dbchannel'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-DocChannel = Backbone.Radio.channel 'static-documents'
-ResourceChannel = Backbone.Radio.channel 'resources'
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
+ResourceChannel = Radio.channel 'resources'
 
 tc = require 'teacup'
 
-class ReadMeModel extends Backbone.Model
+class ReadMeModel extends Model
   url: '/assets/documents/intro-admin.md'
   fetch: (options) ->
     options = options or {}
@@ -30,7 +28,7 @@ frontdoor_template = tc.renderable () ->
   tc.div '.row', ->
     tc.div '#main-content'
   
-class FrontdoorLayout extends Marionette.View
+class FrontdoorLayout extends View
   template: frontdoor_template
   regions: ->
     content: new SlideDownRegion
@@ -60,7 +58,7 @@ class Controller extends MainController
     
   _view_upload: ->
     require.ensure [], () =>
-      UploadView = require './uploadview'
+      UploadView = require('./uploadview').default
       view = new UploadView
       @layout.showChildView 'content', view
     # name the chunk
@@ -133,8 +131,8 @@ class Controller extends MainController
     
   viewHubby: ->
     @setupLayoutIfNeeded()
-    View = require './hubbyview'
-    view = new View
+    HView = require './hubbyview'
+    view = new HView
     @layout.showChildView 'content', view
     
 export default Controller

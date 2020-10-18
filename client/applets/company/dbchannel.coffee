@@ -1,11 +1,14 @@
-import _ from 'underscore'
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import  { extend } from 'lodash'
+import { Radio } from 'backbone'
 import DbCollection from 'tbirds/dbcollection'
 import Validation from 'backbone.validation'
 
-MainChannel = Backbone.Radio.channel 'global'
-AppChannel = Backbone.Radio.channel 'company'
+if __DEV__ and DEBUG
+  console.log "Validation", Validation
+  
+
+MainChannel = Radio.channel 'global'
+AppChannel = Radio.channel 'company'
 
 apiRoot = "/api/dev/company"
 
@@ -28,7 +31,7 @@ class Boss extends AuthModel
 class BossCollection extends AuthCollection
   model: Boss
   url: bossUrl
-dbcfg.boss = new DbCollection _.extend defaultOptions,
+dbcfg.boss = new DbCollection extend defaultOptions,
   modelName: 'boss'
   modelClass: Boss
   collectionClass: BossCollection
@@ -44,7 +47,7 @@ class Company extends AuthModel
 class CompanyCollection extends AuthCollection
   model: Company
   url: companyUrl
-dbcfg.company = new DbCollection _.extend defaultOptions,
+dbcfg.company = new DbCollection extend defaultOptions,
   modelName: 'company'
   modelClass: Company
   collectionClass: CompanyCollection
@@ -56,7 +59,7 @@ class Worker extends AuthModel
 class WorkerCollection extends AuthCollection
   model: Worker
   url: workerUrl
-dbcfg = new DbCollection _.extend defaultOptions,
+dbcfg.worker = new DbCollection extend defaultOptions,
   modelName: 'worker'
   modelClass: Worker
   collectionClass: WorkerCollection
@@ -68,7 +71,7 @@ class WorkSession extends AuthModel
 class WorkSessionCollection extends AuthCollection
   model: WorkSession
   url: workSessionUrl
-dbcfg = new DbCollection _.extend defaultOptions,
+dbcfg.workSession = new DbCollection extend defaultOptions,
   modelName: 'worksession'
   modelClass: WorkSession
   collectionClass: WorkSessionCollection

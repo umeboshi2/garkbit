@@ -1,14 +1,9 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
-import marked from 'marked'
-import moment from 'moment'
 
-import navigate_to_url from 'tbirds/util/navigate-to-url'
-
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'company'
+MessageChannel = Radio.channel 'messages'
+AppChannel = Radio.channel 'company'
 
 TimeClock = AppChannel.request 'TimeClock'
 
@@ -16,7 +11,7 @@ statusActionMap =
   'on':'out'
   'off':'in'
   
-class ClockButton extends Marionette.View
+class ClockButton extends View
   tagName: 'button'
   className: 'btn btn-info fa fa-clock-o'
   templateContext: ->
@@ -32,9 +27,7 @@ class ClockButton extends Marionette.View
     else
       @$el.removeClass 'btn-warning'
       @$el.addClass 'btn-info'
-      
   punchClock: ->
-    worker = @model
     status = @model.get 'status'
     if status in ['off', null]
       @punchIn()
@@ -42,9 +35,7 @@ class ClockButton extends Marionette.View
       @punchOut()
     else
       MessageChannel.request 'danger', "Bad worker status #{status}"
-
   punchIn: ->
-    worker_id = @model.get 'id'
     clock = new TimeClock
     # https://stackoverflow.com/a/24915961/1869821
     response = clock.save(null,

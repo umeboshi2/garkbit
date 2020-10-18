@@ -1,15 +1,12 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
 
 import ListView from 'tbirds/views/list-view'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'company'
-
+MessageChannel = Radio.channel 'messages'
     
-class WorkerItemView extends Marionette.View
+class WorkerItemView extends View
   template: tc.renderable (model) ->
     status = model.status
     if status == 'off'
@@ -43,4 +40,3 @@ class WorkerListView extends ListView
       MessageChannel.request 'xhr-error', response
     
 export default WorkerListView
-

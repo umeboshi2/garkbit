@@ -1,10 +1,13 @@
-$= require 'jquery'
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-marked = require 'marked'
+import $ from 'jquery'
+import { Radio } from 'backbone'
+import { View } from 'backbone.marionette'
+import tc from 'teacup'
+import marked from 'marked'
 
-MainChannel = Backbone.Radio.channel 'global'
+MainChannel = Radio.channel 'global'
+
+console.warn "This needs to be updated or removed"
+
 
 DefaultStaticDocumentTemplate = tc.renderable (doc) ->
   tc.article '.document-view.content', ->
@@ -14,7 +17,7 @@ DefaultStaticDocumentTemplate = tc.renderable (doc) ->
 THEMES = ['vanilla', 'cornsilk', 'BlanchedAlmond', 'DarkSeaGreen',
   'LavenderBlush']
   
-class ThemeSwitchView extends Marionette.View
+export class ThemeSwitchView extends View
   ui:
     stylesheet: '#main-stylesheet'
     theme: '.theme'
@@ -22,7 +25,7 @@ class ThemeSwitchView extends Marionette.View
     'click @ui.theme': 'switch_theme'
   templateContext: ->
     ui: @ui
-  template: tc.renderable (model) ->
+  template: tc.renderable ->
     tc.div ->
       THEMES.forEach (theme) ->
         tc.div ".theme.btn.btn-primary", theme
@@ -35,10 +38,5 @@ class ThemeSwitchView extends Marionette.View
     MainChannel.request 'main:app:set-theme', theme
     MainChannel.request 'main:app:switch-theme', theme
     
-class FrontDoorMainView extends Marionette.View
+export class FrontDoorMainView extends View
   template: DefaultStaticDocumentTemplate
-
-module.exports =
-  FrontDoorMainView: FrontDoorMainView
-  ThemeSwitchView: ThemeSwitchView
-  

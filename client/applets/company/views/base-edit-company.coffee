@@ -1,23 +1,16 @@
-import _ from 'underscore'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { extend } from 'lodash'
 import tc from 'teacup'
-import { modal_close_button } from 'tbirds/templates/buttons'
 import BootstrapFormView from 'tbirds/views/bsformview'
 
 
 import make_field_input_ui from 'tbirds/util/make-field-input-ui'
-import navigate_to_url from 'tbirds/util/navigate-to-url'
-
 { form_group_input_div } = require 'tbirds/templates/forms'
 import {
-  make_field_input
   make_field_textarea } from 'tbirds/templates/forms'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'company'
-
-SiteNavChannel = Backbone.Radio.channel 'site-nav'
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
 
 class BaseEditor extends BootstrapFormView
   fieldList: ['name']
@@ -35,14 +28,12 @@ class BaseEditor extends BootstrapFormView
         placeholder: 'Enter a name'
         'data-validation': 'name'
       invalidFeedback: "A name is needed."
-    #make_field_input('name')(model)
     make_field_textarea('description')(model)
     tc.input '.btn.btn-primary', type:'submit', value:"Submit"
     tc.div '.spinner.fa.fa-spinner.fa-spin'
-
   ui: ->
     uiobject = make_field_input_ui @fieldList
-    _.extend uiobject, {'description': 'textarea[name="description"]'}
+    extend uiobject, {'description': 'textarea[name="description"]'}
     return uiobject
   
   updateModel: ->

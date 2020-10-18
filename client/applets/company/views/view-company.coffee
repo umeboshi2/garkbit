@@ -1,21 +1,14 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
+import { Radio } from 'backbone'
+import { View } from 'backbone.marionette'
 import tc from 'teacup'
-import marked from 'marked'
-
-import navigate_to_url from 'tbirds/util/navigate-to-url'
 
 import WorkerListView from './current-workers'
 
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
+AppChannel = Radio.channel 'company'
 
-
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'company'
-
-
-
-class MainView extends Marionette.View
+class MainView extends View
   template: tc.renderable (model) ->
     tc.div '.listview-header', model.name
     tc.div model.description
@@ -68,8 +61,6 @@ class MainView extends Marionette.View
         @ui.potentialBtn.show()
     response.fail ->
       MessageChannel.request 'xhr-error', response
-
-    
   potentialBtnClicked: ->
     require.ensure [], () =>
       PotentialWorkersModal = require('./modals/potential-workers').default
@@ -78,7 +69,6 @@ class MainView extends Marionette.View
       MainChannel.request 'main:app:show-modal', view
     # name the chunk
     , 'company-potential-workers-child-view'
-    
   calendarBtnClicked: ->
     console.log 'calendarBtnClicked'
     require.ensure [], () =>

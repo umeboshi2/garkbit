@@ -1,17 +1,11 @@
-import _ from 'underscore'
-import Marionette from 'backbone.marionette'
-import tc from 'teacup'
-
+import { Radio } from 'backbone'
 import BaseEditor from './base-edit-company'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-AppChannel = Backbone.Radio.channel 'company'
+AppChannel = Radio.channel 'company'
 
 class NewCompanyView extends BaseEditor
   createModel: ->
     AppChannel.request 'db:company:new'
-
   saveModel: ->
     collection = AppChannel.request 'db:company:collection'
     collection.add @model

@@ -1,36 +1,28 @@
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
+import { Radio } from 'backbone'
+import { View } from 'backbone.marionette'
+import tc from 'teacup'
 
-fileinput = require 'bootstrap-fileinput'
-require 'bootstrap-fileinput/css/fileinput.css'
+import 'bootstrap-fileinput'
+import 'bootstrap-fileinput/css/fileinput.css'
 
 
-MainChannel = Backbone.Radio.channel 'global'
-
-DefaultStaticDocumentTemplate = tc.renderable (doc) ->
-  
+MainChannel = Radio.channel 'global'
 apiroot = '/api/dev/misc'
 
 
-class UploadMainView extends Marionette.View
+class UploadMainView extends View
   template: tc.renderable ->
     tc.article '.document-view.content', ->
       tc.div '.body', ->
         "Hello there"
     tc.div '.file-div', ->
       tc.input '.fileinput', name:'zathras', type:'file'
-
   ui:
     fileinput: '.fileinput'
-    
   onDomRefresh: () ->
-    fi = @ui.fileinput.fileinput
+    @ui.fileinput.fileinput
       uploadUrl: "#{apiroot}/upload-photos"
       ajaxSettings:
         beforeSend: MainChannel.request 'main:app:authBeforeSend'
         
-    
-    
-
-module.exports = UploadMainView
+export default UploadMainView
