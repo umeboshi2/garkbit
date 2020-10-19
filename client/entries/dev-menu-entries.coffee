@@ -47,6 +47,10 @@ devMenu =
       url: '#eliza'
       icon: '.fa.fa-terminal.text-light.bg-dark'
     },{
+      label: 'Terminal'
+      url: '#terminal'
+      icon: '.fa.fa-terminal.text-light.bg-dark'
+    },{
       label: 'Admin Panel'
       url: '#admin'
       needUser: true

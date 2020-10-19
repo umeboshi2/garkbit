@@ -1,17 +1,14 @@
 import { Radio } from 'backbone'
 import { View } from 'backbone.marionette'
 import tc from 'teacup'
-import marked from 'marked'
-import ElizaToolbar from './toolbar'
 
 import TerminalView from './terminal'
-import Intro from "raw-loader!../intro.md"
+import ToolBar from './toolbar'
 
-MessageChannel = Radio.channel 'messages'
 
 class MainView extends View
   template: tc.renderable ->
-    tc.div '.row.listview-header.justify-content-center', 'ELIZA Terminal'
+    tc.div '.row.listview-header.justify-content-center', 'Terminal'
     tc.div '.row.intro'
     tc.div '.row.justify-content-center', ->
       tc.div '.terminal-container.col-md-10'
@@ -27,12 +24,8 @@ class MainView extends View
     terminal: '@ui.terminal'
     intro: '@ui.intro'
   onRender: ->
-    view = new ElizaToolbar
+    view = new ToolBar
     @showChildView 'toolbar', view
-    iview = new View
-      template: tc.renderable ->
-        tc.raw marked Intro
-    @showChildView 'intro', iview
   childViewEvents:
     'toolbar:entry:clicked': 'toolbarClicked'
   toolbarClicked: (child) ->
@@ -53,5 +46,5 @@ class MainView extends View
     if view
       view.terminal.dispose()
       view.destroy()
-    
+
 export default MainView
