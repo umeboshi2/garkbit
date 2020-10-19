@@ -12,13 +12,17 @@ import './base'
 import '../indexrouter'
 import './site-nav'
 
+import commonSchema from 'common/dbschema'
 import bumblrSchema from '../applets/bumblr/dbschema'
 import tvmazeSchema from '../applets/tvmaze/dbschema'
+import pmcSchema from '../applets/pmc/dbschema'
+
 # these are in ../oldapplets
 # import ebcsvSchema from '../applets/ebcsv/dbschema'
 # import mslegSchema from '../applets/msleg/dbschema'
 
 import MainAppConfig from './base-config'
+import indexModels from 'common/index-models'
 
 setupAuthModels MainAppConfig
 
@@ -57,6 +61,8 @@ schemas =
   # msleg: mslegSchema
   bumblr: bumblrSchema
   tvmaze: tvmazeSchema
+  common: commonSchema
+  pmc: pmcSchema
   
 dbConns = {}
 
@@ -65,6 +71,11 @@ promises = Object.keys(schemas).map (key, index, array) ->
     dbConns[key] = db
     if __DEV__ and DEBUG
       console.log "Connected to #{key} database."
+# Add fetching index models to app startup
+for name of indexModels
+  response = indexModels[name].fetch()
+  promises.push response
+  
 Promise.all(promises).then ->
   app.dbConn = dbConns
   TH.startUserApp app, MainAppConfig

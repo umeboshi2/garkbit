@@ -21,7 +21,7 @@ class Controller extends MainController
     require.ensure [], () =>
       View = require('./views/otrr-list').default
       view = new View
-      @layout.showChialdView 'content', view
+      @layout.showChildView 'content', view
       @scrollTop()
     # name the chunk
     , 'netark-view-otrr-list'

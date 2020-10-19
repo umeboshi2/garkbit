@@ -2,7 +2,15 @@ devMenu =
   id: 'dev-menu'
   label: 'Development Applets'
   menu: [
-    {
+    { 
+      label: "Events"
+      url: "#crown/events"
+      icon: '.fa.fa-calendar'
+    },{
+      label: "PMC"
+      url: "#pmc"
+      icon: '.fa.fa-book'
+    },{
       label: 'Places'
       url: '#places'
       needUser: true

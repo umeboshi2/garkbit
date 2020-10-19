@@ -36,7 +36,7 @@ MainChannel.reply 'main:app:get-pagesize', ->
   localStorage.getItem 'page-size'
 
 import '../crud'
-import '../static-documents'
+import 'common/static-documents'
 
 MainChannel.reply 'export-to-file', (options) ->
   exportToFile options

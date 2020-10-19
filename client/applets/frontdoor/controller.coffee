@@ -8,14 +8,29 @@ import { BaseAppletLayout } from 'tbirds/views/layout'
 import LoginView from './loginview'
 import FrontDoorMainView from './views/docview'
 
+import { ConfigObjectModel, initTopicColors } from 'common/site-config-model'
+import { updateTopicColors } from 'common/site-config-model'
+import EventManager from 'common/event-manager'
+
 # require this for ResourceChannel
 # import '../dbdocs/dbchannel'
 
 MainChannel = Radio.channel 'global'
 MessageChannel = Radio.channel 'messages'
 SiteNavChannel = Radio.channel 'site-nav'
+AppChannel = Radio.channel 'frontdoor'
 
 
+eventManager = new EventManager
+AppChannel.reply 'get-event-manager', ->
+  return eventManager
+
+topicColors = new ConfigObjectModel
+topicColors.fetch().then ->
+  MainChannel.reply 'get-topic-colors', ->
+    return topicColors
+  updateTopicColors()
+  
 urlRoot = "/assets/documents"
 
 class AssetDocument extends Model
