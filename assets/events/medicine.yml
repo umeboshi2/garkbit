@@ -1,0 +1,1557 @@
+category: medicine
+events:
+  - start: 2020-01-21
+    type: paper
+    topics:
+      - general-covid
+    title: "Notes from the Field: A Novel Coronavirus Genome Identified in a Cluster of Pneumonia Cases — Wuhan, China 2019−2020"
+    link: http://weekly.chinacdc.cn/en/article/id/a3907201-f64f-4154-a19e-4253b453d10c
+  - start: 2020-01-24
+    type: paper
+    topics:
+      - general-covid
+    title: "Return of the Coronavirus: 2019-nCoV"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7077245/
+  - start: 2020-02-17
+    type: paper
+    topics:
+      - general-covid
+    journal: Int J Antimicrob Agents
+    title: "Severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) and coronavirus disease-2019 (COVID-19): The epidemic and the challenges"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7127800/
+    extra:
+      - name: (PubMed)
+        link: https://pubmed.ncbi.nlm.nih.gov/32081636/
+  - start: 2020-02-20
+    type: paper
+    topics:
+      - general-covid
+    title: A Novel Coronavirus from Patients with Pneumonia in China, 2019
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7092803/
+  - start: 2020-02-21
+    type: paper
+    topics:
+      - general-covid
+    title: Clinical features of patients infected with 2019 novel coronavirus in Wuhan, China
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7159299/
+  - start: 2020-02-27
+    type: paper
+    topics:
+      - general-covid
+    title: Emergence of a novel human coronavirus threatening human health
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7095779/
+  - start: 2020-02-19
+    type: paper
+    topics:
+      - general-covid
+    title: Identification of Coronavirus Isolated from a Patient in Korea with COVID-19
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7045880/
+  - start: 2020-03-20
+    type: paper
+    topics:
+      - general-covid
+    title: "What we know so far: COVID-19 current clinical knowledge and research"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7081812/
+  - start: 2020-03-26
+    type: paper
+    topics:
+      - general-covid
+    title: Early Transmission Dynamics in Wuhan, China, of Novel Coronavirus–Infected Pneumonia
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7121484/
+  - start: 2020-04-01
+    type: paper
+    topics:
+      - general-covid
+    title: Universal Masking in Hospitals in the Covid-19 Era
+    link: https://www.nejm.org/doi/full/10.1056/NEJMp2006372
+  - start: 2020-05-08
+    type: paper
+    topics:
+      - general-covid
+    title: The SARS-CoV-2, a new pandemic zoonosis that threatens the world
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7205683/
+  - start: 2020-05-11
+    type: paper
+    topics:
+      - general-covid
+    title: "Melatonin Inhibits COVID-19-induced Cytokine Storm by Reversing Aerobic Glycolysis in Immune Cells: A Mechanistic Analysis"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7211589/
+  - start: 2020-05-27
+    type: paper
+    topics:
+      - general-covid
+    title: Small droplet aerosols in poorly ventilated spaces and SARS-CoV-2 transmission
+    link: https://www.thelancet.com/journals/lanres/article/PIIS2213-2600(20)30245-9/fulltext
+  - start: 2020-06-15
+    type: paper
+    topics:
+      - general-covid
+    title: "Novel SARS-CoV-2/COVID-19: Origin, pathogenesis, genes and genetic variations, immune responses and phylogenetic analysis"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7295489/
+  - start: 2020-06-26
+    type: paper
+    topics:
+      - general-covid
+      - uptake
+    title: Ensuring Uptake of Vaccines against SARS-CoV-2
+    link: https://www.nejm.org/doi/full/10.1056/NEJMp2020926
+  - start: 2020-03-19
+    type: paper
+    topics:
+      - general-covid
+    title: SARS-CoV-2 Viral Load in Upper Respiratory Specimens of Infected Patients
+    link: https://www.nejm.org/doi/full/10.1056/NEJMc2001737
+    extra:
+      - name: (PDF)
+        link: https://www.nejm.org/doi/pdf/10.1056/NEJMc2001737?articleTools=true
+  - start: 2020-01-30
+    type: paper
+    topics:
+      - general-covid
+    title: Transmission of 2019-nCoV Infection from an Asymptomatic Contact in Germany
+    link: https://www.nejm.org/doi/full/10.1056/NEJMc2001468
+    extra:
+      - name: (pubmed)
+        link: https://pubmed.ncbi.nlm.nih.gov/32003551/
+      - name: (PDF)
+        link: https://www.nejm.org/doi/pdf/10.1056/NEJMc2001468?articleTools=true
+  - start: 2020-02-19
+    type: paper
+    topics:
+      - general-covid
+    title: Asymptomatic cases in a family cluster with SARS-CoV-2 infection
+    link: https://pubmed.ncbi.nlm.nih.gov/32087116/
+    extra:
+      - name: (PDF)
+        link: https://www.thelancet.com/pdfs/journals/laninf/PIIS1473-3099(20)30114-6.pdf
+      - name: (supplement pdf)
+        link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7158985/bin/mmc1.pdf
+  - start: 2020-02-19
+    type: paper
+    topics:
+      - general-covid
+    title: Persistent hiccups as an atypical presenting complaint of COVID-19
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7165082/
+  - start: 2020-07-07
+    type: paper
+    topics:
+      - general-covid
+    title: "Compliance with containment measures to the COVID-19 pandemic over time: Do antisocial traits matter?"
+    link: https://www.sciencedirect.com/science/article/pii/S0191886920305377
+    extra:
+      - name: PID-5 (PDF)
+        link: https://www.psychiatry.org/File%20Library/Psychiatrists/Practice/DSM/APA_DSM5_The-Personality-Inventory-For-DSM-5-Full-Version-Adult.pdf
+  - start: 2020-03-17
+    type: paper
+    topics:
+      - general-covid
+    journal: Nature Medicine
+    title: The proximal origin of SARS-CoV-2
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7095063/
+  - start: 2017-11-30
+    type: paper
+    topics:
+      - general-covid
+    journal: PLOS Pathogens
+    title: Discovery of a rich gene pool of bat SARS-related coronaviruses provides new insights into the origin of SARS coronavirus
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5708621/
+  - start: 2007-12-12
+    type: paper
+    topics:
+      - general-covid
+    journal: Journal of Virology
+    title: Difference in Receptor Usage between Severe Acute Respiratory Syndrome (SARS) Coronavirus and SARS-Like Coronavirus of Bat Origin
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2258702/
+  - start: 2014-05-27
+    type: paper
+    topics:
+      - general-covid
+    title: UNDERSTANDING THE RISK OF BAT CORONAVIRUS EMERGENCE
+    link: https://projectreporter.nih.gov/project_info_description.cfm?aid=8674931&icde=49645421
+  - start: 2018-12-10
+    type: paper
+    topics:
+      - general-covid
+    journal: Nature Reviews Microbiology
+    authors: Jie Cui, Fang Li, and Zheng-Li Shi
+    title: Origin and evolution of pathogenic coronaviruses
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7097006/
+  - start: 2020-06-23
+    type: news
+    topics:
+      - general-covid
+      - masks
+    journal: The Atlantic
+    authors: Julia Marcus
+    title: The Dudes Who Won’t Wear Masks
+    link: https://www.theatlantic.com/ideas/archive/2020/06/dudes-who-wont-wear-masks/613375/
+  - start: 2020-06-24
+    type: paper
+    topics:
+      - general-covid
+    journal: Medrxiv
+    title: Estimation of Individual Probabilities of COVID-19 Infection, Hospitalization, and Death From A County-level Contact of Unknown infection Status
+    link: https://www.medrxiv.org/content/10.1101/2020.06.06.20124446v2
+  - start: 2020-09-08
+    type: paper
+    topics:
+      - general-covid
+      - masks
+    journal: New England Journal of Medicine
+    authors: Monica Gandhi, M.D., M.P.H., and George W. Rutherford, M.D.
+    title: Facial Masking for Covid-19 — Potential for “Variolation” as We Await a Vaccine
+    link: https://www.nejm.org/doi/full/10.1056/NEJMp2026913
+  - start: 2020-07-15
+    type: paper
+    topics:
+      - general-covid
+      - masks
+    journal: Journal of General Internal Medicine
+    authors: Monica Gandhi, MD, MPH,corresponding author Chris Beyrer, MD, MPH, and Eric Goosby, MD
+    title: "Masks Do More Than Protect Others During COVID-19: Reducing the Inoculum of SARS-CoV-2 to Protect the Wearer"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7393808/
+  - start: 2020-06-05
+    type: paper
+    topics:
+      - general-covid
+      - masks
+    journal: World Health Organization
+    title: Advice on the use of masks in the context of COVID-19
+    link: https://www.who.int/publications/i/item/advice-on-the-use-of-masks-in-the-community-during-home-care-and-in-healthcare-settings-in-the-context-of-the-novel-coronavirus-(2019-ncov)-outbreak
+  - start: 2020-03-05
+    type: paper
+    topics:
+      - general-covid
+      - isolation
+    journal: New England Journal of Medicine
+    title: First Case of 2019 Novel Coronavirus in the United States
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7092802/
+  - start: 2020-05-16
+    type: paper
+    topics:
+      - general-covid
+      - isolation
+    pretext: (Estimated date)
+    journal: CDC - Emerging Infectious Diseases
+    title: Severe Acute Respiratory Syndrome Coronavirus 2 from Patient with Coronavirus Disease, United States
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7258473/
+  - start: 2020-02-18
+    type: paper
+    topics:
+      - general-covid
+    journal: European radiology
+    title: "Outbreak of novel coronavirus (COVID-19): What is the role of radiologists?"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7087878/
+  - start: 2020-09-18
+    type: paper
+    topics:
+      - general-covid
+    journal: Biology of Sex Differences
+    title: "Sex differences in severity and mortality from COVID-19: are males more vulnerable?"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7498997/
+  - start: 2020-09-20
+    type: paper
+    topics:
+      - general-covid
+      - masks
+    journal: Nano Energy
+    title: Design of a self-powered triboelectric face mask
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7502259/
+  - start: 2020-09-21
+    type: paper
+    topics:
+      - general-covid
+    journal: Social Science & Medicine.
+    title: Conspiracy theories as barriers to controlling the spread of COVID-19 in the U.S.
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7502362/
+  - start: 2020-09-17
+    type: paper
+    topics:
+      - general-covid
+    journal: Postdigital Science and Education
+    title: "The Covid-19 World: Learning or Downfall"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7494431/
+  - start: 2020-09-17
+    type: paper
+    topics:
+      - general-covid
+    journal: Personal and Ubiquitous Computing
+    title: "Passive Wi-Fi monitoring in the wild: a long-term study across multiple location typologies"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7495138/
+  - start: 2019-01-28
+    type: paper
+    topics:
+      - general-covid
+    journal: Bulletin of the World Health Organization
+    title: Immunization programmes and notifications of vital events
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6438247/
+  - start: 2020-08-28
+    type: paper
+    topics:
+      - general-covid
+    journal: The Journal of Infection
+    title: SARS-CoV-2 IgG and IgA antibody response is gender dependent; and IgG antibodies rapidly decline early on
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7445467/
+  - start: 2003-10-23
+    type: paper
+    topics:
+      - hcq
+    journal: Lancet Infectious Diseases
+    title: "Effects of chloroquine on viral infections: an old drug against today's diseases"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7128816/
+  - start: 2006-01-24
+    type: paper
+    topics:
+      - hcq
+    journal: Lancet Infectious Diseases
+    title: New insights into the antiviral effects of chloroquine
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7129107/
+  - start: 2012-12-04
+    type: paper
+    topics:
+      - hcq
+    journal: Cell Research
+    title: Anti-malaria drug chloroquine is highly effective in treating avian influenza A H5N1 virus infection in an animal model
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3567830/
+  - start: 2020-04-24
+    type: paper
+    topics:
+      - hcq
+    journal: JAMA
+    title: "Effect of High vs Low Doses of Chloroquine Diphosphate as Adjunctive Therapy for Patients Hospitalized With Severe Acute Respiratory Syndrome Coronavirus 2 (SARS-CoV-2) Infection: A Randomized Clinical Trial"
+    link: https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2765499
+  - start: 2020-05-27
+    type: paper
+    topics:
+      - hcq
+      - trials
+    journal: American Journal of Epidemiology
+    authors: Harvey A Risch
+    title: Early Outpatient Treatment of Symptomatic, High-Risk Covid-19 Patients that Should be Ramped-Up Immediately as Key to the Pandemic Crisis
+    link: https://academic.oup.com/aje/article/doi/10.1093/aje/kwaa093/5847586
+    extra:
+      - name: (PDF)
+        link: https://academic.oup.com/aje/article-pdf/doi/10.1093/aje/kwaa093/33381404/kwaa093.pdf
+  - start: 2020-07-02
+    type: paper
+    topics:
+      - hcq
+    title: Treatment with hydroxychloroquine, azithromycin, and combination in patients hospitalized with COVID-19
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7330574/
+  - start: 2020-07-23
+    type: paper
+    topics:
+      - hcq
+    journal: NEJM
+    title: Hydroxychloroquine with or without Azithromycin in Mild-to-Moderate Covid-19
+    link: https://www.nejm.org/doi/full/10.1056/NEJMoa2019014
+    extra:
+     - name: Supplementary Appendix (PDF)
+       link: https://www.nejm.org/doi/suppl/10.1056/NEJMoa2019014/suppl_file/nejmoa2019014_appendix.pdf
+  - start: 2020-07-30
+    type: paper
+    topics:
+      - hcq
+    journal: Indian J Med Res
+    authors : Chatterjee P, Anand T, Singh KJ, Rasaily R, Singh R, Das S, Singh H, Praharaj I, Gangakhedkar RR, Bhargava B, Panda S. 
+    title: "Healthcare workers & SARS-CoV-2 infection in India: A case-control investigation in the time of COVID-19."
+    link: http://www.ijmr.org.in/text.asp?2020/151/5/459/285520
+  - start: 2020-07-16
+    type: paper
+    topics:
+      - hcq
+    journal: Ann. Intern. Med.
+    title: Hydroxychloroquine in Nonhospitalized Adults With Early COVID-19
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7384270/
+    extra:
+      - name: Original Article
+        link: https://www.acpjournals.org/doi/10.7326/M20-4207
+  - start: 2020-06-03
+    type: paper
+    topics:
+      - hcq
+    title: "Rationale and Design of ORCHID: A Randomized Placebo-Controlled Trial of Hydroxychloroquine for Adults Hospitalized with COVID-19"
+    link: https://www.atsjournals.org/doi/abs/10.1513/AnnalsATS.202005-478SD
+    extra:
+      - name: (Clinical Trial Page)
+        link: https://clinicaltrials.gov/ct2/show/NCT04332991
+      - name: (PDF)
+        link: http://www.atsjournals.org/doi/pdf/10.1513/AnnalsATS.202005-478SD
+  - start: 2020-03-17
+    type: news
+    topics:
+      - hcq
+      - trials
+    title: French researcher posts successful Covid-19 drug trial
+    link: https://www.connexionfrance.com/French-news/French-researcher-in-Marseille-posts-successful-Covid-19-coronavirus-drug-trial-results
+  - start: 2020-04-02
+    type: news
+    topics:
+      - hcq
+      - trials
+    title: Hydroxychloroquine rated ‘most effective’ coronavirus treatment, poll of doctors finds
+    link: https://nypost.com/2020/04/02/hydroxychloroquine-most-effective-coronavirus-treatment-poll/
+  - start: 2020-04-07
+    type: news
+    topics:
+      - hcq
+    title: "How to Cure Coronavirus: an Exclusive Letter From Dr. Zelenko to Donald Trump"
+    link: https://internetprotocol.co/hype-news/2020/04/07/how-to-cure-coronavirus-an-exclusive-letter-to-donald-trump/
+  - start: 2020-04-14
+    type: news
+    topics:
+      - hcq
+    title: A Detailed Coronavirus Treatment Plan from Dr. Vladimir Zelenko
+    link: https://internetprotocol.co/hype-news/2020/04/14/a-detailed-coronavirus-treatment-plan-from-dr-zelenko/
+  - start: 2020-05-21
+    type: news
+    topics:
+      - hcq
+    title: NY doctor who promoted COVID-19 drug cocktail leaves Jewish community
+    link: https://nypost.com/2020/05/21/doctor-who-promoted-covid-cocktail-leaves-jewish-community/
+  - start: 2020-05-25
+    type: news
+    topics:
+      - hcq
+    title: WHO suspends hydroxychloroquine trial as COVID-19 treatment
+    link: https://medicalxpress.com/news/2020-05-trial-hydroxychloroquine-covid-treatment.html
+  - start: 2020-05-26
+    type: news
+    topics:
+      - hcq
+    title: "Exclusive: Indonesia, major advocate of hydroxychloroquine, told by WHO to stop using it"
+    link: https://www.reuters.com/article/us-health-coronavirus-indonesia-chloroqu/exclusive-indonesia-major-advocate-of-hydroxychloroquine-told-by-who-to-stop-using-it-idUSKBN23227L
+  - start: 2020-05-27
+    type: news
+    topics:
+      - hcq
+    title: EU governments ban malaria drug for COVID-19, trial paused as safety fears grow
+    link: https://www.reuters.com/article/health-coronavirus-hydroxychloroquine-fr/eu-governments-ban-malaria-drug-for-covid-19-trial-paused-as-safety-fears-grow-idUSKBN2340A6
+  - start: 2020-06-17
+    type: news
+    topics:
+      - hcq
+    title: The Politicization of HCQ
+    link: https://thegoldopinion.com/blog-1/f/the-politicization-of-hcq
+  - start: 2020-06-20
+    type: news
+    topics:
+      - hcq
+    title: NIH halts clinical trial of hydroxychloroquine
+    link: https://www.nih.gov/news-events/news-releases/nih-halts-clinical-trial-hydroxychloroquine
+  - start: 2020-07-13
+    type: news
+    topics:
+      - hcq
+      - trials
+    title: Local doctor pushing proven treatment of COVID into national debate
+    link: https://www.thedesertreview.com/opinion/letters_to_editor/local-doctor-pushing-proven-treatment-of-covid-into-national-debate/article_ca59497a-c539-11ea-8943-4f707d6ebc1a.html
+    note: Updated July 16, 2020
+  - start: 2020-07-16
+    type: news
+    topics:
+      - hcq
+    title: "The Saga of Hydroxychloroquine and COVID-19: A Cautionary Tale"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7384271/
+  - start: 2010-11-04
+    type: paper
+    topics:
+      - hcq
+      - zinc
+    journal: PLoS Pathog.
+    title: Zn2+ Inhibits Coronavirus and Arterivirus RNA Polymerase Activity In Vitro and Zinc Ionophores Block the Replication of These Viruses in Cell Culture
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2973827/
+  - start: 2013-09-27
+    type: paper
+    topics:
+      - hcq
+      - zinc
+    journal: Transcription
+    authors: Guillaume F Chanfreau
+    title: Zinc'ing down RNA polymerase I
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4114658/
+  - start: 2020-06-14
+    type: news
+    topics:
+      - hcq
+    title: Association of American Surgeons & Physicians sues FDA for interfering with availability of hydroxychloroquine
+    link: https://thedailycoin.org/2020/06/14/association-of-american-surgeons-physicians-sues-fda-for-interfering-with-availability-of-hydroxychloroquine/
+    extra:
+      - name: Complaint (PDF)
+        link: https://aapsonline.org/judicial/aaps-v-fda-hcq-6-2-2020.pdf 
+  - start: 2020-09-18
+    type: paper
+    topics:
+      - hcq
+    journal: Travel medicine and infectious disease
+    title: Dangers of the Use of hydroxychloroquine and azithromycin combination in COVID-19 patients
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7499090/
+  - start: 2018-08-07
+    type: news
+    topics:
+      - pcr-testing
+    pretext: (estimated date)
+    title: Biography of Dr. Kary Mullis
+    link: https://www.karymullis.com/biography.shtml
+  - start: 2020-05-12
+    type: paper
+    topics:
+      - pcr-testing
+    title: Interpreting a covid-19 test result
+    link: https://www.bmj.com/content/369/bmj.m1808
+    extra:
+      - name: (PDF)
+        link: https://www.bmj.com/content/369/bmj.m1808.full.pdf
+  - start: 2020-04-07
+    type: news
+    topics:
+      - pcr-testing
+    title: Was the COVID-19 Test Meant to Detect a Virus?
+    link: https://uncoverdc.com/2020/04/07/was-the-covid-19-test-meant-to-detect-a-virus/
+  - start: 2020-03-16
+    type: news
+    topics:
+      - pcr-testing
+    title: WHO Director-General's opening remarks at the media briefing on COVID-19 - 16 March 2020
+    link: https://www.who.int/dg/speeches/detail/who-director-general-s-opening-remarks-at-the-media-briefing-on-covid-19---16-march-2020
+  - start: 2007-01-22
+    type: news
+    topics:
+      - pcr-testing
+    title: Faith in Quick Test Leads to Epidemic That Wasn’t
+    link: https://www.nytimes.com/2007/01/22/health/22whoop.html
+  - start: 2020-06-27
+    type: news
+    topics:
+      - pcr-testing
+    title: COVID19 PCR Tests are Scientifically Meaningless
+    link: https://off-guardian.org/2020/06/27/covid19-pcr-tests-are-scientifically-meaningless/
+  - start: 2020-09-18
+    type: paper
+    topics:
+      - pcr-testing
+    journal: Gene technology
+    title: Strategies and Best Practice in Cloning Small RNAs
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7500658/
+  - start: 2020-09-18
+    type: paper
+    topics:
+      - pcr-testing
+    journal: Breathborne Biomarkers and the Human Volatilome
+    title: Breath analysis for respiratory infections
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7499076/
+  - start: 2020-09-18
+    type: paper
+    topics:
+      - pcr-testing
+    journal: Irish journal of medical science
+    title: Optimal test pooling for efficient PCR testing of SARS-CoV2
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7498742/
+  - start: 2020-05-15
+    type: news
+    topics:
+      - social-distance
+    title: The 2006 Origins of the Lockdown Idea
+    link: https://www.aier.org/article/the-2006-origins-of-the-lockdown-idea/
+  - start: 2020-05-21
+    type: news
+    topics:
+      - social-distance
+    title: How a Free Society Deals with Pandemics, According to Legendary Epidemiologist and Smallpox Eradicator Donald Henderson
+    link: https://www.aier.org/article/how-a-free-society-deals-with-pandemics-according-to-legendary-epidemiologist-and-smallpox-eradicator-donald-henderson/
+  - start: 2020-06-15
+    type: news
+    topics:
+      - social-distance
+    title: CDC finally issues social-distancing guidelines as states press forward with reopening plans
+    link: https://www.marketwatch.com/story/cdc-finally-issues-social-distancing-guidelines-as-states-press-forward-with-reopening-plans-2020-06-12
+  - start: 2020-06-24
+    type: news
+    topics:
+      - social-distance
+    title: How to social distance as beauty salons, stores and restaurants reopen
+    link: https://www.cnet.com/health/social-distancing-how-to-do-it-who-should-do-it-and-for-how-long/
+  - start: 2006-09-15
+    type: paper
+    topics:
+      - social-distance
+    journal: Biosecurity and Bioterrorism
+    title: Disease Mitigation Measures in the Control of Pandemic Influenza
+    link: http://www.upmc-biosecurity.org/website/resources/publications/2006/2006-09-15-diseasemitigationcontrolpandemicflu.html
+    extra:
+      - name: (PDF)
+        link: https://www.aier.org/wp-content/uploads/2020/05/10.1.1.552.1109.pdf
+  - start: 2006-11-01
+    type: paper
+    topics:
+      - social-distance
+    pretext: (estimated date)
+    journal: CDC - Emerging Infectious Diseases
+    title: Targeted Social Distancing Designs for Pandemic Influenza
+    link: https://wwwnc.cdc.gov/eid/article/12/11/06-0255_article
+  - start: 2006-01-01
+    type: paper
+    topics:
+      - social-distance
+    pretext: (estimated date)
+    journal: CDC - Emerging Infectious Diseases
+    title: Nonpharmaceutical Interventions for Pandemic Influenza, International Measures
+    link: https://wwwnc.cdc.gov/eid/article/12/1/05-1370_article
+  - start: 2020-09-18
+    type: paper
+    topics:
+      - social-distance
+    journal: Annals of medicine and surgery (2012)
+    title: The impact of social distancing and self-isolation in the last corona COVID-19 outbreak on the body weight in Sulaimani governorate- Kurdistan/Iraq, a prospective case series study
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7499371/
+  - start: 2020-06-01
+    type: paper
+    topics:
+      - transmission
+    pretext: (estimated date)
+    journal: Emerging Infectious Diseases
+    authors: Liu J, Liao X, Qian S et al.
+    title: Community Transmission of Severe Acute Respiratory Syndrome Coronavirus 2, Shenzhen, China, 2020
+    link: https://wwwnc.cdc.gov/eid/article/26/6/20-0239_article).
+    extra:
+      - name: (PMC)
+        link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7258448/
+  - start: 2020-01-24
+    type: paper
+    topics:
+      - transmission
+    journal: Lancet
+    authors: Chan J, Yuan S, Kok K et al.
+    title: "A familial cluster of pneumonia associated with the 2019 novel coronavirus indicating person-to-person transmission: a study of a family cluster"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7159286/
+  - start: 2020-03-26
+    type: paper
+    topics:
+      - transmission
+    journal: New England Journal of Medicine
+    authors: Li Q, Guan X, Wu P, et al.
+    title: Early Transmission Dynamics in Wuhan, China, of Novel Coronavirus–Infected Pneumonia
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7121484/
+  - start: 2020-01-24
+    type: paper
+    topics:
+      - transmission
+    journal: Lancet
+    authors: Huang C, Wang Y, Li X, Ren L, Zhao J, Hu Y, et al.
+    title: Clinical features of patients infected with 2019 novel coronavirus in Wuhan, China
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7159299/
+  - start: 2020-03-06
+    type: paper
+    topics:
+      - transmission
+    journal: MMWR Morb Mortal Wkly Rep.
+    authors: Burke RM, Midgley CM, Dratch A, Fenstersheib M, Haupt T, Holshue M,et al.
+    title: Active monitoring of persons exposed to patients with confirmed COVID-19 — United States, January–February 2020
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7367094/
+  - start: 2020-02-16
+    end: 2020-02-24
+    type: paper
+    topics:
+      - transmission
+    pretext: "World Health Organization. Report of the WHO-China Joint Mission on Coronavirus Disease 2019 (COVID-19) 16-24 February 2020 [Internet]. Geneva: World Health Organization; 2020"
+    title: [PDF]
+    link: https://www.who.int/docs/default-source/coronaviruse/who-china-joint-mission-on-covid-19-final-report.pdf
+  - start: 2020-03-04
+    type: paper
+    topics:
+      - transmission
+    journal: JAMA
+    authors: Ong SW, Tan YK, Chia PY, Lee TH, Ng OT, Wong MS, et al.
+    title: Air, surface environmental, and personal protective equipment contamination by severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) from a symptomatic patient
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7057172/
+  - start: 2020-02-15
+    type: paper
+    topics:
+      - transmission
+      - isolation
+    journal: China CDC Weekly
+    authors: Zhang Y, Chen C, Zhu S et al.
+    title: "Notes from the Field: Isolation of 2019-nCoV from a Stool Specimen of a Laboratory-Confirmed Case of the Coronavirus Disease 2019 (COVID-19)"
+    link: http://weekly.chinacdc.cn/en/article/id/ffa97a96-db2a-4715-9dfb-ef662660e89d
+  - start: 2020-03-17
+    type: paper
+    topics:
+      - transmission
+    journal: New England Journal of Medicine
+    authors: van Doremalen N, Morris D, Bushmaker T et al.
+    title: Aerosol and Surface Stability of SARS-CoV-2 as compared with SARS-CoV-1
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7121658/
+  - start: 2020-03-05
+    type: paper
+    topics:
+      - transmission
+    journal: Infect Control Hosp Epidemiol
+    authors: Cheng V, Wong S-C, Chen J, Yip C, Chuang V, Tsang O, et al.
+    title: Escalating infection control response to the rapidly evolving epidemiology of the Coronavirus disease 2019 (COVID-19) due to SARS-CoV-2 in Hong Kong
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7137535/
+  - start: 2020-03-17
+    type: paper
+    topics:
+      - transmission
+    journal: Clin Infect Dis.
+    title: "Risk Factors of Healthcare Workers with Corona Virus Disease 2019: A Retrospective Cohort Study in a Designated Hospital of Wuhan in China"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7184482/
+  - start: 2020-08-11
+    type: news
+    topics:
+      - transmission
+      - isolation
+    journal: New York Times
+    title: "‘A Smoking Gun’: Infectious Coronavirus Retrieved From Hospital Air"
+    link: https://www.nytimes.com/2020/08/11/health/coronavirus-aerosols-indoors.html
+  - start: 2020-08-04
+    type: paper
+    topics:
+      - transmission
+      - isolation
+    journal: Medrxiv
+    title: Viable SARS-CoV-2 in the air of a hospital room with COVID-19 patients
+    link: https://www.medrxiv.org/content/10.1101/2020.08.03.20167395v1
+    extra:
+      - name: (PDF)
+        link: https://www.medrxiv.org/content/10.1101/2020.08.03.20167395v1.full.pdf
+  - start: 2020-05-12
+    type: paper
+    topics:
+      - transmission
+    journal: MMWR Morb Mortal Wkly Rep.
+    authors: Hamner L, Dubbel P, Capron I, Ross A, Jordan A, Lee J, et al.
+    title: High SARS-CoV-2 Attack Rate Following Exposure at a Choir Practice - Skagit County, Washington, March 2020
+    link: https://www.cdc.gov/mmwr/volumes/69/wr/mm6919e6.htm?s_cid=mm6919e6_w
+    extra:
+      - name: PubMed
+        link: https://pubmed.ncbi.nlm.nih.gov/32407303/
+  - start: 2020-03-13
+    type: paper
+    topics:
+      - transmission
+    journal: Lancet
+    authors: Ghinai I, McPherson TD, Hunter JC, Kirking HL, Christiansen D, Joshi K, et al.
+    title: First known person-to-person transmission of severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) in the USA
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7158585/
+  - start: 2020-03-17
+    type: paper
+    topics:
+      - transmission
+    journal: Lancet
+    authors: Pung R, Chiew CJ, Young BE, Chin S, Chen MIC, Clapham HE, et al.
+    title: "Investigation of three clusters of COVID-19 in Singapore: implications for surveillance and response measures"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7269710/
+  - start: 2020-03-26
+    type: paper
+    topics:
+      - transmission
+    journal: Medrxiv
+    authors: Luo L, Liu D, Liao X, Wu X, Jing Q, Zheng J, et al.
+    title: Modes of contact and risk of transmission in COVID-19 among close contacts
+    link: https://www.medrxiv.org/content/10.1101/2020.03.24.20042606v1
+  - start: 2020-05-28
+    type: paper
+    topics:
+      - transmission
+    journal: New England Journal of Medicine
+    authors: Monica Gandhi, M.D., M.P.H., Deborah S. Yokoe, M.D., M.P.H., and Diane V. Havlir, M.D.
+    title: Asymptomatic Transmission, the Achilles’ Heel of Current Strategies to Control Covid-19
+    link: https://www.nejm.org/doi/full/10.1056/NEJMe2009758
+  - start: 2020-09-08
+    type: news
+    topics:
+      - transmission
+    journal: Forbes
+    title: Why Speaking English May Spread More Coronavirus Than Some Other Languages
+    link: https://www.forbes.com/sites/alisonescalante/2020/09/08/why-speaking-english-may-spread-more-coronavirus-than-other-languages/#959ee5c6eeaa
+  - start: 2017-04-19
+    type: news
+    topics:
+      - vaccination
+    title: What is vaccine-derived polio?
+    link: https://www.who.int/westernpacific/news/q-a-detail/what-is-vaccine-derived-polio#
+  - start: 2020-07-28
+    type: news
+    topics:
+      - vaccination
+      - trials
+      - local
+    title: Hattiesburg Clinic to participate in COVID-19 vaccine trial
+    link: https://www.wdam.com/2020/07/28/hattiesburg-clinic-participating-covid-vaccine-trial/
+  - start: 2020-07-30
+    type: news
+    topics:
+      - vaccination
+      - trials
+      - local
+    title: HATTIESBURG CLINIC PARTICIPATES IN COVID-19 VACCINE TRIAL
+    link: https://www.hubcityspokes.com/news-hattiesburg/hattiesburg-clinic-participates-covid-19-vaccine-trial
+  - start: 2020-07-27
+    type: news
+    topics:
+      - vaccination
+      - trials
+      - mrna
+    title: mRNA-1273 Approval Status
+    link: https://www.drugs.com/history/mrna-1273.html
+  - start: 2020-07-21
+    title: "Persuasive Messages for COVID-19 Vaccine Uptake: a Randomized Controlled Trial, Part 1"
+    link: https://clinicaltrials.gov/ct2/show/NCT04460703
+    type: paper
+    topics:
+      - vaccination
+      - trials
+      - uptake
+  - start: 2020-08-04
+    type: news
+    topics:
+      - vaccination
+      - trials
+      - uptake
+    title: US Government & Yale Hold Trials On How Best To ‘Persuade’ Americans To Take COVID-19 Vaccine
+    link: http://www.alt-market.com/index.php/articles/4293-us-government-a-yale-hold-trials-on-how-best-to-persuade-americans-to-take-covid-19-vaccine?utm_source=whatfinger
+  - start: 1991-01-01
+    type: news
+    topics:
+      - vaccination
+    pretext: '"As a result of this international, collaborative effort, a
+     prototype anti-HCG vaccine is now undergoing clinical testing, raising
+     the prospect that a totally new family planning method may be available
+     before the end of the current decade."'
+    title: The WHO Task Force on Vaccines for Fertility Regulation. Its formation, objectives and research activities
+    link: https://pubmed.ncbi.nlm.nih.gov/1874951/
+  - start: 2020-07-30
+    type: news
+    topics:
+      - vaccination
+      - liability
+    title: AstraZeneca to be exempt from coronavirus vaccine liability claims in most countries
+    link: https://www.reuters.com/article/us-astrazeneca-results-vaccine-liability-idUSKCN24V2EN    
+  - start: 2020-08-02
+    type: news
+    topics:
+      - vaccination
+      - liability
+    title: Red Flags Soar As Big Pharma Will Be Exempt From COVID-19 Vaccine Liability Claims
+    link: https://www.zerohedge.com/political/red-flags-soar-big-pharma-will-be-exempt-covid-19-vaccine-liability-claims
+  - start: 2020-09-02
+    type: news
+    topics:
+      - vaccination
+      - trials
+      - local
+    title: HATTIESBURG CLINIC SEEKS PARTICIPANTS FOR CORONAVIRUS VACCINE TRIAL
+    link: https://www.hubcityspokes.com/hattiesburg-clinic-seeks-participants-coronavirus-vaccine-trial
+  - start: 2020-07-31
+    type: news
+    topics:
+      - vaccination
+      - liability
+    title: "Bubble indemnity: Big Pharma firms will NOT be held accountable for side effects of Covid vaccine"
+    link: https://www.rt.com/news/496801-pharma-not-accountable-vaccine-effect/
+  - start: 2019-12-18
+    type: paper
+    topics:
+      - vaccination
+    journal: Science Translational Medicine
+    title: Biocompatible near-infrared quantum dots delivered to the skin by microneedle patches record vaccination
+    link: https://stm.sciencemag.org/content/11/523/eaay7162.short
+    extra:
+      - name: (PubMed)
+        link: https://pubmed.ncbi.nlm.nih.gov/31852802/
+  - start: 2020-03-19
+    type: news
+    topics:
+      - vaccination
+    title: An updated guide to the coronavirus drugs and vaccines in development
+    link: https://www.statnews.com/2020/03/19/an-updated-guide-to-the-coronavirus-drugs-and-vaccines-in-development/
+  - start: 2017-06-01
+    type: paper
+    topics:
+      - vaccination
+    title: ChAdOx1 and MVA based vaccine candidates against MERS-CoV elicit neutralising antibodies and cellular immune responses in mice
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5516308/
+  - start: 2012-07-13
+    type: paper
+    topics:
+      - vaccination
+    title: "A Novel Chimpanzee Adenovirus Vector with Low Human Seroprevalence: Improved Systems for Vector Derivation and Comparative Immunogenicity"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3396660/
+  - start: 2020-05-31
+    type: news
+    topics:
+      - vaccination
+    title: "University of Oxford coronavirus vaccine: everything we know so far"
+    link: https://www.telegraph.co.uk/global-health/science-and-disease/oxford-trial-covid-19-coronavirus-vaccine/
+  - start: 2020-04-14
+    type: news
+    topics:
+      - vaccination
+    title: Merck Supports Jenner Institute to Reach First Milestone in Covid-19 Vaccine Manufacturing
+    link: https://www.prnewswire.com/in/news-releases/merck-supports-jenner-institute-to-reach-first-milestone-in-covid-19-vaccine-manufacturing-891225678.html
+  - start: 2016-06-28
+    type: paper
+    topics:
+      - vaccination
+    journal: Journal of Controlled Release
+    title: Cationic liposome-hyaluronic acid hybrid nanoparticles for intranasal vaccination with subunit antigens
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4430437/
+  - start: 2019-03-12
+    type: news
+    topics:
+      - vaccination
+    title: The Impact of Vaccines on Mortality Decline Since 1900—According to Published Science
+    link: https://childrenshealthdefense.org/news/the-impact-of-vaccines-on-mortality-decline-since-1900-according-to-published-science/
+  - start: 2015-07-31
+    type: news
+    topics:
+      - vaccination
+    title: "Measles: The New Red Scare"
+    link: https://www.foreignpolicyjournal.com/2015/07/31/measles-the-new-red-scare/
+    extra:
+      - name: (PDF)
+        link: https://www.foreignpolicyjournal.com/wp-content/uploads/2015/07/150731-Bystrianyk-Measles.pdf
+  - start: 2020-04-30
+    type: news
+    topics:
+      - vaccination
+    title: What you need to know about the COVID-19 vaccine
+    link: https://www.gatesnotes.com/Health/What-you-need-to-know-about-the-COVID-19-vaccine?WT.tsrc=BGEM
+  - start: 2020-08-11
+    type: news
+    topics:
+      - vaccination
+    title: "Doctors lay out plan to ‘punish’ people who refuse coronavirus vaccine: ‘There is no alternative’"
+    link: https://www.lifesitenews.com/news/doctors-lay-out-plan-to-punish-people-who-refuse-coronavirus-vaccine-there-is-no-alternative
+  - start: 2020-08-06
+    type: news
+    topics:
+      - vaccination
+    journal: USA Today
+    title: "Make vaccines free, don't allow religious or personal objections, and punish those who won't be vaccinated. They are threatening the lives of others."
+    link: https://web.archive.org/web/20200806173738if_/https://www.usatoday.com/story/opinion/2020/08/06/stop-coronavirus-compulsory-universal-vaccination-column/3289948001/
+  - start: 2020-08-10
+    type: news
+    topics:
+      - vaccination
+    journal: USA Today
+    title: "Make vaccines free, don't allow religious or personal objections, and create disincentives for those who refuse vaccines shown to be safe and effective."
+    link: https://www.usatoday.com/story/opinion/2020/08/06/stop-coronavirus-compulsory-universal-vaccination-column/3289948001/
+  - start: 2020-08-12
+    type: news
+    topics:
+      - vaccination
+    title: Aborted Fetal Cell Lines Used In Vaccines
+    link: http://nodeception.org/aborted-fetal-cell-lines-used-in-vaccines/
+  - start: 2020-08-19
+    type: news
+    topics:
+      - vaccination
+    title: The time has come for all schools to require the flu shot
+    link: https://www.cnn.com/2020/08/19/health/vaccine-flu-shot-sanchez-opinion-coronavirus/index.html
+  - start: 2020-09-01
+    type: news
+    topics:
+      - vaccination
+    title: Circulating vaccine-derived poliovirus type 2 – Sudan
+    link: https://www.who.int/csr/don/01-september-2020-polio-sudan/en/
+  - start: 2015-07-22
+    type: news
+    topics:
+      - vaccination
+    title: DDT and the Rise and Fall of Polio
+    link: https://thevaccinereaction.org/2015/07/ddt-and-the-rise-and-fall-of-polio/
+  - start: 2020-06-04
+    type: news
+    topics:
+      - vaccination
+    title: World leaders make historic commitments to provide equal access to vaccines for all
+    link: https://www.gavi.org/news/media-room/world-leaders-make-historic-commitments-provide-equal-access-vaccines-all
+  - start: 2020-04-14
+    type: news
+    topics:
+      - vaccination
+    title: The tainted polio vaccine that sickened and fatally paralyzed children in 1955
+    link: https://www.washingtonpost.com/history/2020/04/14/cutter-polio-vaccine-paralyzed-children-coronavirus/
+  - start: 2020-09-03
+    type: news
+    topics:
+      - vaccination
+    title: Trump’s Vaccine Can’t Be Trusted
+    link: https://foreignpolicy.com/2020/09/03/trumps-vaccine-cant-be-trusted/
+  - start: 2020-08-31
+    type: news
+    topics:
+      - vaccination
+    journal: CBS News
+    title: Hundreds protest student flu shot mandate in Massachusetts
+    link: https://www.cbsnews.com/news/massachusetts-flu-shot-mandate-protest/
+  - start: 2020-09-09
+    type: news
+    topics:
+      - vaccination
+      - trials
+    journal: CNN
+    title: AstraZeneca pauses coronavirus vaccine trial after unexplained illness in volunteer
+    link: https://www.cnn.com/2020/09/08/health/coronavirus-vaccine-astrazeneca-pause/index.html
+  - start: 2020-09-09
+    type: news
+    topics:
+      - vaccination
+      - trials
+    journal: STAT News
+    title: Covid-19 vaccine trial participant had serious neurological symptoms, but could be discharged today, AstraZeneca CEO says
+    link: https://www.statnews.com/2020/09/09/astrazeneca-covid19-vaccine-trial-hold-patient-report/
+  - start: 2019-10-10
+    type: paper
+    topics:
+      - vaccination
+    title: Influenza vaccination and respiratory virus interference among Department of Defense personnel during the 2017–2018 influenza season
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7126676/
+  - start: 2012-03-15
+    type: paper
+    topics:
+      - vaccination
+    journal: Clinical Infectious Diseases
+    title: Increased Risk of Noninfluenza Respiratory Virus Infections Associated With Receipt of Inactivated Influenza Vaccine
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3404712/
+  - start: 2017-09-25
+    type: paper
+    topics:
+      - vaccination
+    journal: Vaccine
+    title: Association of spontaneous abortion with receipt of inactivated influenza vaccine containing H1N1pdm09 in 2010-11 and 2011-12
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6501798/
+  - start: 2015-06-01
+    type: paper
+    topics:
+      - vaccination
+    pretext: (Estimated date)
+    journal: Canadian family physician
+    title: Vitamin D for influenza
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4463890/
+  - start: 2015-03-24
+    type: paper
+    topics:
+      - vaccination
+      - fetal-cells
+    journal: Human vaccines & immunotherapeutics
+    title: Characteristics and viral propagation properties of a new human diploid cell line, walvax-2, and its suitability as a candidate cell substrate for vaccine production
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4526020/
+  - start: 2017-04-06
+    type: paper
+    topics:
+      - vaccination
+      - fetal-cells
+    journal: Cytotechnology
+    title: "Potential neoplastic evolution of Vero cells: in vivo and in vitro characterization"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5595746/
+  - start: 2014-11-28
+    type: paper
+    topics:
+      - vaccination
+      - fetal-cells
+    journal: Vaccine
+    title: Human diploid MRC-5 cells exhibit several critical properties of human umbilical cord-derived mesenchymal stem cells
+    link: https://pubmed.ncbi.nlm.nih.gov/25086263/
+    extra:
+      - name: (full article)
+        link: https://www.sciencedirect.com/science/article/pii/S0264410X14010238?via%3Dihub
+  - start: 2014-02-28
+    type: paper
+    topics:
+      - vaccination
+      - fetal-cells
+    journal: Human vaccines & immunotherapeutics
+    title: Comparative study of the immunogenicity in mice and monkeys of an inactivated CA16 vaccine made from a human diploid cell line
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4896597/
+  - start: 2012-03-15
+    type: paper
+    topics:
+      - vaccination
+    journal: "Clinical infectious diseases : an official publication of the Infectious Diseases Society of America"
+    title: Increased Risk of Noninfluenza Respiratory Virus Infections Associated With Receipt of Inactivated Influenza Vaccine
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3404712/
+  - start: 2015-04-11
+    type: paper
+    topics:
+      - vaccination
+    journal: "Journal of controlled release : official journal of the Controlled Release Society"
+    title: Cationic liposome-hyaluronic acid hybrid nanoparticles for intranasal vaccination with subunit antigens
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4430437/
+  - start: 2001-06-22
+    end: 2001-06-23
+    type: exercise
+    topics:
+      - biodefense
+    title: Operation Dark Winter
+    link: https://en.wikipedia.org/wiki/Operation_Dark_Winter
+  - start: 2019-01-01
+    end: 2019-08-30
+    type: exercise
+    topics:
+      - biodefense
+    title: Crimson Contagion
+    link: https://en.wikipedia.org/wiki/Crimson_Contagion
+  - start: 2005-01-14
+    type: exercise
+    topics:
+      - biodefense
+    title: Atlantic Storm
+    link: https://en.wikipedia.org/wiki/Atlantic_Storm
+  - start: 2020-09-22
+    type: news
+    topics:
+      - vaccination
+    journal: "Jon Rappoport's Blog"
+    title: How CDC/WHO will fake the effects of the COVID vaccine to make it look like a success
+    link: https://blog.nomorefakenews.com/2020/09/22/how-cdc-will-fake-effects-of-covid-vaccine-make-it-look-like-success/
+  - start: 2020-09-21
+    type: news
+    topics:
+      - vaccination
+      - liability
+    journal: "Jon Rappoport's Blog"
+    title: "Exposed: There’s a new federal court to handle all the expected COVID vaccine-injury claims"
+    link: https://blog.nomorefakenews.com/2020/09/21/exposed-new-federal-court-to-handle-expected-covid-vaccine-injury-claims/
+  - start: 2020-03-17
+    type: public-notice
+    topics:
+      - vaccination
+      - liability
+    title: Declaration Under the Public Readiness and Emergency Preparedness Act for Medical Countermeasures Against COVID-19
+    link: https://www.federalregister.gov/documents/2020/03/17/2020-05484/declaration-under-the-public-readiness-and-emergency-preparedness-act-for-medical-countermeasures
+  - start: 2020-09-25
+    type: news
+    topics:
+      - general-covid
+    authors: Denise Chow
+    journal: NBC News
+    title: Covid models predicted devastation in Africa — but 'the reality is starkly different'
+    link: https://www.msn.com/en-us/news/world/covid-models-predicted-devastation-in-africa-%E2%80%94-but-the-reality-is-starkly-different/ar-BB19pMQ2
+  - start: 2020-09-23
+    type: news
+    topics:
+      - general-covid
+      - vaccination
+    authors: Elizabeth Chuck
+    journal: NBC News
+    title: Many parents are hesitant to give their kids a Covid-19 vaccine. What if schools require it?
+    link: https://www.nbcnews.com/news/us-news/many-parents-are-hesitant-give-their-kids-covid-19-vaccine-n1240741
+  - start: 2020-09-21
+    type: news
+    topics:
+      - general-covid
+      - transmission
+    title: CDC says it erroneously posted guidance that said coronavirus spreads through air and travels beyond 6 feet
+    link: https://www.cnbc.com/2020/09/21/cdc-says-it-erroneously-posted-guidance-that-said-coronavirus-spreads-through-air-and-and-travel-beyond-six-feet.html
+  - start: 2020-09-21
+    type: news
+    topics:
+      - general-covid
+      - pcr-testing
+    title: Chief Science Officer for Pfizer Says "Second Wave" Faked on False-Positive COVID Tests, "Pandemic is Over"
+    link: https://hubpages.com/politics/Pfizer-Chief-Science-Officer-Second-Wave-Based-on-Fake-Data-of-False-Positives-for-New-Cases-Pandemic-is-Over
+  - start: 2020-09-21
+    type: paper
+    topics:
+      - general-covid
+      - pcr-testing
+    title: How Likely is a Second wave?
+    link: https://lockdownsceptics.org/addressing-the-cv19-second-wave/
+  - start: 2020-08-18
+    type: paper
+    topics:
+      - general-covid
+      - pcr-testing
+    pretext: Unlike previous epidemics, in addressing COVID-19 nearly all
+     international health organizations and national health ministries have
+     treated a single positive result from a PCR-based test as confirmation of
+     infection, even in asymptomatic persons without any history of exposure.
+     This is based on a widespread belief that positive results in these tests
+     are highly reliable. However, data on PCR-based tests for similar viruses
+     show that PCR-based testing produces enough false positive results to make
+     positive results highly unreliable over a broad range of real-world
+     scenarios. This has clinical and case management implications, and affects
+     an array of epidemiological statistics, including the asymptomatic ratio,
+     prevalence, and hospitalization and death rates. Steps should be taken to
+     raise awareness of false positives, reduce their frequency, and mitigate
+     their effects. In the interim, positive results in asymptomatic individuals
+     that haven't been confirmed by a second test should be considered suspect.
+    journal: Medrxiv
+    title: "Diagnosing COVID-19 infection: the danger of over-reliance on positive test results"
+    link: https://www.medrxiv.org/content/10.1101/2020.04.26.20080911v3
+    extra:
+      - name: (PDF)
+        link: https://www.medrxiv.org/content/10.1101/2020.04.26.20080911v3.full.pdf
+      - name: (Supplementary Material)
+        link: https://www.medrxiv.org/content/10.1101/2020.04.26.20080911v3.supplementary-material
+  - start: 2020-09-22
+    type: news
+    topics:
+      - vaccination
+    title: Physicians for Informed Consent Sends Cautionary Letter to UC Board of Regents Regarding Its New Flu Shot Mandate, Emphasizes Lack of Scientific Basis
+    link: https://physiciansforinformedconsent.org/physicians-for-informed-consent-sends-cautionary-letter-to-uc-board-of-regents-regarding-its-new-flu-shot-mandate-emphasizes-lack-of-scientific-basis/
+  - start: 2019-12-18
+    type: news
+    topics:
+      - vaccination
+      - quantum-dot
+    title: Storing medical information below the skin’s surface
+    link: https://news.mit.edu/2019/storing-vaccine-history-skin-1218
+  - start: 2020-10-01
+    type: paper
+    topics:
+      - general-covid
+    title: Cerebrospinal Fluid Leak After Nasal Swab Testing for Coronavirus Disease 2019
+    link: https://jamanetwork.com/journals/jamaotolaryngology/fullarticle/2771362?guestAccessKey=9184e6fc-4c1b-4916-aa5d-1ddd30b2bc90&utm_source=For_The_Media&utm_medium=referral&utm_campaign=ftm_links&utm_content=tfl&utm_term=100120
+  - start: 2020-09-27
+    type: paper
+    topics:
+      - general-covid
+    title: Epidemiological Investigation of OHCWs with COVID-19
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7527907/
+  - start: 2020-09-30
+    type: news
+    topics:
+      - general-covid
+      - contact-tracing
+    title: Largest COVID-19 contact tracing study to date finds children key to spread, evidence of superspreaders
+    link: https://www.princeton.edu/news/2020/09/30/largest-covid-19-contact-tracing-study-date-finds-children-key-spread-evidence
+  - start: 2020-07-17
+    type: paper
+    topics:
+      - general-covid
+      - contact-tracing
+    pretext: (Preprint Paper)
+    title: Epidemiology and transmission dynamics of COVID-19 in two Indian states
+    link:  https://www.medrxiv.org/content/10.1101/2020.07.14.20153643v1
+    extra:
+      - name: (PDF)
+        link: https://www.medrxiv.org/content/10.1101/2020.07.14.20153643v1.full.pdf
+  - start: 2020-09-30
+    type: paper
+    topics:
+      - general-covid
+      - contact-tracing
+    title: Epidemiology and transmission dynamics of COVID-19 in two Indian states
+    link: https://science.sciencemag.org/content/early/2020/09/29/science.abd7672
+  - start: 2020-10-01
+    type: paper
+    topics:
+      - vaccination
+    title: HPV Vaccination and the Risk of Invasive Cervical Cancer
+    link: https://www.nejm.org/doi/full/10.1056/NEJMoa1917338
+  - start: 2020-09-01
+    type: news
+    topics:
+      - vaccination
+    pretext: (Estimated date)
+    title: Results of ICAN Lawsuit Against FDA Reveals That Merck&#039;s Chicken Pox Vaccine, Varivax, Should Never Have Been Licensed | ICAN - Informed Consent Action Network
+    link: https://www.icandecide.org/ican_government/results-of-ican-lawsuit-against-fda-reveals-that-mercks-chicken-pox-vaccine-varivax-should-never-have-been-licensed/
+  - start: 2013-09-23
+    type: paper
+    topics:
+      - zinc
+    title: Impact of vitamin A with zinc supplementation on malaria morbidity in Ghana
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3850154/
+  - start: 2020-09-21
+    type: paper
+    topics:
+      - general-covid
+    title: Data-driven modeling for different stages of pandemic response
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7523119/
+  - start: 2020-09-16
+    type: news
+    topics:
+      - general-covid
+      - masks
+    title: "Wearing the Face Mask: Who is Putting our Children at Risk, SARS-CoV-2 or the Actions of our Governments?"
+    link: https://www.globalresearch.ca/wearing-the-face-mask-who-is-putting-our-children-at-risk-sars-cov-2-or-the-actions-of-our-governments/5723961
+  - start: 1968-05-18
+    type: paper
+    topics:
+      - disease
+      - germ-theory
+    journal: The Lancet
+    title: LIMITATIONS OF THE GERM THEORY
+    link: https://www.thelancet.com/journals/lancet/article/PIIS0140673668914256/fulltext
+  - start: 2015-11-26
+    type: paper
+    topics:
+      - vaccination
+    title: "Vaccines Through Centuries: Major Cornerstones of Global Health"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4659912/
+  - start: 2013-05-29
+    type: paper
+    topics:
+      - disease
+    title: "The Genetic Theory of Infectious Diseases: A Brief History and Selected Illustrations"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4980761/
+  - start: 2018-10-18
+    type: paper
+    topics:
+      - disease
+    title: The British Army's contribution to tropical medicine
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6334121/
+  - start: 2020-09-03
+    type: news
+    topics:
+      - general-covid
+      - pcr-testing
+    title: "NY TIMES: Up to 90% Who’ve Tested COVID-Positive Wrongly Diagnosed! TRUTH: A Whole Lot Worse! (Pt 3/3)"
+    link: https://www.redstate.com/michael_thau/2020/09/03/ny-times-up-to-90-of-people-who-tested-positive-for-c19-not-infected-truth-a-whole-lot-worse-pt-3/
+    extra:
+      - name: (Part 2)
+        link: https://www.redstate.com/michael_thau/2020/09/03/ny-times-up-to-90-whove-tested-covid-positive-wrongly-diagnosed-truth-a-whole-lot-worse-pt-2/
+      - name: (Part 1)
+        link: https://www.redstate.com/michael_thau/2020/09/03/ny-times-up-to-90-testing-positive-for-c19-virus-not-infectious-but-problem-actually-much-worse/
+  - start: 2020-08-05
+    type: news
+    topics:
+      - general-covid
+      - pcr-testing
+    authors: Tom Jefferson, Carl Heneghan, Elizabeth Spencer, Jon Brassey
+    title: Are you infectious if you have a positive PCR test result for COVID-19?
+    link: https://www.cebm.net/covid-19/infectious-positive-pcr-test-result-covid-19/
+  - start: 2020-06-15
+    type: news
+    topics:
+      - general-covid
+      - pcr-testing
+    title: What Zebra Mussels Can Tell Us About Errors In Coronavirus Tests
+    link: https://www.npr.org/sections/health-shots/2020/06/15/871186164/what-zebra-mussels-can-tell-us-about-errors-in-coronavirus-tests
+  - start: 2020-05-01
+    type: paper
+    topics:
+      - general-covid
+      - pcr-testing
+    authors:  Andrew N Cohen, Bruce Kessel, and Michael G Milgroom
+    title: "Diagnosing COVID-19 infection: the danger of over-reliance on positive test results"
+    link: https://www.medrxiv.org/content/10.1101/2020.04.26.20080911v4.article-info
+  - start: 2020-10-05
+    type: paper
+    topics:
+      - general-covid
+      - transmission
+    journal: MMWR Morb Mortal Wkly Rep.
+    title: Adolescent with COVID-19 as the Source of an Outbreak at a 3-Week Family Gathering — Four States, June–July 2020.
+    link: https://www.cdc.gov/mmwr/volumes/69/wr/mm6940e2.htm
+    extra:
+      - name: (PDF)
+        link: https://www.cdc.gov/mmwr/volumes/69/wr/pdfs/mm6940e2-H.pdf
+  - start: 2020-10-06
+    type: paper
+    topics:
+      - general-covid
+      - vaccination
+      - hesitancy
+      - bill-gates
+    title: Round up the ‘anti-vaxxers’? Enlist religious leaders? Bill Gates warns US needs to brainstorm ways to reduce ‘vaccine hesitancy’
+    link: https://www.rt.com/usa/502742-bill-gates-vaccine-rollout-hesitancy/
+    extra:
+      - name: (Video Page)
+        link: https://www.wsj.com/video/watch-bill-gates-at-wsj-ceo-council-summit/031C310C-128B-4229-BC1D-660B99BDA759.html
+  - start: 2020-10-08
+    type: news
+    topics:
+      - general-covid
+      - masks
+    title: COVID-19 Masks Are a Crime Against Humanity and Child Abuse
+    link: https://www.globalresearch.ca/covid-19-masks-crime-against-humanity-child-abuse/5726059
+  - start: 2020-09-19
+    type: paper
+    topics:
+      - general-covid
+      - masks
+    pretext: "The new perspective is to shift from selfishness (‘I only care about my protection’) to altruism (‘I care about protecting others’), considering the face mask a symbol of social solidarity."
+    journal: Transactions of the Royal Society of Tropical Medicine and Hygiene
+    title: Should face masks be worn to contain the spread of COVID-19 in the postlockdown phase?
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7543641/
+  - start: 2020-07-06
+    type: paper
+    topics:
+      - general-covid
+    title: Respiratory epidemics and older people
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7543883/
+  - start: 2020-09-19
+    type: paper
+    topics:
+      - general-covid
+      - nutrition
+    title: The implications of vitamin D deficiency on COVID-19 for at-risk populations
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7543577/
+  - start: 2020-05-09
+    type: paper
+    topics:
+      - general-covid
+      - nutrition
+    title: 25-Hydroxyvitamin D Concentrations Are Lower in Patients with Positive PCR for SARS-CoV-2
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7285131/
+  - start: 2020-04-24
+    type: news
+    topics:
+      - general-covid
+    title: '"Immunity passports" in the context of COVID-19'
+    link: https://www.who.int/news-room/commentaries/detail/immunity-passports-in-the-context-of-covid-19
+  - start: 2020-09-11
+    type: opinion
+    topics:
+      - general-covid
+      - masks
+      - social-distance
+    title: "COVID-19 and physician–patient relationship: potential effects of ‘masking’, ‘distancing’ and ‘others’"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7543553/
+  - start: 2020-09-28
+    type: paper
+    topics:
+      - general-covid
+      - transmission
+    title: Distribution of Airborne SARS-CoV-2 and possible aerosol transmission in Wuhan hospitals, China
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7543474/
+    extra:
+      - name: (PDF)
+        link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7543474/pdf/nwaa250.pdf
+  - start: 2013-12-24
+    type: paper
+    topics:
+      - masks
+    title: "Effect of facemasks on empathy and relational continuity: a randomised controlled trial in primary care"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3879648/
+  - start: 2020-09-24
+    type: paper
+    topics:
+      - general-covid
+    title: COVID-19 and the ‘rediscovery’ of health inequities
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7543525/
+  - start: 2020-05-30
+    type: paper
+    topics:
+      - general-covid
+    title: Death and the Virus
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7543375/
+  - start: 2020-09-24
+    type: paper
+    topics:
+      - general-covid
+      - transmission
+    title: SARS-CoV-2 transmission dynamics should inform policy
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7543342/
+    extra:
+      - name: (PDF)
+        link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7543342/pdf/ciaa1442.pdf
+  - start: 2020-09-18
+    type: paper
+    topics:
+      - general-covid
+      - pcr-testing
+    title: Clinical Impact, Costs, and Cost-Effectiveness of Expanded SARS-CoV-2 Testing in Massachusetts
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7543346/
+    extra:
+      - name: (PDF)
+        link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7543346/pdf/ciaa1418.pdf
+  - start: 2020-09-29
+    type: paper
+    topics:
+      - general-covid
+      - pcr-testing
+    title: Pooling of Upper Respiratory Specimens Using a SARS-CoV-2 Real Time RT-PCR Assay Authorized for Emergency Use in Low Prevalence Populations for High-Throughput Testing
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7543567/
+    extra:
+      - name: (PDF)
+        link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7543567/pdf/ofaa466.pdf
+  - start: 2020-10-08
+    type: news
+    topics:
+      - general-covid
+      - fetal-cells
+    title: Trump’s Covid Treatments Were Tested in Cells Derived From Fetal Tissue
+    link: https://www.nytimes.com/2020/10/08/health/trump-covid-fetal-tissue.html
+  - start: 2005-09-13
+    type: paper
+    topics:
+      - general-covid
+    title: The Expression of Emotion Through Nonverbal Behavior in Medical Visits
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1484830/
+  - start: 2020-09-11
+    type: paper
+    topics:
+      - general-covid
+    journal: Morbidity and Mortality Weekly Report (MMWR)
+    title: Community and Close Contact Exposures Associated with COVID-19 Among Symptomatic Adults ≥18 Years in 11 Outpatient Health Care Facilities — United States, July 2020
+    link: https://www.cdc.gov/mmwr/volumes/69/wr/mm6936a5.htm
+    extra:
+      - name: (PDF)
+        link: https://www.cdc.gov/mmwr/volumes/69/wr/pdfs/mm6936a5-H.pdf
+  - start: 2020-10-10
+    type: paper
+    topics:
+      - general-covid
+    title: An Evidence Based Scientific Analysis of Why Masks are Ineffective, Unnecessary, and Harmful
+    link: https://www.meehanmd.com/blog/2020-10-10-an-evidence-based-scientific-analysis-of-why-masks-are-ineffective-unnecessary-and-harmful/
+  - start: 2020-08-14
+    type: paper
+    topics:
+      - general-covid
+      - hcq
+    title: "Hydroxychloroquine in the Treatment of COVID-19: A Multicenter Randomized Controlled Study"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7543820/
+  - start: 2020-10-12
+    type: news
+    topics:
+      - general-covid
+      - vaccination
+    title: "GUINEA PIGS: More than 30,000 Sign Up To Be Infected With COVID-19 To Test Experimental Vaccine"
+    link: https://www.dailywire.com/news/guinea-pigs-more-than-300000-sign-up-to-be-infected-with-covid-19-to-test-experimental-vaccine
+  - start: 2020-10-13
+    type: news
+    topics:
+      - general-covid
+      - vaccination
+      - censorship
+    title: Facebook Bans Ads Discouraging Vaccines, In Latest Misinformation Crackdown
+    link: https://www.npr.org/sections/coronavirus-live-updates/2020/10/13/923331982/facebook-bans-ads-discouraging-vaccines-in-latest-misinformation-crackdown
+  - start: 2020-10-13
+    type: news
+    topics:
+      - general-covid
+      - world-economic-forum
+    title: "WHO: Just 10% of the world has caught COVID-19 and things are about to get 'difficult'"
+    link: https://www.weforum.org/agenda/2020/10/one-in-10-may-have-caught-covid-as-world-heads-into-difficult-period-who
+  - start: 2020-07-01
+    type: paper
+    topics:
+      - general-covid
+      - environmental-stability
+    title: Increasing Temperature and Relative Humidity Accelerates Inactivation of SARS-CoV-2 on Surfaces
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7333574/
+  - start: 2020-10-07
+    type: paper
+    topics:
+      - general-covid
+      - environmental-stability
+    title: The effect of temperature on persistence of SARS-CoV-2 on common surfaces
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7538848/
+  - start: 2020-10-14
+    type: news
+    topics:
+      - general-covid
+      - environmental-stability
+    title: How worried should I be about news the coronavirus survives on surfaces for up to 28 days?
+    link: https://medicalxpress.com/news/2020-10-news-coronavirus-survives-surfaces-days.html
+  - start: 2020-07-27
+    type: news
+    topics:
+      - general-covid
+      - vitamins
+    title: Vitamin D helps the body fight coronavirus, major Israeli study claims
+    link: https://www.timesofisrael.com/vitamin-d-helps-the-body-fight-coronavirus-major-israeli-study-claims/
+  - start: 2020-07-23
+    type: paper
+    topics:
+      - general-covid
+      - vitamins
+    title: "Low plasma 25(OH) vitamin D level is associated with increased risk of COVID‐19 infection: an Israeli population‐based study"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7404739/
+    

@@ -1,0 +1,277 @@
+category: artificial-persons
+events:
+  - start: 2010-08-28
+    type: news
+    topics:
+      - gates-foundation
+    title: Gates Foundation ties with Monsanto under fire from activists
+    link: https://www.seattletimes.com/seattle-news/gates-foundation-ties-with-monsanto-under-fire-from-activists/
+  - start: 2011-07-12
+    type: news
+    topics:
+      - gates-foundation
+    title: Monsanto and Gates Foundation Push GE Crops on Africa
+    link: https://truthout.org/articles/monsanto-and-gates-foundation-push-ge-crops-on-africa/
+  - start: 2008-12-01
+    type: news
+    topics:
+      - gates-foundation
+    title: NewsHour gets $3.5 million from Gates Foundation
+    link: http://blogs.reuters.com/mediafile/2008/12/01/newshour-gets-35-million-from-gates-foundation/
+  - start: 2020-03-28
+    type: news
+    topics:
+      - gates-foundation
+    title: Zuckerberg, Gates team up to contribute $25M for research into coronavirus treatments
+    link: https://thehill.com/homenews/news/489995-zuckerberg-gates-team-up-to-contribute-25m-for-research-into-coronavirus
+  - start: 2020-04-03
+    type: news
+    topics:
+      - gates-foundation
+    title: A Bill Gates-Backed Accelerator For COVID-19 Therapeutics Treatment Partners With Madonna And Mark Zuckerberg’s Chan Zuckerberg Initiative
+    link: https://www.forbes.com/sites/angelauyeung/2020/04/03/a-bill-gates-backed-accelerator-for-covid-19-coronavirus-therapeutics-treatment-partners-with-madonna-and-mark-zuckerbergs-chan-zuckerberg-initiative/
+  - start: 2020-04-15
+    type: news
+    topics:
+      - gates-foundation
+    title: Bill & Melinda Gates Foundation Expands Commitment to Global COVID-19 Response, Calls for International Collaboration to Protect People Everywhere from the Virus
+    link: https://www.gatesfoundation.org/Media-Center/Press-Releases/2020/04/Gates-Foundation-Expands-Commitment-to-COVID-19-Response-Calls-for-International-Collaboration
+  - start: 2020-07-27
+    type: news
+    topics:
+      - vaccination
+      - gates-foundation
+    title: Bill Gates says a COVID-vaccine maker he backed can produce 200 million doses by June
+    link: https://fortune.com/2020/07/27/bill-gates-covid-vaccine-sk-bioscience/
+  - start: 2020-04-01
+    type: news
+    topics:
+      - trials
+      - gates-foundation
+    pretext: (estimated date)
+    title: "Three Weeks, Two Drug Trials: An update on the Therapeutics Accelerator with Trevor Mundel"
+    link: https://www.gatesfoundation.org/TheOptimist/Articles/coronavirus-interview-trevor-mundel-drug-trials
+  - start: 2020-03-18
+    type: news
+    topics:
+      - gates-foundation
+    title: Bill Gates AMA on Reddit
+    link: https://www.reddit.com/r/Coronavirus/comments/fksnbf/im_bill_gates_cochair_of_the_bill_melinda_gates/
+  - start: 2015-01-26
+    end: 2015-01-27
+    type: news
+    topics:
+      - vaccination
+      - gavi
+    title: Gavi pledging conference January 2015
+    link: https://www.gavi.org/investing-gavi/resource-mobilisation-process/gavi-pledging-conference-january-2015
+  - start: 2020-06-03
+    type: news
+    topics:
+      - vaccination
+      - gavi
+    title: Private sector partners strengthen Gavi programmes with more than US$ 70 million in contributions
+    link: https://www.gavi.org/news/media-room/private-sector-partners-strengthen-gavi-programmes-more-us-70-million-contributions
+  - start: 2020-06-04
+    type: news
+    topics:
+      - vaccination
+      - gavi
+    title: Here’s everything we did to support Gavi this year
+    link: https://www.one.org/international/blog/gavi-funding-one-campaign/
+  - start: 2020-07-10
+    type: news
+    topics:
+      - vaccination
+      - gavi
+    title: Africa to Become Testing Ground for “Trust Stamp” Vaccine Record and Payment System
+    link: https://www.mintpressnews.com/africa-trust-stamp-covid-19-vaccine-record-payment-system/269346/
+  - start: 2020-07-29
+    type: news
+    topics:
+      - vaccination
+      - mastercard
+      - money
+      - gavi
+    title: Vaccine Companies Partner with Mastercard to Merge Vaccines with Cashless Money System
+    link: https://davidicke.com/2020/07/29/vaccine-companies-partner-with-mastercard-to-merge-vaccines-with-cashless-money-system/
+  - start: 2020-05-21
+    type: news
+    topics:
+      - mastercard
+      - id2020
+    journal: MasterCard
+    title: Mastercard Joins ID2020 Alliance
+    link: https://mastercardcontentexchange.com/newsroom/press-releases/2020/may/mastercard-joins-id2020-alliance/
+  - start: 2020-05-22
+    type: news
+    topics:
+      - mastercard
+      - id2020
+    title: Mastercard joins ID2020 Alliance to advance digital identity as a fundamental human right
+    link: https://www.biometricupdate.com/202005/mastercard-joins-id2020-alliance-to-advance-digital-identity-as-a-fundamental-human-right
+  - start: 2016-06-23
+    type: news
+    topics:
+      - id2020
+    pretext: This article covers the inaugural ID2020 summit.
+    title: Fighting for a Secure Digital Identity for All
+    link: https://redmondmag.com/articles/2016/07/01/common-cause.aspx
+  - start: 2019-09-10
+    type: news
+    topics:
+      - id2020
+    journal: Medium
+    title: Welcome the City of Austin to the ID2020 Alliance!
+    link: https://medium.com/id2020/welcome-the-city-of-austin-to-the-id2020-alliance-76b0ebe6776
+  - start: 2020-06-01
+    type: news
+    topics:
+      - id2020
+    pretext: (estimated date)
+    title: Advisor resigns from ID2020 objecting to blockchain immunity passports for COVID-19
+    link: https://ledgerinsights.com/id2020-resignation-blockchain-covid-19-immunity-passports/
+  - start: 2019-09-20
+    type: news
+    topics:
+      - vaccination
+      - id2020
+    title: ID2020 and partners launch program to provide digital ID with vaccines
+    link: https://www.biometricupdate.com/201909/id2020-and-partners-launch-program-to-provide-digital-id-with-vaccines
+  - start: 2019-10-16
+    type: news
+    topics:
+      - mastercard
+      - id2020
+    title: Mastercard and Mahendra Singh Dhoni come together to build Team Cashless India
+    link: https://newsroom.mastercard.com/asia-pacific/press-releases/mastercard-and-mahendra-singh-dhoni-come-together-to-build-team-cashless-india/
+  - start: 2020-03-27
+    type: news
+    topics:
+      - id2020
+    title: The very first Wikipedia article devoted to the topic
+    link: https://en.wikipedia.org/w/index.php?title=ID2020&oldid=947565717
+  - start: 2020-04-15
+    type: news
+    topics:
+      - id2020
+    title: How a tech NGO got sucked into a COVID-19 conspiracy theory
+    link: https://www.thenewhumanitarian.org/news/2020/04/15/id2020-coronavirus-vaccine-misinformation
+  - start: 2020-04-22
+    type: news
+    topics:
+      - id2020
+    title: Are Bill Gates and the ID2020 Coalition Using COVID-19 To Build Global Surveillance State?
+    link: https://www.snopes.com/fact-check/bill-gates-id2020/
+  - start: 2020-06-06
+    type: news
+    topics:
+      - id2020
+    title: 'The Coronavirus COVID-19 Pandemic: The Real Danger is “Agenda ID2020”'
+    link: https://www.globalresearch.ca/coronavirus-causes-effects-real-danger-agenda-id2020/5706153
+  - start: 2020-04-11
+    type: paper
+    topics:
+      - id2020
+    authors: WHO
+    title: WHO Novel Coronavirus Landscape (PDF)
+    link: https://www.who.int/docs/default-source/coronaviruse/transcripts/novel-coronavirus-landscape-ncov-11april2020.pdf
+  - start: 2020-04-20
+    type: news
+    topics:
+      - id2020
+    authors: WHO
+    title: "Immunity Certificates:  If We Must Have Them, We Must Do It Right (PDF)"
+    link: https://ethics.harvard.edu/files/center-for-ethics/files/12immunitycertificates.pdf
+  - start: 2020-07-20
+    type: news
+    topics:
+      - world-economic-forum
+    title: What COVID-19 taught 10 startups about pivoting, problem solving and tackling the unknown
+    link: https://www.weforum.org/covid-action-platform/articles/what-covid-19-taught-10-startups-about-pivoting-problem-solving-and-tackling-the-unknown
+  - start: 2018-01-25
+    type: news
+    topics:
+      - world-economic-forum
+    pretext: George Soros at Davos, Switzerland
+    title: Remarks delivered at the World Economic Forum
+    link: https://www.georgesoros.com/2018/01/25/remarks-delivered-at-the-world-economic-forum/
+  - start: 2020-07-27
+    type: news
+    topics:
+      - world-economic-forum
+    title: Here are 3 ways to close digital gaps and kickstart recovery
+    link: https://www.weforum.org/agenda/2020/07/here-are-3-ways-to-close-digital-gaps-and-kickstart-recovery
+  - start: 2020-03-26
+    type: news
+    topics:
+      - world-economic-forum
+    title: Known Traveller Digital Identity Specifications Guidance
+    link: https://www.weforum.org/whitepapers/known-traveller-digital-identity-specifications-guidance
+  - start: 2020-08-06
+    type: news
+    topics:
+      - digital-identity
+      - world-economic-forum
+    title: 6 ways the COVID-19 pandemic could change our approach to human capital
+    link: https://www.weforum.org/agenda/2020/08/6-ways-covid-19-will-advance-human-capital-strategies-and-governance
+  - start: 2020-07-23
+    type: news
+    topics:
+      - great-reset
+      - world-economic-forum
+    title: The Great Reset requires FinTechs – and FinTechs require a common approach to cybersecurity
+    link: https://www.weforum.org/agenda/2020/07/great-reset-fintech-financial-technology-cybersecurity-controls-cyber-resilience-businesses-consumers/
+  - start: 2020-06-25
+    type: news
+    topics:
+      - great-reset
+      - money
+      - world-economic-forum
+    title: "Introducing the 'Great Reset,' world leaders' radical plan to transform the economy"
+    link: https://www.msn.com/en-us/news/politics/introducing-the-great-reset-world-leaders-radical-plan-to-transform-the-economy/ar-BB15XGsU
+  - start: 2020-07-24
+    type: news
+    topics:
+      - artificial-intelligence
+      - world-economic-forum
+    title: Better conversations can help reimagine AI regulation. These steps can help.
+    link: https://www.weforum.org/agenda/2020/07/6-steps-to-better-conversations-that-reimagine-ai-regulation
+  - start: 2020-06-08
+    type: news
+    topics:
+      - artificial-intelligence
+      - world-economic-forum
+    title: "How governments can use public procurement to shape the future of AI regulation – and boost innovation and growth"
+    link: https://www.weforum.org/agenda/2020/06/artificial-intelligence-ai-government-procurement-standards-regulation-economic-growth-covid-19-response
+    
+    
+    
+
+    
+
+
+    
+
+
+    
+    
+
+    
+    
+
+        
+    
+
+    
+    
+    
+
+    
+
+
+    
+    
+    
+    
+    

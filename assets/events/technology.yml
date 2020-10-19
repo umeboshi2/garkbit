@@ -1,0 +1,181 @@
+category: technology
+events:
+  - start: 2016-07-25
+    type: paper
+    topics:
+      - nanotech
+    journal: Chem Soc Rev.
+    authors: Amy M. Wena and Nicole F. Steinmetz
+    title: Design of virus-based nanomaterials for medicine, biotechnology, and energy
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5068136/
+  - start: 2010-04-28
+    type: paper
+    topics:
+      - nanotech
+    journal: Nanomedicine
+    authors: Nicole F. Steinmetz, Ph.D.
+    title: Viral nanoparticles as platforms for next-generation therapeutics and imaging devices
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2948632/
+  - start: 2018-06-04 
+    type: paper
+    topics:
+      - nanotech
+    journal: Biorxiv
+    title: "Developing A Programmable, Self-Assembling Squash Leaf Curl China Virus (SLCCNV) Capsid Proteins Into “Nano-Cargo”-Like Architecture: A Next-Generation “Nanotool” For Biomedical Applications"
+    link: https://www.biorxiv.org/content/10.1101/338269v1
+    extra:
+      - name: {Full Article}
+        link: https://www.biorxiv.org/content/10.1101/338269v1.full
+  - start: 2016-10-05
+    type: paper
+    topics:
+      - nanotech
+    journal: Arabian Journal of Chemistry
+    title: Nanobiotechnology approach using plant rooting hormone synthesized silver nanoparticle as “nanobullets” for the dynamic applications in horticulture – An in vitro and ex vitro study
+    link: https://www.sciencedirect.com/science/article/pii/S1878535216301666
+  - start: 2018-07-20
+    type: paper
+    topics:
+      - nanotech
+    journal: Arabian Journal of Chemistry
+    authors: Raja Muthuramalingam Thangavelu, Rajendran Ganapathy,
+     Pandian Ramasamy, and Kathiravan Krishnan
+    title: "Fabrication of virus metal hybrid nanomaterials: An ideal reference for bio semiconductor"
+    link: https://www.sciencedirect.com/science/article/pii/S1878535218301540?via%3Dihub
+  - start: 2009-05-22
+    type: paper
+    topics:
+      - nanotech
+    pretext: (Subscriber only)
+    title: Fabricating Genetically Engineered High-Power Lithium-Ion Batteries Using Multiple Virus Genes
+    link: https://science.sciencemag.org/content/324/5930/1051
+  - start: 2010-12-17
+    type: paper
+    topics:
+      - nanotech
+    journal: Molecular Pharmaceutics
+    authors: Jonathan K. Pokorski and Nicole F. Steinmetz
+    title: The Art of Engineering Viral Nanoparticles
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3156490/
+    extra:
+      - name: (Virus Nanotechnology on Wikipedia)
+        link: https://en.wikipedia.org/wiki/Virus_nanotechnology
+  - start: 1998-05-14
+    type: paper
+    topics:
+      - nanotech
+    journal: Nature
+    authors: Trevor Douglas & Mark Young
+    title: Host–guest encapsulation of materials by assembled virus protein cages
+    link: https://www.nature.com/articles/30211
+  - start: 2020-09-18
+    type: paper
+    topics:
+      - nanotech
+    journal: Targeting Chronic Inflammatory Lung Diseases Using Advanced Drug Delivery Systems
+    title: Inhalable hybrid nanocarriers for respiratory disorders
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7499343/
+  - start: 2020-09-18
+    type: paper
+    topics:
+      - nanotech
+    journal: Theory and Applications of Nonparenteral Nanomedicines. 2021
+    title: Challenges in nonparenteral nanomedicine therapy
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7499062/
+  - start: 2020-09-18
+    type: paper
+    topics:
+      - nanotech
+    journal: Electrochemistry communications
+    title: Electrochemical removal of anodic aluminium oxide templates for the production of phase-pure cuprous oxide nanorods for antimicrobial surfaces
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7498412/
+  - start: 2020-09-17
+    type: paper
+    topics:
+      - nanotech
+    journal: Composites Communications
+    title: A review of smart electrospun fibers toward textiles
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7497400/
+  - start: 2020-09-15
+    type: paper
+    topics:
+      - nanotech
+      - quantum-dot
+    journal: ACS Omega
+    title: Highly Sensitive Fluorescence-Linked Immunosorbent Assay for the Determination of Human IgG in Serum Using Quantum Dot Nanobeads and Magnetic Fe3O4 Nanospheres
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7495760/
+  - start: 2019-12-30
+    type: paper
+    topics:
+      - nanotech
+    journal: Asian journal of pharmaceutical sciences
+    title: Biointerface engineering nanoplatforms for cancer-targeted drug delivery
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7486517/
+  - start: 2020-05-20
+    type: paper
+    topics:
+      - nanotech
+    journal: Journal of dental sciences
+    title: A four-year prospective study of self-assembling nano-modified dental implants in patients with type 2 diabetes mellitus
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7486501/
+  - start: 2020-08-26
+    type: paper
+    topics:
+      - nanotech
+    journal: Beilstein journal of nanotechnology
+    title: An atomic force microscope integrated with a helium ion microscope for correlative nanoscale characterization
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7476598/
+  - start: 2020-09-02
+    type: paper
+    topics:
+      - nanotech
+    journal: Beilstein journal of nanotechnology
+    title: Magnetohydrodynamic stagnation point on a Casson nanofluid flow over a radially stretching sheet
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7476597/
+  - start: 2020-09-01
+    type: paper
+    topics:
+      - nanotech
+    journal: Beilstein journal of nanotechnology
+    title: "Growth of a self-assembled monolayer decoupled from the substrate: nucleation on-command using buffer layers"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7476593/
+  - start: 2020-09-04
+    type: paper
+    topics:
+      - nanotech
+      - quantum-dot
+    journal: ACS applied materials & interfaces\
+    title: Magnetic Bead-Quantum Dot (MB-Qdot) Clustered Regularly Interspaced Short Palindromic Repeat Assay for Simple Viral DNA Detection
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7500431/
+  - start: 2020-08-04
+    type: paper
+    topics:
+      - nanotech
+    journal: Nano letters
+    title: 3D Printing of Ordered Mesoporous Silica Complex Structures
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7496731/
+  - start: 2020-01-27
+    type: news
+    topics:
+      - weather-modification
+    title: BPPT to Continue Weather Modification amid Criticism
+    link: https://en.tempo.co/read/1300095/bppt-to-continue-weather-modification-amid-criticism
+  - start: 2020-09-17
+    type: news
+    topics:
+      - general-covid
+      - darpa
+      - hydrogel
+      - moderna
+      - mrna
+    title: A DARPA-Funded Implantable Biochip to Detect COVID-19 Could Hit Markets by 2021
+    link: https://www.mintpressnews.com/darpa-covid-19-vaccine-implant-mrna/271287/?fbclid=IwAR3TPyVLtxcxIm84e3yH1V6bki4Fo0baCPjbwXIXELwLw2Tr1VO3UdZ2Kd0
+  - start: 2020-10-01
+    type: paper
+    topics:
+      - general-covid
+    title: A computational toolset for rapid identification of SARS-CoV-2, other viruses and microorganisms from sequencing data
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7543257/
+    extra:
+      - name: (Github Repo)
+        link: https://github.com/OpenGene/fastv

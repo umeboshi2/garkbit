@@ -1,0 +1,532 @@
+category: miscellaneous
+events:
+  - start: 2020-07-23
+    type: news
+    topics:
+      - religion
+    title: "Christians told to renounce Jesus or be refused coronavirus aid - 'Let your God take care of your family'"
+    link: https://www.christiantoday.com/article/christians.told.renounce.jesus.or.be.refused.coronavirus.aid.let.god.take.care.of.your.family/135252.htm
+  - start: 2020-07-27
+    type: news
+    topics:
+      - mutation
+    title: Enzymes in Humans are Mutating the Novel Coronavirus in an Accelerated Fashion to Make it Less Harmful.
+    link: https://sciencewithdrdoug.wordpress.com/2020/07/27/enzymes-in-humans-are-mutating-the-novel-coronavirus-in-an-accelerated-fashion-to-make-it-less-harmful/
+  - start: 2020-07-20
+    type: paper
+    topics:
+      - vaccination
+      - mutation
+    journal: Molecular Biology and Evolution
+    title: "Evidence for strong mutation bias towards, and selection against, U content in SARS-CoV-2: implications for vaccine design"
+    link: https://academic.oup.com/mbe/advance-article/doi/10.1093/molbev/msaa188/5873882
+  - start: 2009-05-06
+    type: news
+    topics:
+      - big-pharma
+    journal: CBS News
+    title: Merck Created Hit List to "Destroy," "Neutralize" or "Discredit" Dissenting Doctors
+    link: https://www.cbsnews.com/news/merck-created-hit-list-to-destroy-neutralize-or-discredit-dissenting-doctors/
+  - start: 2020-07-28
+    type: news
+    topics:
+      - big-pharma
+    journal: Bloomberg
+    title: Goldman Warns the Dollar's Grip on Global Markets Might Be Over
+    link: https://www.bloomberg.com/news/articles/2020-07-28/goldman-warns-dollar-s-role-as-world-reserve-currency-is-at-risk
+  - start: 2020-07-30
+    type: news
+    topics:
+      - money
+    journal: Forbes
+    title: You Must Not ‘Do Your Own Research’ When It Comes To Science
+    link: https://www.forbes.com/sites/startswithabang/2020/07/30/you-must-not-do-your-own-research-when-it-comes-to-science/#25253cfe535e
+  - start: 2020-07-23
+    type: news
+    topics:
+      - ufo
+    title: Pentagon UFO unit to publicly release some findings
+    link: https://nypost.com/2020/07/23/pentagon-ufo-unit-to-publicly-release-some-findings/
+  - start: 2020-07-09
+    type: news
+    topics:
+      - general-covid
+    title: 3 States Account for 42 Percent of All COVID-19 Deaths in America. Why?
+    link: https://fee.org/articles/3-states-account-for-42-percent-of-all-covid-19-deaths-in-america-why/
+  - start: 2020-07-01
+    type: news
+    topics:
+      - general-covid
+    title: COVID-19 death toll underreported, study finds
+    link: https://www.virginiabusiness.com/article/covid-19-death-toll-underreported-study-finds/
+  - start: 2007-03-01
+    type: paper
+    topics:
+      - general-covid
+    title: "The effects of skin tone on race-related amygdala activity: an fMRI investigation"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2555431/
+  - start: 2020-09-05
+    type: news
+    topics:
+      - elections
+    title: The threat of disinformation looms over the elections
+    link: https://www.pbs.org/newshour/show/the-threat-of-disinformation-looms-over-the-elections
+  - start: 2020-08-02
+    type: news
+    topics:
+      - artificial-intelligence
+      - hydrogel
+    pretext: "\"The team also discovered evidence of down-regulated genes in 
+     COVID patients that might otherwise have kept hyaluronic acid levels in 
+     check. So with fluid inundating the lungs and gels that absorb those 
+     fluids being over-produced as well, a coronavirus patient’s lung, 
+     Jacobson said, 'fills up with a jello-like hydrogel.'\"" 
+    title: Has the Summit Supercomputer Cracked COVID's Code?
+    link: https://spectrum.ieee.org/the-human-os/computing/hardware/has-the-summit-supercomputer-cracked-the-covid-code
+    extra:
+      - name: (Wikipedia hydrogel article)
+        link: https://en.wikipedia.org/wiki/Hydrogel
+  - start: 2020-06-22 
+    type: news
+    topics:
+      - general-covid
+    title: Will Travel be Safer by 2022?
+    link: http://www.bbc.com/travel/story/20200621-will-travel-be-safer-by-2022
+  - start: 2018-05-17
+    type: news
+    topics:
+      - miscellaneous
+    title: Ellen DeGeneres Grills Sandra Bullock Over "Penis Facials"
+    link: https://www.eonline.com/news/936261/ellen-degeneres-grills-sandra-bullock-over-quot-penis-facials-quot
+  - start: 2010-06-04
+    type: paper
+    topics:
+      - disease
+    journal: British Medical Journal
+    title: Conflicts of interest and pandemic flu
+    link: https://www.bmj.com/content/340/bmj.c2947
+    extra:
+      - name: (PDF)
+        link: https://childrenshealthdefense.org/wp-content/uploads/Godlee-2010-Conflicts-of-interest-and-pandemic-flu.pdf
+  - start: 2009-05-14
+    type: news
+    topics:
+      - philanthropy
+    title: Billionaire club in bid to curb overpopulation
+    link: https://archive.is/RAwFf#selection-697.0-700.0
+  - start: 2020-08-07
+    type: news
+    topics:
+      - vaccination
+    pretext: "\"Health officials say there is no returning to 'normal' until there is a vaccine.\""
+    title: "Dr. Anthony Fauci says chance of coronavirus vaccine being highly effective is ‘not great’"
+    link: https://www.cnbc.com/2020/08/07/coronavirus-vaccine-dr-fauci-says-chances-of-it-being-highly-effective-is-not-great.html
+  - start: 2009-11-29
+    type: paper
+    topics:
+      - nanotech
+    journal: Nanoethics
+    authors: Henk van den Belt
+    pretext: "\"Synthetic biology, it is therefore maintained, does not 
+     offend so much the God of the Bible as a deified Nature. While syntheses 
+     of artificial life forms cause some vague uneasiness that life may lose 
+     its special meaning, most concerns turn out to be narrowly 
+     anthropocentric. As long as synthetic biology creates only new microbial 
+     life and does not directly affect human life, it will in all likelihood be 
+     considered acceptable.\""
+    title: "Playing God in Frankenstein’s Footsteps: Synthetic Biology and the Meaning of Life"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2837218/
+  - start: 2020-06-05
+    type: paper
+    topics:
+      - herd-immunity
+      - vaccination
+    title: Covid-19 and Herd Immunity Without Vaccination—Teaching Modern Vaccine Dogma Old Tricks?
+    link: https://www.andrewbostom.org/2020/06/covid-19-and-herd-immunity-without-vaccination-teaching-modern-vaccine-dogma-old-tricks/
+  - start: 2017-02-10
+    type: paper
+    topics:
+      - nanotech
+    journal: Biomaterials
+    title: "Crossing Kingdoms: Using Decellularized Plants as Perfusable Tissue Engineering Scaffolds"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5388455/
+  - start: 2018-05-31
+    type: paper
+    topics:
+      - nanotech
+    journal: Journal of Visualized Experiments
+    title: Two Methods for Decellularization of Plant Tissues for Tissue Engineering Applications
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6101437/
+    extra:
+      - name: (video)
+        link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6101437/bin/jove-135-57586.mp4
+  - start: 2020-06-13
+    type: news
+    topics:
+      - general-covid
+    title: Bill Gates Conspiracy Theorists Might Not Be As Crazy As You Think
+    link: https://www.ccn.com/bill-gates-conspiracy-theorists-might-not-be-as-crazy-as-you-think/
+  - start: 2014-09-23
+    type: paper
+    topics:
+      - disease
+    pretext: "This article has been retracted. Retraction in: Front Public 
+     Health. 2019 October 29; 7: 334"
+    title: "Questioning the HIV-AIDS Hypothesis: 30 Years of Dissent"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4172096/
+  - start: 2020-04-07
+    type: news
+    topics:
+      - nanotech
+    title: Stepher's comment
+    link: https://pieceofmindful.com/2020/04/06/bombshell-who-coronavirus-pcr-test-primer-sequence-is-found-in-all-human-dna/#comment-121824
+  - start: 2020-08-22
+    type: news
+    topics:
+      - great-reset
+    title: "From Lockdown to Police State: The “Great Reset” Rolls Out"
+    link: https://ellenbrown.com/2020/08/22/from-lockdown-to-police-state-the-great-reset-rolls-out/
+  - start: 2020-04-22
+    type: paper
+    topics:
+      - general-covid
+    authors: Yuri Deigin
+    title: Lab-Made? SARS-CoV-2 Genealogy Through the Lens of Gain-of-Function Research
+    link: https://medium.com/@yurideigin/lab-made-cov2-genealogy-through-the-lens-of-gain-of-function-research-f96dd7413748
+  - start: 2014-03-27
+    type: paper
+    topics:
+      - miscellaneous
+    journal: Frontiers in Human Neuroscience
+    title: "A review of neuroimaging studies of race-related prejudice: does amygdala response reflect threat?"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3973920/
+  - start: 2020-09-10
+    type: news
+    topics:
+      - censorship
+    pretext: "\"As for reasoning behind the new rule, Facebook—who also own 
+     Instagram—stated that they want their technology to be used to connect 
+     family and friends to one another, not to connect musicians to their fans. 
+     The tech company threatens video removal and possible account deletion as 
+     a penalty for failure to comply.  Facebook states:'You may not use videos 
+     on our Products to create a music listening experience.  We want you to be 
+     able to enjoy videos posted by family and friends. However, if you use 
+     videos on our Products to create a music listening experience for yourself 
+     or for others, your videos will be blocked and your page, profile or group 
+     may be deleted. This includes Live.'\""
+    title: Facebook reveals new rules to limit streamed events
+    link: https://dancingastronaut.com/2020/09/facebook-reveals-new-rules-to-limit-streamed-events/
+  - start: 2019-09-06
+    type: news
+    topics:
+      - fetal-cells
+    title: StemExpress CEO admits selling beating baby hearts, intact baby heads in Daleiden hearing
+    link: https://www.lifesitenews.com/news/stemexpress-ceo-admits-selling-beating-baby-hearts-intact-baby-heads-in-daleiden-hearing
+  - start: 2019-09-19
+    type: news
+    topics:
+      - fetal-cells
+    title: Only hearts harvested from living babies can be used for research, expert tells Daleiden hearing
+    link: https://www.lifesitenews.com/news/only-hearts-harvested-from-living-babies-can-be-used-for-research-expert-tells-daleiden-hearing
+  - start: 2019-09-14
+    type: news
+    topics:
+      - general-covid
+    title: "COVID: Major case filed against Ohio governor and the state of Ohio for restricting freedom without legitimate justification"
+    link: https://davidicke.com/2020/09/14/covid-major-case-filed-against-ohio-governor-and-the-state-of-ohio-for-restricting-freedom-without-legitimate-justification/
+    extra:
+      - name: (Complaint PDF)
+        link: https://renzlaw.files.wordpress.com/2020/09/case-complaint-final-1.pdf
+  - start: 2020-09-16
+    type: news
+    topics:
+      - general-covid
+    title: COVID-19 emails from Nashville mayor's office show disturbing revelation
+    link: https://fox17.com/news/local/covid-19-emails-from-nashville-mayors-office-show-disturbing-revelation
+  - start: 2020-09-17
+    type: news
+    topics:
+      - qanon
+    journal: New York Times
+    title: The Evangelicals Who Are Taking On QAnon
+    link: https://www.nytimes.com/2020/09/17/opinion/evangelicals-qanon.html
+  - start: 2020-08-24
+    type: news
+    topics:
+      - qanon
+    title: "Q-Anon: The rise of ‘restless evil’"
+    link: https://www.brnow.org/opinions/editorial/q-anon-the-rise-of-restless-evil/
+  - start: 2020-09-10
+    type: paper
+    topics:
+      - general-covid
+    journal: Translational behavioral medicine
+    title: COVID-19 conspiracy beliefs, health behaviors, and policy support
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7499784/
+  - start: 2020-09-15
+    type: paper
+    topics:
+      - hand-hygiene
+    journal: PLoS One
+    title: Evaluating approaches to designing effective Co-Created hand-hygiene interventions for children in India, Sierra Leone and the UK
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7491735/
+  - start: 2020-05-07
+    type: paper
+    topics:
+      - fetal-cells
+    journal: Cell Stem Cell
+    title: GATA3 Mediates a Fast, Irreversible Commitment to BMP4-Driven Differentiation in Human Embryonic Stem Cells
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7487786/
+  - start: 2020-08-26
+    type: paper
+    topics:
+      - general-covid
+    journal: The American journal of gastroenterology
+    title: "Absence of COVID-19 Infection in Patients Accessing IBD Unit at Humanitas, Milan: Implications for Postlockdown Measures"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7499879/
+  - start: 2020-08-06
+    type: paper
+    topics:
+      - general-covid
+      - disease
+    journal: The British journal of nutrition
+    title: "Selenium and viral infection: are there lessons for COVID-19?"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7503044/
+  - start: 2019-02-26
+    type: paper
+    topics:
+      - disease
+    journal: Social science & medicine
+    title: "Where Culture Meets Genetics: Exploring Latina Immigrants’ Lay Beliefs of Disease Inheritance"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7505090/
+  - start: 2020-08-26
+    type: paper
+    topics:
+      - fetal-cells
+    journal: World journal of stem cells
+    title: Stem cell therapy for Alzheimer's disease
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7477654/
+  - start: 2019-05-22
+    type: paper
+    topics:
+      - general-covid
+    journal: Journal of applied statistics
+    title: A semiparametric marginalized zero-inflated model for analyzing healthcare utilization panel data with missingness
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7500577/
+  - start: 2020-09-19
+    type: paper
+    topics:
+      - nanotech
+    journal: Journal of the American Chemical Society
+    title: A general strategy for engineering noncanonical amino acid dependent bacterial growth
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7501724/
+  - start: 2020-09-15
+    type: paper
+    topics:
+      - pcr-testing
+    title: Static array of droplets and on-demand recovery for biological assays
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7494362/
+  - start: 2020-06-25
+    type: paper
+    topics:
+      - general-covid
+    journal: AIDS (London, England)
+    title: Disproportionate burden of coronavirus disease 2019 among racial minorities and those in congregate settings among a large cohort of people with HIV
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7499878/
+  - start: 2020-09-09
+    type: paper
+    topics:
+      - general-covid
+    journal: World journal of urology
+    title: Preliminary assessment of patient and physician satisfaction with the use of teleconsultation in urology during the COVID-19 pandemic
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7480659/
+  - start: 2020-08-17
+    type: paper
+    topics:
+      - elections
+    journal: Proceedings of the National Academy of Sciences of the United States of America
+    title: The objectivity illusion and voter polarization in the 2016 presidential election
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7474588/
+  - start: 2020-09-17
+    type: paper
+    topics:
+      - digital-identity
+    title: "IoT in medical & pharmaceutical: Designing lightweight RFID security protocols for ensuring supply chain integrity"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7497782/
+  - start: 2018-12-01
+    type: paper
+    topics:
+      - digital-identity
+    journal: Sensors
+    title: "Identity Management Systems for the Internet of Things: A Survey Towards Blockchain Solutions"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6308926/
+  - start: 2020-09-17
+    type: paper
+    topics:
+      - artificial-intelligence
+    journal: Journal of cheminformatics
+    title: "Molecular representations in AI-driven drug discovery: a review and practical guide"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7495975/
+  - start: 2020-09-17
+    type: paper
+    topics:
+      - artificial-intelligence
+    journal: Scientific reports
+    title: Diagnosis of thyroid nodules on ultrasonography by a deep convolutional neural network
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7498581/
+  - start: 2020-09-24
+    type: news
+    topics:
+      - general-covid
+      - virtual-classroom
+    title: 4th grade virtual learner gets suspended for having a BB gun in his bedroom
+    link: https://www.wvlt.tv/2020/09/25/4th-grade-virtual-learner-gets-suspended-for-having-a-bb-gun-in-his-bedroom/
+  - start: 2020-09-24
+    type: news
+    topics:
+      - general-covid
+      - masks
+    title: Shocking moment woman is tased and arrested for not wearing a face mask at a middle school football game in Ohio
+    link: https://www.dailymail.co.uk/news/article-8768465/Woman-tased-arrested-not-wearing-face-mask-middle-school-football-game-Ohio.html
+  - start: 2020-09-25
+    type: news
+    topics:
+      - general-covid
+      - masks
+      - vaccination
+    authors: Elizabeth Ralph
+    journal: Politico
+    title: Here’s How the Pandemic Finally Ends
+    link: https://www.politico.com/news/magazine/2020/09/25/how-covid-19-pandemic-ends-421122
+  - start: 2020-09-25
+    type: news
+    topics:
+      - general-covid
+      - masks
+    title: Attorney says school district ‘misapplied law’ in arresting woman with no mask at football game
+    link: https://www.nbc4i.com/news/attorney-says-school-district-misapplied-law-in-arresting-woman-with-no-mask-at-football-game/
+  - start: 2020-09-25
+    type: news
+    topics:
+      - general-covid
+      - masks
+    title: Arresting People For Not Wearing Masks Is Another Giant Step Toward Total Tyranny
+    link: http://themostimportantnews.com/archives/arresting-people-for-not-wearing-masks-is-another-giant-step-toward-total-tyranny
+  - start: 2020-09-25
+    type: news
+    topics:
+      - general-covid
+    title: Florida's Governor Lifts All COVID-19 Restrictions On Businesses Statewide
+    link: https://www.npr.org/sections/coronavirus-live-updates/2020/09/25/916969969/floridas-governor-lifts-all-covid-19-restrictions-on-businesses-statewide
+  - start: 2000-08-03
+    type: paper
+    topics:
+      - miscellaneous
+    title: "Resisting Unlawful Arrest in Mississippi: Resisting the Modern Trend"
+    link: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=235760
+    extra:
+      - name: (PDF)
+        link: https://papers.ssrn.com/sol3/Delivery.cfm/000710365.pdf
+  - start: 2020-09-25
+    type: news
+    topics:
+      - elections
+    title: 10 things you need to know to stop a coup
+    link: https://wagingnonviolence.org/2020/09/10-things-you-need-to-know-to-stop-a-coup/
+  - start: 2020-09-23
+    type: paper
+    topics:
+      - miscellaneous
+    pretext: New documents unveiled in an explosive Senate report Wednesday
+     show former Secretary of State John Kerry lied to reporters when asked
+     whether he was aware of former Vice President Joe Biden's son serving in
+     a lucrative board position for a Ukrainian energy company.
+    title: "Hunter Biden, Burisma, and Corruption: The Impact on U.S. Government Policy and Related Concerns"
+    link: https://www.scribd.com/document/477154100/FINAL-DRAFT-CLEAN-COPY-4-pdf
+  - start: 2020-07-08
+    type: news
+    topics:
+      - masks
+    title: 7 Reasons for Unmasking the Masks
+    link: https://dougwils.com/books-and-culture/s7-engaging-the-culture/7-reasons-for-unmasking-the-masks.html
+  - start: 2020-07-10
+    type: news
+    topics:
+      - masks
+    title: "Update: Why Face Masks Don’t Work: A Revealing Review"
+    link: https://www.oralhealthgroup.com/features/face-masks-dont-work-revealing-review/
+  - start: 2016-10-19
+    type: paper
+    topics:
+      - masks
+    pretext: (Original paper on archive.org) 
+    title: "Why Face Masks Don’t Work: A Revealing Review"
+    link: https://web.archive.org/web/20200509053953/https://www.oralhealthgroup.com/features/face-masks-dont-work-revealing-review/
+  - start: 2020-09-15
+    type: news
+    topics:
+      - ufo
+    title: Thousands witness UFO Over New Jersey Sept 14, 2020, 4 Videos, UFO Sighting News.
+    link: https://www.ufosightingsdaily.com/2020/09/thousands-witness-ufo-over-new-jersey.html?m=1
+  - start: 2020-10-02
+    type: news
+    topics:
+      - general-covid
+    title: A Covid-19 Nasal Swab Test Punctured Woman's Brain Lining and Leaked Brain Fluid From Her Nose
+    link: https://www.news18.com/news/buzz/a-covid-19-nasal-swab-test-punctured-womans-brain-lining-and-leaked-brain-fluid-from-her-nose-2927009.html
+  - start: 2020-10-01
+    type: opinion
+    topics:
+      - general-covid
+      - technology
+      - artificial-intelligence
+    title: Exponential Technologies and the Perfect Storm for Digital Health
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7528448/
+  - start: 2020-06-04
+    type: paper
+    topics:
+      - intelligent-design
+    journal: Journal of Theoretical Biology
+    authors: Steinar Thorvaldsen and Ola Hössjer
+    title: Using statistical methods to model the fine-tuning of molecular machines and systems
+    link: https://www.sciencedirect.com/science/article/pii/S0022519320302071
+    extra:
+      - name: (PDF Disclaimer)
+        link: https://www.sciencedirect.com/science/article/pii/S0022519320302071/pdfft?md5=b85d653066ce5ae5da15d8443156d53f&pid=1-s2.0-S0022519320302071-main.pdf
+        text: The Journal of Theoretical Biology and its co-Chief Editors do
+         not endorse in any way the ideology of nor reasoning behind the
+         concept of intelligent design. Since the publication of the paper it
+         has now become evident that the authors are connected to a creationist
+         group (although their addresses are given on the paper as departments
+         in bona fide universities). We were una-ware of this fact while the
+         paper was being reviewed. Moreover, the keywords ‘‘intelligent design”
+         were added by the authors after the review process during the
+         proofing stage and we were unaware of this action by the authors.
+         We have removed these from the online version of this paper. We
+         believe that intelligent design is not in any way a suitable topic
+         for the Journal of Theoretical Biology.
+         Denise Kirschner
+         Mark Chaplain
+         Akira Sasakico
+         co-Chief Editors
+         Journal of Theoretical Biology
+  - start: 2020-08-20
+    type: opinion
+    topics:
+      - intelligent-design
+    title: Large sample spaces do not imply biological systems are ‘fine-tuned’
+    link: https://www.sciencedirect.com/science/article/pii/S002251932030312X
+  - start: 1977-01-01 
+    type: paper
+    topics:
+      - miscellaneous
+    title: The Lancet on the telephone 1876-1975.
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1081896/
+  - start: 2020-07-23
+    type: paper
+    topics:
+      - agenda21
+    title: "Mapping the knowledge of green consumption: a meta-analysis"
+    link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7528456/
+    
+    
