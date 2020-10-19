@@ -7,6 +7,7 @@ StatsPlugin = require 'stats-webpack-plugin'
 MiniCssExtractPlugin = require 'mini-css-extract-plugin'
 HtmlPlugin = require 'html-webpack-plugin'
 FaviconPlugin = require 'favicons-webpack-plugin'
+LodashModuleReplacementPlugin = require 'lodash-webpack-plugin'
 
 BuildEnvironment = require 'tbirds/webpack-config/buildenv'
 DefinePluginOpts = require 'tbirds/webpack-config/define-opts'
@@ -99,7 +100,7 @@ common_plugins = [
     source: false
   makeEntrypointsPlugin()
   new ManifestPlugin()
-  makeIgnoreMomentLocales()
+  #makeIgnoreMomentLocales()
   new MiniCssExtractPlugin
     filename: CssOutputFilename[BuildEnvironment]
   new FaviconPlugin
@@ -125,6 +126,7 @@ common_plugins = [
     filename: 'index.html'
     entryPoint: 'index'
     inject: true
+  new LodashModuleReplacementPlugin
   ]
 
 
@@ -181,6 +183,7 @@ WebPackConfig =
       imgVersionedRule
      ]
   resolve:
+    mainFields: ['module', 'jsnext:main', 'browser', 'main']
     extensions: [".wasm", ".mjs", ".js", ".json", ".coffee"]
     alias:
       applets: path.join __dirname, 'client/applets'
@@ -190,6 +193,8 @@ WebPackConfig =
       # https://github.com/wycats/handlebars.js/issues/953
       handlebars: 'handlebars/dist/handlebars'
       common: path.join __dirname, 'client/common'
+      underscore: 'lodash'
+      jquery: 'jquery/src/jquery'
   stats:
     colors: true
     modules: false

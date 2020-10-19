@@ -20,10 +20,11 @@ class SiteDocumentResource(BaseModelResource):
 
     def __permitted_methods__(self):
         return ['collection_get', 'collection_post',
-                'get', 'put']
+                'get', 'put', 'delete']
 
     def __acl__(self):
         acl = [
             (Allow, 'group:admin', 'admin')
             ]
         return acl
+
