@@ -1,6 +1,7 @@
 import tc from 'teacup'
 
-import ModalRegion from 'tbirds/regions/bsmodal'
+import ModalRegion from './bsmodal'
+#import ModalRegion from 'tbirds/regions/bsmodal'
 import config from 'tbirds/app-config'
 import MainPageLayout from 'tbirds/tklayout'
 import emoji from 'node-emoji'
