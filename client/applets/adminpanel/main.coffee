@@ -43,8 +43,8 @@ class Applet extends TkApplet
   Controller: Controller
   Router: Router
   appletEntries: appletEntries
-  extraRouters:
-    useradmin: userAdminRouter
+  #extraRouters:
+  #  useradmin: userAdminRouter
 
   onStart: ->
     SiteNavChannel.request 'set-admin-entries'
