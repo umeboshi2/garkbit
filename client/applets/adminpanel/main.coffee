@@ -1,6 +1,6 @@
 import { Radio } from 'backbone'
 import TkApplet from 'tbirds/tkapplet'
-import AdminRouter from '../../entries/adminrouter'
+import AdminRouter from 'common/adminrouter'
 
 import Controller from './controller'
 import userAdminRouter from './routers/useradmin'

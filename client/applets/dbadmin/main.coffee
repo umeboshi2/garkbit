@@ -2,7 +2,7 @@ import { capitalize } from 'lodash'
 import TkApplet from 'tbirds/tkapplet'
 
 import Controller from './controller'
-import AdminRouter from '../../entries/adminrouter'
+import AdminRouter from 'common/adminrouter'
 
 appName = 'dbadmin'
 

@@ -1,5 +1,5 @@
 import TkApplet from 'tbirds/tkapplet'
-import AdminRouter from '../../entries/adminrouter'
+import AdminRouter from 'common/adminrouter'
 
 import './dbchannel'
 import Controller from './controller'

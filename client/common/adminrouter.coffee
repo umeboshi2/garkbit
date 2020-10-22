@@ -1,5 +1,5 @@
 import { Radio } from 'backbone'
-import AppRouter from 'marionette.approuter'
+import AppRouter from 'tbirds/routers/approuter'
 import navigateToUrl from 'tbirds/util/navigate-to-url'
 import isObjectEmpty from 'tbirds/util/object-empty'
 
