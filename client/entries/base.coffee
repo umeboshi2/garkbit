@@ -2,7 +2,8 @@ import $ from 'jquery'
 import { Radio, Router } from 'backbone'
 import "bootstrap"
 import "popper.js"
-import 'backbone.routefilter'
+import 'tbirds/routers/filtered-router'
+#import 'backbone.routefilter'
 import 'font-awesome/scss/font-awesome.scss'
 
 import 'tbirds/applet-router'

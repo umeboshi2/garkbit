@@ -46,14 +46,14 @@ export updateTopicColors = ->
   collection = new ConfigObjectCollection
   collection.fetch()
   .then ->
-    console.log "collection", collection
+    #console.log "collection", collection
     if not collection.length
       initTopicColors()
     
     model = collection.findWhere name:'topic-colors'
-    console.log "MODEL", model
+    #console.log "MODEL", model
     topics = model.get('content')
-    console.log "TOPICS", topics
+    #console.log "TOPICS", topics
     localTopicKeys = _.keys topics
     for key of indexTopics
       if not _.includes localTopicKeys, key
@@ -64,6 +64,3 @@ export updateTopicColors = ->
         topics[key] = item
     model.set 'content', topics
     return model.save()
-    
-    
-

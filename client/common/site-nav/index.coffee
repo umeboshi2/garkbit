@@ -1,12 +1,12 @@
-import Backbone from 'backbone'
+import { Radio } from 'backbone'
 
 import devMenu from './dev-menu-entries'
 import demoMenu from './demo-menu-entries'
 import miscMenu from './misc-menu-entries'
 import adminEntries from './admin-menu-entries'
 
-SiteNavChannel = Backbone.Radio.channel 'site-nav'
-NavbarChannel = Backbone.Radio.channel 'navbar'
+SiteNavChannel = Radio.channel 'site-nav'
+NavbarChannel = Radio.channel 'navbar'
 
 
 SiteNavChannel.reply 'set-index-entries', ->

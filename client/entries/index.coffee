@@ -10,7 +10,7 @@ import TH from 'tbirds/token-handler'
 
 import './base'
 import '../indexrouter'
-import './site-nav'
+import 'common/site-nav'
 
 import commonSchema from 'common/dbschema'
 import bumblrSchema from '../applets/bumblr/dbschema'
@@ -40,10 +40,9 @@ if __DEV__
 MainChannel.request 'main:app:create-main-router'
 
 app.on 'before:start', ->
-  theme = MainChannel.request 'main:app:get-theme'
-  theme = if theme then theme else 'plain'
-  # MainChannel.request 'main:app:switch-theme', theme
-  
+  if __DEV__ and DEBUG
+    console.log "on before:start"
+    
 app.on 'start', ->
   SiteNavChannel.request 'set-index-entries'
   #show_footer()

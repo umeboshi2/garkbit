@@ -1,5 +1,5 @@
 import { Radio } from 'backbone'
-import AppRouter from 'marionette.approuter'
+import AppRouter from 'tbirds/routers/approuter'
 
 MainChannel = Radio.channel 'global'
 SiteNavChannel = Radio.channel 'site-nav'
