@@ -13,7 +13,7 @@ import '../indexrouter'
 import 'common/site-nav'
 
 import commonSchema from 'common/dbschema'
-import bumblrSchema from '../applets/bumblr/dbschema'
+import bumblrSchema from 'applet-bumblr/src/dbschema'
 import tvmazeSchema from '../applets/tvmaze/dbschema'
 import pmcSchema from '../applets/pmc/dbschema'
 
